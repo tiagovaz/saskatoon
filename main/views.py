@@ -1,19 +1,12 @@
-
 from django.views.generic import View
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-
-# my user module
 from user_profile.models import AuthUser
-
-# main models
 from main.models import Harvest, Property
+from main.forms import NewEquipment, NewHarvest
 
-# main forms
-from main.forms import NewEquipment
-
-class Equipment(View):
+class EquipmentForm(View):
     def get(self, request):
         equipment_form = NewEquipment()
         return render(request, 'form_new_equipment.html', {'form': equipment_form})
@@ -21,8 +14,21 @@ class Equipment(View):
     def post(self, request):
         params = dict()
         equipment = NewEquipment(request.POST)
+        new_equipment = equipment.save()
         if equipment.is_valid():
             return HttpResponseRedirect('/new_equipment/')
+
+class HarvestForm(View):
+    def get(self, request):
+        harvest_form = NewHarvest()
+        return render(request, 'form_new_harvest.html', {'form': harvest_form})
+
+    def post(self, request):
+        params = dict()
+        harvest = NewHarvest(request.POST)
+        new_harvest = harvest.save()
+        if harvest.is_valid():
+            return HttpResponseRedirect('/new_harvest/')
 
 
 class Harvests(View):

@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'user_profile',
     'django_extensions',
     'bootstrap3',
+    'django_forms_bootstrap'
 )
 
 MIDDLEWARE_CLASSES = (

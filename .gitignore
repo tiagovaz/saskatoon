@@ -58,3 +58,5 @@ target/
 
 # Other
 db.sqlite3
+.idea
+*.png

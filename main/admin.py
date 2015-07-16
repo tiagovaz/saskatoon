@@ -1,5 +1,17 @@
 from django.contrib import admin
-from models import Property, Address, Harvest, Institution, TreeType, Recipient, Comment, Status, Equipment, Owner
+from models import Property,\
+    Address,\
+    Harvest,\
+    Institution,\
+    TreeType,\
+    Recipient,\
+    Comment,\
+    Status,\
+    Equipment,\
+    Owner,\
+    Picker,\
+    PickLeader
+
 
 admin.site.register(Property)
 admin.site.register(Address)
@@ -11,3 +23,6 @@ admin.site.register(Comment)
 admin.site.register(Status)
 admin.site.register(Equipment)
 admin.site.register(Owner)
+admin.site.register(Picker)
+admin.site.register(PickLeader)
+
