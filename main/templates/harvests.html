@@ -21,6 +21,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                            <th class="text-center">Id</th>
                                             <th>Description</th>
                                             <th>Pickleader</th>
                                             <th>Property</th>
@@ -32,6 +33,7 @@
                                     <tbody>
                                        {% for harvest in harvests %}
                                         <tr class="odd gradeX">
+                                            <td class="text-center"><a href="/harvest/{{ harvest.id }}">#{{ harvest.id }}</a></td>
                                             <td>{{ harvest.description }}</td>
                                             <td>{{ harvest.leader }}</td>
                                             <td>{{ harvest.property }}</td>
@@ -68,6 +70,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Description</th>
                                             <th>Pickleader</th>
                                             <th>Property</th>
@@ -79,6 +82,7 @@
                                     <tbody>
                                        {% for harvest in harvests %}
                                         <tr class="odd gradeX">
+                                            <td>{{ harvest.id }}</td>
                                             <td>{{ harvest.description }}</td>
                                             <td>{{ harvest.leader }}</td>
                                             <td>{{ harvest.property }}</td>
@@ -109,6 +113,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Description</th>
                                             <th>Pickleader</th>
                                             <th>Property</th>
@@ -120,6 +125,7 @@
                                     <tbody>
                                        {% for harvest in harvests %}
                                         <tr class="odd gradeX">
+                                            <td>{{ harvest.id }}</td>
                                             <td>{{ harvest.description }}</td>
                                             <td>{{ harvest.leader }}</td>
                                             <td>{{ harvest.property }}</td>

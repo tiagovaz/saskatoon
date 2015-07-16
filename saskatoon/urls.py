@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from main.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar
+from main.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest
 
 admin.autodiscover()
 
@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^user/(\w+)/$', Profile.as_view()),
     url(r'^cal/', Calendar.as_view()),
+    url(r'^test/', DataTest.as_view()),
     url(r'^harvests/', Harvests.as_view()),
     url(r'^new_equipment/', EquipmentForm.as_view()),
     url(r'^new_harvest/', HarvestForm.as_view()),
