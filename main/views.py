@@ -30,6 +30,10 @@ class HarvestForm(View):
         if harvest.is_valid():
             return HttpResponseRedirect('/new_harvest/')
 
+class Calendar(View):
+    def get(self, request):
+        return render(request, 'calendar.html')
+
 
 class Harvests(View):
     def get(self, request):

@@ -25,4 +25,3 @@ admin.site.register(Equipment)
 admin.site.register(Owner)
 admin.site.register(Picker)
 admin.site.register(PickLeader)
-
