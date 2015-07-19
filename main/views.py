@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from user_profile.models import AuthUser
 from main.models import Harvest
 from main.forms import NewEquipment, NewHarvest
-from django_bootstrap_calendar.models import CalendarEvent
+#from django_bootstrap_calendar.models import CalendarEvent
 
 from fixtureless import Factory
 import itertools
@@ -22,19 +22,19 @@ class DataTest(View):
         for _ in itertools.repeat(None, count):
             initial_list.append(initial)
         h = factory.create(Harvest, initial_list)
-        self.insert_to_calendar()
+#        self.insert_to_calendar()
         return HttpResponseRedirect('/harvests/')
-    def insert_to_calendar(self):
-        factory = Factory()
-        count = 10
-        initial = {
-            'title': 'test title for calendar',
-        }
-        initial_list = list()
-        for _ in itertools.repeat(None, count):
-            initial_list.append(initial)
-        c = factory.create(CalendarEvent, initial_list)
-
+#    def insert_to_calendar(self):
+#        factory = Factory()
+#        count = 10
+#        initial = {
+#            'title': 'test title for calendar',
+#        }
+#        initial_list = list()
+#        for _ in itertools.repeat(None, count):
+#            initial_list.append(initial)
+#        c = factory.create(CalendarEvent, initial_list)
+#
 
 class EquipmentForm(View):
     def get(self, request):

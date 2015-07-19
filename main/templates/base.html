@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load bootstrap_calendar %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,8 +44,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    {% bootstrap_calendar_css %}
 
     {% block angular %}
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
@@ -349,10 +346,6 @@
     <script src="{% static 'sbadmin2/bower_components/raphael/raphael-min.js' %}"></script>
     <script src="{% static 'sbadmin2/bower_components/morrisjs/morris.min.js' %}"></script>
     <script src="{% static 'sbadmin2/js/morris-data.js' %}"></script>
-
-    {% bootstrap_calendar_js language='fr-CA' %}
-    {% bootstrap_calendar_init language='fr-CA' %}
-
 
 </body>
 
