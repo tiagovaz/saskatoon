@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from user_profile.models import AuthUser
-from main.models import Harvest
+from main.models import Harvest, EquipmentType
 from main.forms import NewEquipment, NewHarvest
 from django_bootstrap_calendar.models import CalendarEvent
+from django.http import HttpResponse
 
 from fixtureless import Factory
 import itertools
@@ -24,6 +25,7 @@ class DataTest(View):
         h = factory.create(Harvest, initial_list)
         self.insert_to_calendar()
         return HttpResponseRedirect('/harvests/')
+    
     def insert_to_calendar(self):
         factory = Factory()
         count = 10
@@ -34,6 +36,10 @@ class DataTest(View):
         for _ in itertools.repeat(None, count):
             initial_list.append(initial)
         c = factory.create(CalendarEvent, initial_list)
+        
+    def insert_to_et(self):
+        factory = Factory()
+        c = factory.create(EquipmentType, 10)
 
 
 class EquipmentForm(View):
@@ -79,13 +85,16 @@ class Profile(View):
         params["user"] = user
         return render(request, 'profile.html', params)
 
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+
 class Index(View):
     def get(self, request):
         params = dict()
-        username = None
+        email = None
         if request.user.is_authenticated():
-            username = request.user.username
-            user = AuthUser.objects.get(username=username)
+            email = request.user.email
+            user = AuthUser.objects.get(email=email)
             params["user"] = user
             return render(request, 'dashboard.html', params)
         else:
