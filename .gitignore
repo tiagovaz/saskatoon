@@ -62,3 +62,5 @@ django_bootstrap_calendar/*
 user_profile/migrations/*
 main/migrations/*
 .project
+/.pydevproject
+/.settings/
