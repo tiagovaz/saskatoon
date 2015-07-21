@@ -11,7 +11,6 @@ class PickLeader(AuthUser):
 class Picker(AuthUser):
     pass
 
-#a
 class Property(models.Model):
     """Property where you find one or more trees for harvesting."""
     updated = models.DateTimeField(default=timezone.now)
