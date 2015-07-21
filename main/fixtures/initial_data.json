@@ -1,0 +1,148 @@
+[
+  {
+    "model": "main.Address",
+    "pk": 1,
+    "fields": {
+      "number": "3745",
+      "street": "Rue Hutchison",
+      "city": "Montreal",
+      "country": "Canada"
+    }
+  },
+  {
+    "model": "main.Address",
+    "pk": 2,
+    "fields": {
+      "number": "4242",
+      "street": "Rue Coloniale",
+      "city": "Montreal",
+      "country": "Canada"
+    }
+  },
+  {
+    "model": "main.Address",
+    "pk": 3,
+    "fields": {
+      "number": "10",
+      "street": "Rue des 4 Vents",
+      "city": "Paris",
+      "country": "France"
+    }
+  },
+  {
+    "model": "main.EquipmentType",
+    "pk": 1,
+    "fields": {
+      "name": "Ladder"
+    }
+  },
+  {
+    "model": "main.EquipmentType",
+    "pk": 2,
+    "fields": {
+      "name": "Bicycle"
+    }
+  },
+  {
+    "model": "main.EquipmentType",
+    "pk": 3,
+    "fields": {
+      "name": "Spade"
+    }
+  },
+  {
+    "model": "main.TreeType",
+    "pk": 1,
+    "fields": {
+      "name": "Fig Tree",
+      "fruit_name": "Fig"
+    }
+  },
+  {
+    "model": "main.TreeType",
+    "pk": 2,
+    "fields": {
+      "name": "Apple Tree",
+      "fruit_name": "Apple"
+    }
+  },
+  {
+  	"model": "main.Person",
+  	"pk": 1,
+  	"fields": {
+		"first_name": "Ernesto",
+		"last_name": "Che Guevara",
+		"address": 1,
+		"phone": "514 563 1000"
+		}
+  },
+  {
+	"fields": {
+		"person": 1,
+		"is_active": true,
+		"is_superuser": true,
+		"is_staff": true,
+		"password": "pbkdf2_sha256$20000$StJmdMvHClMS$5p7gF7BmvWoedohik2eamAsU3Y6kihzEdfy7tpzeKsA=",
+		"email": "ernestoc@mail.com",
+		"date_joined": "2015-07-21T03:48:35.416Z"
+	  },
+	"model": "user_profile.authuser",
+	"pk": 1
+  },
+  {
+  	"model": "main.Person",
+  	"pk": 2,
+  	"fields": {
+		"first_name": "Pedro",
+		"last_name": "Silva",
+		"address": 2,
+		"phone": "514 563 1111"
+		}
+  },
+  {
+	"fields": {
+		"person": 2,
+		"is_active": true,
+		"is_superuser": true,
+		"is_staff": true,
+		"password": "pbkdf2_sha256$20000$StJmdMvHClMS$5p7gF7BmvWoedohik2eamAsU3Y6kihzEdfy7tpzeKsA=",
+		"email": "pedros@mail.com",
+		"date_joined": "2015-07-21T03:48:35.416Z"
+	  },
+	"model": "user_profile.authuser",
+	"pk": 2
+  },
+  {
+  	"model": "main.Person",
+  	"pk": 3,
+  	"fields": {
+		"first_name": "Albert",
+		"last_name": "Einstein",
+		"address": 3,
+		"phone": "514 563 2222"
+		}
+  },
+  {
+	"fields": {
+		"person": 3,
+		"is_active": true,
+		"is_superuser": true,
+		"is_staff": true,
+		"password": "pbkdf2_sha256$20000$StJmdMvHClMS$5p7gF7BmvWoedohik2eamAsU3Y6kihzEdfy7tpzeKsA=",
+		"email": "alberte@mail.com",
+		"date_joined": "2015-07-21T03:48:35.416Z"
+	  },
+	"model": "user_profile.authuser",
+	"pk": 3
+  },
+  {
+	"fields": {
+		"address": 1,
+		"contact": 1,
+		"name": "Barreau Inc",
+		"description": "Not mandatory"
+	},
+	"model": "main.organization",
+	"pk": 1
+  }
+]
