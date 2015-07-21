@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnly
 from user_profile.models import AuthUser
 from django import forms
 
+
 class CustomUserCreationForm(UserCreationForm):
     """ A form for creating new users. Includes all the required fields, plus a repeated password. """
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -11,16 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = AuthUser
-        fields = ('username', 'email')
-
-    def clean_username(self):
-        username = self.cleaned_data["username"]
-
-        try:
-            AuthUser._default_manager.get(username=username)
-        except AuthUser.DoesNotExist:
-            return username
-        raise forms.ValidationError(self.error_messages['duplicate_username'])
+        fields = ('email',)
 
     def clean_password2(self):
         #Check that the two password entries match
@@ -48,7 +40,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         model = AuthUser
-        fields = ('username', 'email', 'password', 'is_active', 'is_staff', 'is_superuser', 'user_permissions')
+        fields = ('email', 'password', 'is_active', 'is_staff', 'is_superuser', 'user_permissions')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -61,23 +53,23 @@ class AuthUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
 
-    list_display = ('username', 'email', 'is_staff', 'is_superuser')
+    list_display = ('email', 'is_staff', 'is_superuser')
     list_filter = ('is_superuser',)
 
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password', 'first_name', 'last_name', 'profile_image',
-                           'user_bio', 'phone', 'address')}),
+#        (None, {'fields': ('username', 'email', 'password','person')}),
+        (None, {'fields': ('email', 'password','person')}),
         ('Permissions', {'fields': ('is_active', 'is_superuser', 'is_staff')}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_superuser')}
+            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_superuser')}
         ),
     )
 
-    search_fields = ('email', 'username')
+    search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
 

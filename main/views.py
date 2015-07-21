@@ -5,8 +5,7 @@ from django.http import HttpResponseRedirect
 from user_profile.models import AuthUser
 from main.models import Harvest, EquipmentType
 from main.forms import NewEquipment, NewHarvest
-from django_bootstrap_calendar.models import CalendarEvent
-from django.http import HttpResponse
+#from django_bootstrap_calendar.models import CalendarEvent
 
 from fixtureless import Factory
 import itertools
@@ -23,24 +22,20 @@ class DataTest(View):
         for _ in itertools.repeat(None, count):
             initial_list.append(initial)
         h = factory.create(Harvest, initial_list)
-        self.insert_to_calendar()
+#        self.insert_to_calendar()
         return HttpResponseRedirect('/harvests/')
     
-    def insert_to_calendar(self):
-        factory = Factory()
-        count = 10
-        initial = {
-            'title': 'test title for calendar',
-        }
-        initial_list = list()
-        for _ in itertools.repeat(None, count):
-            initial_list.append(initial)
-        c = factory.create(CalendarEvent, initial_list)
-        
-    def insert_to_et(self):
-        factory = Factory()
-        c = factory.create(EquipmentType, 10)
-
+#    def insert_to_calendar(self):
+#        factory = Factory()
+#        count = 10
+#        initial = {
+#            'title': 'test title for calendar',
+#        }
+#        initial_list = list()
+#        for _ in itertools.repeat(None, count):
+#            initial_list.append(initial)
+#        c = factory.create(CalendarEvent, initial_list)
+#
 
 class EquipmentForm(View):
     def get(self, request):
@@ -84,9 +79,6 @@ class Profile(View):
         user = AuthUser.objects.get(username=username)
         params["user"] = user
         return render(request, 'profile.html', params)
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
 
 class Index(View):
     def get(self, request):

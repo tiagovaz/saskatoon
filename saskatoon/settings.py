@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'django_forms_bootstrap',
     # 'happenings',
-    'django_bootstrap_calendar',
+    # 'django_bootstrap_calendar',
 )
 
 MIDDLEWARE_CLASSES = (

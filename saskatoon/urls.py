@@ -8,8 +8,6 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'saskatoon.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    # url(r'^calendar/', include('happenings.urls', namespace='calendar')),
-    url(r'^calendar/', include('django_bootstrap_calendar.urls')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^user/(\w+)/$', Profile.as_view()),
     url(r'^cal/', Calendar.as_view()),
