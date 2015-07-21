@@ -24,7 +24,6 @@ class DataTest(View):
         h = factory.create(Harvest, initial_list)
 #        self.insert_to_calendar()
         return HttpResponseRedirect('/harvests/')
-    
 #    def insert_to_calendar(self):
 #        factory = Factory()
 #        count = 10

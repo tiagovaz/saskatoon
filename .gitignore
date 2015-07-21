@@ -57,3 +57,8 @@ target/
 db.sqlite3
 .idea
 *.png
+
+django_bootstrap_calendar/*
+user_profile/migrations/*
+main/migrations/*
+.project

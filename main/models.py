@@ -186,11 +186,15 @@ class Equipment(models.Model):
     def __str__(self):
         return self.description
 
-<<<<<<< HEAD
     class Meta:
         verbose_name_plural = "Equipment"
         
-=======
+		
+class Equipment(models.Model):
+    name = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+    quantity = models.IntegerField()
+
     def __unicode__(self):
         return self.name
->>>>>>> origin/master
+>>>>>>> 906f08e024affee10b3b4780e5f096f8705007ba
