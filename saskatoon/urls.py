@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from main.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest
 
-admin.autodiscover()
+#admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
