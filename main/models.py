@@ -102,9 +102,11 @@ class EquipmentTypeAtProperty(models.Model):
         
 @python_2_unicode_compatible
 class Harvest(models.Model):
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
     leader = models.ForeignKey('Person', null=True)
-    scheduled_date = models.DateTimeField(blank=True)
+    scheduled_date = models.DateTimeField(blank=True, null=True)
+    end_date = models.DateTimeField(blank=True, null=True)
     property = models.ForeignKey('Property', null=True)
     nb_required_pickers = models.IntegerField()
     pickers = models.ManyToManyField('Person', related_name='harvests', through='RequestForParticipation')

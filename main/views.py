@@ -1,22 +1,43 @@
+
 from django.views.generic import View
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
 from main.models import Harvest, EquipmentType
 from main.forms import NewEquipment, NewHarvest
-#from django_bootstrap_calendar.models import CalendarEvent
 
 from fixtureless import Factory
 import itertools
+import datetime
+
+class JsonCalendar(View):
+    def get(self, request):
+        harvests = Harvest.objects.all()
+        event = {}
+        events = []
+        for harvest in harvests:
+            event["title"] = harvest.title
+            event["allday"] = "false"
+            event["description"] = harvest.description
+            event["start"] = harvest.scheduled_date
+            event["end"] = harvest.end_date
+            event["url"] = "http://gnu.org"
+            events.append(event)
+        #events = [{"title":"Free Pizza","allday":"false","borderColor":"#5173DA","color":"#99ABEA","textColor":"#000000","description":"<p>This is just a fake description for the Free Pizza.</p><p>Nothing to see!</p>","start":"2015-07-25T15:00:34","end":"2015-07-25T16:00:34","url":"http://www.mikesmithdev.com/blog/worst-job-titles-in-internet-and-info-tech/"},{"title":"DNUG Meeting","allday":"false","borderColor":"#5173DA","color":"#99ABEA","textColor":"#000000","description":"<p>This is just a fake description for the DNUG Meeting.</p><p>Nothing to see!</p>","start":"2015-07-26T15:00:34","end":"2015-07-26T16:00:34","url":"http://www.mikesmithdev.com/blog/worst-job-titles-in-internet-and-info-tech/"}]
+        return(JsonResponse(events, safe=False))
+
 
 # Inserting random data. TODO: move it away
 class DataTest(View):
     def get(self, request):
         factory = Factory()
-        count = 1
+        count = 10
         initial = {
+            'title': 'harvest title',
             'description': 'test description',
+            'scheduled_date': datetime.datetime.now(),
+            'end_date': datetime.datetime.now()
         }
         initial_list = list()
         for _ in itertools.repeat(None, count):
