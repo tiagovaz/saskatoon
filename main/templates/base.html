@@ -47,8 +47,10 @@
 
     <!-- FullCalendar CSS -->
     <link href="{% static 'fullcalendar/lib/cupertino/jquery-ui.min.css' %}" rel='stylesheet'/>
-    <link href="{% static 'fullcalendar/fullcalendar.css' rel='stylesheet' %}" rel='stylesheet'/>
-    <link href="{% static 'fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' %}" rel='stylesheet' media='print'/>
+    <link href="{% static 'fullcalendar/fullcalendar.css' %}" rel='stylesheet'/>
+    <link href="{% static 'fullcalendar/fullcalendar.print.css' %}" rel='stylesheet' media='print'/>
+    <link href="{% static 'fullcalendar/bootstrapmodal.css' %}" rel='stylesheet'/>
+
 
 </head>
 
@@ -318,6 +320,23 @@
 
         {% endblock %}
 
+
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
         </div>
         <!-- /#page-wrapper -->
 
@@ -361,99 +380,31 @@
     <script src="{% static 'fullcalendar/lib/moment.min.js' %}"></script>
     <script src="{% static 'fullcalendar/lib/jquery.min.js' %}"></script>
     <script src="{% static 'fullcalendar/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'fullcalendar/bootstrapmodal.min.js' %}"></script>
 
-   <script>
+    <script>
 
-	$(document).ready(function() {
+    $(document).ready(function() {
+        $('#bootstrapModalFullCalendar').fullCalendar({
+            events: [{"title":"Free Pizza","allday":"false","borderColor":"#5173DA","color":"#99ABEA","textColor":"#000000","description":"<p>This is just a fake description for the Free Pizza.</p><p>Nothing to see!</p>","start":"2015-07-25T15:00:34","end":"2015-07-25T16:00:34","url":"http://www.mikesmithdev.com/blog/worst-job-titles-in-internet-and-info-tech/"},{"title":"DNUG Meeting","allday":"false","borderColor":"#5173DA","color":"#99ABEA","textColor":"#000000","description":"<p>This is just a fake description for the DNUG Meeting.</p><p>Nothing to see!</p>","start":"2015-07-26T15:00:34","end":"2015-07-26T16:00:34","url":"http://www.mikesmithdev.com/blog/worst-job-titles-in-internet-and-info-tech/"}],
+            header: {
+                left: '',
+                center: 'prev title next',
+                right: ''
+            },
+            eventClick:  function(event, jsEvent, view) {
+                $('#modalTitle').html(event.title);
+                $('#modalBody').html(event.description);
+                $('#eventUrl').attr('href',event.url);
+                $('#fullCalModal').modal();
+                return false;
+            }
+        });
+    });
 
-		$('#calendar').fullCalendar({
-		    theme: true,
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			defaultDate: '2015-02-12',
-			selectable: true,
-			selectHelper: true,
-			select: function(start, end) {
-				var title = prompt('Event Title:');
-				var eventData;
-				if (title) {
-					eventData = {
-						title: title,
-						start: start,
-						end: end
-					};
-					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}
-				$('#calendar').fullCalendar('unselect');
-			},
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2015-02-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2015-02-07',
-					end: '2015-02-10'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2015-02-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2015-02-16T16:00:00'
-				},
-				{
-					title: 'Conference',
-					start: '2015-02-11',
-					end: '2015-02-13'
-				},
-				{
-					title: 'Meeting',
-					start: '2015-02-12T10:30:00',
-					end: '2015-02-12T12:30:00'
-				},
-				{
-					title: 'Lunch',
-					start: '2015-02-12T12:00:00'
-				},
-				{
-					title: 'Meeting',
-					start: '2015-02-12T14:30:00'
-				},
-				{
-					title: 'Happy Hour',
-					start: '2015-02-12T17:30:00'
-				},
-				{
-					title: 'Dinner',
-					start: '2015-02-12T20:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2015-02-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2015-02-28'
-				}
-			]
-		});
+    </script>
 
-	});
-
-</script>
-
-{% endif %}
+    {% endif %}
 
 </body>
 
