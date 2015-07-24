@@ -123,7 +123,7 @@ class RequestForParticipation(models.Model):
     confirmed = models.BooleanField(default = False)
     showed_up = models.BooleanField(default = True)
     creation_date = models.DateTimeField(default=timezone.now)
-    confirmation_date = models.DateTimeField
+    confirmation_date = models.DateTimeField()
     is_cancelled = models.BooleanField(default=False)
     
     def __str__(self):
@@ -133,7 +133,7 @@ class RequestForParticipation(models.Model):
 class HarvestProduct(models.Model):    
     harvest = models.ForeignKey('Harvest')
     product = models.ForeignKey('TreeType')
-    weight_in_kg = models.FloatField
+    weight_in_kg = models.FloatField()
 
     def __str__(self):
         return "%s kg of %s harvested at %s" % (self.weight_in_kg,self.product.fruit_name,self.property)
@@ -142,7 +142,7 @@ class HarvestProduct(models.Model):
 class Donation(models.Model):    
     harvest_product = models.ForeignKey('HarvestProduct')
     recipient = models.ForeignKey('Actor')
-    weight_in_kg = models.FloatField
+    weight_in_kg = models.FloatField()
 
     def __str__(self):
         return "%s kg of %s harvested at %s donated to %s" % (self.weight_in_kg,self.product.fruit_name,self.property,self.recipient)

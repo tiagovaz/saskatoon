@@ -325,8 +325,12 @@
     </div>
     <!-- /#wrapper -->
 
+    {% if view != 'calendar' %}
+
     <!-- jQuery -->
     <script src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.min.js' %}"></script>
+
+    {% endif %}
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'sbadmin2/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
@@ -337,15 +341,21 @@
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'sbadmin2/dist/js/sb-admin-2.js' %}"></script>
 
+    {% if view == 'harvests' %}
+
     <!-- DataTables JavaScript -->
     <script src="{% static 'sbadmin2/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js' %}"></script>
     <script src="{% static 'sbadmin2/test.js' %}"></script>
 
+    {% endif %}
+
     <!-- Morris Charts JavaScript -->
     <script src="{% static 'sbadmin2/bower_components/raphael/raphael-min.js' %}"></script>
     <script src="{% static 'sbadmin2/bower_components/morrisjs/morris.min.js' %}"></script>
     <script src="{% static 'sbadmin2/js/morris-data.js' %}"></script>
+
+    {% if view == 'calendar' %}
 
     <!-- FullCalendar JavaScript -->
     <script src="{% static 'fullcalendar/lib/moment.min.js' %}"></script>
@@ -443,6 +453,7 @@
 
 </script>
 
+{% endif %}
 
 </body>
 

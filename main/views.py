@@ -10,7 +10,7 @@ from main.forms import NewEquipment, NewHarvest
 from fixtureless import Factory
 import itertools
 
-# Inserting random data
+# Inserting random data. TODO: move it away
 class DataTest(View):
     def get(self, request):
         factory = Factory()
@@ -22,19 +22,7 @@ class DataTest(View):
         for _ in itertools.repeat(None, count):
             initial_list.append(initial)
         h = factory.create(Harvest, initial_list)
-#        self.insert_to_calendar()
         return HttpResponseRedirect('/harvests/')
-#    def insert_to_calendar(self):
-#        factory = Factory()
-#        count = 10
-#        initial = {
-#            'title': 'test title for calendar',
-#        }
-#        initial_list = list()
-#        for _ in itertools.repeat(None, count):
-#            initial_list.append(initial)
-#        c = factory.create(CalendarEvent, initial_list)
-#
 
 class EquipmentForm(View):
     def get(self, request):
@@ -62,7 +50,9 @@ class HarvestForm(View):
 
 class Calendar(View):
     def get(self, request):
-        return render(request, 'calendar.html')
+        params = dict()
+        params["view"] = "calendar"
+        return render(request, 'calendar.html', params)
 
 
 class Harvests(View):
@@ -70,6 +60,7 @@ class Harvests(View):
         params = dict()
         all_harvests = Harvest.objects.all()
         params["harvests"] = all_harvests
+        params["view"] = "harvests"
         return render(request, 'harvests.html', params)
 
 class Profile(View):
