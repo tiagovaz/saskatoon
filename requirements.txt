@@ -1,5 +1,4 @@
 django-bootstrap3
 django-forms-bootstrap
 django-extensions
-django-bootstrap-calendar==0.1.0
 django-fixtureless
