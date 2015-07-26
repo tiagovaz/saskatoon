@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from main.models import Person
+from saskatoon.models import Person
 
 class AuthUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):

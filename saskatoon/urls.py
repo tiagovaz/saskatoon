@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from main.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest, JsonCalendar
+from saskatoon.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest, JsonCalendar
 
 #admin.autodiscover()
 
