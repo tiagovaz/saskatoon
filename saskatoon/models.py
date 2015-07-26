@@ -71,6 +71,7 @@ class TreeType(models.Model):
 @python_2_unicode_compatible
 class EquipmentType(models.Model):
     name = models.CharField(max_length=50)
+
     def __str__(self):
         return self.name
 

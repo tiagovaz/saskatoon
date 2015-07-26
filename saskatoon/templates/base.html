@@ -45,12 +45,10 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- FullCalendar CSS -->
-    <link href="{% static 'fullcalendar/lib/cupertino/jquery-ui.min.css' %}" rel='stylesheet'/>
-    <link href="{% static 'fullcalendar/fullcalendar.css' %}" rel='stylesheet'/>
-    <link href="{% static 'fullcalendar/fullcalendar.print.css' %}" rel='stylesheet' media='print'/>
-    <link href="{% static 'fullcalendar/bootstrapmodal.css' %}" rel='stylesheet'/>
 
+{% block extrahead %}
+
+{% endblock %}
 
 </head>
 
@@ -344,12 +342,8 @@
     </div>
     <!-- /#wrapper -->
 
-    {% if view != 'calendar' %}
-
     <!-- jQuery -->
     <script src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.min.js' %}"></script>
-
-    {% endif %}
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'sbadmin2/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
@@ -360,51 +354,21 @@
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'sbadmin2/dist/js/sb-admin-2.js' %}"></script>
 
-    {% if view == 'harvests' %}
+    {% block extrascript %}
 
-    <!-- DataTables JavaScript -->
-    <script src="{% static 'sbadmin2/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js' %}"></script>
-    <script src="{% static 'sbadmin2/test.js' %}"></script>
+        <!-- DataTables JavaScript -->
+        <script src="{% static 'sbadmin2/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js' %}"></script>
+        <script src="{% static 'sbadmin2/test.js' %}"></script>
 
-    {% endif %}
+        <!-- Morris Charts JavaScript -->
+        <script src="{% static 'sbadmin2/bower_components/raphael/raphael-min.js' %}"></script>
+        <script src="{% static 'sbadmin2/bower_components/morrisjs/morris.min.js' %}"></script>
+        <script src="{% static 'sbadmin2/js/morris-data.js' %}"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="{% static 'sbadmin2/bower_components/raphael/raphael-min.js' %}"></script>
-    <script src="{% static 'sbadmin2/bower_components/morrisjs/morris.min.js' %}"></script>
-    <script src="{% static 'sbadmin2/js/morris-data.js' %}"></script>
 
-    {% if view == 'calendar' %}
+    {% endblock %}
 
-    <!-- FullCalendar JavaScript -->
-    <script src="{% static 'fullcalendar/lib/moment.min.js' %}"></script>
-    <script src="{% static 'fullcalendar/lib/jquery.min.js' %}"></script>
-    <script src="{% static 'fullcalendar/fullcalendar.min.js' %}"></script>
-    <script src="{% static 'fullcalendar/bootstrapmodal.min.js' %}"></script>
-
-    <script>
-
-    $(document).ready(function() {
-        $('#bootstrapModalFullCalendar').fullCalendar({
-            events: '/jsoncal/',
-            header: {
-                left: '',
-                center: 'prev title next',
-                right: ''
-            },
-            eventClick:  function(event, jsEvent, view) {
-                $('#modalTitle').html(event.title);
-                $('#modalBody').html(event.description);
-                $('#eventUrl').attr('href',event.url);
-                $('#fullCalModal').modal();
-                return false;
-            }
-        });
-    });
-
-    </script>
-
-    {% endif %}
 
 </body>
 

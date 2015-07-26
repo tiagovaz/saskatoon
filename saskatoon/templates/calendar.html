@@ -1,4 +1,50 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead %}
+
+    <!-- FullCalendar CSS -->
+    <link href="{% static 'fullcalendar/lib/cupertino/jquery-ui.min.css' %}" rel='stylesheet'/>
+    <link href="{% static 'fullcalendar/fullcalendar.css' %}" rel='stylesheet'/>
+    <link href="{% static 'fullcalendar/fullcalendar.print.css' %}" rel='stylesheet' media='print'/>
+    <link href="{% static 'fullcalendar/bootstrapmodal.css' %}" rel='stylesheet'/>
+
+
+{% endblock %}
+
+
+{% block extrascript %}
+
+        <!-- FullCalendar JavaScript -->
+        <script src="{% static 'fullcalendar/lib/moment.min.js' %}"></script>
+        <script src="{% static 'fullcalendar/lib/jquery.min.js' %}"></script>
+        <script src="{% static 'fullcalendar/fullcalendar.min.js' %}"></script>
+        <script src="{% static 'fullcalendar/bootstrapmodal.min.js' %}"></script>
+
+        <script>
+
+        $(document).ready(function() {
+            $('#bootstrapModalFullCalendar').fullCalendar({
+                events: '/jsoncal/',
+                header: {
+                    left: '',
+                    center: 'prev title next',
+                    right: ''
+                },
+                eventClick:  function(event, jsEvent, view) {
+                    $('#modalTitle').html(event.title);
+                    $('#modalBody').html(event.description);
+                    $('#eventUrl').attr('href',event.url);
+                    $('#fullCalModal').modal();
+                    return false;
+                }
+            });
+        });
+
+        </script>
+
+{% endblock %}
+
 {% block content %}
 
 <div class="row">
