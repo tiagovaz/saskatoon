@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 
 {% block extrahead %}
@@ -20,47 +21,17 @@
         <script type="text/javascript" src="{% static 'sbadmin2/bower_components/bootstrap/js/collapse.js' %}"></script>
         <script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
 
-            <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker6').datetimepicker();
-                    $('#datetimepicker7').datetimepicker();
-                    $("#datetimepicker6").on("dp.change", function (e) {
-                        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker();
                     });
-                    $("#datetimepicker7").on("dp.change", function (e) {
-                        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-                    });
-                });
-            </script>
+                </script>
 
 
 {% endblock %}
 
-
 {% block content %}
 
-            <div class="container">
-                <div class='col-md-5'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker6'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class='col-md-5'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker7'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -77,10 +48,13 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <form action="/new_harvest/" method="post" role="form">
                                         {% csrf_token %}
-                                        {{ form|as_bootstrap }}
+
+                                        {% crispy form %}
+
+
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
@@ -96,6 +70,24 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /row -->
+
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

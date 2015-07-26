@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'bootstrap3',
     'django_forms_bootstrap',
+    'crispy_forms',
     # 'happenings',
     # 'django_bootstrap_calendar',
 )
@@ -103,3 +104,5 @@ TEMPLATE_LOADERS = (
 )
 
 AUTH_USER_MODEL = "user_profile.AuthUser"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

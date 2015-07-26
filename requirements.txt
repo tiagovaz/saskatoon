@@ -2,3 +2,4 @@ django-bootstrap3
 django-forms-bootstrap
 django-extensions
 django-fixtureless
+python-django-crispy-forms
