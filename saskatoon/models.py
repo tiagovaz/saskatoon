@@ -129,6 +129,7 @@ class RequestForParticipation(models.Model):
     confirmation_date = models.DateTimeField(default=timezone.now) #FIXME: can't be null... why?
     is_cancelled = models.BooleanField(default=False)
 
+    # FIXME: has to be removed for migration
     class Meta:
         auto_created = True
     

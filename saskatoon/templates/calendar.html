@@ -27,10 +27,11 @@
             $('#bootstrapModalFullCalendar').fullCalendar({
                 events: '/jsoncal/',
                 header: {
-                    left: '',
-                    center: 'prev title next',
-                    right: ''
-                },
+				        left: 'prev,next today',
+				        center: 'title',
+				        right: 'month,basicWeek,basicDay'
+			},
+                eventLimit: true,
                 eventClick:  function(event, jsEvent, view) {
                     $('#modalTitle').html(event.title);
                     $('#modalBody').html(event.description);

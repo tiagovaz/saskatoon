@@ -69,10 +69,8 @@ class HarvestForm(View):
         params = dict()
         form = NewHarvest(request.POST)
 
-        print form
-        form.save()
-
         if form.is_valid():
+            form.save()
             return HttpResponseRedirect('/')
         else:
             messages.error(request, "Error")
