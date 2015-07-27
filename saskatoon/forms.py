@@ -8,10 +8,15 @@ class NewEquipment(forms.ModelForm):
         model = Equipment
         fields = '__all__'
 
-class NewHarvest(forms.Form):
-    title = forms.CharField(max_length=200)
-    description = forms.CharField(max_length=1000, widget=forms.Textarea)
-    comment = forms.CharField(max_length=1000, widget=forms.Textarea)
+class NewHarvest(forms.ModelForm):
+
+    class Meta:
+        model = Harvest
+        fields = '__all__'
+
+    title = forms.CharField()
+    description = forms.CharField(widget=forms.Textarea)
+    comment = forms.CharField(widget=forms.Textarea)
     leader = forms.ModelChoiceField (queryset=Person.objects.all())
     scheduled_date = forms.DateTimeField()
     end_date = forms.DateTimeField()
@@ -19,13 +24,15 @@ class NewHarvest(forms.Form):
     nb_required_pickers = forms.IntegerField()
     pickers = forms.ModelMultipleChoiceField(queryset=Person.objects.all())
     equipment_reserved = forms.ModelMultipleChoiceField(queryset=Equipment.objects.all())
-    """ Determines if this harvest appears on public calendar. """
-    published = forms.BooleanField()
+    # """ Determines if this harvest appears on public calendar. """
+    #published = forms.BooleanField()
     status = forms.ModelChoiceField(queryset=Status.objects.all())
+
 
     def __init__(self, *args, **kwargs):
         super(NewHarvest, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+
         self.helper.layout = Layout(
             Fieldset(
                 '', #fieldset title
@@ -47,10 +54,10 @@ class NewHarvest(forms.Form):
 
                 Div(
                     Div(
-                        Field('scheduled_date', template="datetimefield.html", data_date_format="dd MM yyyy - HH:ii P"), css_class='col-lg-6'
+                        Field('scheduled_date'), css_class='col-lg-6'
                     ),
                     Div(
-                        Field('end_date', template="datetimefield.html", data_date_format="dd MM yyyy - HH:ii P"), css_class='col-lg-6',
+                        Field('end_date'), css_class='col-lg-6',
                         ),
                     css_class='col-lg-6'
                 ),

@@ -22,11 +22,11 @@
 
                 <script type="text/javascript">
                     $(function () {
-                        $('#id_scheduled_date').datetimepicker();
+                        $('#id_scheduled_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});
                     });
 
                     $(function () {
-                        $('#id_end_date').datetimepicker();
+                        $('#id_end_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});
                     });
                 </script>
 
@@ -52,11 +52,8 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form action="/new_harvest/" method="post" role="form">
                                         {% csrf_token %}
                                         {% crispy form %}
-
-                                    </form>
                                 </div>
                             </div>
                             <!-- /row -->

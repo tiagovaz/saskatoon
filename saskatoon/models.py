@@ -103,13 +103,13 @@ class EquipmentTypeAtProperty(models.Model):
         
 @python_2_unicode_compatible
 class Harvest(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField(max_length=1000)
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField(max_length=1000, null=True, blank=True)
     leader = models.ForeignKey('Person', null=True)
     scheduled_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
     property = models.ForeignKey('Property', null=True)
-    nb_required_pickers = models.IntegerField()
+    nb_required_pickers = models.IntegerField(default=3)
     pickers = models.ManyToManyField('Person', related_name='harvests', through='RequestForParticipation')
     equipment_reserved = models.ManyToManyField('Equipment')
     """ Determines if this harvest appears on public calendar. """
@@ -126,8 +126,11 @@ class RequestForParticipation(models.Model):
     confirmed = models.BooleanField(default = False)
     showed_up = models.BooleanField(default = True)
     creation_date = models.DateTimeField(default=timezone.now)
-    confirmation_date = models.DateTimeField()
+    confirmation_date = models.DateTimeField(default=timezone.now) #FIXME: can't be null... why?
     is_cancelled = models.BooleanField(default=False)
+
+    class Meta:
+        auto_created = True
     
     def __str__(self):
         return "Request by %s to participate to %s" % (self.picker,self.harvest)

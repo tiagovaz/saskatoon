@@ -6,6 +6,9 @@ from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
 from models import Harvest
 from forms import NewEquipment, NewHarvest
+from django.contrib import messages
+from django.shortcuts import render_to_response
+
 
 from fixtureless import Factory
 import itertools
@@ -64,10 +67,17 @@ class HarvestForm(View):
 
     def post(self, request):
         params = dict()
-        harvest = NewHarvest(request.POST)
-        new_harvest = harvest.save()
-        if harvest.is_valid():
-            return HttpResponseRedirect('/new_harvest/')
+        form = NewHarvest(request.POST)
+
+        print form
+        form.save()
+
+        if form.is_valid():
+            return HttpResponseRedirect('/')
+        else:
+            messages.error(request, "Error")
+
+        return render_to_response("form_new_harvest.html", {"form": form,})
 
 class Calendar(View):
     def get(self, request):
