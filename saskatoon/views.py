@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
-from models import Harvest, EquipmentType
+from models import Harvest
 from forms import NewEquipment, NewHarvest
 
 from fixtureless import Factory

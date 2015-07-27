@@ -1,0 +1,15 @@
+{% load crispy_forms_field %}
+
+            <div class="row">
+                <div class='col-lg-12'>
+                    <div class="form-group">
+                        <label class="control-label requiredField">{{ field.name }}<span class="asteriskField">*</span></label>
+                        <div class='input-group date' id="{{ field.id_for_label }}">
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
