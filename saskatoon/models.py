@@ -42,13 +42,42 @@ class Organization(Actor):
         return self.name
 
 @python_2_unicode_compatible
+class Neighborhood(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
+class City(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
+class State(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
+class Country(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+@python_2_unicode_compatible
 class Address(models.Model):
     """Address for organization, persons and properties"""
     number = models.CharField(max_length=10)
     street = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50,blank=True)
-    country = models.CharField(max_length=50,null=True)
+    neighborhood = models.ForeignKey('Neighborhood')
+    city = models.ForeignKey('City')
+    state = models.ForeignKey('State')
+    country = models.ForeignKey('Country')
     complement = models.CharField(max_length=150, blank=True)
     long = models.FloatField(null=True, blank=True)
     lat = models.FloatField(null=True, blank=True)

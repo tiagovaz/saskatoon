@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 from models import Property,Address,Person,Organization,Actor,\
-    TreeType,Status,Equipment,EquipmentType,EquipmentTypeAtProperty,Harvest,RequestForParticipation
+    TreeType,Status,Equipment,EquipmentType,EquipmentTypeAtProperty,Harvest,RequestForParticipation,Neighborhood, City, State, Country
     
 from user_profile.models import AuthUser
 
@@ -12,7 +12,6 @@ class AuthInline(admin.StackedInline):
     fields = ('email','password',)
     max_num = 1
     can_delete = False
-
 
 class PropertyInline(admin.TabularInline):
     model = Property
@@ -46,6 +45,8 @@ class PropertyAdmin(admin.ModelAdmin):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
+#class Neighborhood(admin.TabularInline):
+#    model = Neighborhood
 
 admin.site.register(Actor)
 admin.site.register(Person,PersonAdmin)
@@ -58,6 +59,10 @@ admin.site.register(TreeType)
 admin.site.register(Status)
 admin.site.register(Equipment)
 admin.site.register(EquipmentType)
+admin.site.register(Neighborhood)
+admin.site.register(City)
+admin.site.register(State)
+admin.site.register(Country)
 
 #admin.site.register(AuthUser,AuthUserAdmin)
 # unregister old user admin
