@@ -92,6 +92,14 @@ class Harvests(View):
         params["view"] = "harvests"
         return render(request, 'harvests.html', params)
 
+class HarvestDetails(View):
+    def get(self, request):
+        params = dict()
+        harvest_detail = Harvest.objects.filter(id=request.GET['id'])
+        params["harvest_detail"] = harvest_detail
+        return render(request, 'harvest_detail.html', params)
+
+
 class Profile(View):
     def get(self, request, username):
         params = dict()

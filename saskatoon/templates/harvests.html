@@ -60,7 +60,7 @@
                                                             <tbody>
                                                                {% for harvest in harvests %}
                                                                 <tr class="odd gradeX">
-                                                                    <td class="text-center"><a href="/harvest/{{ harvest.id }}">#{{ harvest.id }}</a></td>
+                                                                    <td class="text-center"><a href="/harvest?id={{ harvest.id }}">#{{ harvest.id }}</a></td>
                                                                     <td>{{ harvest.title }}</td>
                                                                     <td>{{ harvest.leader }}</td>
                                                                     <td>{{ harvest.property }}</td>

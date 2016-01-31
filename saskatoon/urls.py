@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from saskatoon.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest, JsonCalendar
+from saskatoon.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest, JsonCalendar, HarvestDetails
 
 #admin.autodiscover()
 
@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^jsoncal/', JsonCalendar.as_view()),
     url(r'^test/', DataTest.as_view()),
     url(r'^harvests/$', Harvests.as_view()),
+    url(r'^harvest/$', HarvestDetails.as_view()),
     url(r'^new_equipment/', EquipmentForm.as_view()),
     url(r'^harvests/new/', HarvestForm.as_view()),
     url(r'^$', Index.as_view()),
