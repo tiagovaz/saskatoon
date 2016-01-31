@@ -38,12 +38,13 @@ class EquipmentTypeAtPropertyInline(admin.TabularInline):
     model = EquipmentTypeAtProperty
     extra = 1
     
-class PropertyAdmin(admin.ModelAdmin):
-    inlines = (EquipmentTypeAtPropertyInline,)
-    # Use many checkboxes rather than a multiple selection box
-    formfield_overrides = {
-        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    }
+#FIXME: not working
+#class PropertyAdmin(admin.ModelAdmin):
+#    inlines = (EquipmentTypeAtPropertyInline,)
+#    # Use many checkboxes rather than a multiple selection box
+#    formfield_overrides = {
+#        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+#    }
 
 #class Neighborhood(admin.TabularInline):
 #    model = Neighborhood
@@ -51,7 +52,8 @@ class PropertyAdmin(admin.ModelAdmin):
 admin.site.register(Actor)
 admin.site.register(Person,PersonAdmin)
 admin.site.register(Organization,OrganizationAdmin)
-admin.site.register(Property,PropertyAdmin)
+#admin.site.register(Property,PropertyAdmin)
+admin.site.register(Property)
 admin.site.register(Address)
 admin.site.register(Harvest)
 admin.site.register(RequestForParticipation)
