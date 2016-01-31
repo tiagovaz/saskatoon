@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Harvest detail</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+                {% for i in harvest_detail %}
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Harvest #{{i.id}}: {{ i.title }}</h4>	
+				</div>
+                                <div class="panel-body">
+                                    <p><b>Description:</b> {{ i.description }}</p>
+                                    <p><b>Pick leader:</b> {{ i.leader }}</p>
+                                    <p><b>Scheduled date:</b> {{ i.scheduled_date }}</p>
+                                    <p><b>End date:</b> {{ i.end_date }}</p>
+                                    <p><b>Property:</b> {{ i.property }}</p>
+                                    <p><b>Pickers:</b></p>
+					<ul>
+				{% for p in i.pickers.all %}
+					<li>{{ p.first_name }}</li>
+				{% endfor %}
+					</ul>
+                                    <p><b>Reserved equipment:</b></p>
+					<ul>
+				{% for p in i.equipment_reserved.all %}
+					<li>[{{ p.type }}] {{ p.description }}</li>
+				{% endfor %}
+					</ul>
+                                    <p><b>Number of pickers:</b> {{ i.nb_required_pickers }}</p>
+                                    <p><b>Published:</b> {{ i.published }}</p>
+                                    <p><b>Status:</b> {{ i.status }}</p>
+	                         </div>
+                            </div>
+                        </div>
+                {% endfor %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /row -->
+
+{% endblock %}
