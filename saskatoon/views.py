@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
-from models import Harvest
+from models import Harvest, Person
 from forms import NewEquipment, NewHarvest
 from django.contrib import messages
 from django.shortcuts import render_to_response
@@ -115,6 +115,8 @@ class Index(View):
             email = request.user.email
             user = AuthUser.objects.get(email=email)
             params["user"] = user
+            params["person"] = Person.objects.get(authuser=user.id)
+            params["new_harvests"] = Harvest.objects.count()
             return render(request, 'dashboard.html', params)
         else:
             return render(request, 'login.html', params)
