@@ -3,3 +3,4 @@ django-forms-bootstrap
 django-extensions
 django-fixtureless
 python-django-crispy-forms
+django-simple-history

@@ -1,4 +1,3 @@
-
 from django.views.generic import View
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
@@ -96,7 +95,9 @@ class HarvestDetails(View):
     def get(self, request):
         params = dict()
         harvest_detail = Harvest.objects.filter(id=request.GET['id'])
+        harvest_history = Harvest.history.filter(id=request.GET['id'])
         params["harvest_detail"] = harvest_detail
+        params["harvest_history"] = harvest_history
         return render(request, 'harvest_detail.html', params)
 
 

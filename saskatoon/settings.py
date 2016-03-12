@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     # 'happenings',
     # 'django_bootstrap_calendar',
+    'simple_history',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 ROOT_URLCONF = 'saskatoon.urls'

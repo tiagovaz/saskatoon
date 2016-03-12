@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from simple_history.models import HistoricalRecords
+
 #from user_profile.models import AuthUser
 #from django.contrib.auth.models import User
 
@@ -144,6 +146,7 @@ class Harvest(models.Model):
     """ Determines if this harvest appears on public calendar. """
     published = models.BooleanField(default='False')
     status = models.ForeignKey('Status', null=True)
+    history = HistoricalRecords()
     
     def __str__(self):
         return "Harvest on %s at %s" % (self.scheduled_date,self.property)
