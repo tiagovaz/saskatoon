@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
 
+
 #from user_profile.models import AuthUser
 #from django.contrib.auth.models import User
 
@@ -131,7 +132,7 @@ class EquipmentTypeAtProperty(models.Model):
 
     def __str__(self):
         return "%s %s at " % (self.number,self.equipment_type,self.property)
-        
+
 @python_2_unicode_compatible
 class Harvest(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)

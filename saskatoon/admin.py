@@ -6,6 +6,7 @@ from models import Property,Address,Person,Organization,Actor,\
     
 from user_profile.models import AuthUser
 
+
     
 class AuthInline(admin.StackedInline):
     model = AuthUser

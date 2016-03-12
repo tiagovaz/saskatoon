@@ -39,6 +39,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
 
+    def get_full_name(self):
+        return self.email
+
     def get_short_name(self):
         return self.email
 
