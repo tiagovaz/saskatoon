@@ -4,3 +4,5 @@ django-extensions
 django-fixtureless
 python-django-crispy-forms
 django-simple-history
+django-autocomplete-light
+django-suit

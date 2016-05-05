@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -108,3 +109,8 @@ TEMPLATE_LOADERS = (
 AUTH_USER_MODEL = "user_profile.AuthUser"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth' 
+)
