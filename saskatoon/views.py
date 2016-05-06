@@ -7,6 +7,8 @@ from models import Harvest, Person
 from forms import NewEquipment, NewHarvest
 from django.contrib import messages
 from django.shortcuts import render_to_response
+from dal import autocomplete
+
 
 
 from fixtureless import Factory
@@ -138,3 +140,18 @@ class Index(View):
         else:
             return render(request, 'login.html', params)
             # TODO: Return an 'invalid login' error message.
+
+class PersonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return Person.objects.none()
+
+        qs = Person.objects.all()
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs
+
+

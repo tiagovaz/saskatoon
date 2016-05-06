@@ -3,7 +3,7 @@ from django.db import models
 from django.forms import CheckboxSelectMultiple
 from models import Property,Address,Person,Organization,Actor,\
     TreeType,Status,Equipment,EquipmentType,EquipmentTypeAtProperty,Harvest,RequestForParticipation,Neighborhood, City, State, Country
-    
+from forms import *
 from user_profile.models import AuthUser
 
 
@@ -28,7 +28,6 @@ class OrganizationAdmin(admin.ModelAdmin):
     ]
     search_fields = ['name','description']
 
-    
 class PersonAdmin(admin.ModelAdmin):
     
     inlines = [
@@ -56,7 +55,9 @@ admin.site.register(Organization,OrganizationAdmin)
 #admin.site.register(Property,PropertyAdmin)
 admin.site.register(Property)
 admin.site.register(Address)
-admin.site.register(Harvest)
+class HarvestAdmin(admin.ModelAdmin):
+    form = HarvestForm
+admin.site.register(Harvest, HarvestAdmin)
 admin.site.register(RequestForParticipation)
 admin.site.register(TreeType)
 admin.site.register(Status)

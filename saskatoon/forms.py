@@ -1,4 +1,6 @@
 from django import forms
+from dal import autocomplete
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML, Field, Div
 from models import *
@@ -84,3 +86,15 @@ class NewHarvest(forms.ModelForm):
                 css_class='col-lg-12'
             )
         )
+
+
+class HarvestForm(forms.ModelForm):
+    class Meta:
+        model = Harvest
+        fields = ('__all__')
+        widgets = {
+            'pickers': autocomplete.ModelSelect2Multiple(
+                'person-autocomplete'
+            )
+        }
+
