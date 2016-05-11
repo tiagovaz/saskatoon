@@ -67,6 +67,8 @@ admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
 admin.site.register(Country)
+# TODO: comments
+#admin.site.register(Comment)
 
 #admin.site.register(AuthUser,AuthUserAdmin)
 # unregister old user admin
