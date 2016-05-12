@@ -1,0 +1,9 @@
+$ python manage.py makemigrations saskatoon
+$ python manage.py makemigrations user_profile
+
+Edit user_profile initial migration class and remove reference to Person
+
+$ python manage.py migrate 
+$ python manage.py makemigrations user_profile
+
+$ python manage.py migrate 

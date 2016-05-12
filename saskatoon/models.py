@@ -21,18 +21,19 @@ class Actor(models.Model):
 @python_2_unicode_compatible
 class Person(Actor):
     first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=50)
+    family_name = models.CharField(max_length=50)
 
 #    user = models.OneToOneField(User)
 #    profile_image = models.ImageField(upload_to="uploads", blank=False, null=False, default="/static/images/defaultuserimage.png")
-    phone = models.CharField(max_length=20, null=True, blank=True)
+    phone = models.CharField(max_length=30, null=True, blank=True)
     address = models.ForeignKey('saskatoon.Address', null=True, blank=True)
+    comments = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "People"
 
     def __str__(self):
-        return "%s %s" % (self.first_name,self.last_name)
+        return "%s %s" % (self.first_name,self.family_name)
     
 @python_2_unicode_compatible
 class Organization(Actor):
@@ -82,8 +83,8 @@ class Address(models.Model):
     state = models.ForeignKey('State')
     country = models.ForeignKey('Country')
     complement = models.CharField(max_length=150, blank=True)
-    long = models.FloatField(null=True, blank=True)
-    lat = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Addresses"
@@ -114,7 +115,8 @@ class Property(models.Model):
     owner = models.ForeignKey('Actor')
     equipment = models.ManyToManyField(EquipmentType,through='EquipmentTypeAtProperty')
     trees = models.ManyToManyField(TreeType)
-    
+    access = models.BooleanField("Public access",default = False)
+
     class Meta:
         verbose_name_plural = "Properties"
 

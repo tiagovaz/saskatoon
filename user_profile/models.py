@@ -23,7 +23,7 @@ class AuthUserManager(BaseUserManager):
         return user
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
-    person = models.OneToOneField(Person,null=True)
+    person = models.OneToOneField(Person, null=True)
 
     alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', message='Only alphanumeric characters are allowed.')
 
