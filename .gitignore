@@ -64,3 +64,4 @@ main/migrations/*
 .project
 /.pydevproject
 /.settings/
+saskatoon/migrations/

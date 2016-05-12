@@ -165,8 +165,8 @@ class RequestForParticipation(models.Model):
     is_cancelled = models.BooleanField(default=False)
 
     # FIXME: has to be removed for migration
-    class Meta:
-        auto_created = True
+    #class Meta:
+    #    auto_created = True
     
     def __str__(self):
         return "Request by %s to participate to %s" % (self.picker,self.harvest)
