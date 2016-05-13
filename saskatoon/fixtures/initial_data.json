@@ -81,7 +81,7 @@
   	"pk": 1,
   	"fields": {
 		"first_name": "Admin",
-		"last_name": "Saskatoon",
+		"family_name": "Saskatoon",
 		"address": 1,
 		"phone": "514 563 1000"
 		}

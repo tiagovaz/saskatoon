@@ -4,7 +4,7 @@ from saskatoon.views import Index, Profile, EquipmentForm, HarvestForm, Harvests
 
 #admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'saskatoon.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
@@ -20,5 +20,4 @@ urlpatterns = patterns('',
     url(r'^$', Index.as_view()),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^person-autocomplete/$', PersonAutocomplete.as_view(), name='person-autocomplete',),
-
-)
+    ]

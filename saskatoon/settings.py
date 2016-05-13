@@ -30,9 +30,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'dal',
     'dal_select2',
-    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +79,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'America/Montreal'
 
@@ -118,3 +118,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIGRATION_MODULES = {'django_extensions': None}
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Saskatoon',
+    'MENU_EXCLUDE': ('auth.group', 'auth'),
+    }

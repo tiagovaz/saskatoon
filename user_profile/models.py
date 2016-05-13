@@ -1,7 +1,9 @@
+from django.contrib.auth.hashers import make_password
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from saskatoon.models import Person
+from django import forms
 
 class AuthUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -23,18 +25,18 @@ class AuthUserManager(BaseUserManager):
         return user
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
+
     person = models.OneToOneField(Person, null=True)
 
     alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', message='Only alphanumeric characters are allowed.')
 
     ### Redefine the basic fields that would normally be defined in User ###
     email = models.EmailField(verbose_name='email address', unique=True, max_length=255)
+
+    ### Our own fields ###
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True, null=False)
     is_staff = models.BooleanField(default=False, null=False)
-
-    ### Our own fields ###
-
 
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
