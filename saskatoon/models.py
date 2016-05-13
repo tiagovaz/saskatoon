@@ -125,9 +125,9 @@ class Property(models.Model):
     equipment = models.ManyToManyField(EquipmentType,through='EquipmentTypeAtProperty')
     trees = models.ManyToManyField(TreeType)
     trees_placement = models.CharField(null=True, blank=True, max_length=200)
-    access = models.CharField("Acces à l'arbre (publique, cloture, etc)",null=True, blank=True, max_length=150)
+    access = models.CharField(u"Acces (publique, cloture, etc)",null=True, blank=True, max_length=150)
     avg_nb_required_pickers = models.IntegerField("Nombre de cueilleur",default=1)
-    neighbor_access = models.BooleanField("Acces au voisin authorisé, si necessaire",default='False')
+    neighbor_access = models.BooleanField("Acces au voisin authorise, si necessaire",default='False')
     compost_available = models.BooleanField("Composte disponible",default='False')
 
     class Meta:
@@ -160,9 +160,9 @@ class Harvest(models.Model):
     nb_required_pickers = models.IntegerField(default=3)
     pickers = models.ManyToManyField('Person', related_name='harvests', through='RequestForParticipation')
     equipment_reserved = models.ManyToManyField('Equipment')
-    owner_present = models.BooleanField("Le propriétaire veut être present",default='True')
-    owner_help = models.BooleanField("Le propriétaire veut participer",default='True')
-    owner_fruit = models.BooleanField("Le propriétaire veut des fruits",default='True')
+    owner_present = models.BooleanField("Le proprietaire veut etre present",default='True')
+    owner_help = models.BooleanField("Le proprietaire veut participer",default='True')
+    owner_fruit = models.BooleanField("Le proprietaire veut des fruits",default='True')
     """ Determines if this harvest appears on public calendar. """
     published = models.BooleanField(default='False')
     status = models.ForeignKey('Status', null=True)
