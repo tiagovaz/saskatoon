@@ -30,7 +30,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-   'suit',
+    'bootstrap3_datepicker',
+    'suit',
     'dal',
     'dal_select2',
     # 'grappelli',
