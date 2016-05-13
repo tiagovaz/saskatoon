@@ -3,7 +3,7 @@
 
 from django.contrib import admin
 
-from forms import RFPForm, PropertyForm
+from forms import RFPForm, PropertyForm, HarvestForm
 from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
     RequestForParticipation, Language, HarvestYield
 from user_profile.models import AuthUser
@@ -27,6 +27,7 @@ class HarvestYieldInline(admin.TabularInline):
     model = HarvestYield
 
 class HarvestAdmin(admin.ModelAdmin):
+    form = HarvestForm
     inlines = (PersonInline, HarvestYieldInline)
 
 class PropertyInline(admin.TabularInline):

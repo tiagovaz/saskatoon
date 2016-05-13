@@ -108,3 +108,13 @@ class PropertyForm(forms.ModelForm):
                 'tree-autocomplete'
             )
         }
+
+class HarvestForm(forms.ModelForm):
+    class Meta:
+        model = Harvest
+        fields = ('__all__')
+        widgets = {
+           'trees': autocomplete.ModelSelect2Multiple(
+                'tree-autocomplete'
+            )
+        }

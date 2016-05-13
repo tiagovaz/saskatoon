@@ -49,7 +49,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center">Id</th>
-                                                                    <th>Tree</th>
+                                                                    <th>Tree(s)</th>
                                                                     <th>Pickleader</th>
                                                                     <th>Property</th>
                                                                     <th>Scheduled to</th>
@@ -60,7 +60,7 @@
                                                             <tbody>
                                                                {% for harvest in harvests %}
                                                                 <tr class="odd gradeX">
-                                                                    <td class="text-center"><a href="/harvest?id={{ harvest.id }}">#{{ harvest.id }}</a></td>
+                                                                    <td class="text-center"><a href="JavaScript:newPopup('/harvest?id={{ harvest.id }}');">#{{ harvest.id }}</a></td>
                                                                     <td>{% for tree in harvest.trees.all %}
                                                                             <li>{{ tree }}</li>
                                                                         {% endfor %}
