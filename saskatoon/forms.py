@@ -88,12 +88,13 @@ class NewHarvest(forms.ModelForm):
         )
 
 
-class HarvestForm(forms.ModelForm):
+class RFPForm(forms.ModelForm):
     class Meta:
-        model = Harvest
+        model = RequestForParticipation
         fields = ('__all__')
         widgets = {
-            'pickers': autocomplete.ModelSelect2Multiple(
+#            'pickers': autocomplete.ModelSelect2Multiple(
+            'picker': autocomplete.ModelSelect2(
                 'person-autocomplete'
             )
         }

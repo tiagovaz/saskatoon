@@ -1,22 +1,31 @@
 from django.contrib import admin
-from django.db import models
-from django.forms import CheckboxSelectMultiple
-from models import Property,Address,Person,Organization,Actor,\
-    TreeType,Status,Equipment,EquipmentType,EquipmentTypeAtProperty,Harvest,RequestForParticipation,Neighborhood, City, State, Country
-from forms import *
+
+from forms import RFPForm
+from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
+    RequestForParticipation
 from user_profile.models import AuthUser
 
 
-    
 class AuthInline(admin.StackedInline):
     model = AuthUser
     fields = ('email','password',)
     max_num = 1
     can_delete = False
 
+class PersonInline(admin.TabularInline):
+    model = Harvest.pickers.through
+    form = RFPForm
+    extra = 3
+
+class HarvestAdmin(admin.ModelAdmin):
+    inlines = (PersonInline,)
+
 class PropertyInline(admin.TabularInline):
     model = Property
     extra = 0
+
+class RequestForParticipationAdmin(admin.ModelAdmin):
+    form = RFPForm
 
 class AddressInline(admin.TabularInline):
     model = Address
@@ -28,11 +37,11 @@ class OrganizationAdmin(admin.ModelAdmin):
     ]
     search_fields = ['name','description']
 
-class PersonAdmin(admin.ModelAdmin):
-    
-    inlines = [
-        AuthInline,PropertyInline,
-    ]
+#class PersonAdmin(admin.ModelAdmin):
+
+    # inlines = [
+    #     AuthInline, PropertyInline,
+    # ]
 
 class EquipmentTypeAtPropertyInline(admin.TabularInline):
     model = EquipmentTypeAtProperty
@@ -41,7 +50,7 @@ class EquipmentTypeAtPropertyInline(admin.TabularInline):
 #FIXME: not working
 #class PropertyAdmin(admin.ModelAdmin):
 #    inlines = (EquipmentTypeAtPropertyInline,)
-#    # Use many checkboxes rather than a multiple selection box
+    # Use many checkboxes rather than a multiple selection box
 #    formfield_overrides = {
 #        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
 #    }
@@ -50,15 +59,13 @@ class EquipmentTypeAtPropertyInline(admin.TabularInline):
 #    model = Neighborhood
 
 admin.site.register(Actor)
-admin.site.register(Person,PersonAdmin)
-admin.site.register(Organization,OrganizationAdmin)
+admin.site.register(Person)
+admin.site.register(Organization)
 #admin.site.register(Property,PropertyAdmin)
 admin.site.register(Property)
 admin.site.register(Address)
-class HarvestAdmin(admin.ModelAdmin):
-    form = HarvestForm
 admin.site.register(Harvest, HarvestAdmin)
-admin.site.register(RequestForParticipation)
+admin.site.register(RequestForParticipation, RequestForParticipationAdmin)
 admin.site.register(TreeType)
 admin.site.register(Status)
 admin.site.register(Equipment)
