@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from forms import RFPForm
 from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
-    RequestForParticipation
+    RequestForParticipation, Language
 from user_profile.models import AuthUser
 
 
@@ -65,6 +65,7 @@ class EquipmentTypeAtPropertyInline(admin.TabularInline):
 #    model = Neighborhood
 
 admin.site.register(Actor)
+admin.site.register(Language)
 admin.site.register(Person)
 admin.site.register(Organization)
 #admin.site.register(Property,PropertyAdmin)
