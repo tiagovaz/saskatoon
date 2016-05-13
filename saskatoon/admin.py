@@ -15,6 +15,7 @@ class AuthInline(admin.StackedInline):
 class PersonInline(admin.TabularInline):
     model = Harvest.pickers.through
     form = RFPForm
+    exclude = ['creation_date', 'confirmation_date']
     extra = 3
 
 class HarvestAdmin(admin.ModelAdmin):
