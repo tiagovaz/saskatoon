@@ -49,7 +49,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center">Id</th>
-                                                                    <th>Title</th>
+                                                                    <th>Tree</th>
                                                                     <th>Pickleader</th>
                                                                     <th>Property</th>
                                                                     <th>Scheduled to</th>
@@ -61,12 +61,15 @@
                                                                {% for harvest in harvests %}
                                                                 <tr class="odd gradeX">
                                                                     <td class="text-center"><a href="/harvest?id={{ harvest.id }}">#{{ harvest.id }}</a></td>
-                                                                    <td>{{ harvest.title }}</td>
+                                                                    <td>{% for tree in harvest.trees.all %}
+                                                                            <li>{{ tree }}</li>
+                                                                        {% endfor %}
+                                                                    </td>
                                                                     <td>{{ harvest.leader }}</td>
                                                                     <td>{{ harvest.property }}</td>
                                                                     <td>{{ harvest.scheduled_date }}</td>
                                                                     <td>{{ harvest.status }}</td>
-                                                                    <td>edit</td>
+                                                                    <td><a href="JavaScript:newPopup('/admin/saskatoon/harvest/{{ harvest.id }}/change/');">Edit</a></td>
                                                                 </tr>
                                                                 {% endfor %}
                                                             </tbody>

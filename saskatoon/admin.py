@@ -5,9 +5,8 @@ from django.contrib import admin
 
 from forms import RFPForm, PropertyForm
 from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
-    RequestForParticipation, Language
+    RequestForParticipation, Language, HarvestYield
 from user_profile.models import AuthUser
-
 
 class AuthInline(admin.StackedInline):
     model = AuthUser
@@ -23,8 +22,12 @@ class PersonInline(admin.TabularInline):
     exclude = ['creation_date', 'confirmation_date']
     extra = 3
 
+
+class HarvestYieldInline(admin.TabularInline):
+    model = HarvestYield
+
 class HarvestAdmin(admin.ModelAdmin):
-    inlines = (PersonInline,)
+    inlines = (PersonInline, HarvestYieldInline)
 
 class PropertyInline(admin.TabularInline):
     model = Property
@@ -84,6 +87,8 @@ admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
 admin.site.register(Country)
+admin.site.register(HarvestYield)
+
 # TODO: comments
 #admin.site.register(Comment)
 

@@ -11,6 +11,7 @@ from django.utils.encoding import python_2_unicode_compatible
 @python_2_unicode_compatible
 class Actor(models.Model):
     actor_id = models.AutoField(primary_key=True)
+
     def __str__(self):
         try:
             return self.person.__str__()
@@ -140,7 +141,7 @@ class Property(models.Model):
 class EquipmentTypeAtProperty(models.Model):
     equipment_type = models.ForeignKey(EquipmentType)
     property = models.ForeignKey(Property)
-    number = models.IntegerField(default=1)    
+    quantity = models.IntegerField(default=1)
     shared = models.BooleanField(default='False')
     
     class Meta:
@@ -167,7 +168,8 @@ class Harvest(models.Model):
     published = models.BooleanField(default='False')
     status = models.ForeignKey('Status', null=True)
     history = HistoricalRecords()
-    
+    trees = models.ManyToManyField('TreeType')
+
     def __str__(self):
         return "Harvest on %s at %s" % (self.scheduled_date,self.property)
 
@@ -185,22 +187,24 @@ class RequestForParticipation(models.Model):
         return "Request by %s to participate to %s" % (self.picker,self.harvest)
 
 @python_2_unicode_compatible
-class HarvestProduct(models.Model):    
+class HarvestYield(models.Model):
     harvest = models.ForeignKey('Harvest')
-    product = models.ForeignKey('TreeType')
-    weight_in_kg = models.FloatField()
-
-    def __str__(self):
-        return "%s kg of %s harvested at %s" % (self.weight_in_kg,self.product.fruit_name,self.property)
-    
-@python_2_unicode_compatible
-class Donation(models.Model):    
-    harvest_product = models.ForeignKey('HarvestProduct')
+    tree = models.ForeignKey('TreeType')
+    total_in_kg = models.FloatField()
     recipient = models.ForeignKey('Actor')
-    weight_in_kg = models.FloatField()
 
     def __str__(self):
-        return "%s kg of %s harvested at %s donated to %s" % (self.weight_in_kg,self.product.fruit_name,self.property,self.recipient)
+        return "%.2f kg of %s" % (self.total_in_kg,self.tree.fruit_name)
+    
+# @python_2_unicode_compatible
+# class Donation(models.Model):
+#     harvest_yield = models.ForeignKey('HarvestYield')
+#     harvest = models.ForeignKey('Harvest')
+#     recipient = models.ForeignKey('Actor')
+#     weight_in_kg = models.FloatField()
+#
+#     def __str__(self):
+#         return "%.2f kg of %s donated to %s" % (self.weight_in_kg,self.harvest_yield.fruit_name,self.recipient)
 
     
 @python_2_unicode_compatible
