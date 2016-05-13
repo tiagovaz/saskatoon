@@ -30,7 +30,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'suit',
+    #'suit',
+    'grappelli',
     'dal',
     'dal_select2',
     'django.contrib.admin',

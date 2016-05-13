@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.contrib import admin
 
 from forms import RFPForm
@@ -14,6 +17,8 @@ class AuthInline(admin.StackedInline):
 
 class PersonInline(admin.TabularInline):
     model = Harvest.pickers.through
+    verbose_name = "Cueilleurs pour cette récolte"
+    verbose_name_plural = "Cueilleurs pour cette récolte"
     form = RFPForm
     exclude = ['creation_date', 'confirmation_date']
     extra = 3

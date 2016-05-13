@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^new_equipment/', EquipmentForm.as_view()),
     url(r'^harvests/new/', HarvestForm.as_view()),
     url(r'^$', Index.as_view()),
+    url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^person-autocomplete/$', PersonAutocomplete.as_view(), name='person-autocomplete',),
     ]

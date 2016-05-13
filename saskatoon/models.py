@@ -75,6 +75,14 @@ class Country(models.Model):
         return self.name
 
 @python_2_unicode_compatible
+class Language(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+
+@python_2_unicode_compatible
 class Address(models.Model):
     """Address for organization, persons and properties"""
     number = models.CharField(max_length=10)
@@ -116,9 +124,9 @@ class Property(models.Model):
     owner = models.ForeignKey('Actor')
     equipment = models.ManyToManyField(EquipmentType,through='EquipmentTypeAtProperty')
     trees = models.ManyToManyField(TreeType)
-    trees_placement = models.CharField(null=True, blank=True)
-    access = models.CharField("Access to tree (public, gated, etc)",null=True, blank=True)
-    nb_pickers = number = models.IntegerField("Number of pickers",default=1)
+    trees_placement = models.CharField(null=True, blank=True, max_length=200)
+    access = models.CharField("Access to tree (public, gated, etc)",null=True, blank=True, max_length=150)
+    nb_pickers_needed = models.IntegerField("Number of pickers",default=1)
     neighbor_access = models.BooleanField("Can we access neighbor's property, if needed?",default='False')
     compost_available = models.BooleanField(default='False')
 
