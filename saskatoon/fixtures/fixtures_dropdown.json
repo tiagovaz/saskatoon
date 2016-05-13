@@ -292,8 +292,8 @@
     "pk": 1,
     "fields":
     {
-      "name": "Abricotier"
-      "fruit_name": "Apricot"
+      "name": "Abricotier",
+      "fruit_name": "Apricot",
       "avg_harvest_date": "9999-07-01"
     }
   },
@@ -302,8 +302,8 @@
     "pk": 2,
     "fields":
     {
-      "name": "Amélanchier"
-      "fruit_name": "Amélanche"
+      "name": "Amélanchier",
+      "fruit_name": "Amélanche",
       "avg_harvest_date": "9999-06-15"
     }
   },
@@ -312,8 +312,8 @@
     "pk": 3,
     "fields":
     {
-      "name": "Cerisier sucrée"
-      "fruit_name": "Cerise sucrée"
+      "name": "Cerisier sucrée",
+      "fruit_name": "Cerise sucrée",
       "avg_harvest_date": "9999-06-15"
     }
   },
@@ -322,8 +322,8 @@
     "pk": 4,
     "fields":
     {
-      "name": "Cerisier griotte"
-      "fruit_name": "Cerise griotte"
+      "name": "Cerisier griotte",
+      "fruit_name": "Cerise griotte",
       "avg_harvest_date": "9999-06-15"
     }
   },
@@ -332,8 +332,8 @@
     "pk": 5,
     "fields":
     {
-      "name": "Fraisier"
-      "fruit_name": "Fraise"
+      "name": "Fraisier",
+      "fruit_name": "Fraise",
       "avg_harvest_date": "9999-06-15"
     }
   },
@@ -342,8 +342,8 @@
     "pk": 6,
     "fields":
     {
-      "name": "Framboisier"
-      "fruit_name": "Framboise"
+      "name": "Framboisier",
+      "fruit_name": "Framboise",
       "avg_harvest_date": "9999-06-15"
     }
   },
@@ -352,8 +352,8 @@
     "pk": 7,
     "fields":
     {
-      "name": "Groseillier"
-      "fruit_name": "Groseille"
+      "name": "Groseillier",
+      "fruit_name": "Groseille",
       "avg_harvest_date": "9999-07-15"
     }
   },
@@ -362,8 +362,8 @@
     "pk": 8,
     "fields":
     {
-      "name": "Mûre"
-      "fruit_name": "Mûrier"
+      "name": "Mûre",
+      "fruit_name": "Mûrier",
       "avg_harvest_date": "9999-08-01"
     }
   },
@@ -372,8 +372,8 @@
     "pk": 9,
     "fields":
     {
-      "name": "Pêcher"
-      "fruit_name": "Pêche"
+      "name": "Pêcher",
+      "fruit_name": "Pêche",
       "avg_harvest_date": "9999-07-01"
     }
   },
@@ -382,8 +382,8 @@
     "pk": 10,
     "fields":
     {
-      "name": "Poirier"
-      "fruit_name": "Poire"
+      "name": "Poirier",
+      "fruit_name": "Poire",
       "avg_harvest_date": "9999-08-01"
     }
   },
@@ -392,8 +392,8 @@
     "pk": 11,
     "fields":
     {
-      "name": "Pommier vert"
-      "fruit_name": "Pomme vert"
+      "name": "Pommier vert",
+      "fruit_name": "Pomme vert",
       "avg_harvest_date": "9999-08-15"
     }
   },
@@ -402,8 +402,8 @@
     "pk": 12,
     "fields":
     {
-      "name": "Pommier rouge"
-      "fruit_name": "Pomme rouge"
+      "name": "Pommier rouge",
+      "fruit_name": "Pomme rouge",
       "avg_harvest_date": "9999-08-15"
     }
   },
@@ -412,8 +412,8 @@
     "pk": 13,
     "fields":
     {
-      "name": "Pommier jaune"
-      "fruit_name": "Pomme jaune"
+      "name": "Pommier jaune",
+      "fruit_name": "Pomme jaune",
       "avg_harvest_date": "9999-07-15"
     }
   },
@@ -422,8 +422,8 @@
     "pk": 14,
     "fields":
     {
-      "name": "Pommettier"
-      "fruit_name": "Pommette"
+      "name": "Pommettier",
+      "fruit_name": "Pommette",
       "avg_harvest_date": "9999-08-01"
     }
   },
@@ -432,8 +432,8 @@
     "pk": 15,
     "fields":
     {
-      "name": "Prunier"
-      "fruit_name": "Prune"
+      "name": "Prunier",
+      "fruit_name": "Prune",
       "avg_harvest_date": "9999-08-15"
     }
   },
@@ -442,8 +442,8 @@
     "pk": 16,
     "fields":
     {
-      "name": "Vigne blanc"
-      "fruit_name": "Raisin blanc"
+      "name": "Vigne blanc",
+      "fruit_name": "Raisin blanc",
       "avg_harvest_date": "9999-08-15"
     }
   },
@@ -452,8 +452,8 @@
     "pk": 17,
     "fields":
     {
-      "name": "Vigne noir"
-      "fruit_name": "Raisin noir"
+      "name": "Vigne noir",
+      "fruit_name": "Raisin noir",
       "avg_harvest_date": "9999-08-15"
     }
   },
@@ -462,8 +462,8 @@
     "pk": 18,
     "fields":
     {
-      "name": "Pied de Rhubarbe"
-      "fruit_name": "Rhubarbe"
+      "name": "Pied de Rhubarbe",
+      "fruit_name": "Rhubarbe",
       "avg_harvest_date": "9999-08-01"
     }
   },
@@ -472,8 +472,8 @@
     "pk": 19,
     "fields":
     {
-      "name": "Sureau"
-      "fruit_name": "Sureau"
+      "name": "Sureau",
+      "fruit_name": "Sureau",
       "avg_harvest_date": "9999-08-15"
     }
   }
