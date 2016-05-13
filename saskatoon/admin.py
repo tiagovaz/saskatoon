@@ -3,7 +3,7 @@
 
 from django.contrib import admin
 
-from forms import RFPForm
+from forms import RFPForm, PropertyForm
 from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
     RequestForParticipation, Language
 from user_profile.models import AuthUser
@@ -53,13 +53,16 @@ class EquipmentTypeAtPropertyInline(admin.TabularInline):
     model = EquipmentTypeAtProperty
     extra = 1
     
-#FIXME: not working
-#class PropertyAdmin(admin.ModelAdmin):
-#    inlines = (EquipmentTypeAtPropertyInline,)
-    # Use many checkboxes rather than a multiple selection box
-#    formfield_overrides = {
-#        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-#    }
+class PropertyAdmin(admin.ModelAdmin):
+    model = Property
+    form = PropertyForm
+#   inlines = (EquipmentTypeAtPropertyInline,)
+#   Use many checkboxes rather than a multiple selection box
+#   formfield_overrides = {
+#       models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+#   }
+
+
 
 #class Neighborhood(admin.TabularInline):
 #    model = Neighborhood
@@ -68,8 +71,8 @@ admin.site.register(Actor)
 admin.site.register(Language)
 admin.site.register(Person)
 admin.site.register(Organization)
-#admin.site.register(Property,PropertyAdmin)
-admin.site.register(Property)
+admin.site.register(Property,PropertyAdmin)
+# admin.site.register(Property)
 admin.site.register(Address)
 admin.site.register(Harvest, HarvestAdmin)
 admin.site.register(RequestForParticipation, RequestForParticipationAdmin)

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
-from models import Harvest, Person
+from models import Harvest, Person, TreeType
 from forms import NewEquipment, NewHarvest
 from django.contrib import messages
 from django.shortcuts import render_to_response
@@ -155,3 +155,15 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
         return qs
 
 
+class TreeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return TreeType.objects.none()
+
+        qs = TreeType.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs

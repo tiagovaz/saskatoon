@@ -99,3 +99,12 @@ class RFPForm(forms.ModelForm):
             )
         }
 
+class PropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = ('__all__')
+        widgets = {
+           'trees': autocomplete.ModelSelect2Multiple(
+                'tree-autocomplete'
+            )
+        }

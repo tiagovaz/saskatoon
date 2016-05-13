@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from saskatoon.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest, JsonCalendar, HarvestDetails, PersonAutocomplete
+from saskatoon.views import Index, Profile, EquipmentForm, HarvestForm, Harvests, Calendar, DataTest, JsonCalendar, HarvestDetails, PersonAutocomplete, \
+    TreeAutocomplete
 
 #admin.autodiscover()
 
@@ -21,4 +22,5 @@ urlpatterns = [
     # url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^person-autocomplete/$', PersonAutocomplete.as_view(), name='person-autocomplete',),
+    url(r'^tree-autocomplete/$', TreeAutocomplete.as_view(), name='tree-autocomplete',),
     ]
