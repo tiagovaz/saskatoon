@@ -28,6 +28,7 @@ class Person(Actor):
     phone = models.CharField(max_length=30, null=True, blank=True)
     address = models.ForeignKey('saskatoon.Address', null=True, blank=True)
     comments = models.TextField(blank=True)
+    language = models.ForeignKey('saskatoon.Language', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "People"
@@ -78,11 +79,11 @@ class Address(models.Model):
     """Address for organization, persons and properties"""
     number = models.CharField(max_length=10)
     street = models.CharField(max_length=50)
+    complement = models.CharField(max_length=150, blank=True)
     neighborhood = models.ForeignKey('Neighborhood')
     city = models.ForeignKey('City')
     state = models.ForeignKey('State')
     country = models.ForeignKey('Country')
-    complement = models.CharField(max_length=150, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
 
@@ -115,7 +116,11 @@ class Property(models.Model):
     owner = models.ForeignKey('Actor')
     equipment = models.ManyToManyField(EquipmentType,through='EquipmentTypeAtProperty')
     trees = models.ManyToManyField(TreeType)
-    access = models.BooleanField("Public access",default = False)
+    trees_placement = models.CharField(null=True, blank=True)
+    access = models.CharField("Access to tree (public, gated, etc)",null=True, blank=True)
+    nb_pickers = number = models.IntegerField("Number of pickers",default=1)
+    neighbor_access = models.BooleanField("Can we access neighbor's property, if needed?",default='False')
+    compost_available = models.BooleanField(default='False')
 
     class Meta:
         verbose_name_plural = "Properties"
@@ -128,6 +133,7 @@ class EquipmentTypeAtProperty(models.Model):
     equipment_type = models.ForeignKey(EquipmentType)
     property = models.ForeignKey(Property)
     number = models.IntegerField(default=1)    
+    shared = models.BooleanField(default='False')
     
     class Meta:
         unique_together = ('equipment_type', 'property',)
@@ -150,6 +156,9 @@ class Harvest(models.Model):
     published = models.BooleanField(default='False')
     status = models.ForeignKey('Status', null=True)
     history = HistoricalRecords()
+    owner_present = models.BooleanField("Owner wants to be present",default='True')
+    owner_help = models.BooleanField("Owner wants to help",default='True')
+    owner_fruit = models.BooleanField("Owner wants a share of fruit",default='True')
     
     def __str__(self):
         return "Harvest on %s at %s" % (self.scheduled_date,self.property)
