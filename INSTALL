@@ -1,3 +1,5 @@
+### Dealing with circular dependency:
+
 $ python manage.py makemigrations saskatoon
 $ python manage.py makemigrations user_profile
 
@@ -7,3 +9,14 @@ $ python manage.py migrate
 $ python manage.py makemigrations user_profile
 
 $ python manage.py migrate 
+$ python manage.py runserver
+
+### To generate and compile locale messages
+
+$ django-admin makemessages -l fr    (or --all)
+
+Edit file locale/fr/LC_MESSAGES/django.po 
+
+$ django-admin compilemessages
+$ python manage.py runserver
+
