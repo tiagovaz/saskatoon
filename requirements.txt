@@ -8,3 +8,4 @@ django-autocomplete-light
 django-suit
 django-tables2
 django-pagination
+django-bootstrap3-datepicker
