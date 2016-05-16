@@ -7,6 +7,8 @@ from forms import RFPForm, PropertyForm, HarvestForm
 from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
     RequestForParticipation, Language, HarvestYield
 from user_profile.models import AuthUser
+# FIXME: easymode to make database translatable
+#import easymode.i18n
 
 class AuthInline(admin.StackedInline):
     model = AuthUser
@@ -96,4 +98,5 @@ admin.site.register(HarvestYield)
 #admin.site.register(AuthUser,AuthUserAdmin)
 # unregister old user admin
 
-
+#easymode.i18n.register(Neighborhood)
+#easymode.i18n.register(TreeType)

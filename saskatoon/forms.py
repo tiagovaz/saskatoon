@@ -20,14 +20,14 @@ class NewHarvest(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea)
     comment = forms.CharField(widget=forms.Textarea)
     leader = forms.ModelChoiceField (queryset=Person.objects.all())
-    scheduled_date = forms.DateTimeField()
+    start_date = forms.DateTimeField()
     end_date = forms.DateTimeField()
     property = forms.ModelChoiceField (queryset=Property.objects.all())
     nb_required_pickers = forms.IntegerField()
     pickers = forms.ModelMultipleChoiceField(queryset=Person.objects.all())
     equipment_reserved = forms.ModelMultipleChoiceField(queryset=Equipment.objects.all())
     # """ Determines if this harvest appears on public calendar. """
-    #published = forms.BooleanField()
+    #publish = forms.BooleanField()
     status = forms.ModelChoiceField(queryset=Status.objects.all())
 
 
@@ -56,7 +56,7 @@ class NewHarvest(forms.ModelForm):
 
                 Div(
                     Div(
-                        Field('scheduled_date'), css_class='col-lg-6'
+                        Field('start_date'), css_class='col-lg-6'
                     ),
                     Div(
                         Field('end_date'), css_class='col-lg-6',

@@ -24,7 +24,7 @@ class JsonCalendar(View):
             event["title"] = harvest.title
             event["allday"] = "false"
             event["description"] = harvest.description
-            event["start"] = harvest.scheduled_date
+            event["start"] = harvest.start_date
             event["end"] = harvest.end_date
             event["url"] = "http://gnu.org"
             events.append(event)
@@ -40,7 +40,7 @@ class DataTest(View):
         initial = {
             'title': 'harvest title',
             'description': 'test description',
-            'scheduled_date': datetime.datetime.now(),
+            'start_date': datetime.datetime.now(),
             'end_date': datetime.datetime.now()
         }
         initial_list = list()

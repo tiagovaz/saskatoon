@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """
 Django settings for saskatoon project.
 
@@ -50,10 +53,12 @@ INSTALLED_APPS = (
     # 'happenings',
     # 'django_bootstrap_calendar',
     'simple_history',
+    'easymode',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -80,17 +85,26 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-
-LANGUAGE_CODE = 'fr-fr'
+from django.utils.translation import gettext_lazy as _
 
 TIME_ZONE = 'America/Montreal'
-
+#LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fr'
+SITE_ID = 1
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
+LANGUAGES = (
+    ('fr', _('Français')),
+    ('en', _('English')),
+)
+
+DEFAULT_LANGUAGE = 1 
+
+LOCALE_PATHS = (
+    os.path.join('locale/'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -117,7 +131,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
-    'django.contrib.auth.context_processors.auth' 
+    'django.contrib.auth.context_processors.auth',
+    "django.core.context_processors.i18n", 
 )
 
 MIGRATION_MODULES = {'django_extensions': None}
@@ -126,3 +141,9 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'Saskatoon',
     'MENU_EXCLUDE': ('auth.group', 'auth'),
     }
+
+# FIXME: options to make database translatable
+#PROJECT_DIR = os.path.dirname('saskatoon')
+#MASTER_SITE = True
+#AUTO_CATALOG = False
+

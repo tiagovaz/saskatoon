@@ -104,7 +104,7 @@
 	"fields": {
 		"address": 1,
 		"contact": 1,
-		"name": "Barreau Inc",
+		"civil_name": "Barreau Inc",
 		"description": "Not mandatory"
 	},
 	"pk": 1

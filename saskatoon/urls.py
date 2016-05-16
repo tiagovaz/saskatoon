@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^person-autocomplete/$', PersonAutocomplete.as_view(), name='person-autocomplete',),
     url(r'^tree-autocomplete/$', TreeAutocomplete.as_view(), name='tree-autocomplete',),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     ]

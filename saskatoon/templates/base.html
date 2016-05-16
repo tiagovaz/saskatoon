@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Saskatoon Urbain Harvesting System</title>
+    <title>{% trans "Saskatoon - Urbain harvesting management system" %}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'sbadmin2/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -29,7 +30,7 @@
     <link href="{% static 'sbadmin2/bower_components/morrisjs/morris.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- DataTables CSS -->
     <link href="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css' %}" rel="stylesheet">
@@ -284,6 +285,21 @@
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
+                <li>
+                    <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}" />
+                    <select name="language" onchange="this.form.submit()">
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                    {% endfor %}
+                    </select>
+                    <!--<input type="submit" value="Go" />-->
+                    </form>
+                </li>
             </ul>
             <!-- /.navbar-top-links -->
 
@@ -292,7 +308,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder={% trans "Search..." %}>
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
@@ -302,16 +318,16 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i>{% trans " Dashboard" %}</a>
                         </li>
                         <li>
-                            <a href="/harvests/"><i class="fa fa-table fa-fw"></i> Harvests</a>
+                            <a href="/harvests/"><i class="fa fa-table fa-fw"></i>{% trans " Harvests" %}</a>
                         </li>
                         <li>
-                            <a href="/cal/"><i class="fa fa-calendar fa-fw"></i> Calendar</a>
+                            <a href="/cal/"><i class="fa fa-calendar fa-fw"></i>{% trans " Calendar" %}</a>
                         </li>
                         <li>
-                            <a href="/admin/"><i class="fa fa-gear fa-fw"></i> Admin</a>
+                            <a href="/admin/"><i class="fa fa-gear fa-fw"></i>{% trans " Admin" %}</a>
                         </li>
                     </ul>
                 </div>
