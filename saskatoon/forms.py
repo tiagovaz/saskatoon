@@ -5,6 +5,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML, Field, Div
 from models import *
 
+#class HarvestFormFilter(FormHelper):
+#    model = Harvest
+#
 class NewEquipment(forms.ModelForm):
     class Meta:
         model = Equipment

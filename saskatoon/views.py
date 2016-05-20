@@ -5,15 +5,16 @@ from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
 from models import Property, Harvest, Person, TreeType
 from forms import NewEquipment, NewHarvest
+from filters import *
 from django.contrib import messages
 from django.shortcuts import render_to_response
 from dal import autocomplete
 
-
-
 from fixtureless import Factory
 import itertools
 import datetime
+from crispy_forms.layout import Submit
+from crispy_forms.helper import FormHelper
 
 class JsonCalendar(View):
     def get(self, request):
@@ -103,8 +104,10 @@ class PropertyDetails(View):
 class Harvests(View):
     def get(self, request):
         params = dict()
-        all_harvests = Harvest.objects.all()
+        helper = FormHelper()
+        all_harvests = HarvestFilter(request.GET, queryset=Harvest.objects.all())
         params["harvests"] = all_harvests
+        params["form"] = all_harvests.form
         params["view"] = "harvests"
         return render(request, 'harvests.html', params)
 

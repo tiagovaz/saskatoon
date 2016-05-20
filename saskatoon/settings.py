@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'suit',
     'dal',
     'dal_select2',
+    'django_filters',
     # 'grappelli',
     # 'djangocms_admin_style',
     'django.contrib.admin',
