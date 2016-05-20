@@ -21,9 +21,9 @@ class JsonCalendar(View):
         event = {}
         events = []
         for harvest in harvests:
-            event["title"] = harvest.title
+            event["title"] = harvest.property.address.neighborhood.name
             event["allday"] = "false"
-            event["description"] = harvest.description
+            event["description"] = harvest.about
             event["start"] = harvest.start_date
             event["end"] = harvest.end_date
             event["url"] = "http://gnu.org"

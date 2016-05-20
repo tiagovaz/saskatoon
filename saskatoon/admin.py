@@ -4,7 +4,7 @@
 from django.contrib import admin
 
 from forms import RFPForm, PropertyForm, HarvestForm
-from models import Actor, Person, Organization, Property, Address, Harvest, TreeType, Status, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
+from models import Actor, Person, Organization, Property, Address, Harvest, HarvestStatus, TreeType, Equipment, EquipmentType, Country, State, City, Neighborhood, City, Neighborhood, EquipmentTypeAtProperty, \
     RequestForParticipation, Language, HarvestYield
 from user_profile.models import AuthUser
 # FIXME: easymode to make database translatable
@@ -83,7 +83,7 @@ admin.site.register(Address)
 admin.site.register(Harvest, HarvestAdmin)
 admin.site.register(RequestForParticipation, RequestForParticipationAdmin)
 admin.site.register(TreeType)
-admin.site.register(Status)
+admin.site.register(HarvestStatus)
 admin.site.register(Equipment)
 admin.site.register(EquipmentType)
 admin.site.register(Neighborhood)

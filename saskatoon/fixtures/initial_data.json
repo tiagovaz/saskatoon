@@ -1,5 +1,61 @@
 [
   {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 1,
+    "fields": {
+      "short_name": "To-be-confirmed",
+      "description": "Not yet confirmed for the current season, just a potential harvest property"
+    }
+  },
+  {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 2,
+    "fields": {
+      "short_name": "Orphan",
+      "description": "Confirmed for curent season, but not taken by any pick leader"
+    }
+  },
+  {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 3,
+    "fields": {
+      "short_name": "Adopted",
+      "description": "Adopted by a pick leader, waiting on fruit to ripe"
+    }
+  },
+  {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 4,
+    "fields": {
+      "short_name": "Scheduled",
+      "description": "Scheduled with the owner, waiting for the team to be formed"
+    }
+  },
+  {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 5,
+    "fields": {
+      "short_name": "Ready",
+      "description": "Team is formed, everything is read to go"
+    }
+  },
+  {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 6,
+    "fields": {
+      "short_name": "Succeeded",
+      "description": "Succedded"
+    }
+  },
+  {
+    "model": "saskatoon.HarvestStatus",
+    "pk": 7,
+    "fields": {
+      "short_name": "Cancelled",
+      "description": "Cancelled"
+    }
+  },
+  {
     "model": "saskatoon.Neighborhood",
     "pk": 1,
     "fields": {

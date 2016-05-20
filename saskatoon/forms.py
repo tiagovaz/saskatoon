@@ -16,19 +16,20 @@ class NewHarvest(forms.ModelForm):
         model = Harvest
         fields = '__all__'
 
-    title = forms.CharField()
-    description = forms.CharField(widget=forms.Textarea)
-    comment = forms.CharField(widget=forms.Textarea)
+    # """ Determines if this harvest appears on public calendar. """
+    is_active = forms.BooleanField()
+    status = forms.ModelChoiceField(queryset=HarvestStatus.objects.all())
+    property = forms.ModelChoiceField (queryset=Property.objects.all())
     leader = forms.ModelChoiceField (queryset=Person.objects.all())
     start_date = forms.DateTimeField()
     end_date = forms.DateTimeField()
-    property = forms.ModelChoiceField (queryset=Property.objects.all())
     nb_required_pickers = forms.IntegerField()
     pickers = forms.ModelMultipleChoiceField(queryset=Person.objects.all())
     equipment_reserved = forms.ModelMultipleChoiceField(queryset=Equipment.objects.all())
-    # """ Determines if this harvest appears on public calendar. """
-    #publish = forms.BooleanField()
-    status = forms.ModelChoiceField(queryset=Status.objects.all())
+    owner_present = forms.BooleanField()
+    owner_help = forms.BooleanField()
+    owner_fruit = forms.BooleanField()
+    about = forms.CharField(widget=forms.Textarea)
 
 
     def __init__(self, *args, **kwargs):

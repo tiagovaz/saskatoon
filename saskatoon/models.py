@@ -119,6 +119,18 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
+@python_2_unicode_compatible
+class HarvestStatus(models.Model):
+    short_name = models.CharField(_("Short name"),max_length=30)
+    description = models.CharField(_("Description"),max_length=150)
+
+    class Meta:
+        verbose_name = _("harvest status")
+        verbose_name_plural = _("harvest statuses")
+
+    def __str__(self):
+        return self.short_name
+
 
 @python_2_unicode_compatible
 class Address(models.Model):
@@ -206,9 +218,9 @@ class EquipmentTypeAtProperty(models.Model):
 
 @python_2_unicode_compatible
 class Harvest(models.Model):
-#    status = models.ForeignKey('Status', null=True,verbose_name=_("Status"))
 #    """ Determines if this harvest appears on public calendar. """
     is_active = models.BooleanField(_("Is active"),default='True')
+    status = models.ForeignKey('HarvestStatus', null=True,verbose_name=_("Harvest status"))
     property = models.ForeignKey('Property', null=True,verbose_name=_("Property"))
     trees = models.ManyToManyField('TreeType',verbose_name=_("Trees"))
     pick_leader = models.ForeignKey('Person', null=True, verbose_name="Pick leader")
@@ -234,8 +246,8 @@ class Harvest(models.Model):
 class RequestForParticipation(models.Model):
     picker = models.ForeignKey(Person,verbose_name=_("Picker"))
     harvest = models.ForeignKey(Harvest,verbose_name=_("Harvest"))
-    first_time_picker = models.BooleanField(_("Is this your firt pick with Les Fruits Defendus?"),default = False)
-    helper_picker = models.BooleanField(_("Are you able give an extra hand to the pick leader?"),default = False)
+    first_time_picker = models.BooleanField(_("Is this your first pick with us?"),default = False)
+    helper_picker = models.BooleanField(_("Can you help with equipment transportation?"),default = False)
     creation_date = models.DateTimeField(_("Created on"),default=timezone.now)
     confirmed = models.BooleanField(_("Confirmed"),default = False)
     confirmation_date = models.DateTimeField(_("Confirmed on"),default=timezone.now) #FIXME: can't be null... why?
@@ -262,48 +274,6 @@ class HarvestYield(models.Model):
 
     def __str__(self):
         return "%.2f kg of %s to %s" % (self.total_in_lb,self.tree.fruit_name,self.recipient)
-    
-# @python_2_unicode_compatible
-# class Donation(models.Model):
-#     harvest_yield = models.ForeignKey('HarvestYield')
-#     harvest = models.ForeignKey('Harvest')
-#     recipient = models.ForeignKey('Actor')
-#     weight_in_kg = models.FloatField()
-#
-#     def __str__(self):
-#         return "%.2f kg of %s donated to %s" % (self.weight_in_kg,self.harvest_yield.fruit_name,self.recipient)
-
-    
-@python_2_unicode_compatible
-class Status(models.Model):
-    """Status for Harvest."""
-    # hardcoded status as requested
-    # coding idea from http://www.b-list.org/weblog/2007/nov/02/handle-choices-right-way/
-    RECONTACT = 0
-    OBTAIN_CONTACT = 1
-    WAITING_ON_OWNER = 2
-    WAITING_ON_FRUIT = 3
-    FRUIT_OWNER_READY = 4
-    DONE = 5
-
-    STATUS_CHOICES = (
-    (RECONTACT, _('Re-contact for confirmation')),
-    (OBTAIN_CONTACT, _('Obtain owner contact')),
-    (WAITING_ON_OWNER, _('Waiting on owner')),
-    (WAITING_ON_FRUIT, _('Waiting on fruit')),
-    (FRUIT_OWNER_READY, _('Fruit and owner ready')),
-    (DONE, _('Completed'))
-    )
-
-    status = models.IntegerField(choices=STATUS_CHOICES, default=RECONTACT)
-
-    class Meta:
-        verbose_name = _("harvest status")
-        verbose_name_plural = _("harvest statuses")
-
-    def __str__(self):
-        return self.STATUS_CHOICES[self.status][1]
-
     
 @python_2_unicode_compatible
 class Equipment(models.Model):
