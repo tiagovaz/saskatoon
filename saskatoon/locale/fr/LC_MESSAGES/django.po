@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-16 13:31-0400\n"
+"POT-Creation-Date: 2016-05-20 14:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,431 +18,522 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: models.py:18
+#: saskatoon/models.py:18
 msgid "actor"
 msgstr "acteur"
 
-#: models.py:19
+#: saskatoon/models.py:19
 msgid "actors"
 msgstr "acteurs"
 
-#: models.py:30
+#: saskatoon/models.py:30
 msgid "First name"
 msgstr "Prénom"
 
-#: models.py:31
+#: saskatoon/models.py:31
 msgid "Family name"
 msgstr "Nom de famille"
 
-#: models.py:34
+#: saskatoon/models.py:34
 msgid "Phone"
 msgstr "Téléphone"
 
-#: models.py:35 models.py:53 models.py:171
+#: saskatoon/models.py:35 saskatoon/models.py:53 saskatoon/models.py:172
+#: saskatoon/templates/properties.html:54
+#: saskatoon/templates/property_detail.html:25
 msgid "Address"
 msgstr "Adresse"
 
-#: models.py:36 models.py:218 templates/harvest_detail.html.py:50
+#: saskatoon/models.py:36 saskatoon/templates/harvest_detail.html:50
+#: saskatoon/templates/property_detail.html:44
 msgid "Comments"
 msgstr "Commentaires"
 
-#: models.py:37
+#: saskatoon/models.py:37
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: models.py:40
+#: saskatoon/models.py:40
 msgid "person"
 msgstr "personne"
 
-#: models.py:41
+#: saskatoon/models.py:41
 msgid "people"
 msgstr "personnes"
 
-#: models.py:51 models.py:69 models.py:80 models.py:91 models.py:102
-#: models.py:113 models.py:146 models.py:159
+#: saskatoon/models.py:51 saskatoon/models.py:69 saskatoon/models.py:80
+#: saskatoon/models.py:91 saskatoon/models.py:102 saskatoon/models.py:113
+#: saskatoon/models.py:146 saskatoon/models.py:159
 msgid "Name"
 msgstr "Nom"
 
-#: models.py:52 models.py:307
+#: saskatoon/models.py:52 saskatoon/models.py:311
 msgid "Description"
 msgstr "Description"
 
-#: models.py:54
+#: saskatoon/models.py:54
 msgid "Contact person"
 msgstr "Personne contact"
 
-#: models.py:57
+#: saskatoon/models.py:57
 msgid "organization"
 msgstr "organisme"
 
-#: models.py:58
+#: saskatoon/models.py:58
 msgid "organizations"
 msgstr "organismes"
 
-#: models.py:72
+#: saskatoon/models.py:72
 msgid "neighborhood"
 msgstr "quartier"
 
-#: models.py:73
+#: saskatoon/models.py:73
 msgid "neighborhoods"
 msgstr "quartiers"
 
-#: models.py:83
+#: saskatoon/models.py:83
 msgid "city"
 msgstr "ville"
 
-#: models.py:84
+#: saskatoon/models.py:84
 msgid "cities"
 msgstr "villes"
 
-#: models.py:94
+#: saskatoon/models.py:94
 msgid "state"
 msgstr "état"
 
-#: models.py:95
+#: saskatoon/models.py:95
 msgid "states"
 msgstr "états"
 
-#: models.py:105
+#: saskatoon/models.py:105
 msgid "country"
 msgstr "pays"
 
-#: models.py:106
+#: saskatoon/models.py:106
 msgid "countries"
 msgstr "pays"
 
-#: models.py:116
+#: saskatoon/models.py:116
 msgid "language"
 msgstr "langue"
 
-#: models.py:117
+#: saskatoon/models.py:117
 msgid "languages"
 msgstr "langues"
 
-#: models.py:126
+#: saskatoon/models.py:126
 msgid "Number"
 msgstr "Nombre"
 
-#: models.py:127
+#: saskatoon/models.py:127
 msgid "Street"
 msgstr "Rue"
 
-#: models.py:128
+#: saskatoon/models.py:128
 msgid "Complement"
 msgstr "Complément"
 
-#: models.py:129
+#: saskatoon/models.py:129
 msgid "Neighborhood"
 msgstr "Quartier"
 
-#: models.py:130
+#: saskatoon/models.py:130
 msgid "City"
 msgstr "Ville"
 
-#: models.py:131
+#: saskatoon/models.py:131
 msgid "State"
 msgstr "État"
 
-#: models.py:132
+#: saskatoon/models.py:132
 msgid "Country"
 msgstr "Pays"
 
-#: models.py:133
+#: saskatoon/models.py:133
 msgid "Longitude"
 msgstr "Longitude"
 
-#: models.py:134
+#: saskatoon/models.py:134
 msgid "Latitude"
 msgstr "Latitude"
 
-#: models.py:137
+#: saskatoon/models.py:137
 msgid "address"
 msgstr "adresse"
 
-#: models.py:138
+#: saskatoon/models.py:138
 msgid "addresses"
 msgstr "adresses"
 
-#: models.py:147
+#: saskatoon/models.py:147
 msgid "Fruit name"
 msgstr "Nom du fruit"
 
-#: models.py:148
+#: saskatoon/models.py:148
 msgid "Season start date"
 msgstr "Date de début de la saison"
 
-#: models.py:151
+#: saskatoon/models.py:151
 msgid "tree type"
 msgstr "genre d'arbre"
 
-#: models.py:152
+#: saskatoon/models.py:152
 msgid "tree types"
 msgstr "genres d'arbres"
 
-#: models.py:162
+#: saskatoon/models.py:162
 msgid "equipment type"
 msgstr "genre de matériel"
 
-#: models.py:163
+#: saskatoon/models.py:163
 msgid "equipment types"
 msgstr "genres de matériel"
 
-#: models.py:172
+#: saskatoon/models.py:171 saskatoon/models.py:211
+#: saskatoon/templates/property_detail.html:24
+msgid "Is active"
+msgstr ""
+
+#: saskatoon/models.py:173 saskatoon/templates/properties.html:53
+#: saskatoon/templates/property_detail.html:26
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: models.py:173
+#: saskatoon/models.py:174 saskatoon/templates/property_detail.html:35
 msgid "Equipment"
 msgstr "Matériel"
 
-#: models.py:174
+#: saskatoon/models.py:175
 msgid "Fruit trees"
 msgstr "Arbre fruitier"
 
-#: models.py:175
+#: saskatoon/models.py:176
 msgid "Trees location"
 msgstr "Positionement de l'arbre"
 
-#: models.py:176
+#: saskatoon/models.py:177
 msgid "Required pickers on average"
 msgstr "Cueilleurs requis en moyenne"
 
-#: models.py:177
+#: saskatoon/models.py:178 saskatoon/templates/property_detail.html:41
 msgid "Publicly accessible"
 msgstr "Accessible au public"
 
-#: models.py:178
+#: saskatoon/models.py:179
 msgid "Access to neighboring terrain if needed"
 msgstr "Accès au terrain du voisin si nécessaire"
 
-#: models.py:179
+#: saskatoon/models.py:180 saskatoon/templates/property_detail.html:43
 msgid "Compost bin closeby"
 msgstr "Bac de compostage à proximité"
 
-#: models.py:182
+#: saskatoon/models.py:181 saskatoon/models.py:223
+msgid "About"
+msgstr ""
+
+#: saskatoon/models.py:184
 msgid "property"
 msgstr "propriété"
 
-#: models.py:183
+#: saskatoon/models.py:185
 msgid "properties"
 msgstr "propriétés"
 
-#: models.py:190
+#: saskatoon/models.py:192
 msgid "Equipment type"
 msgstr "Genre de matériel"
 
-#: models.py:191 models.py:207 templates/harvest_detail.html.py:33
+#: saskatoon/models.py:193 saskatoon/models.py:212
+#: saskatoon/templates/harvest_detail.html:33
+#: saskatoon/templates/harvests.html:54
+#: saskatoon/templates/property_detail.html:21
 msgid "Property"
 msgstr "Propriété"
 
-#: models.py:192
+#: saskatoon/models.py:194
 msgid "Quantity"
 msgstr "Quantité"
 
-#: models.py:193
+#: saskatoon/models.py:195
 msgid "Can be used outside of property"
 msgstr "Peut-être hors de la propriété"
 
-#: models.py:198
+#: saskatoon/models.py:200
 msgid "equipment type at property"
 msgstr "genre de matériel sur place"
 
-#: models.py:199
+#: saskatoon/models.py:201
 msgid "equipment types at property"
 msgstr "genres de matériel sur place"
 
-#: models.py:208 templates/harvest_detail.html.py:25
+#: saskatoon/models.py:213 saskatoon/templates/harvest_detail.html:25
+#: saskatoon/templates/property_detail.html:27
 msgid "Trees"
 msgstr "Arbres"
 
-#: models.py:210 templates/harvest_detail.html.py:31
+#: saskatoon/models.py:215 saskatoon/templates/harvest_detail.html:31
 msgid "Start"
 msgstr "Début"
 
-#: models.py:211 templates/harvest_detail.html.py:32
+#: saskatoon/models.py:216 saskatoon/templates/harvest_detail.html:32
 msgid "End"
 msgstr "Fin"
 
-#: models.py:212 templates/harvest_detail.html.py:34
+#: saskatoon/models.py:217 saskatoon/templates/harvest_detail.html:34
+#: saskatoon/templates/property_detail.html:33
 msgid "Number of required pickers"
 msgstr "Nombre de cueilleurs nécéssaire"
 
-#: models.py:213
+#: saskatoon/models.py:218
 msgid "Pickers' names"
 msgstr "Nom de(s) cueilleur(s)"
 
-#: models.py:214
+#: saskatoon/models.py:219
 msgid "Reserve equipment"
 msgstr "Réserver matériel"
 
-#: models.py:215 templates/harvest_detail.html.py:47
+#: saskatoon/models.py:220 saskatoon/templates/harvest_detail.html:47
 msgid "Owner wants to be present"
 msgstr "Le/la propriétaire veut être présent(e)"
 
-#: models.py:216 templates/harvest_detail.html.py:48
+#: saskatoon/models.py:221 saskatoon/templates/harvest_detail.html:48
 msgid "Owner wants to participate"
 msgstr "Le/la propriétaire veut participer"
 
-#: models.py:217 templates/harvest_detail.html.py:49
+#: saskatoon/models.py:222 saskatoon/templates/harvest_detail.html:49
 msgid "Owner wants his share of fruits"
 msgstr "Le/la propriétaire veut sa part de fruit"
 
-#: models.py:220 templates/harvest_detail.html.py:51
-msgid "Publish on calendar"
-msgstr "Publier dans le calendrier"
-
-#: models.py:225
+#: saskatoon/models.py:227
 msgid "harvest"
 msgstr "récolte"
 
-#: models.py:226
+#: saskatoon/models.py:228
 msgid "harvests"
 msgstr "récoltes"
 
-#: models.py:233
+#: saskatoon/models.py:235
 msgid "Picker"
 msgstr "Cueilleur"
 
-#: models.py:234 models.py:250 templates/harvest_detail.html.py:21
+#: saskatoon/models.py:236 saskatoon/models.py:254
+#: saskatoon/templates/harvest_detail.html:21
 msgid "Harvest"
 msgstr "Récolte"
 
-#: models.py:235
+#: saskatoon/models.py:237
+msgid "Is this your firt pick with Les Fruits Defendus?"
+msgstr ""
+
+#: saskatoon/models.py:238
+msgid "Are you able give an extra hand to the pick leader?"
+msgstr ""
+
+#: saskatoon/models.py:239
 msgid "Created on"
 msgstr "Crée le"
 
-#: models.py:236
+#: saskatoon/models.py:240
 msgid "Confirmed"
 msgstr "Confirmé"
 
-#: models.py:237
+#: saskatoon/models.py:241
 msgid "Confirmed on"
 msgstr "confirmé le"
 
-#: models.py:238
+#: saskatoon/models.py:242
 msgid "Showed up"
 msgstr "Est vennu(e)"
 
-#: models.py:239
+#: saskatoon/models.py:243
 msgid "Canceled"
 msgstr "A annulé"
 
-#: models.py:242
+#: saskatoon/models.py:246
 msgid "request for participation"
 msgstr "démande de participation"
 
-#: models.py:243
+#: saskatoon/models.py:247
 msgid "requests for participation"
 msgstr "démandes de participation"
 
-#: models.py:251
+#: saskatoon/models.py:255
 msgid "Tree"
 msgstr "Arbre"
 
-#: models.py:252
+#: saskatoon/models.py:256
 msgid "Total yield (lb)"
 msgstr "Rendement total (lb)"
 
-#: models.py:253
+#: saskatoon/models.py:257
 msgid "Recipient"
 msgstr "Beneficiaire"
 
-#: models.py:256
+#: saskatoon/models.py:260
 msgid "harvest yield"
 msgstr "rendement de la récolte"
 
-#: models.py:257
+#: saskatoon/models.py:261
 msgid "harvest yields"
 msgstr "rendements des récoltes"
 
-#: models.py:286
+#: saskatoon/models.py:290
 msgid "Re-contact for confirmation"
 msgstr "Re-contacter pour la confirmation"
 
-#: models.py:287
+#: saskatoon/models.py:291
 msgid "Obtain owner contact"
 msgstr "Obtenir le contact du propriétaire"
 
-#: models.py:288
+#: saskatoon/models.py:292
 msgid "Waiting on owner"
 msgstr "En attente sur le propriétaire"
 
-#: models.py:289
+#: saskatoon/models.py:293
 msgid "Waiting on fruit"
 msgstr "En attente sur le fruit"
 
-#: models.py:290
+#: saskatoon/models.py:294
 msgid "Fruit and owner ready"
 msgstr "Prorpiétaire et fruit sont prêts"
 
-#: models.py:291
+#: saskatoon/models.py:295
 msgid "Completed"
 msgstr "Terminé"
 
-#: models.py:297
+#: saskatoon/models.py:301
 msgid "harvest status"
 msgstr "état de la récolte"
 
-#: models.py:298
+#: saskatoon/models.py:302
 msgid "harvest statuses"
 msgstr "états des récoltes"
 
-#: models.py:306
+#: saskatoon/models.py:310
 msgid "Type"
 msgstr "Genre"
 
-#: models.py:310 models.py:311
+#: saskatoon/models.py:314 saskatoon/models.py:315
 msgid "equipment"
 msgstr "matériel"
 
-#: settings.py:99
+#: saskatoon/settings.py:100
 msgid "Français"
 msgstr ""
 
-#: settings.py:100
+#: saskatoon/settings.py:101
 msgid "English"
 msgstr ""
 
-#: templates/base.html:15 templates/index.html.py:14
+#: saskatoon/templates/base.html:15 saskatoon/templates/index.html:14
 msgid "Saskatoon - Urbain harvesting management system"
 msgstr "Saskatoon - Système de gestion de récoltes urbaines"
 
-#: templates/base.html:311
+#: saskatoon/templates/base.html:311
 msgid "Search..."
 msgstr "Chercher..."
 
-#: templates/base.html:321
+#: saskatoon/templates/base.html:321
 msgid " Dashboard"
 msgstr " Tableau de bord"
 
-#: templates/base.html:324
+#: saskatoon/templates/base.html:324
+#, fuzzy
+#| msgid "properties"
+msgid " Properties"
+msgstr "propriétés"
+
+#: saskatoon/templates/base.html:327
 msgid " Harvests"
 msgstr " Récoltes"
 
-#: templates/base.html:327
+#: saskatoon/templates/base.html:330
 msgid " Calendar"
 msgstr " Calendrier"
 
-#: templates/base.html:330
+#: saskatoon/templates/base.html:333
 msgid " Admin"
 msgstr " Admin"
 
-#: templates/harvest_detail.html:10
+#: saskatoon/templates/harvest_detail.html:10
 msgid "Harvest detail"
 msgstr "Détails de la récolte"
 
-#: templates/harvest_detail.html:24
+#: saskatoon/templates/harvest_detail.html:24
 msgid "Pick leader"
 msgstr "Chef de cueillette"
 
-#: templates/harvest_detail.html:35
+#: saskatoon/templates/harvest_detail.html:35
 msgid "Pickers"
 msgstr "Cueilleurs"
 
-#: templates/harvest_detail.html:41
+#: saskatoon/templates/harvest_detail.html:41
 msgid "Reserved equipment"
 msgstr "Matériel réservé"
 
-#: templates/harvest_detail.html:52
+#: saskatoon/templates/harvest_detail.html:51
+msgid "Publish on calendar"
+msgstr "Publier dans le calendrier"
+
+#: saskatoon/templates/harvest_detail.html:52
+#: saskatoon/templates/harvests.html:56
 msgid "Status"
 msgstr "État"
+
+#: saskatoon/templates/harvests.html:10
+#, fuzzy
+#| msgid " Harvests"
+msgid "Harvests"
+msgstr " Récoltes"
+
+#: saskatoon/templates/harvests.html:51 saskatoon/templates/properties.html:51
+msgid "Id"
+msgstr ""
+
+#: saskatoon/templates/harvests.html:52 saskatoon/templates/properties.html:52
+#, fuzzy
+#| msgid "Trees"
+msgid "Tree(s)"
+msgstr "Arbres"
+
+#: saskatoon/templates/harvests.html:53
+#, fuzzy
+#| msgid "Pick leader"
+msgid "Pickleader"
+msgstr "Chef de cueillette"
+
+#: saskatoon/templates/harvests.html:55
+msgid "Scheduled to"
+msgstr ""
+
+#: saskatoon/templates/harvests.html:57 saskatoon/templates/harvests.html:72
+#: saskatoon/templates/properties.html:55
+#: saskatoon/templates/properties.html:68
+msgid "Edit"
+msgstr ""
+
+#: saskatoon/templates/properties.html:10
+#, fuzzy
+#| msgid "properties"
+msgid "Properties"
+msgstr "propriétés"
+
+#: saskatoon/templates/property_detail.html:10
+#, fuzzy
+#| msgid "Property"
+msgid "Property detail"
+msgstr "Propriété"
+
+#: saskatoon/templates/property_detail.html:34
+#, fuzzy
+#| msgid "Trees location"
+msgid "Tree(s) location"
+msgstr "Positionement de l'arbre"
+
+#: saskatoon/templates/property_detail.html:42
+#, fuzzy
+#| msgid "Access to neighboring terrain if needed"
+msgid "Access to neighbors terrain"
+msgstr "Accès au terrain du voisin si nécessaire"
