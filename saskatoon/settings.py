@@ -54,7 +54,7 @@ INSTALLED_APPS = (
     # 'happenings',
     # 'django_bootstrap_calendar',
     'simple_history',
-    'easymode',
+#    'easymode',
 )
 
 MIDDLEWARE_CLASSES = (
