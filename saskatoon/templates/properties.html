@@ -7,7 +7,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">{% trans "Harvests" %}</h1>
+                    <h1 class="page-header">{% trans "Properties" %}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -50,26 +50,22 @@
                                                                 <tr>
                                                                     <th class="text-center">{% trans "Id" %}</th>
                                                                     <th>{% trans "Tree(s)" %}</th>
-                                                                    <th>{% trans "Pickleader" %}</th>
-                                                                    <th>{% trans "Property" %}</th>
-                                                                    <th>{% trans "Scheduled to" %}</th>
-                                                                    <th>{% trans "Status" %}</th>
+                                                                    <th>{% trans "Owner" %}</th>
+                                                                    <th>{% trans "Address" %}</th>
                                                                     <th>{% trans "Edit" %}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                               {% for harvest in harvests %}
+                                                               {% for property in properties %}
                                                                 <tr class="odd gradeX">
-                                                                    <td class="text-center"><a href="JavaScript:newPopup('/harvest?id={{ harvest.id }}');">#{{ harvest.id }}</a></td>
-                                                                    <td>{% for tree in harvest.trees.all %}
+                                                                    <td class="text-center"><a href="JavaScript:newPopup('/property?id={{ property.id }}');">#{{ property.id }}</a></td>
+                                                                    <td>{% for tree in property.trees.all %}
                                                                             <li>{{ tree }}</li>
                                                                         {% endfor %}
                                                                     </td>
-                                                                    <td>{{ harvest.pick_leader }}</td>
-                                                                    <td>{{ harvest.property }}</td>
-                                                                    <td>{{ harvest.start_date }}</td>
-                                                                    <td>{{ harvest.status }}</td>
-                                                                    <td><a href="JavaScript:newPopup('/admin/saskatoon/harvest/{{ harvest.id }}/change/');">{% trans "Edit" %}</a></td>
+                                                                    <td>{{ property.owner }}</td>
+                                                                    <td>{{ property.address }}</td>
+                                                                    <td><a href="JavaScript:newPopup('/admin/saskatoon/property/{{ property.id }}/change/');">{% trans "Edit" %}</a></td>
                                                                 </tr>
                                                                 {% endfor %}
                                                             </tbody>

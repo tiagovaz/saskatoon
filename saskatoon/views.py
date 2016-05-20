@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, JsonResponse
 from user_profile.models import AuthUser
-from models import Harvest, Person, TreeType
+from models import Property, Harvest, Person, TreeType
 from forms import NewEquipment, NewHarvest
 from django.contrib import messages
 from django.shortcuts import render_to_response
@@ -84,6 +84,21 @@ class Calendar(View):
         params["view"] = "calendar"
         return render(request, 'calendar.html', params)
 
+
+class Properties(View):
+    def get(self, request):
+        params = dict()
+        all_properties = Property.objects.all()
+        params["properties"] = all_properties
+        params["view"] = "properties"
+        return render(request, 'properties.html', params)
+
+class PropertyDetails(View):
+    def get(self, request):
+        params = dict()
+        property_detail = Property.objects.filter(id=request.GET['id'])
+        params["property_detail"] = property_detail
+        return render(request, 'property_detail.html', params)
 
 class Harvests(View):
     def get(self, request):

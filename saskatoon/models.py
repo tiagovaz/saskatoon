@@ -168,6 +168,7 @@ class EquipmentType(models.Model):
 @python_2_unicode_compatible
 class Property(models.Model):
     """Property where you find one or more trees for harvesting."""
+    is_active = models.BooleanField(_("Is active"),default='True')
     address = models.ForeignKey('Address',verbose_name=_("Address"))
     owner = models.ForeignKey('Actor',verbose_name=_("Owner"))
     equipment = models.ManyToManyField(EquipmentType,through='EquipmentTypeAtProperty',verbose_name=_("Equipment"))
@@ -177,6 +178,7 @@ class Property(models.Model):
     public_access = models.BooleanField(_("Publicly accessible"),default='False')
     neighbor_access = models.BooleanField(_("Access to neighboring terrain if needed"),default='False')
     compost_bin = models.BooleanField(_("Compost bin closeby"),default='False')
+    about = models.CharField(_("About"),max_length=1000, null=True, blank=True)
 
     class Meta:
         verbose_name = _("property")
@@ -204,6 +206,9 @@ class EquipmentTypeAtProperty(models.Model):
 
 @python_2_unicode_compatible
 class Harvest(models.Model):
+#    status = models.ForeignKey('Status', null=True,verbose_name=_("Status"))
+#    """ Determines if this harvest appears on public calendar. """
+    is_active = models.BooleanField(_("Is active"),default='True')
     property = models.ForeignKey('Property', null=True,verbose_name=_("Property"))
     trees = models.ManyToManyField('TreeType',verbose_name=_("Trees"))
     pick_leader = models.ForeignKey('Person', null=True, verbose_name="Pick leader")
@@ -215,10 +220,7 @@ class Harvest(models.Model):
     owner_present = models.BooleanField(_("Owner wants to be present"),default='True')
     owner_help = models.BooleanField(_("Owner wants to participate"),default='False')
     owner_fruit = models.BooleanField(_("Owner wants his share of fruits"),default='True')
-    comments = models.TextField(_("Comments"),max_length=1000, null=True, blank=True)
-#    """ Determines if this harvest appears on public calendar. """
-    publish = models.BooleanField(_("Publish on calendar"),default='False')
-#    status = models.ForeignKey('Status', null=True,verbose_name=_("Status"))
+    about = models.TextField(_("About"),max_length=1000, null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
@@ -232,6 +234,8 @@ class Harvest(models.Model):
 class RequestForParticipation(models.Model):
     picker = models.ForeignKey(Person,verbose_name=_("Picker"))
     harvest = models.ForeignKey(Harvest,verbose_name=_("Harvest"))
+    first_time_picker = models.BooleanField(_("Is this your firt pick with Les Fruits Defendus?"),default = False)
+    helper_picker = models.BooleanField(_("Are you able give an extra hand to the pick leader?"),default = False)
     creation_date = models.DateTimeField(_("Created on"),default=timezone.now)
     confirmed = models.BooleanField(_("Confirmed"),default = False)
     confirmation_date = models.DateTimeField(_("Confirmed on"),default=timezone.now) #FIXME: can't be null... why?
