@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-21 13:23-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: saskatoon/settings.py:137
+msgid "Français"
+msgstr "Français"
+
+#: saskatoon/settings.py:138
+msgid "English"
+msgstr "Anglais"
+
+#: saskatoon/templates/base.html:15 saskatoon/templates/index.html.py:14
+msgid "Saskatoon - Urbain harvesting management system"
+msgstr ""
+
+#: saskatoon/templates/base.html:106
+msgid " Dashboard"
+msgstr "Tableau de bord"
+
+#: saskatoon/templates/base.html:109
+msgid " Properties"
+msgstr ""
+
+#: saskatoon/templates/base.html:112
+msgid " Harvests"
+msgstr "Récolte"
+
+#: saskatoon/templates/base.html:115
+msgid " Calendar"
+msgstr "Calendrier"
+
+#: saskatoon/templates/base.html:118
+msgid " Admin"
+msgstr "Administation"

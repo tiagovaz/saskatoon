@@ -1,0 +1,67 @@
+from django.conf.urls import patterns, url
+from harvest import views
+
+urlpatterns = patterns(
+    '',
+    url(
+        r'^calendar$',
+        views.Calendar.as_view(),
+        name='calendar'
+    ),
+    url(
+        r'^jsoncal',
+        views.JsonCalendar.as_view(),
+        name='calendarJSON'
+    ),
+    url(
+        r'^properties/$',
+        views.PropertyList.as_view(),
+        name='property_list'
+    ),
+    url(
+        r'^property/(?P<pk>\d+)$',
+        views.PropertyDetail.as_view(),
+        name='property_detail'
+    ),
+    url(
+        r'^properties/create$',
+        views.PropertyCreate.as_view(),
+        name='property_create'
+    ),
+    url(
+        r'^properties/(?P<pk>\d+)/update$',
+        views.PropertyUpdate.as_view(),
+        name='property_update'
+    ),
+    url(
+        r'^list/$',
+        views.HarvestList.as_view(),
+        name='harvest_list'
+    ),
+    url(
+        r'^(?P<pk>\d+)$',
+        views.HarvestDetail.as_view(),
+        name='harvest_detail'
+    ),
+    url(
+        r'^create$',
+        views.HarvestCreate.as_view(),
+        name='harvest_create'
+    ),
+    url(
+        r'^(?P<pk>\d+)/update$',
+        views.HarvestUpdate.as_view(),
+        name='harvest_update'
+    ),
+    url(
+        r'^equipments/create$',
+        views.EquipmentCreate.as_view(),
+        name='equipment_create'
+    ),
+    url(
+        r'^(?P<pk>\d+)/new_participation$',
+        views.RequestForParticipationCreate.as_view(),
+        name='participation_create'
+    ),
+
+)
