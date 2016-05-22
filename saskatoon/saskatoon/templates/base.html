@@ -74,10 +74,10 @@
                             </li>
                         </ul>
                     </li>
-                    {% if user.username %}
+                    {% if user.email %}
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-user fa-fw"></i> {{ user.username }} <i class="fa fa-caret-down"></i>
+                            <i class="fa fa-user fa-fw"></i> {{ user.email }} <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">{% trans "Account" %}</li>
@@ -104,45 +104,67 @@
 
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
+                        {% if user.email %}
                         <ul class="nav" id="side-menu">
                             <li>
                                 <a href='{% url "pages:index" %}'>
                                     <i class="fa fa-dashboard fa-fw"></i>
-                                    {% trans " Dashboard" %}
+                                    {% trans "Dashboard" %}
                                 </a>
                             </li>
                             <li>
                                 <a href='{% url "harvest:property_list" %}'>
                                     <i class="fa fa-map-marker fa-fw"></i>
-                                    {% trans " Properties" %}
+                                    {% trans "Properties" %}
                                 </a>
                             </li>
                             <li>
                                 <a href='{% url "harvest:harvest_list" %}'>
                                     <i class="fa fa-shopping-basket fa-fw"></i>
-                                    {% trans " Harvests" %}
+                                    {% trans "Harvests" %}
                                 </a>
                             </li>
                             <li>
-                                <a href='{% url "harvest:calendar" %}'>
+                                <a href='{% url "pages:calendar" %}'>
                                     <i class="fa fa-calendar fa-fw"></i>
-                                    {% trans " Calendar" %}
+                                    {% trans "Calendar" %}
                                 </a>
                             </li>
                             <li>
                                 <a href='/admin/'>
                                     <i class="fa fa-gear fa-fw"></i>
-                                    {% trans " Admin" %}
+                                    {% trans "Admin" %}
                                 </a>
                             </li>
                         </ul>
+                        {% endif %}
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>
                 <!-- /.navbar-static-side -->
             </nav>
 
-            <div id="page-wrapper">
+            <div id="page-wrapper" style="padding-top:20px;">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger alert-dismissible">
+                        {% elif message.tags == 'success'%}
+                            <div class="alert alert-success alert-dismissible">
+                        {% elif message.tags == 'info'%}
+                            <div class="alert alert-info alert-dismissible">
+                        {% elif message.tags == 'warning'%}
+                            <div class="alert alert-warning alert-dismissible">
+                        {% else %}
+                            <div class="alert alert-info alert-dismissible">
+                        {% endif %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
 
                 {% block content %}{% endblock %}
 
@@ -197,26 +219,11 @@
         <![endif]-->
 
         <script type="text/javascript">
-                // Popup window code
-                function newPopup(url) {
-                    popupWindow = window.open(
-                        url,
-                        'popUpWindow',
-                        '
-                            height=800,
-                            width=1000,
-                            left=500,
-                            top=10,
-                            resizable=yes,
-                            scrollbars=yes,
-                            toolbar=yes,
-                            menubar=no,
-                            location=no,
-                            directories=no,
-                            status=yes
-                        '
-                    )
-                }
+            // Popup window code
+            function newPopup(url) {
+                popupWindow = window.open(
+                    url,'popUpWindow','height=800,width=1000,left=500,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+            }
         </script>
 
         <script>

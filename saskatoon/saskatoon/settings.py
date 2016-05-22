@@ -33,7 +33,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap3',
+    'bootstrap3_datepicker',
+    'suit',
+    'dal',
+    'dal_select2',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +48,11 @@ INSTALLED_APPS = [
     'harvest',
     'member',
     'saskatoon',
+    'django_extensions',
+    'bootstrap3',
+    'django_forms_bootstrap',
     'crispy_forms',
+    'simple_history',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -99,24 +107,11 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 from django.core.urlresolvers import reverse_lazy
 
+AUTH_USER_MODEL = "member.AuthUser"
+
 LOGIN_URL = reverse_lazy('pages:login')
 
 LOGIN_REDIRECT_URL = reverse_lazy('pages:index')
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
 
 
 # Internationalization
@@ -156,3 +151,10 @@ STATIC_URL = '/static/'
 BOOTSTRAP3 = {
     'success_css_class': '',
 }
+
+# SUIT CONFIG
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Saskatoon',
+    'MENU_EXCLUDE': ('auth.group', 'auth'),
+    }

@@ -92,6 +92,7 @@ class Property(models.Model):
 
     equipment = models.ManyToManyField(
         'EquipmentType',
+        through='EquipmentTypeAtProperty',
         verbose_name=_("Equipment")
     )
 
@@ -206,6 +207,7 @@ class Harvest(models.Model):
     pick_leader = models.ForeignKey(
         'member.Person',
         null=True,
+        blank=True,
         verbose_name="Pick leader"
     )
 
@@ -229,12 +231,14 @@ class Harvest(models.Model):
     pickers = models.ManyToManyField(
         'member.Person',
         related_name='harvests',
-        verbose_name=_("Pickers' names")
+        verbose_name=_("Pickers' names"),
+        blank=True
     )
 
     equipment_reserved = models.ManyToManyField(
         'Equipment',
-        verbose_name=_("Reserve equipment")
+        verbose_name=_("Reserve equipment"),
+        blank=True
     )
 
     owner_present = models.BooleanField(
@@ -271,9 +275,20 @@ class Harvest(models.Model):
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
-    picker = models.ForeignKey(
-        User,
-        verbose_name=_("Picker")
+    picker = models.EmailField(
+        verbose_name=_("Email of contact")
+    )
+
+    phone = models.CharField(
+        verbose_name=_("Phone of contact"),
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
+    number_of_people = models.IntegerField(
+        verbose_name=_("How many people are you?"),
+        default=0,
     )
 
     harvest = models.ForeignKey(
@@ -390,11 +405,12 @@ class Comment(models.Model):
     )
 
     created_date = models.DateTimeField(
-        verbose_name=_("Created date")
+        verbose_name=_("Created date"),
+        auto_now_add=True
     )
 
     author = models.ForeignKey(
-        User,
+        'member.AuthUser',
         verbose_name=_("Author"),
         related_name="Comment"
     )
@@ -402,7 +418,7 @@ class Comment(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("harvest"),
-        related_name="Comment"
+        related_name="comment"
     )
 
     class Meta:
@@ -411,4 +427,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-

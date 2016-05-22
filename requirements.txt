@@ -1,2 +1,14 @@
 Django==1.9
 django-bootstrap3==6.2.2
+
+django-forms-bootstrap
+django-extensions
+django-fixtureless
+django-crispy-forms
+django-simple-history
+django-autocomplete-light
+django-suit
+django-tables2
+django-pagination
+django-bootstrap3-datepicker
+django-filters

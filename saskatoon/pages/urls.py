@@ -9,8 +9,18 @@ urlpatterns = patterns(
         name='index'
     ),
     url(
-        r'^$',
+        r'^login$',
         'django.contrib.auth.views.login',
         name='login'
+    ),
+    url(
+        r'^$',
+        views.Calendar.as_view(),
+        name='calendar'
+    ),
+    url(
+        r'^jsoncal',
+        views.JsonCalendar.as_view(),
+        name='calendarJSON'
     ),
 )

@@ -7,7 +7,7 @@
         <div class="col-lg-12">
             <h1 class="page-header">
                 {% trans "Properties" %}
-                <a class="btn btn-xs btn-primary" href='{% url "harvest:property_create" %}'>
+                <a class="btn btn-xs btn-primary" href="JavaScript:newPopup('/admin/harvest/property/add/?_popup=1');">
                     <i class="fa fa-plus"></i> {% trans "New property" %}
                 </a>
             </h1>
@@ -48,7 +48,7 @@
                                     <td>{{ property.owner }}</td>
                                     <td>{{ property.address }}</td>
                                     <td>
-                                        <a href='{% url "harvest:property_update" property.id %}'>
+                                        <a href="JavaScript:newPopup('/admin/saskatoon/property/{{ property.id }}/change/?_popup=1');">
                                             {% trans "Edit" %}
                                         </a>
                                     </td>

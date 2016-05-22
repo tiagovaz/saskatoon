@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load bootstrap3 %}
 
 {% block content %}
     <div class="row">
@@ -108,20 +109,76 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-hover table-condensed">
-                {% for line in harvest_history %}
-                {% if line.get_history_type_display == "Created" %}
-                <tr class="success">
-                {% else %}
-                <tr>
-                {% endif %}
-                    <td>
-                        <strong>Updated by {{ line.history_user }} in {{ line.history_date }}</strong><br>
-                        {{ line }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% trans "Historical" %}
+                </div>
+
+                <table class="table table-hover table-condensed">
+                    {% for line in harvest_history %}
+                    {% if line.get_history_type_display == "Created" %}
+                    <tr class="success">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                        <td>
+                            <strong>Updated by {{ line.history_user }} in {{ line.history_date }}</strong>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="pull-right">
+                        <a data-toggle="modal" data-target="#CommentModal" class="btn btn-xs btn-success">
+                            {% trans "Add comment" %}
+                        </a>
+                    </span>
+                    {% trans "Comments" %}
+                </div>
+
+                <table class="table table-hover table-condensed">
+                    {% for comment in harvest.comment.all %}
+                    <tr>
+                        <td>
+                            <strong>{{comment.author}} on {{comment.created_date}}</strong><br>
+                            {{comment.content}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-----------
+    --- MODAL ---
+    ------------>
+
+    <!-- Comment modal -->
+    <div class="modal fade" id="CommentModal" tabindex="-1" role="dialog" aria-labelledby="commentLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                    <h4 class="modal-title" id="commentLabel">{% trans "New comment" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'harvest:comment_create' harvest.id %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form_comment %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

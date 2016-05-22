@@ -4,6 +4,55 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.validators import RegexValidator
+
+
+class AuthUserManager(BaseUserManager):
+    def create_user(self, username, email, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(username=username, email=self.normalize_email(email),
+                          )
+        user.is_active = True
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email, password):
+        user = self.create_user(username=username, email=email, password=password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+
+class AuthUser(AbstractBaseUser, PermissionsMixin):
+
+    person = models.OneToOneField('Person', null=True)
+
+    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', message='Only alphanumeric characters are allowed.')
+
+    # Redefine the basic fields that would normally be defined in User
+    email = models.EmailField(verbose_name='email address', unique=True, max_length=255)
+
+    # Our own fields
+    date_joined = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True, null=False)
+    is_staff = models.BooleanField(default=False, null=False)
+
+    objects = AuthUserManager()
+    USERNAME_FIELD = 'email'
+
+    def get_full_name(self):
+        return self.email
+
+    def get_short_name(self):
+        return self.email
+
+    def __unicode__(self):
+        return self.email
 
 
 @python_2_unicode_compatible
@@ -26,14 +75,16 @@ class Actor(models.Model):
 
 @python_2_unicode_compatible
 class Person(Actor):
-    # Link to User model of django.contrib.auth
-    user = models.OneToOneField(
-        User,
-        related_name="profile",
-        verbose_name=_('User')
+    first_name = models.CharField(
+        verbose_name=_("First name"),
+        max_length=30
     )
 
-    # Field add to User
+    family_name = models.CharField(
+        verbose_name=_("Family name"),
+        max_length=50
+    )
+
     phone = models.CharField(
         verbose_name=_("Phone"),
         max_length=30,
@@ -42,7 +93,7 @@ class Person(Actor):
     )
 
     address = models.ForeignKey(
-        'Address',
+        'member.Address',
         null=True,
         blank=True,
         verbose_name=_("Address")
@@ -54,7 +105,7 @@ class Person(Actor):
     )
 
     language = models.ForeignKey(
-        'Language',
+        'member.Language',
         null=True,
         blank=True,
         verbose_name=_("Preferred language")
@@ -65,12 +116,10 @@ class Person(Actor):
         verbose_name_plural = _("people")
 
     def __str__(self):
-        return "%s - %s %s" % \
-               (self.user.username, self.user.first_name, self.user.last_name)
+        return "%s %s" % (self.first_name, self.family_name)
 
     def name(self):
-        return "%s %s" % \
-               (self.user.first_name, self.user.last_name)
+        return "%s %s" % (self.first_name, self.family_name)
 
 
 @python_2_unicode_compatible

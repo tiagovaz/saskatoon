@@ -4,16 +4,6 @@ from harvest import views
 urlpatterns = patterns(
     '',
     url(
-        r'^calendar$',
-        views.Calendar.as_view(),
-        name='calendar'
-    ),
-    url(
-        r'^jsoncal',
-        views.JsonCalendar.as_view(),
-        name='calendarJSON'
-    ),
-    url(
         r'^properties/$',
         views.PropertyList.as_view(),
         name='property_list'
@@ -63,5 +53,14 @@ urlpatterns = patterns(
         views.RequestForParticipationCreate.as_view(),
         name='participation_create'
     ),
-
+    url(
+        r'^(?P<pk>\d+)/new_comment$',
+        views.CommentCreate.as_view(),
+        name='comment_create'
+    ),
+    url(
+        r'^(?P<pk>\d+)/new_participation$',
+        views.RequestForParticipationCreate.as_view(),
+        name='participation_create'
+    ),
 )

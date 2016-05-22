@@ -1,10 +1,39 @@
 from django import forms
 from dal import autocomplete
+from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, Div
 from harvest.models import *
 from member.models import *
+
+
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = RequestForParticipation
+        fields = [
+            'number_of_people',
+            'first_time_picker',
+            'helper_picker',
+            'picker',
+            'phone'
+        ]
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            'content'
+        ]
+
+        widgets = {
+            'content': forms.Textarea(
+                attrs={
+                    'placeholder': _(u"Your comment here.")
+                }
+            ),
+        }
 
 
 class NewHarvest(forms.ModelForm):
@@ -46,7 +75,8 @@ class NewHarvest(forms.ModelForm):
 
         self.helper.layout = Layout(
             Fieldset(
-                '', #fieldset title
+                '',
+                # fieldset title
 
                 Div(
                     Div(
@@ -101,12 +131,6 @@ class RFPForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
         fields = ('__all__')
-        widgets = {
-            # 'pickers': autocomplete.ModelSelect2Multiple(
-            'picker': autocomplete.ModelSelect2(
-                'person-autocomplete'
-            )
-        }
 
 
 class PropertyForm(forms.ModelForm):
@@ -114,10 +138,14 @@ class PropertyForm(forms.ModelForm):
         model = Property
         fields = ('__all__')
         widgets = {
-           'trees': autocomplete.ModelSelect2Multiple(
+            'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
-            )
+            ),
+            'about': forms.Textarea(),
+            'avg_nb_required_pickers': forms.NumberInput()
         }
+
+
 
 
 class HarvestForm(forms.ModelForm):
@@ -125,7 +153,25 @@ class HarvestForm(forms.ModelForm):
         model = Harvest
         fields = ('__all__')
         widgets = {
-           'trees': autocomplete.ModelSelect2Multiple(
+            'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
+            ),
+            'equipment_reserved': autocomplete.ModelSelect2Multiple(
+                'equipment-autocomplete'
+            ),
+            'property': autocomplete.ModelSelect2(
+                'property-autocomplete'
+            ),
+            'nb_required_pickers': forms.NumberInput()
+        }
+
+
+class HarvestYieldForm(forms.ModelForm):
+    class Meta:
+        model = HarvestYield
+        fields = ('__all__')
+        widgets = {
+            'recipient': autocomplete.ModelSelect2(
+                'person-autocomplete'
             )
         }
