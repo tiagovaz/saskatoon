@@ -1,0 +1,371 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-21 13:23-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: harvest/models.py:14
+msgid "harvest status"
+msgstr ""
+
+#: harvest/models.py:15
+msgid "harvest statuses"
+msgstr ""
+
+#: harvest/models.py:18
+msgid "Short name"
+msgstr ""
+
+#: harvest/models.py:23 harvest/models.py:367
+msgid "Description"
+msgstr ""
+
+#: harvest/models.py:34 harvest/models.py:61
+msgid "Name"
+msgstr ""
+
+#: harvest/models.py:40
+msgid "Fruit name"
+msgstr ""
+
+#: harvest/models.py:45
+msgid "Season start date"
+msgstr ""
+
+#: harvest/models.py:51
+msgid "tree type"
+msgstr ""
+
+#: harvest/models.py:52
+msgid "tree types"
+msgstr ""
+
+#: harvest/models.py:66
+msgid "equipment type"
+msgstr ""
+
+#: harvest/models.py:67
+msgid "equipment types"
+msgstr ""
+
+#: harvest/models.py:79 harvest/models.py:185
+#: harvest/templates/harvest/properties/detail.html:20
+msgid "Is active"
+msgstr ""
+
+#: harvest/models.py:85 harvest/templates/harvest/properties/detail.html.py:36
+#: harvest/templates/harvest/properties/list.html:31
+msgid "Address"
+msgstr ""
+
+#: harvest/models.py:90 harvest/templates/harvest/properties/detail.html.py:21
+#: harvest/templates/harvest/properties/list.html:30
+msgid "Owner"
+msgstr ""
+
+#: harvest/models.py:95 harvest/templates/harvest/properties/detail.html.py:60
+msgid "Equipment"
+msgstr ""
+
+#: harvest/models.py:100
+msgid "Fruit trees"
+msgstr ""
+
+#: harvest/models.py:104
+msgid "Trees location"
+msgstr ""
+
+#: harvest/models.py:111
+msgid "Required pickers on average"
+msgstr ""
+
+#: harvest/models.py:116 harvest/templates/harvest/properties/detail.html:26
+msgid "Publicly accessible"
+msgstr ""
+
+#: harvest/models.py:121
+msgid "Access to neighboring terrain if needed"
+msgstr ""
+
+#: harvest/models.py:126 harvest/templates/harvest/properties/detail.html:22
+msgid "Compost bin closeby"
+msgstr ""
+
+#: harvest/models.py:131 harvest/models.py:256
+msgid "About"
+msgstr ""
+
+#: harvest/models.py:138
+msgid "property"
+msgstr ""
+
+#: harvest/models.py:139
+msgid "properties"
+msgstr ""
+
+#: harvest/models.py:150
+msgid "Equipment type"
+msgstr ""
+
+#: harvest/models.py:155 harvest/models.py:198
+#: harvest/templates/harvest/harvest/detail.html:33
+#: harvest/templates/harvest/harvest/list.html:45
+msgid "Property"
+msgstr ""
+
+#: harvest/models.py:159
+msgid "Quantity"
+msgstr ""
+
+#: harvest/models.py:164
+msgid "Can be used outside of property"
+msgstr ""
+
+#: harvest/models.py:170
+msgid "equipment type at property"
+msgstr ""
+
+#: harvest/models.py:171
+msgid "equipment types at property"
+msgstr ""
+
+#: harvest/models.py:192
+msgid "Harvest status"
+msgstr ""
+
+#: harvest/models.py:203 harvest/templates/harvest/harvest/detail.html.py:42
+#: harvest/templates/harvest/properties/detail.html:44
+msgid "Trees"
+msgstr ""
+
+#: harvest/models.py:213 harvest/templates/harvest/harvest/detail.html.py:20
+msgid "Start"
+msgstr ""
+
+#: harvest/models.py:219 harvest/templates/harvest/harvest/detail.html.py:21
+msgid "End"
+msgstr ""
+
+#: harvest/models.py:225 harvest/templates/harvest/harvest/detail.html.py:25
+#: harvest/templates/harvest/properties/detail.html:25
+msgid "Number of required pickers"
+msgstr ""
+
+#: harvest/models.py:232
+msgid "Pickers' names"
+msgstr ""
+
+#: harvest/models.py:237
+msgid "Reserve equipment"
+msgstr ""
+
+#: harvest/models.py:241 harvest/templates/harvest/harvest/detail.html.py:35
+msgid "Owner wants to be present"
+msgstr ""
+
+#: harvest/models.py:246 harvest/templates/harvest/harvest/detail.html.py:36
+msgid "Owner wants to participate"
+msgstr ""
+
+#: harvest/models.py:251 harvest/templates/harvest/harvest/detail.html.py:37
+msgid "Owner wants his share of fruits"
+msgstr ""
+
+#: harvest/models.py:265 harvest/models.py:398
+msgid "harvest"
+msgstr ""
+
+#: harvest/models.py:266
+msgid "harvests"
+msgstr ""
+
+#: harvest/models.py:276
+msgid "Picker"
+msgstr ""
+
+#: harvest/models.py:281 harvest/models.py:333
+msgid "Harvest"
+msgstr ""
+
+#: harvest/models.py:285
+msgid "Is this your first pick with us?"
+msgstr ""
+
+#: harvest/models.py:290
+msgid "Can you help with equipment transportation?"
+msgstr ""
+
+#: harvest/models.py:295
+msgid "Created on"
+msgstr ""
+
+#: harvest/models.py:300
+msgid "Confirmed"
+msgstr ""
+
+#: harvest/models.py:305
+msgid "Confirmed on"
+msgstr ""
+
+#: harvest/models.py:311
+msgid "Showed up"
+msgstr ""
+
+#: harvest/models.py:316
+msgid "Canceled"
+msgstr ""
+
+#: harvest/models.py:321
+msgid "request for participation"
+msgstr ""
+
+#: harvest/models.py:322
+msgid "requests for participation"
+msgstr ""
+
+#: harvest/models.py:338
+msgid "Tree"
+msgstr ""
+
+#: harvest/models.py:342
+msgid "Total yield (lb)"
+msgstr ""
+
+#: harvest/models.py:347
+msgid "Recipient"
+msgstr ""
+
+#: harvest/models.py:351
+msgid "harvest yield"
+msgstr ""
+
+#: harvest/models.py:352
+msgid "harvest yields"
+msgstr ""
+
+#: harvest/models.py:363
+msgid "Type"
+msgstr ""
+
+#: harvest/models.py:372 harvest/models.py:373
+msgid "equipment"
+msgstr ""
+
+#: harvest/models.py:382
+msgid "Content"
+msgstr ""
+
+#: harvest/models.py:387
+msgid "Created date"
+msgstr ""
+
+#: harvest/models.py:392
+msgid "Author"
+msgstr ""
+
+#: harvest/models.py:403
+msgid "comment"
+msgstr ""
+
+#: harvest/models.py:404
+msgid "comments"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:9
+msgid "Harvest detail"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:11
+#: harvest/templates/harvest/harvest/list.html:48
+#: harvest/templates/harvest/harvest/list.html:69
+#: harvest/templates/harvest/properties/detail.html:11
+#: harvest/templates/harvest/properties/list.html:32
+#: harvest/templates/harvest/properties/list.html:52
+msgid "Edit"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:24
+#: harvest/templates/harvest/harvest/list.html:47
+msgid "Status"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:55
+msgid "Pickers"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:64
+msgid "pickleader"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:74
+msgid "No one picker for the moment"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:81
+msgid "Reserved equipment"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:96
+#: harvest/templates/harvest/properties/detail.html:54
+#: harvest/templates/harvest/properties/detail.html:75
+msgid "No reserved equipment for the moment"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/list.html:10
+msgid "Harvests"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/list.html:11
+msgid "New harvest"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/list.html:42
+#: harvest/templates/harvest/properties/list.html:28
+msgid "Id"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/list.html:43
+#: harvest/templates/harvest/properties/list.html:29
+msgid "Tree(s)"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/list.html:44
+msgid "Pickleader"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/list.html:46
+msgid "Scheduled to"
+msgstr ""
+
+#: harvest/templates/harvest/properties/detail.html:9
+msgid "Property detail"
+msgstr ""
+
+#: harvest/templates/harvest/properties/detail.html:27
+msgid "Access to neighbors terrain"
+msgstr ""
+
+#: harvest/templates/harvest/properties/detail.html:39
+msgid "Tree(s) location"
+msgstr ""
+
+#: harvest/templates/harvest/properties/list.html:9
+msgid "Properties"
+msgstr ""
+
+#: harvest/templates/harvest/properties/list.html:11
+msgid "New property"
+msgstr ""

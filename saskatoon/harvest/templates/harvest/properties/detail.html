@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {% trans "Property detail" %}
+                <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update" property.id %}'>
+                    <i class="fa fa-pencil"></i> {% trans "Edit" %}
+                </a>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <strong>{% trans "Is active" %} :</strong> {{ property.is_active }}<br>
+            <strong>{% trans "Owner" %} :</strong> {{ property.owner }}<br>
+            <strong>{% trans "Compost bin closeby" %} :</strong> {{ property.compost_bin }}<br>
+        </div>
+        <div class="col-sm-6">
+            <strong>{% trans "Number of required pickers" %} :</strong> {{ property.avg_required_pickers }}<br>
+            <strong>{% trans "Publicly accessible" %} :</strong> {{ property.public_access }}<br>
+            <strong>{% trans "Access to neighbors terrain" %} :</strong> {{ property.neighbor_access }}<br>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <p>
+                <b>{% trans "Address" %} :</b><br>
+                {{ property.address }}
+            </p>
+            <p><b>{% trans "Tree(s) location" %} :</b> {{ property.trees_location }}</p>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <b>{% trans "Trees" %} :</b>
+                </div>
+                <div class="panel-body">
+                    {% if harvest.equipment_reserved.all %}
+                    <ul>
+                        {% for tree in property.trees.all %}
+                        <li>{{ tree.fruit_name }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        {% trans "No reserved equipment for the moment" %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <b>{% trans "Equipment" %} :</b>
+                </div>
+                <div class="panel-body">
+                    {% if harvest.equipment_reserved.all %}
+                    <ul>
+                        {% for equipment in property.equipment_at_property.all %}
+                            <li>
+                                <span class="label label-default" style="margin-right: 5px;">
+                                    {{ equipment.type }}
+                                </span>
+                                {{ equipment.description }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        {% trans "No reserved equipment for the moment" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

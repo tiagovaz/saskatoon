@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+<!-- Load internationalisation utils-->
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            {% if not user.username %}
+            <div class="page-header">
+                <h1>Connexion : </h1>
+            </div>
+            <form method="post" action='{% url "pages:login" %}'>{% csrf_token%}
+                <div class="form-group">
+                    <label class="control-label" for="id_username">{% trans "Username" %}</label>
+                    <input class="form-control" id="id_username" maxlength="254" name="username" placeholder="{% trans 'Username' %}" required="required" title="" type="text" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="id_password">{% trans "Password" %}</label>
+                    <input class="form-control" id="id_password" name="password" placeholder="********" required="required" title="" type="password" />
+                </div>
+
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <button type="submit" class="btn btn-primary">{% trans "Connexion" %}</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

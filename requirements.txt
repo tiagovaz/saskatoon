@@ -1,4 +1,6 @@
-django-bootstrap3
+Django==1.9
+django-bootstrap3==6.2.2
+
 django-forms-bootstrap
 django-extensions
 django-fixtureless

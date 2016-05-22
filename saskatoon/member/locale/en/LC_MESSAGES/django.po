@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-21 13:23-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: member/models.py:16
+msgid "actor"
+msgstr ""
+
+#: member/models.py:17
+msgid "actors"
+msgstr ""
+
+#: member/models.py:33
+msgid "User"
+msgstr ""
+
+#: member/models.py:38
+msgid "Phone"
+msgstr ""
+
+#: member/models.py:48 member/models.py:91
+msgid "Address"
+msgstr ""
+
+#: member/models.py:52
+msgid "Comments"
+msgstr ""
+
+#: member/models.py:60
+msgid "Preferred language"
+msgstr ""
+
+#: member/models.py:64
+msgid "person"
+msgstr ""
+
+#: member/models.py:65
+msgid "people"
+msgstr ""
+
+#: member/models.py:79 member/models.py:114 member/models.py:129
+#: member/models.py:144 member/models.py:158 member/models.py:173
+msgid "Name"
+msgstr ""
+
+#: member/models.py:84
+msgid "Description"
+msgstr ""
+
+#: member/models.py:97
+msgid "Contact person"
+msgstr ""
+
+#: member/models.py:101
+msgid "organization"
+msgstr ""
+
+#: member/models.py:102
+msgid "organizations"
+msgstr ""
+
+#: member/models.py:119
+msgid "neighborhood"
+msgstr ""
+
+#: member/models.py:120
+msgid "neighborhoods"
+msgstr ""
+
+#: member/models.py:134
+msgid "city"
+msgstr ""
+
+#: member/models.py:135
+msgid "cities"
+msgstr ""
+
+#: member/models.py:149
+msgid "states"
+msgstr ""
+
+#: member/models.py:163
+msgid "country"
+msgstr ""
+
+#: member/models.py:164
+msgid "countries"
+msgstr ""
+
+#: member/models.py:178
+msgid "language"
+msgstr ""
+
+#: member/models.py:179
+msgid "languages"
+msgstr ""
+
+#: member/models.py:191
+msgid "Number"
+msgstr ""
+
+#: member/models.py:196
+msgid "Street"
+msgstr ""
+
+#: member/models.py:201
+msgid "Complement"
+msgstr ""
+
+#: member/models.py:208
+msgid "Neighborhood"
+msgstr ""
+
+#: member/models.py:213
+msgid "City"
+msgstr ""
+
+#: member/models.py:219
+msgid "State"
+msgstr ""
+
+#: member/models.py:225
+msgid "Country"
+msgstr ""
+
+#: member/models.py:230
+msgid "Longitude"
+msgstr ""
+
+#: member/models.py:236
+msgid "Latitude"
+msgstr ""
+
+#: member/models.py:242
+msgid "address"
+msgstr ""
+
+#: member/models.py:243
+msgid "addresses"
+msgstr ""

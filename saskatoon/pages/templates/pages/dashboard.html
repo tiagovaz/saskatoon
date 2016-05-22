@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{% trans "Welcome" %} {{ user }}!</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-info">
+                        {% trans "This dashboard is still in development, many other features will come soon." %}
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> {% trans "Statistics" %}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href='{% url "harvest:harvest_list" %}' class="list-group-item">
+                                    <i class="fa fa-leaf fa-fw"></i>
+                                    {% trans "Number of harvests" %}
+                                    <span class="pull-right text-muted small">
+                                        <em>{{number_of_harvests}}</em>
+                                    </span>
+                                </a>
+                                <a href='{% url "harvest:property_list" %}' class="list-group-item">
+                                    <i class="fa fa-map-marker fa-fw"></i>
+                                    {% trans "Number of properties" %}
+                                    <span class="pull-right text-muted small">
+                                        <em>{{number_of_properties}}</em>
+                                    </span>
+                                </a>
+                                <span href="#" class="list-group-item">
+                                    <i class="fa fa-users fa-fw"></i>
+                                    {% trans "Number of users" %}
+                                    <span class="pull-right text-muted small">
+                                        <em>{{number_of_users}}</em>
+                                    </span>
+                                </span>
+                            </div>
+                            <!-- /.list-group -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+{% endblock %}
