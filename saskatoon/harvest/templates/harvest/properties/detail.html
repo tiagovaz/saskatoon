@@ -7,7 +7,7 @@
         <div class="col-lg-12">
             <h1 class="page-header">
                 {% trans "Property detail" %}
-                <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update" property.id %}'>
+                <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
                     <i class="fa fa-pencil"></i> {% trans "Edit" %}
                 </a>
             </h1>

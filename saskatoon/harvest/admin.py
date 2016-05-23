@@ -57,7 +57,7 @@ class PropertyAdmin(admin.ModelAdmin):
     model = Property
     form = PropertyForm
 
-admin.site.register(Property,PropertyAdmin)
+admin.site.register(Property, PropertyAdmin)
 admin.site.register(Harvest, HarvestAdmin)
 admin.site.register(RequestForParticipation, RequestForParticipationAdmin)
 admin.site.register(TreeType)

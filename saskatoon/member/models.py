@@ -67,10 +67,12 @@ class Actor(models.Model):
 
     def __str__(self):
         try:
-            return self.person.__str__()
+            person = '%s' % (self.person.__str__())
+            return person.decode('utf8')
         except Person.DoesNotExist:
+            organization = '%s' % (self.organization.__str__())
             # if it is not a person it must be an organization
-            return self.organization.__str__()
+            return organization.decode('utf8')
 
 
 @python_2_unicode_compatible
@@ -116,10 +118,10 @@ class Person(Actor):
         verbose_name_plural = _("people")
 
     def __str__(self):
-        return "%s %s" % (self.first_name, self.family_name)
+        return u"%s %s" % (self.first_name, self.family_name)
 
     def name(self):
-        return "%s %s" % (self.first_name, self.family_name)
+        return u"%s %s" % (self.first_name, self.family_name)
 
 
 @python_2_unicode_compatible
@@ -151,10 +153,10 @@ class Organization(Actor):
         verbose_name_plural = _("organizations")
 
     def __str__(self):
-        return self.civil_name
+        return u"%s" % self.civil_name
 
     def name(self):
-        return self.civil_name
+        return u"%s" % self.civil_name
 
 
 @python_2_unicode_compatible
@@ -292,5 +294,5 @@ class Address(models.Model):
         verbose_name_plural = _("addresses")
 
     def __str__(self):
-        return "%s %s, %s" % \
+        return u"%s %s, %s" % \
                (self.number, self.street, self.city)

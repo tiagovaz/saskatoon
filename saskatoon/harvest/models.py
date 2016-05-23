@@ -140,7 +140,7 @@ class Property(models.Model):
         verbose_name_plural = _("properties")
 
     def __str__(self):
-        return "Property of %s at %s %s" % \
+        return u"Property of %s at %s %s" % \
                (self.owner, self.address.number, self.address.street)
 
 
