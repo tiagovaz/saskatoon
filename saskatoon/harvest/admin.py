@@ -15,7 +15,7 @@ class PropertyInline(admin.TabularInline):
 
 
 class PersonInline(admin.TabularInline):
-    model = Harvest.pickers.through
+    model = RequestForParticipation
     verbose_name = "Cueilleurs pour cette récolte"
     verbose_name_plural = "Cueilleurs pour cette récolte"
     form = RFPForm

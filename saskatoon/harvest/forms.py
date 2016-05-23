@@ -130,7 +130,10 @@ class NewHarvest(forms.ModelForm):
 class RFPForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
-        fields = ('__all__')
+        fields = [
+            'picker',
+            'phone'
+        ]
 
 
 class PropertyForm(forms.ModelForm):
