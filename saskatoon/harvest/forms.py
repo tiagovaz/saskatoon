@@ -156,6 +156,9 @@ class HarvestForm(forms.ModelForm):
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
+            'pickers': autocomplete.ModelSelect2Multiple(
+                'person-autocomplete'
+            ),
             'equipment_reserved': autocomplete.ModelSelect2Multiple(
                 'equipment-autocomplete'
             ),
