@@ -146,8 +146,6 @@ class PropertyForm(forms.ModelForm):
         }
 
 
-
-
 class HarvestForm(forms.ModelForm):
     class Meta:
         model = Harvest
@@ -176,5 +174,8 @@ class HarvestYieldForm(forms.ModelForm):
         widgets = {
             'recipient': autocomplete.ModelSelect2(
                 'person-autocomplete'
-            )
+            ),
+            'tree': autocomplete.ModelSelect2(
+                'tree-autocomplete'
+            ),
         }
