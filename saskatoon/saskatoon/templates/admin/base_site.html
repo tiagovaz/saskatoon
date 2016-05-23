@@ -16,9 +16,6 @@
     {{ block.super }}
     <div class="header-content">
         <!-- First icon column -->
-        <div class="header-column icon" style="margin-right: 20px">
-            <a href="/" class="grey"><b>Front-end</b></a><br>
-        </div>
         <div class="header-column" style="margin-right: 20px">
             <form action="{% url 'set_language' %}" method="post">
             {% csrf_token %}
