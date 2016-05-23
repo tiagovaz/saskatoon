@@ -14,13 +14,6 @@ class PropertyInline(admin.TabularInline):
     extra = 0
 
 
-class AuthInline(admin.StackedInline):
-    model = AuthUser
-    fields = ('email', 'password')
-    max_num = 1
-    can_delete = False
-
-
 class PersonInline(admin.TabularInline):
     model = Harvest.pickers.through
     verbose_name = "Cueilleurs pour cette récolte"
@@ -64,7 +57,6 @@ class PropertyAdmin(admin.ModelAdmin):
     model = Property
     form = PropertyForm
 
-
 admin.site.register(Property,PropertyAdmin)
 admin.site.register(Harvest, HarvestAdmin)
 admin.site.register(RequestForParticipation, RequestForParticipationAdmin)
@@ -84,4 +76,3 @@ admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
 admin.site.register(Country)
-

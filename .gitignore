@@ -64,4 +64,5 @@ main/migrations/*
 .project
 /.pydevproject
 /.settings/
-saskatoon/migrations/
+saskatoon/saskatoon/static
+saskatoon/saskatoon/settings.py
