@@ -44,6 +44,13 @@ class PropertyDetail(generic.DetailView):
 
         return super(PropertyDetail, self).dispatch(*args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(PropertyDetail, self).get_context_data(**kwargs)
+        property_history = Property.history.filter(id=self.kwargs['pk'])
+        context['property_history'] = property_history
+
+        return context
+
 
 class PropertyCreate(generic.CreateView):
     model = Property
