@@ -168,3 +168,5 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'Saskatoon',
     'MENU_EXCLUDE': ('auth.group', 'auth'),
     }
+
+FILTERS_HELP_TEXT_FILTER = False
