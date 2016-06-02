@@ -133,9 +133,15 @@
     }
   },
   {
+        "model": "member.Actor",
+        "pk": 1,
+        "fields": {}
+  },
+  {
   	"model": "member.Person",
   	"pk": 1,
   	"fields": {
+                "actor_id": 1,
 		"first_name": "Admin",
 		"family_name": "Saskatoon",
 		"address": 1,
