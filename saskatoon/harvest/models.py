@@ -135,6 +135,8 @@ class Property(models.Model):
         blank=True
     )
 
+    history = HistoricalRecords()
+
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
