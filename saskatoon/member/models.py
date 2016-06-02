@@ -300,5 +300,5 @@ class Address(models.Model):
         verbose_name_plural = _("addresses")
 
     def __str__(self):
-        return u"%s %s, %s" % \
-               (self.number, self.street, self.city)
+        return u"%s %s, %s, %s" % \
+               (self.number, self.street, self.city, self.postal_code)
