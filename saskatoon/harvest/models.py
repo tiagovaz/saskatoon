@@ -90,12 +90,6 @@ class Property(models.Model):
         verbose_name=_("Owner")
     )
 
-    equipment = models.ManyToManyField(
-        'EquipmentType',
-        through='EquipmentTypeAtProperty',
-        verbose_name=_("Equipment")
-    )
-
     trees = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit trees")
@@ -144,39 +138,6 @@ class Property(models.Model):
     def __str__(self):
         return u"Property of %s at %s %s" % \
                (self.owner, self.address.number, self.address.street)
-
-
-@python_2_unicode_compatible
-class EquipmentTypeAtProperty(models.Model):
-    equipment_type = models.ForeignKey(
-        'EquipmentType',
-        verbose_name=_("Equipment type")
-    )
-
-    property = models.ForeignKey(
-        'Property',
-        verbose_name=_("Property")
-    )
-
-    quantity = models.IntegerField(
-        verbose_name=_("Quantity"),
-        default=1
-    )
-
-    shared = models.BooleanField(
-        verbose_name=_("Can be used outside of property"),
-        default='False'
-    )
-
-    class Meta:
-        unique_together = ('equipment_type', 'property',)
-        verbose_name = _("equipment type at property")
-        verbose_name_plural = _("equipment types at property")
-
-    def __str__(self):
-        return "%s %s at %s" % \
-               (self.quantity, self.equipment_type, self.property)
-
 
 @python_2_unicode_compatible
 class Harvest(models.Model):
@@ -391,12 +352,27 @@ class Equipment(models.Model):
         max_length=50
     )
 
+    owner = models.ForeignKey(
+        'member.Actor',
+        verbose_name=_("Owner")
+    )
+
+    property = models.ForeignKey(
+        'Property',
+        verbose_name=_("Property")
+    )
+
+    shared = models.BooleanField(
+        verbose_name=_("Can be used outside of property"),
+        default='False'
+    )
+
     class Meta:
         verbose_name = _("equipment")
         verbose_name_plural = _("equipment")
 
     def __str__(self):
-        return self.description
+        return "%s (%s)" % (self.description,self.type)
 
 
 @python_2_unicode_compatible

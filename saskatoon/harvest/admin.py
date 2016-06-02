@@ -48,11 +48,6 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
 
-class EquipmentTypeAtPropertyInline(admin.TabularInline):
-    model = EquipmentTypeAtProperty
-    extra = 1
-
-
 class PropertyAdmin(admin.ModelAdmin):
     model = Property
     form = PropertyForm
