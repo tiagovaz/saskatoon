@@ -3,7 +3,7 @@
 
 from django.contrib import admin
 
-from forms import RFPForm, PropertyForm, HarvestForm, HarvestYieldForm
+from forms import RFPForm, PropertyForm, HarvestForm, HarvestYieldForm, EquipmentForm
 from member.models import *
 from harvest.models import *
 from harvest.forms import *
@@ -47,6 +47,8 @@ class HarvestAdmin(admin.ModelAdmin):
 class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
+class EquipmentAdmin(admin.ModelAdmin):
+    form = EquipmentForm
 
 class PropertyAdmin(admin.ModelAdmin):
     model = Property
@@ -57,7 +59,7 @@ admin.site.register(Harvest, HarvestAdmin)
 admin.site.register(RequestForParticipation, RequestForParticipationAdmin)
 admin.site.register(TreeType)
 admin.site.register(HarvestStatus)
-admin.site.register(Equipment)
+admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType)
 admin.site.register(HarvestYield)
 admin.site.register(Comment)

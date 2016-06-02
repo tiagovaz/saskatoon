@@ -354,12 +354,16 @@ class Equipment(models.Model):
 
     owner = models.ForeignKey(
         'member.Actor',
-        verbose_name=_("Owner")
+        verbose_name=_("Owner"),
+        null=True,
+        blank=True
     )
 
     property = models.ForeignKey(
         'Property',
-        verbose_name=_("Property")
+        verbose_name=_("Property"),
+        null=True,
+        blank=True
     )
 
     shared = models.BooleanField(

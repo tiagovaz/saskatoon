@@ -3,7 +3,7 @@
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment
-from member.models import Person, AuthUser
+from member.models import Person, AuthUser, Actor
 from harvest.forms import CommentForm, RequestForm
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -13,7 +13,6 @@ from django.contrib.auth.decorators import login_required
 from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
-
 
 
 class PropertyList(generic.ListView):
@@ -237,6 +236,18 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+class ActorAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return Actor.objects.none()
+
+        qs = Actor.objects.all()
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

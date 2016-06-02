@@ -7,7 +7,6 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, D
 from harvest.models import *
 from member.models import *
 
-
 class RequestForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
@@ -176,9 +175,31 @@ class HarvestYieldForm(forms.ModelForm):
         fields = ('__all__')
         widgets = {
             'recipient': autocomplete.ModelSelect2(
-                'person-autocomplete'
+                'actor-autocomplete'
             ),
             'tree': autocomplete.ModelSelect2(
                 'tree-autocomplete'
             ),
         }
+
+class EquipmentForm(forms.ModelForm):
+
+    def clean(self):
+        cleaned_data = super(EquipmentForm, self).clean()
+
+        if not (bool(self.cleaned_data['property']) != bool(self.cleaned_data['owner'])):
+            raise forms.ValidationError, 'Fill in one of the two fields: property or owner.'
+
+        return cleaned_data
+
+    class Meta:
+        model = Equipment
+        widgets = {
+            'property': autocomplete.ModelSelect2(
+                'property-autocomplete'
+            ),
+            'owner': autocomplete.ModelSelect2(
+                'actor-autocomplete'
+            ),
+        }
+        fields = ('__all__')
