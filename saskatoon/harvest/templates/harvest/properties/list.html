@@ -29,6 +29,8 @@
                                     <th>{% trans "Tree(s)" %}</th>
                                     <th>{% trans "Owner" %}</th>
                                     <th>{% trans "Address" %}</th>
+                                    <th>{% trans "Neighborhood" %}</th>
+                                    <th>{% trans "Active" %}</th>
                                     <th>{% trans "Edit" %}</th>
                                 </tr>
                             </thead>
@@ -47,6 +49,14 @@
                                     </td>
                                     <td>{{ property.owner }}</td>
                                     <td>{{ property.address }}</td>
+                                    <td>{{ property.address.neighborhood.name }}</td>
+                                    <td><center>
+                                        {% if property.is_active %}
+                                            <i class="fa fa-check" style="font-size:20px;color:green;"> </i>
+                                        {% else %}
+                                            <i class="fa fa-times" style="font-size:20px;color:red" > </i>
+                                        {% endif %}
+                                    </td></center>
                                     <td>
                                         <a href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
                                             {% trans "Edit" %}
