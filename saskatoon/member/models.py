@@ -254,6 +254,12 @@ class Address(models.Model):
         blank=True
     )
 
+    postal_code = models.CharField(
+        verbose_name=_("Postal code"),
+        max_length=10,
+        blank=True
+    )
+
     neighborhood = models.ForeignKey(
         'Neighborhood',
         verbose_name=_("Neighborhood")
