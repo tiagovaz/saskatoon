@@ -1,11 +1,11 @@
 from django import forms
 from dal import autocomplete
 from django.utils.translation import ugettext_lazy as _
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, Div
 from harvest.models import *
 from member.models import *
+
 
 class RequestForm(forms.ModelForm):
     class Meta:
@@ -140,6 +140,12 @@ class PropertyForm(forms.ModelForm):
         model = Property
         fields = ('__all__')
         widgets = {
+            'address': autocomplete.ModelSelect2(
+               'address-autocomplete'
+            ),
+            'owner': autocomplete.ModelSelect2(
+               'actor-autocomplete'
+            ),
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
@@ -185,6 +191,7 @@ class HarvestYieldForm(forms.ModelForm):
             ),
         }
 
+
 class EquipmentForm(forms.ModelForm):
 
     def clean(self):
@@ -207,6 +214,7 @@ class EquipmentForm(forms.ModelForm):
         }
         fields = ('__all__')
 
+
 class HarvestFilterForm(forms.ModelForm):
 
     status = forms.ModelChoiceField(queryset=HarvestStatus.objects.all(), required=False)
@@ -214,4 +222,4 @@ class HarvestFilterForm(forms.ModelForm):
 
     class Meta:
         model = Harvest
-        fields = ['status', 'pick_leader', 'is_active'] 
+        fields = ['status', 'pick_leader', 'is_active']
