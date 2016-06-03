@@ -167,7 +167,7 @@ class Harvest(models.Model):
     )
 
     pick_leader = models.ForeignKey(
-        'member.Person',
+        'member.AuthUser',
         null=True,
         blank=True,
         verbose_name="Pick leader"

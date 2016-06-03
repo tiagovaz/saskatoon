@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^member/', include('member.urls', namespace="member")),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="logout"),
     url(r'^person-autocomplete/$', views.PersonAutocomplete.as_view(), name='person-autocomplete',),
+    url(r'^pickleader-autocomplete/$', views.PickLeaderAutocomplete.as_view(), name='pickleader-autocomplete',),
     url(r'^actor-autocomplete/$', views.ActorAutocomplete.as_view(), name='actor-autocomplete',),
     url(r'^tree-autocomplete/$', views.TreeAutocomplete.as_view(), name='tree-autocomplete',),
     url(r'^property-autocomplete/$', views.PropertyAutocomplete.as_view(), name='property-autocomplete',),

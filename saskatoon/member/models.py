@@ -52,7 +52,10 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def __unicode__(self):
-        return self.email
+        try:
+            return "%s %s" % (self.person.first_name, self.person.family_name)
+        except:
+       	    return self.email
 
 
 @python_2_unicode_compatible
