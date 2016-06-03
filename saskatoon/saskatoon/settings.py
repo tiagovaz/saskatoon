@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'django_filters',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,6 +127,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('pages:index')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
+# http://django-modeltranslation.readthedocs.io/en/latest/installation.html
+
 from django.utils.translation import gettext_lazy as _
 
 LANGUAGE_CODE = 'fr-ca'
@@ -138,6 +141,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+gettext = lambda s: s
 LANGUAGES = (
     ('fr', u'Français'),
     ('en', u'English'),
@@ -149,6 +153,11 @@ LOCALE_PATHS = [
     'pages/locale/',
     'saskatoon/locale/'
 ]
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'harvest.translation',
+    'member.translation',
+)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
