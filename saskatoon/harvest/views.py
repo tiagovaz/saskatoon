@@ -4,7 +4,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment
 from member.models import Person, AuthUser, Actor
-from harvest.forms import CommentForm, RequestForm
+from harvest.forms import CommentForm, RequestForm, PropertyForm
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from filters import *
@@ -54,7 +54,7 @@ class PropertyDetail(generic.DetailView):
 class PropertyCreate(generic.CreateView):
     model = Property
     template_name = 'harvest/properties/create.html'
-    fields = '__all__'
+    form_class = PropertyForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
