@@ -3,8 +3,8 @@
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment
-from member.models import Person, AuthUser, Actor
-from harvest.forms import CommentForm, RequestForm, PropertyForm
+from harvest.forms import CommentForm, RequestForm, PropertyForm, HarvestForm
+from member.models import Person, AuthUser, Actor, Address
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from filters import *
@@ -112,7 +112,7 @@ class HarvestDetail(generic.DetailView):
 
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
-            Property,
+            Harvest,
             id=self.kwargs['pk']
         )
         if self.request.user.is_authenticated():
@@ -134,7 +134,7 @@ class HarvestDetail(generic.DetailView):
 class HarvestCreate(generic.CreateView):
     model = Harvest
     template_name = 'harvest/harvest/create.html'
-    fields = '__all__'
+    form_class = HarvestForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -162,6 +162,18 @@ class HarvestUpdate(generic.UpdateView):
             'harvest:harvest_detail',
             kwargs={'pk': self.kwargs['pk']}
         )
+
+
+class EquipmentList(generic.ListView):
+    template_name = 'harvest/equipment/list.html'
+    context_object_name = 'equipments'
+    model = Equipment
+
+    def dispatch(self, *args, **kwargs):
+        return super(EquipmentList, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Equipment.objects.all()
 
 
 class EquipmentCreate(generic.CreateView):
@@ -249,6 +261,7 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -256,11 +269,22 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
             return Actor.objects.none()
 
         qs = Actor.objects.all()
+        list_actor = []
 
         if self.q:
-            qs = qs.filter(first_name__istartswith=self.q)
+            first_name = qs.filter(person__first_name__icontains=self.q)
+            family_name = qs.filter(person__family_name__icontains=self.q)
 
-        return qs
+            for actor in first_name:
+                if actor not in list_actor:
+                    list_actor.append(actor)
+
+            for actor in family_name:
+                if actor not in list_actor:
+                    list_actor.append(actor)
+
+        return list_actor
+
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -283,11 +307,41 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
             return Property.objects.none()
 
         qs = Property.objects.all()
+        list_property = []
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            number = qs.filter(address__number__icontains=self.q)
+            street = qs.filter(address__street__icontains=self.q)
+            city = qs.filter(address__city__name__icontains=self.q)
+            postal_code = qs.filter(address__postal_code__icontains=self.q)
+            first_name = qs.filter(owner__person__first_name__icontains=self.q)
+            family_name = qs.filter(owner__person__family_name__icontains=self.q)
 
-        return qs
+            for actor in first_name:
+                if actor not in list_property:
+                    list_property.append(actor)
+
+            for actor in family_name:
+                if actor not in list_property:
+                    list_property.append(actor)
+
+            for address in postal_code:
+                if address not in list_property:
+                    list_property.append(address)
+
+            for address in number:
+                if address not in list_property:
+                    list_property.append(address)
+
+            for address in street:
+                if address not in list_property:
+                    list_property.append(address)
+
+            for address in city:
+                if address not in list_property:
+                    list_property.append(address)
+
+        return list_property
 
 
 class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
@@ -302,3 +356,37 @@ class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__istartswith=self.q)
 
         return qs
+
+
+class AddressAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return Address.objects.none()
+
+        qs = Address.objects.all()
+        list_address = []
+
+        if self.q:
+            number = qs.filter(number__icontains=self.q)
+            street = qs.filter(street__icontains=self.q)
+            city = qs.filter(city__name__icontains=self.q)
+            postal_code = qs.filter(postal_code__icontains=self.q)
+
+            for address in postal_code:
+                if address not in list_address:
+                    list_address.append(address)
+
+            for address in number:
+                if address not in list_address:
+                    list_address.append(address)
+
+            for address in street:
+                if address not in list_address:
+                    list_address.append(address)
+
+            for address in city:
+                if address not in list_address:
+                    list_address.append(address)
+
+        return list_address
