@@ -164,6 +164,18 @@ class HarvestUpdate(generic.UpdateView):
         )
 
 
+class EquipmentList(generic.ListView):
+    template_name = 'harvest/equipment/list.html'
+    context_object_name = 'equipments'
+    model = Equipment
+
+    def dispatch(self, *args, **kwargs):
+        return super(EquipmentList, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Equipment.objects.all()
+
+
 class EquipmentCreate(generic.CreateView):
     model = Equipment
     template_name = 'harvest/equipment/create.html'
