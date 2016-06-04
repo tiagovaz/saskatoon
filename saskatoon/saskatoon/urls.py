@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^person-autocomplete/$', views.PersonAutocomplete.as_view(), name='person-autocomplete',),
     url(r'^pickleader-autocomplete/$', views.PickLeaderAutocomplete.as_view(), name='pickleader-autocomplete',),
     url(r'^actor-autocomplete/$', views.ActorAutocomplete.as_view(), name='actor-autocomplete',),
+    url(r'^address-autocomplete/$', views.AddressAutocomplete.as_view(), name='address-autocomplete',),
     url(r'^tree-autocomplete/$', views.TreeAutocomplete.as_view(), name='tree-autocomplete',),
     url(r'^property-autocomplete/$', views.PropertyAutocomplete.as_view(), name='property-autocomplete',),
     url(r'^equipment-autocomplete/$', views.EquipmentAutocomplete.as_view(), name='equipment-autocomplete',),
