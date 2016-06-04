@@ -3,8 +3,8 @@
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment
+from harvest.forms import CommentForm, RequestForm, HarvestForm
 from member.models import Person, AuthUser, Actor, Address
-from harvest.forms import CommentForm, RequestForm
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from filters import *
@@ -112,7 +112,7 @@ class HarvestDetail(generic.DetailView):
 
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
-            Property,
+            Harvest,
             id=self.kwargs['pk']
         )
         if self.request.user.is_authenticated():
@@ -134,7 +134,7 @@ class HarvestDetail(generic.DetailView):
 class HarvestCreate(generic.CreateView):
     model = Harvest
     template_name = 'harvest/harvest/create.html'
-    fields = '__all__'
+    form_class = HarvestForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
