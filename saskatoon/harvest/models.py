@@ -138,6 +138,10 @@ class Property(models.Model):
         return u"Property of %s at %s %s" % \
                (self.owner, self.address.number, self.address.street)
 
+    def get_absolute_url(self):
+        return reverse_lazy('harvest:property_detail', args=[self.id])
+
+
 @python_2_unicode_compatible
 class Harvest(models.Model):
     """
