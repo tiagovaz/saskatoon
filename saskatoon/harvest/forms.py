@@ -214,12 +214,3 @@ class EquipmentForm(forms.ModelForm):
         }
         fields = ('__all__')
 
-
-class HarvestFilterForm(forms.ModelForm):
-
-    status = forms.ModelChoiceField(queryset=HarvestStatus.objects.all(), required=False)
-    pick_leader = forms.ModelChoiceField(queryset=AuthUser.objects.filter(is_staff=True), required=False)
-
-    class Meta:
-        model = Harvest
-        fields = ['status', 'pick_leader', 'is_active']

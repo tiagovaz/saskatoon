@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
-
+from django import forms
 
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
@@ -101,9 +101,9 @@ class HarvestList(generic.ListView):
         all_harvests = HarvestFilter(self.request.GET, queryset=Harvest.objects.all())
         context['view'] = "harvests"
         context['form'] = all_harvests.form
+        context['form'].fields['pick_leader'] = forms.ModelChoiceField(queryset=AuthUser.objects.filter(is_staff=True), required=False)
 
         return context
-
 
 class HarvestDetail(generic.DetailView):
     model = Harvest
