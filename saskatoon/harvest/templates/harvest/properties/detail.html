@@ -32,14 +32,28 @@
     <hr>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <b>{% trans "Owner information" %} :</b>
+                </div>
+                <div class="panel-body">
+                    <strong>{% trans "Name" %} : </strong>{{ property.owner }}<br>
+                    <strong>{% trans "Address" %} : </strong>{{ property.owner.address }}<br>
+                    <strong>{% trans "Phone" %} : </strong>{{ property.owner.phone }}<br>
+                    <strong>{% trans "Language" %} : </strong>{{ property.owner.language }}<br>
+                    <strong>{% trans "Comments" %} : </strong>{{ property.owner.comments }}<br>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
             <p>
                 <b>{% trans "Address" %} :</b><br>
                 {{ property.address }}
             </p>
             <p><b>{% trans "Tree(s) location" %} :</b> {{ property.trees_location }}</p>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                 <b>{% trans "Trees" %} :</b>
