@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {% trans "Property detail" %}
+                {{ property }}
                 <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
                     <i class="fa fa-pencil"></i> {% trans "Edit" %}
                 </a>
@@ -16,17 +16,66 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
     <div class="row">
-        <div class="col-sm-6">
-            <strong>{% trans "Is active" %} :</strong> {{ property.is_active }}<br>
-            <strong>{% trans "Owner" %} :</strong> {{ property.owner }}<br>
-            <strong>{% trans "Compost bin closeby" %} :</strong> {{ property.compost_bin }}<br>
+        <div class="col-sm-4">
+
+            <img src="https://docs.gimp.org/en/images/filters/examples/taj_orig.jpg" alt="Sample image" height="150">
+
         </div>
-        <div class="col-sm-6">
-            <strong>{% trans "Number of required pickers" %} :</strong> {{ property.avg_required_pickers }}<br>
-            <strong>{% trans "Publicly accessible" %} :</strong> {{ property.public_access }}<br>
-            <strong>{% trans "Access to neighbors terrain" %} :</strong> {{ property.neighbor_access }}<br>
+
+        <div class="col-sm-4">
+                            <div class="table-responsive">
+                                <table class='table table-borderless'>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>{% trans "Compost bin closeby" %} :</strong></td>
+                                            <td>{% if property.compost_bin %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Is active" %} :</strong></td>
+                                            <td>{% if property.is_active %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Publicly accessible" %} :</strong></td>
+                                            <td>{% if property.public_access %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Access to neighbors terrain" %} :</strong></td>
+                                            <td>{% if property.neighbor_access %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+        </div>
+
+        <div class="col-sm-4">
+            <strong>{% trans "About this property" %} :</strong> {{ property.about }}
+            <hr>
+
+            <div class="alert alert-warning">
+                <strong>{{ property.avg_nb_required_pickers }}</strong> {% trans " pickers are recommended at this property!" %}
+            </div>
         </div>
     </div>
 
@@ -34,24 +83,28 @@
 
     <div class="row">
         <div class="col-sm-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                <b>{% trans "Owner information" %} :</b>
+                <i class="glyphicon glyphicon-user" style="color:white"></i> <b>{% trans "Owner information" %}</b>
                 </div>
                 <div class="panel-body">
                     {% with property.owner|is_person as is_person %}
                         {% if is_person == True %}
-                            <strong>{% trans "Name" %} : </strong>{{ property.owner.person.name }}<br>
-                            <strong>{% trans "Address" %} : </strong>{{ property.owner.person.address }}<br>
-                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.person.phone }}<br>
-                            <strong>{% trans "Language" %} : </strong>{{ property.owner.person.language|default:"" }}<br>
-                            <strong>{% trans "Comments" %} : </strong>{{ property.owner.person.comments }}<br>
+                            <p class="lead">{{ property.owner.person.name }}</p>
+                            {{ property.owner.person.address }}.<br>
+                            {% trans "Phone : " %}{{ property.owner.person.phone }}.<br>
+                                {% if property.owner.person.language %}
+                                    {% trans "Preferred language is " %} {{ property.owner.person.language }}.<br>
+                                {% endif %}
+                                {% if property.owner.person.comments %}
+                                    Additional comments: <i>{{ property.owner.person.comments }}</i><br>
+                                {% endif %}
                         {% elif is_person == False %}
-                            <strong>{% trans "Name" %} : </strong>{{ property.owner.organization.name }}<br>
+                            <strong>{{ property.owner.organization.name }}</strong><br>
                             <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
                             <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact }}<br>
                             <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
-                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.contact.phone }}<br>
+                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.phone }}<br>
                             <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
                             {% endif %}
                     {% endwith %}
@@ -59,27 +112,29 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                <b>{% trans "Trees" %} :</b>
+                <i class="glyphicon glyphicon-tree-deciduous"></i> <b>{% trans "Trees" %}</b>
                 </div>
                 <div class="panel-body">
-                    {% if harvest.equipment_reserved.all %}
+                    {% if property.trees.all %}
                     <ul>
                         {% for tree in property.trees.all %}
-                        <li>{{ tree.fruit_name }}</li>
+                            <li>{{ tree.fruit_name }}</li>
                         {% endfor %}
                     </ul>
                     {% else %}
-                        {% trans "No reserved equipment for the moment" %}
+                        {% trans "No tree in this property." %}
                     {% endif %}
+                    <hr>
+                    <strong>{% trans "Trees location" %} :</strong> {{ property.trees_location }}
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <b>{% trans "Equipment" %} :</b>
+                    <i class="glyphicon glyphicon-scissors"></i> &nbsp;<b>{% trans "Equipment" %}</b>
                 </div>
                 <div class="panel-body">
                     {% if harvest.equipment_reserved.all %}
@@ -94,7 +149,7 @@
                         {% endfor %}
                     </ul>
                     {% else %}
-                        {% trans "No reserved equipment for the moment" %}
+                        {% trans "No equipment available at this property." %}
                     {% endif %}
                 </div>
             </div>
@@ -104,7 +159,7 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {% trans "Historical" %}
+                    <strong>{% trans "History" %}</strong>
                 </div>
 
                 <table class="table table-hover table-condensed">
@@ -115,7 +170,7 @@
                     <tr>
                     {% endif %}
                         <td>
-                            <strong>Updated by {{ line.history_user }} in {{ line.history_date }}</strong>
+                            Updated by {{ line.history_user }} in {{ line.history_date }}
                         </td>
                     </tr>
                     {% endfor %}

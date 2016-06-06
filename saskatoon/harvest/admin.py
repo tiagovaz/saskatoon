@@ -8,7 +8,6 @@ from member.models import *
 from harvest.models import *
 from harvest.forms import *
 
-
 class PropertyInline(admin.TabularInline):
     model = Property
     extra = 0
@@ -50,8 +49,13 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
 class EquipmentAdmin(admin.ModelAdmin):
     form = EquipmentForm
 
+class PropertyImageInline(admin.TabularInline):
+    model = PropertyImage
+    extra = 3
+
 class PropertyAdmin(admin.ModelAdmin):
     model = Property
+    inlines = [ PropertyImageInline, ]
     form = PropertyForm
 
 admin.site.register(Property, PropertyAdmin)

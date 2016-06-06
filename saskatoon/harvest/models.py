@@ -142,6 +142,10 @@ class Property(models.Model):
         return reverse_lazy('harvest:property_detail', args=[self.id])
 
 
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, related_name='images')
+    image = models.ImageField()
+
 @python_2_unicode_compatible
 class Harvest(models.Model):
     """

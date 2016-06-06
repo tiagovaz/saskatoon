@@ -257,7 +257,7 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
         qs = Person.objects.all()
 
         if self.q:
-            qs = qs.filter(first_name__istartswith=self.q)
+            qs = qs.filter(first_name__icontains=self.q)
 
         return qs
 
