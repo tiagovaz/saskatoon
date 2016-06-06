@@ -34,7 +34,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bootstrap3_datepicker',
-    'suit',
     'dal',
     'dal_select2',
     'django_filters',

@@ -27,13 +27,6 @@
             <strong>{% trans "Number of required pickers" %} :</strong> {{ property.avg_required_pickers }}<br>
             <strong>{% trans "Publicly accessible" %} :</strong> {{ property.public_access }}<br>
             <strong>{% trans "Access to neighbors terrain" %} :</strong> {{ property.neighbor_access }}<br>
-            {% with property.owner|is_person as is_person %}
-            {% if is_person == True %}
-            It's a person!
-            {% elif is_person == False %}
-            It's an organization!
-            {% endif %}
-            {% endwith %}
         </div>
     </div>
 
@@ -46,20 +39,24 @@
                 <b>{% trans "Owner information" %} :</b>
                 </div>
                 <div class="panel-body">
-                    <strong>{% trans "Name" %} : </strong>{{ property.owner }}<br>
-                    <strong>{% trans "Address" %} : </strong>{{ property.owner.address }}<br>
-                    <strong>{% trans "Phone" %} : </strong>{{ property.owner.phone }}<br>
-                    <strong>{% trans "Language" %} : </strong>{{ property.owner.language }}<br>
-                    <strong>{% trans "Comments" %} : </strong>{{ property.owner.comments }}<br>
+                    {% with property.owner|is_person as is_person %}
+                        {% if is_person == True %}
+                            <strong>{% trans "Name" %} : </strong>{{ property.owner.person.name }}<br>
+                            <strong>{% trans "Address" %} : </strong>{{ property.owner.person.address }}<br>
+                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.person.phone }}<br>
+                            <strong>{% trans "Language" %} : </strong>{{ property.owner.person.language|default:"" }}<br>
+                            <strong>{% trans "Comments" %} : </strong>{{ property.owner.person.comments }}<br>
+                        {% elif is_person == False %}
+                            <strong>{% trans "Name" %} : </strong>{{ property.owner.organization.name }}<br>
+                            <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
+                            <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact }}<br>
+                            <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
+                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.contact.phone }}<br>
+                            <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
+                            {% endif %}
+                    {% endwith %}
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <p>
-                <b>{% trans "Address" %} :</b><br>
-                {{ property.address }}
-            </p>
-            <p><b>{% trans "Tree(s) location" %} :</b> {{ property.trees_location }}</p>
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
@@ -78,9 +75,11 @@
                     {% endif %}
                 </div>
             </div>
+        </div>
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                <b>{% trans "Equipment" %} :</b>
+                    <b>{% trans "Equipment" %} :</b>
                 </div>
                 <div class="panel-body">
                     {% if harvest.equipment_reserved.all %}

@@ -274,12 +274,17 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
         if self.q:
             first_name = qs.filter(person__first_name__icontains=self.q)
             family_name = qs.filter(person__family_name__icontains=self.q)
+            civil_name = qs.filter(organization__civil_name__icontains=self.q)
 
             for actor in first_name:
                 if actor not in list_actor:
                     list_actor.append(actor)
 
             for actor in family_name:
+                if actor not in list_actor:
+                    list_actor.append(actor)
+
+            for actor in civil_name:
                 if actor not in list_actor:
                     list_actor.append(actor)
 
