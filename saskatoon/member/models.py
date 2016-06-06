@@ -146,6 +146,12 @@ class Organization(Actor):
         verbose_name=_("Address")
     )
 
+    phone = models.CharField(
+        verbose_name=_("Phone"),
+        max_length=50,
+        null=True
+    )
+
     contact = models.ForeignKey(
         'Person',
         null=True,
