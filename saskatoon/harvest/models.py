@@ -5,7 +5,7 @@ from django.utils import timezone
 from simple_history.models import HistoricalRecords
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
-from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy
 
 @python_2_unicode_compatible
 class HarvestStatus(models.Model):
@@ -138,6 +138,10 @@ class Property(models.Model):
         return u"Property of %s at %s %s" % \
                (self.owner, self.address.number, self.address.street)
 
+    def get_absolute_url(self):
+        return reverse_lazy('harvest:property_detail', args=[self.id])
+
+
 @python_2_unicode_compatible
 class Harvest(models.Model):
     """
@@ -234,6 +238,8 @@ class Harvest(models.Model):
     def __str__(self):
         return "Harvest on %s at %s" % (self.start_date,self.property)
 
+    def get_absolute_url(self):
+        return reverse_lazy('harvest:harvest_detail', args=[self.id])
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):

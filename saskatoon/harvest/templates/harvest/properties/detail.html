@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load bootstrap3 %}
+{% load is_person %}
 
 {% block content %}
     <div class="row">
@@ -26,6 +27,13 @@
             <strong>{% trans "Number of required pickers" %} :</strong> {{ property.avg_required_pickers }}<br>
             <strong>{% trans "Publicly accessible" %} :</strong> {{ property.public_access }}<br>
             <strong>{% trans "Access to neighbors terrain" %} :</strong> {{ property.neighbor_access }}<br>
+            {% with property.owner|is_person as is_person %}
+            {% if is_person == True %}
+            It's a person!
+            {% elif is_person == False %}
+            It's an organization!
+            {% endif %}
+            {% endwith %}
         </div>
     </div>
 

@@ -44,6 +44,11 @@ urlpatterns = patterns(
         name='harvest_update'
     ),
     url(
+        r'^equipments/list/$',
+        views.EquipmentList.as_view(),
+        name='equipment_list'
+    ),
+    url(
         r'^equipments/create$',
         views.EquipmentCreate.as_view(),
         name='equipment_create'
