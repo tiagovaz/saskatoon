@@ -66,9 +66,9 @@
     "pk": 8,
     "fields":
     {
-      "name": "Pencil/tool case",
-      "name_en": "Pencil/tool case",
-      "name_fr": "Étuis à crayon/outils"
+      "name": "Pencil and tools case",
+      "name_en": "Pencil and tools case",
+      "name_fr": "Étuis à crayon et outils"
     }
   },  {
     "model": "harvest.EquipmentType",
@@ -77,7 +77,7 @@
     {
       "name": "Bike hitch",
       "name_en": "Bike hitch",
-      "name_fr": "hitch à vélo"
+      "name_fr": "Hitch à vélo"
     }
   },  {
     "model": "harvest.EquipmentType",
@@ -95,7 +95,7 @@
     {
       "name": "Scissors",
       "name_en": "Scissors",
-      "name_fr": "ciseaux"
+      "name_fr": "Ciseaux"
     }
   },  {
     "model": "member.Language",
@@ -476,7 +476,7 @@
       "name_fr": "Abricotier",
       "fruit_name": "Apricot",
       "fruit_name_en": "Apricot",
-      "fruit_name_fr": "Apricot",
+      "fruit_name_fr": "Abricot",
       "season_start": "9999-07-01"
     }
   },
@@ -744,6 +744,97 @@
       "fruit_name_en": "Elderberry",
       "fruit_name_fr": "Sureau",
       "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 1,
+    "fields":
+    {
+      "short_name": "To-be-confirmed",
+      "short_name_en": "To-be-confirmed",
+      "short_name_fr": "À être confirmé",
+      "description": "It is not confirmed yet that we are welcome to harvest the tree for the current season.",
+      "description_en": "It is not confirmed yet that we are welcome to harvest the tree for the current season.",
+      "description_fr": "Ce n’est pas encore confirmé que nous pourrons cueillir l’arbre pour la saison courante."
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 2,
+    "fields":
+    {
+      "short_name": "Orphan",
+      "short_name_en": "Orphan",
+      "short_name_fr": "Orphelin",
+      "description": "The tree is confirmed for the season, but no pickleader has selected it yet.",
+      "description_en": "The tree is confirmed for the season, but no pickleader has selected it yet.",
+      "description_fr": "L’arbre est confirmé pour la saison, mais pas encore pris en charge par un.e chef de cueillette."
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 3,
+    "fields":
+    {
+      "short_name": "Adopted",
+      "short_name_en": "Adopted",
+      "short_name_fr": "Adopté",
+      "description": "A pickleader has selected the tree, however they are waiting for the fruit to ripen.",
+      "description_en": "A pickleader has selected the tree, however they are waiting for the fruit to ripen.",
+      "description_fr": "Sous la responsabilité d'un.e chef de cueillette, nous attendons que les fruits soient mûrs."
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 4,
+    "fields":
+    {
+      "short_name": "Date scheduled",
+      "short_name_en": "Date scheduled",
+      "short_name_fr": "Date fixée",
+      "description": "A pickleader has confirmed a harvest date with the tree owner. The pick is public and volunteers can subscribe to it.",
+      "description_en": "A pickleader has confirmed a harvest date with the tree owner. The pick is public and volunteers can subscribe to it.",
+      "description_fr": "Rendez-vous fixée avec le propriétaire. La cueillette est publique dans le calendrier et les bénévoles peuvent s'inscrire."
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 5,
+    "fields":
+    {
+      "short_name": "Ready",
+      "short_name_en": "Ready",
+      "short_name_fr": "Prêt",
+      "description": "The team of pickers is formed. The pickleader and pickers will meet at the agreed upon time.",
+      "description_en": "The team of pickers is formed. The pickleader and pickers will meet at the agreed upon time.",
+      "description_fr": "L'équipe des cueilleuses et cueilleurs a été formée, tout est prêt pour la cueillette."
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 6,
+    "fields":
+    {
+      "short_name": "Succeeded",
+      "short_name_en": "Succeeded",
+      "short_name_fr": "Réussi",
+      "description": "The fruit have been picked sucessfully.",
+      "description_en": "The fruit have been picked sucessfully.",
+      "description_fr": "Nous avons cueilli les fruits!"
+    }
+  },
+  {
+    "model": "harvest.HarvestStatus",
+    "pk": 7,
+    "fields":
+    {
+      "short_name": "Cancelled",
+      "short_name_en": "Cancelled",
+      "short_name_fr": "Annulé",
+      "description": "Sadly, the tree will not be harvested this year.",
+      "description_en": "Sadly, the tree will not be harvested this year.",
+      "description_fr": "Nous ne serons pas capables de cueillir cet arbre cette année."
     }
   }
 ]

@@ -1,68 +1,5 @@
 [
   {
-    "model": "harvest.HarvestStatus",
-    "pk": 1,
-    "fields": {
-      "short_name": "To-be-confirmed",
-      "description": "Not yet confirmed for the current season, just a potential harvest property"
-    }
-  },
-  {
-    "model": "harvest.HarvestStatus",
-    "pk": 2,
-    "fields": {
-      "short_name": "Orphan",
-      "description": "Confirmed for curent season, but not taken by any pick leader"
-    }
-  },
-  {
-    "model": "harvest.HarvestStatus",
-    "pk": 3,
-    "fields": {
-      "short_name": "Adopted",
-      "description": "Adopted by a pick leader, waiting on fruit to ripe"
-    }
-  },
-  {
-    "model": "harvest.HarvestStatus",
-    "pk": 4,
-    "fields": {
-      "short_name": "Scheduled",
-      "description": "Scheduled with the owner, waiting for the team to be formed"
-    }
-  },
-  {
-    "model": "harvest.HarvestStatus",
-    "pk": 5,
-    "fields": {
-      "short_name": "Ready",
-      "description": "Team is formed, everything is read to go"
-    }
-  },
-  {
-    "model": "harvest.HarvestStatus",
-    "pk": 6,
-    "fields": {
-      "short_name": "Succeeded",
-      "description": "Succedded"
-    }
-  },
-  {
-    "model": "harvest.HarvestStatus",
-    "pk": 7,
-    "fields": {
-      "short_name": "Cancelled",
-      "description": "Cancelled"
-    }
-  },
-  {
-    "model": "member.Neighborhood",
-    "pk": 1,
-    "fields": {
-      "name": "Plateau Mont-Royal"
-    }
-  },
-  {
     "model": "member.City",
     "pk": 1,
     "fields": {
@@ -84,43 +21,6 @@
     }
   },
   {
-    "model": "harvest.EquipmentType",
-    "pk": 1,
-    "fields": {
-      "name": "Ladder"
-    }
-  },
-  {
-    "model": "harvest.EquipmentType",
-    "pk": 2,
-    "fields": {
-      "name": "Bicycle"
-    }
-  },
-  {
-    "model": "harvest.EquipmentType",
-    "pk": 3,
-    "fields": {
-      "name": "Spade"
-    }
-  },
-  {
-    "model": "harvest.TreeType",
-    "pk": 1,
-    "fields": {
-      "name": "Fig Tree",
-      "fruit_name": "Fig"
-    }
-  },
-  {
-    "model": "harvest.TreeType",
-    "pk": 2,
-    "fields": {
-      "name": "Apple Tree",
-      "fruit_name": "Apple"
-    }
-  },
-  {
         "model": "member.Actor",
         "pk": 1,
         "fields": {}
@@ -132,7 +32,6 @@
                 "actor_id": 1,
 		"first_name": "Admin",
 		"family_name": "Saskatoon",
-		"street": "Hiutson",
 		"phone": "514 563 1000"
 		}
   },
@@ -153,8 +52,8 @@
 	"model": "member.organization",
 	"fields": {
 		"contact_person": 1,
-		"civil_name": "Barreau Inc",
-		"description": "Not mandatory"
+		"civil_name": "Les Fruits Defendus",
+		"description": "About"
 	},
 	"pk": 1
   }
