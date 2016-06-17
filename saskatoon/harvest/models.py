@@ -248,11 +248,11 @@ class Harvest(models.Model):
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
     picker = models.EmailField(
-        verbose_name=_("Email of contact")
+        verbose_name=_("Email of contact person")
     )
 
     phone = models.CharField(
-        verbose_name=_("Phone of contact"),
+        verbose_name=_("Phone of contact person"),
         max_length=10,
         null=True,
         blank=True
@@ -376,7 +376,8 @@ class Equipment(models.Model):
     )
 
     shared = models.BooleanField(
-        verbose_name=_("Can be used outside of property"),
+        verbose_name=_("Shared"),
+        help_text=_("Can be used in harvests outside of property"),
         default='False'
     )
 

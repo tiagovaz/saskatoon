@@ -33,9 +33,9 @@
         <div class="col-sm-6">
             <p><b>{% trans "Property" %} :</b><br> {{ harvest.property }}</p>
 
-            <p><b>{% trans "Owner wants to be present" %} :</b> {{ harvest.owner_present }}</p>
-            <p><b>{% trans "Owner wants to participate" %} :</b> {{ harvest.owner_help }}</p>
-            <p><b>{% trans "Owner wants his share of fruits" %} :</b> {{ harvest.owner_fruit }}</p>
+            <p><b>{% trans "Owner wants to be present" %} :</b> {% if harvest.owner_present %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}</p>
+            <p><b>{% trans "Owner wants to participate" %} :</b> {% if harvest.owner_help %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}</p>
+            <p><b>{% trans "Owner wants his share of fruits" %} :</b> {% if harvest.owner_fruit %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}</p>
         </div>
         <div class="col-sm-6">
             <div class="panel panel-default">
@@ -57,7 +57,7 @@
                 <span class="pull-right">
                     <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-xs btn-success">
                         <i class="fa fa-plus"></i>
-                        {% trans "Participate to the harvest" %}
+                        {% trans "Participate in the pick" %}
                     </a>
                 </span>
                 </div>
@@ -111,7 +111,7 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {% trans "Historical" %}
+                    {% trans "History" %}
                 </div>
 
                 <table class="table table-hover table-condensed">

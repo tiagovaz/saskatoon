@@ -91,13 +91,15 @@
                     {% with property.owner|is_person as is_person %}
                         {% if is_person == True %}
                             <p class="lead">{{ property.owner.person.name }}</p>
-                            {{ property.owner.person.address }}.<br>
-                            {% trans "Phone : " %}{{ property.owner.person.phone }}.<br>
+                            {% if property.owner.person.address %}
+                                    {% trans "Personal address" %} : {{ property.owner.person.address }}.<br>
+                            {% endif %}
+                            {% trans "Phone" %} : {{ property.owner.person.phone }}.<br>
                                 {% if property.owner.person.language %}
-                                    {% trans "Preferred language is " %} {{ property.owner.person.language }}.<br>
+                                    {% trans "Preferred language" %} : <strong>{{ property.owner.person.language }}</strong>.<br>
                                 {% endif %}
                                 {% if property.owner.person.comments %}
-                                    Additional comments: <i>{{ property.owner.person.comments }}</i><br>
+                                    {% trans "Additional comments" %} : <i>{{ property.owner.person.comments }}</i><br>
                                 {% endif %}
                         {% elif is_person == False %}
                             <strong>{{ property.owner.organization.name }}</strong><br>
