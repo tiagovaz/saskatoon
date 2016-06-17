@@ -84,18 +84,6 @@
     }
   },
   {
-    "model": "member.Address",
-    "pk": 1,
-    "fields": {
-      "number": "3745",
-      "street": "Rue Hutchison",
-      "city": 1,
-      "neighborhood": 1,
-      "state": 1,
-      "country": 1
-    }
-  },
-  {
     "model": "harvest.EquipmentType",
     "pk": 1,
     "fields": {
@@ -144,7 +132,7 @@
                 "actor_id": 1,
 		"first_name": "Admin",
 		"family_name": "Saskatoon",
-		"address": 1,
+		"street": "Hiutson",
 		"phone": "514 563 1000"
 		}
   },
@@ -164,8 +152,7 @@
   {
 	"model": "member.organization",
 	"fields": {
-		"address": 1,
-		"contact": 1,
+		"contact_person": 1,
 		"civil_name": "Barreau Inc",
 		"description": "Not mandatory"
 	},

@@ -22,11 +22,6 @@ class PersonInline(admin.TabularInline):
     extra = 3
 
 
-class AddressInline(admin.TabularInline):
-    model = Address
-    extra = 0
-
-
 class OrganizationAdmin(admin.ModelAdmin):
     inlines = [
         PropertyInline,
@@ -72,7 +67,6 @@ admin.site.register(Actor)
 admin.site.register(Language)
 admin.site.register(Person)
 admin.site.register(Organization)
-admin.site.register(Address)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)

@@ -79,11 +79,6 @@ class Property(models.Model):
         default='True'
     )
 
-    address = models.ForeignKey(
-        'member.Address',
-        verbose_name=_("Address")
-    )
-
     owner = models.ForeignKey(
         'member.Actor',
         verbose_name=_("Owner")
@@ -121,6 +116,73 @@ class Property(models.Model):
         default='False'
     )
 
+    street_number = models.CharField(
+        verbose_name=_("Number"),
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
+    street = models.CharField(
+        verbose_name=_("Street"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    complement = models.CharField(
+        verbose_name=_("Complement"),
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    postal_code = models.CharField(
+        verbose_name=_("Postal code"),
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
+    neighborhood = models.ForeignKey(
+        'member.Neighborhood',
+        verbose_name=_("Neighborhood"),
+        null=True
+    )
+
+    city = models.ForeignKey(
+        'member.City',
+        verbose_name=_("City"),
+        null=True,
+        default=1
+    )
+
+    state = models.ForeignKey(
+        'member.State',
+        verbose_name=_("State"),
+        null=True,
+        default=1
+    )
+
+    country = models.ForeignKey(
+        'member.Country',
+        verbose_name=_("Country"),
+        null=True,
+        default=1
+    )
+
+    longitude = models.FloatField(
+        verbose_name=_("Longitude"),
+        null=True,
+        blank=True
+    )
+
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
+        blank=True
+    )
+
     about = models.CharField(
         verbose_name=_("About"),
         max_length=1000,
@@ -136,7 +198,7 @@ class Property(models.Model):
 
     def __str__(self):
         return u"Property of %s at %s %s" % \
-               (self.owner, self.address.number, self.address.street)
+               (self.owner, self.street_number, self.street)
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:property_detail', args=[self.id])

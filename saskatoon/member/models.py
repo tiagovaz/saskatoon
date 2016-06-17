@@ -98,15 +98,70 @@ class Person(Actor):
         blank=True
     )
 
-    address = models.ForeignKey(
-        'member.Address',
+    street_number = models.CharField(
+        verbose_name=_("Number"),
+        max_length=10,
         null=True,
-        blank=True,
-        verbose_name=_("Address")
+        blank=True
     )
 
-    comments = models.TextField(
-        verbose_name=_("Comments"),
+    street = models.CharField(
+        verbose_name=_("Street"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    complement = models.CharField(
+        verbose_name=_("Complement"),
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    postal_code = models.CharField(
+        verbose_name=_("Postal code"),
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
+    neighborhood = models.ForeignKey(
+        'Neighborhood',
+        verbose_name=_("Neighborhood"),
+        null=True,
+    )
+
+    city = models.ForeignKey(
+        'City',
+        verbose_name=_("City"),
+        null=True,
+        default=1
+    )
+
+    state = models.ForeignKey(
+        'State',
+        verbose_name=_("State"),
+        null=True,
+        default=1
+    )
+
+    country = models.ForeignKey(
+        'Country',
+        verbose_name=_("Country"),
+        null=True,
+        default=1
+    )
+
+    longitude = models.FloatField(
+        verbose_name=_("Longitude"),
+        null=True,
+        blank=True
+    )
+
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
         blank=True
     )
 
@@ -115,6 +170,11 @@ class Person(Actor):
         null=True,
         blank=True,
         verbose_name=_("Preferred language")
+    )
+
+    comments = models.TextField(
+        verbose_name=_("Comments"),
+        blank=True
     )
 
     class Meta:
@@ -140,22 +200,83 @@ class Organization(Actor):
         blank=True
     )
 
-    address = models.ForeignKey(
-        'Address',
-        null=True,
-        verbose_name=_("Address")
-    )
-
     phone = models.CharField(
         verbose_name=_("Phone"),
         max_length=50,
         null=True
     )
 
-    contact = models.ForeignKey(
+    contact_person = models.ForeignKey(
         'Person',
         null=True,
         verbose_name=_("Contact person")
+    )
+
+    street_number = models.CharField(
+        verbose_name=_("Number"),
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
+    street = models.CharField(
+        verbose_name=_("Street"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    complement = models.CharField(
+        verbose_name=_("Complement"),
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    postal_code = models.CharField(
+        verbose_name=_("Postal code"),
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
+    neighborhood = models.ForeignKey(
+        'Neighborhood',
+        verbose_name=_("Neighborhood"),
+        null=True,
+    )
+
+    city = models.ForeignKey(
+        'City',
+        verbose_name=_("City"),
+        null=True,
+        default=1
+    )
+
+    state = models.ForeignKey(
+        'State',
+        verbose_name=_("State"),
+        null=True,
+        default=1
+    )
+
+    country = models.ForeignKey(
+        'Country',
+        verbose_name=_("Country"),
+        null=True,
+        default=1
+    )
+
+    longitude = models.FloatField(
+        verbose_name=_("Longitude"),
+        null=True,
+        blank=True
+    )
+
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
+        blank=True
     )
 
     class Meta:
@@ -242,73 +363,3 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-
-@python_2_unicode_compatible
-class Address(models.Model):
-    """
-    Address for organization, persons and properties
-    """
-    number = models.CharField(
-        verbose_name=_("Number"),
-        max_length=10
-    )
-
-    street = models.CharField(
-        verbose_name=_("Street"),
-        max_length=50
-    )
-
-    complement = models.CharField(
-        verbose_name=_("Complement"),
-        max_length=150,
-        blank=True
-    )
-
-    postal_code = models.CharField(
-        verbose_name=_("Postal code"),
-        max_length=10,
-        blank=True
-    )
-
-    neighborhood = models.ForeignKey(
-        'Neighborhood',
-        verbose_name=_("Neighborhood")
-    )
-
-    city = models.ForeignKey(
-        'City',
-        verbose_name=_("City"),
-        default=1
-    )
-
-    state = models.ForeignKey(
-        'State',
-        verbose_name=_("State"),
-        default=1
-    )
-
-    country = models.ForeignKey(
-        'Country',
-        verbose_name=_("Country"),
-        default=1
-    )
-
-    longitude = models.FloatField(
-        verbose_name=_("Longitude"),
-        null=True,
-        blank=True
-    )
-
-    latitude = models.FloatField(
-        verbose_name=_("Latitude"),
-        null=True,
-        blank=True
-    )
-
-    class Meta:
-        verbose_name = _("address")
-        verbose_name_plural = _("addresses")
-
-    def __str__(self):
-        return u"%s %s, %s" % \
-               (self.number, self.street, self.city)
