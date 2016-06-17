@@ -140,9 +140,6 @@ class PropertyForm(forms.ModelForm):
         model = Property
         fields = ('__all__')
         widgets = {
-            'address': autocomplete.ModelSelect2(
-               'address-autocomplete'
-            ),
             'owner': autocomplete.ModelSelect2(
                'actor-autocomplete'
             ),

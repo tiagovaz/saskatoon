@@ -315,10 +315,6 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
         list_property = []
 
         if self.q:
-            number = qs.filter(address__number__icontains=self.q)
-            street = qs.filter(address__street__icontains=self.q)
-            city = qs.filter(address__city__name__icontains=self.q)
-            postal_code = qs.filter(address__postal_code__icontains=self.q)
             first_name = qs.filter(owner__person__first_name__icontains=self.q)
             family_name = qs.filter(owner__person__family_name__icontains=self.q)
 
@@ -329,22 +325,6 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
             for actor in family_name:
                 if actor not in list_property:
                     list_property.append(actor)
-
-            for address in postal_code:
-                if address not in list_property:
-                    list_property.append(address)
-
-            for address in number:
-                if address not in list_property:
-                    list_property.append(address)
-
-            for address in street:
-                if address not in list_property:
-                    list_property.append(address)
-
-            for address in city:
-                if address not in list_property:
-                    list_property.append(address)
 
         return list_property
 
@@ -361,37 +341,3 @@ class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__istartswith=self.q)
 
         return qs
-
-
-class AddressAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated():
-            return Address.objects.none()
-
-        qs = Address.objects.all()
-        list_address = []
-
-        if self.q:
-            number = qs.filter(number__icontains=self.q)
-            street = qs.filter(street__icontains=self.q)
-            city = qs.filter(city__name__icontains=self.q)
-            postal_code = qs.filter(postal_code__icontains=self.q)
-
-            for address in postal_code:
-                if address not in list_address:
-                    list_address.append(address)
-
-            for address in number:
-                if address not in list_address:
-                    list_address.append(address)
-
-            for address in street:
-                if address not in list_address:
-                    list_address.append(address)
-
-            for address in city:
-                if address not in list_address:
-                    list_address.append(address)
-
-        return list_address
