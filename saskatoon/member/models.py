@@ -83,7 +83,8 @@ class Actor(models.Model):
 class Person(Actor):
     redmine_contact_id = models.IntegerField(
         verbose_name=_("Redmine contact"),
-        null=True
+        null=True,
+        blank=True
     )
 
     first_name = models.CharField(
@@ -197,6 +198,12 @@ class Person(Actor):
 
 @python_2_unicode_compatible
 class Organization(Actor):
+    redmine_contact_id = models.IntegerField(
+        verbose_name=_("Redmine contact"),
+        null=True,
+        blank=True
+    )
+
     civil_name = models.CharField(
         verbose_name=_("Name"),
         max_length=50

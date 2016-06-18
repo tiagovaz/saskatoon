@@ -104,7 +104,7 @@
                         {% elif is_person == False %}
                             <strong>{{ property.owner.organization.name }}</strong><br>
                             <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
-                            <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact }}<br>
+                            <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact_person }}<br>
                             <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
                             <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.phone }}<br>
                             <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
