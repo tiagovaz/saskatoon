@@ -178,7 +178,7 @@ class HarvestCreate(generic.CreateView):
 class HarvestUpdate(generic.UpdateView):
     model = Harvest
     template_name = "harvest/harvest/update.html"
-    fields = '__all__'
+    form_class = HarvestForm
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
