@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from harvest import views
+from django.conf import settings
 
 urlpatterns = [
     url(r'^', include('pages.urls', namespace="pages")),
@@ -15,4 +16,9 @@ urlpatterns = [
     url(r'^property-autocomplete/$', views.PropertyAutocomplete.as_view(), name='property-autocomplete',),
     url(r'^equipment-autocomplete/$', views.EquipmentAutocomplete.as_view(), name='equipment-autocomplete',),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(
+        r'^media/(?P<path>.*)$',
+        'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT}
+    )
 ]

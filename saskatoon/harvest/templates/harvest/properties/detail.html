@@ -18,9 +18,37 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
+            <div id="carousel-example-generic" class="thumbnail carousel slide" data-ride="carousel">
+                <a class="btn btn-xs btn-default pull-right">
+                    <i class="fa fa-plus"></i> add
+                </a>
 
-            <img src="https://docs.gimp.org/en/images/filters/examples/taj_orig.jpg" alt="Sample image" height="150">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in property.images.all %}
+                        {% if forloop.first %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                        {% else %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
 
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    {% for image in property.images.all %}
+                        {% if forloop.first %}
+                        <div class="item active" style="height:200px;">
+                            <img src="{{ MEDIA_URL }}{{image.image}}" alt="Sample image" style="max-height:100%; max-width: 100%;" />
+                        </div>
+                        {% else %}
+                        <div class="item" style="height:200px;">
+                            <img src="{{ MEDIA_URL }}{{image.image}}" alt="Sample image" style="max-height:200px; max-width: 100%;" />
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-4">
