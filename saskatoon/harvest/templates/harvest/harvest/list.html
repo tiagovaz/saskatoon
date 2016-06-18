@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <h1 class="page-header">
                 {% trans "Harvests" %}
-                <a class="btn btn-xs btn-primary" href="JavaScript:newPopup('/admin/harvest/harvest/add/?_popup=1');"><i class="fa fa-plus"></i> {% trans "New harvest" %}</a>
+                <a class="btn btn-xs btn-primary" href='{% url "harvest:harvest_create"%}'><i class="fa fa-plus"></i> {% trans "New harvest" %}</a>
             </h1>
         </div>
         <!-- /.col-lg-12 -->

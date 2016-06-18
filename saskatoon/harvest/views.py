@@ -2,8 +2,9 @@
 
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
-    RequestForParticipation, TreeType, Comment
-from harvest.forms import CommentForm, RequestForm, PropertyForm, HarvestForm
+    RequestForParticipation, TreeType, Comment, PropertyImage
+from harvest.forms import CommentForm, RequestForm, PropertyForm, \
+    HarvestForm, PropertyImageForm
 from member.models import Person, AuthUser, Actor
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -47,6 +48,7 @@ class PropertyDetail(generic.DetailView):
         context = super(PropertyDetail, self).get_context_data(**kwargs)
         property_history = Property.history.filter(id=self.kwargs['pk'])
         context['property_history'] = property_history
+        context['form_image'] = PropertyImageForm()
 
         return context
 
@@ -83,6 +85,27 @@ class PropertyUpdate(generic.UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+
+class PropertyImageCreate(generic.CreateView):
+    model = PropertyImage
+    template_name = 'harvest/properties/add_image.html'
+    fields = [
+        'image'
+    ]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PropertyImageCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.property = Property.objects.get(id=self.kwargs['pk'])
+        return super(PropertyImageCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:property_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
 
 class HarvestList(generic.ListView):
     template_name = 'harvest/harvest/list.html'
@@ -140,6 +163,14 @@ class HarvestCreate(generic.CreateView):
     def dispatch(self, *args, **kwargs):
         return super(HarvestCreate, self).dispatch(*args, **kwargs)
 
+    def get_initial(self):
+        initial_data = {}
+
+        if 'property' in self.kwargs:
+            initial_data['property'] = self.kwargs['property']
+
+        return initial_data
+
     def get_success_url(self):
         return self.object.get_absolute_url()
 
@@ -147,7 +178,7 @@ class HarvestCreate(generic.CreateView):
 class HarvestUpdate(generic.UpdateView):
     model = Harvest
     template_name = "harvest/harvest/update.html"
-    fields = '__all__'
+    form_class = HarvestForm
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):

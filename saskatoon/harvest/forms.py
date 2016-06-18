@@ -43,9 +43,7 @@ class NewHarvest(forms.ModelForm):
 
     # """ Determines if this harvest appears on public calendar. """
     is_active = forms.BooleanField()
-    status = forms.ModelChoiceField(
-        queryset=HarvestStatus.objects.all()
-    )
+    status = forms.ChoiceField()
     property = forms.ModelChoiceField(
         queryset=Property.objects.all()
     )
@@ -132,6 +130,14 @@ class RFPForm(forms.ModelForm):
         fields = [
             'picker',
             'phone'
+        ]
+
+
+class PropertyImageForm(forms.ModelForm):
+    class Meta:
+        model = PropertyImage
+        fields = [
+            'image'
         ]
 
 

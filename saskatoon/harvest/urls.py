@@ -24,6 +24,11 @@ urlpatterns = patterns(
         name='property_update'
     ),
     url(
+        r'^properties/(?P<pk>\d+)/new_image$',
+        views.PropertyImageCreate.as_view(),
+        name='property_add_image'
+    ),
+    url(
         r'^list/$',
         views.HarvestList.as_view(),
         name='harvest_list'
@@ -35,6 +40,11 @@ urlpatterns = patterns(
     ),
     url(
         r'^create$',
+        views.HarvestCreate.as_view(),
+        name='harvest_create'
+    ),
+    url(
+        r'^create/(?P<property>\d+)$',
         views.HarvestCreate.as_view(),
         name='harvest_create'
     ),
