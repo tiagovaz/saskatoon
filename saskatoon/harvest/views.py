@@ -187,7 +187,6 @@ class EquipmentCreate(generic.CreateView):
     def get_success_url(self):
         return self.object.get_absolute_url()
 
-
 class RequestForParticipationCreate(generic.CreateView):
     model = RequestForParticipation
     template_name = 'harvest/participation/create.html'

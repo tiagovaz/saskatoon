@@ -6,16 +6,43 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, D
 from harvest.models import *
 from member.models import *
 
-
 class RequestForm(forms.ModelForm):
+    picker_email = forms.EmailField(help_text='Enter a valid email address, please.')
+    picker_first_name = forms.CharField(label='First name')
+    picker_family_name = forms.CharField(label='Family name')
+    picker_phone = forms.CharField(label='Phone')
+
+    def save(self):
+        instance = super(RequestForm, self).save(commit=False)
+
+        first_name = self.cleaned_data['picker_first_name']
+        family_name = self.cleaned_data['picker_family_name']
+        phone = self.cleaned_data['picker_phone']
+        email = self.cleaned_data['picker_email']
+
+        # check if the email is already registered
+        auth_user_check = AuthUser.objects.filter(email = email).count()
+        if auth_user_check == 0:
+            instance.picker = Person.objects.create(first_name=first_name, family_name=family_name, phone=phone)
+            auth_user = AuthUser.objects.create(email=email, person=instance.picker)
+        else:
+            auth_user = AuthUser.objects.get(email=email)
+            instance.picker = auth_user.person
+
+        instance.save()
+        return instance
+
     class Meta:
         model = RequestForParticipation
         fields = [
             'number_of_people',
             'first_time_picker',
             'helper_picker',
-            'picker',
-            'phone'
+            'picker_first_name',
+            'picker_family_name',
+            'picker_email',
+            'picker_phone',
+            'comment',
         ]
 
 
@@ -125,15 +152,11 @@ class NewHarvest(forms.ModelForm):
             )
         )
 
-
+# Used in admin interface
 class RFPForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
-        fields = [
-            'picker',
-            'phone'
-        ]
-
+        fields = '__all__'
 
 class PropertyForm(forms.ModelForm):
     class Meta:
