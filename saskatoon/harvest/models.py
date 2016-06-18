@@ -7,25 +7,37 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
 
-@python_2_unicode_compatible
-class HarvestStatus(models.Model):
-    class Meta:
-        verbose_name = _("harvest status")
-        verbose_name_plural = _("harvest statuses")
 
-    short_name = models.CharField(
-        verbose_name=_("Short name"),
-        max_length=30
+HARVESTS_STATUS_CHOICES = (
+    (
+        "To-be-confirmed",
+        "To be confirmed",
+    ),
+    (
+        "Orphan",
+        "Orphan",
+    ),
+    (
+        "Adopted",
+        "Adopted",
+    ),
+    (
+        "Date-scheduled",
+        "Date scheduled",
+    ),
+    (
+        "Ready",
+        "Ready",
+    ),
+    (
+        "Succeeded",
+        "Succeeded",
+    ),
+    (
+      "Cancelled",
+      "Cancelled",
     )
-
-    description = models.CharField(
-        verbose_name=_("Description"),
-        max_length=150
-    )
-
-    def __str__(self):
-        return self.short_name
-
+)
 
 @python_2_unicode_compatible
 class TreeType(models.Model):
@@ -219,8 +231,9 @@ class Harvest(models.Model):
         default='True'
     )
 
-    status = models.ForeignKey(
-        'HarvestStatus',
+    status = models.CharField(
+        choices=HARVESTS_STATUS_CHOICES,
+        max_length=100,
         null=True,
         verbose_name=_("Harvest status")
     )
@@ -306,6 +319,7 @@ class Harvest(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
+
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
