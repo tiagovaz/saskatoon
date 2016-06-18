@@ -6,38 +6,40 @@ from simple_history.models import HistoricalRecords
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
+import datetime
 
 
 HARVESTS_STATUS_CHOICES = (
     (
         "To-be-confirmed",
-        "To be confirmed",
+        _("To be confirmed"),
     ),
     (
         "Orphan",
-        "Orphan",
+        _("Orphan"),
     ),
     (
         "Adopted",
-        "Adopted",
+        _("Adopted"),
     ),
     (
         "Date-scheduled",
-        "Date scheduled",
+        _("Date scheduled"),
     ),
     (
         "Ready",
-        "Ready",
+        _("Ready"),
     ),
     (
         "Succeeded",
-        "Succeeded",
+        _("Succeeded"),
     ),
     (
-      "Cancelled",
-      "Cancelled",
+        "Cancelled",
+        _("Cancelled"),
     )
 )
+
 
 @python_2_unicode_compatible
 class TreeType(models.Model):
@@ -220,6 +222,7 @@ class PropertyImage(models.Model):
     property = models.ForeignKey(Property, related_name='images')
     image = models.ImageField()
 
+
 @python_2_unicode_compatible
 class Harvest(models.Model):
     """
@@ -316,6 +319,26 @@ class Harvest(models.Model):
 
     def __str__(self):
         return "Harvest on %s at %s" % (self.start_date,self.property)
+
+    def is_urgent(self):
+        if self.start_date:
+            day_before_harvest = (datetime.datetime.now() - self.start_date).days
+
+            if not self.pick_leader and day_before_harvest < 14:
+                return True
+            elif self.status == 'Date-scheduled' and day_before_harvest < 3:
+                return True
+
+        return False
+
+    def is_happening(self):
+        if self.start_date:
+            day_before_harvest = (datetime.datetime.now() - self.start_date).days
+
+            if self.status == 'Ready' and day_before_harvest == 0:
+                return True
+
+        return False
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
