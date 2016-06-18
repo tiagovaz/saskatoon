@@ -18,9 +18,37 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
+            <div id="carousel-example-generic" class="thumbnail carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in property.images.all %}
+                        {% if forloop.first %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                        {% else %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
 
-            <img src="https://docs.gimp.org/en/images/filters/examples/taj_orig.jpg" alt="Sample image" height="150">
-
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    {% for image in property.images.all %}
+                        {% if forloop.first %}
+                        <div class="item active" style="height:200px;">
+                            <img src="{{ MEDIA_URL }}{{image.image}}" alt="Sample image" style="max-height:100%; max-width: 100%;" />
+                        </div>
+                        {% else %}
+                        <div class="item" style="height:200px;">
+                            <img src="{{ MEDIA_URL }}{{image.image}}" alt="Sample image" style="max-height:200px; max-width: 100%;" />
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Add button -->
+                    <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#AddImageModal">
+                        <i class="fa fa-plus"></i> {% trans "Add an image" %}
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-4">
@@ -177,6 +205,31 @@
                     </tr>
                     {% endfor %}
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-----------
+    --- MODAL ---
+    ------------>
+
+    <!-- Image modal -->
+    <div class="modal fade" id="AddImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                    <h4 class="modal-title" id="addImageLabel">{% trans "New image" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="{% url 'harvest:property_add_image' property.id %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form_image %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
             </div>
         </div>
     </div>

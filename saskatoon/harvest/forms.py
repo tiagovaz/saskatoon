@@ -135,6 +135,14 @@ class RFPForm(forms.ModelForm):
         ]
 
 
+class PropertyImageForm(forms.ModelForm):
+    class Meta:
+        model = PropertyImage
+        fields = [
+            'image'
+        ]
+
+
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
