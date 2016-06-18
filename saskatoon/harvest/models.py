@@ -6,25 +6,39 @@ from simple_history.models import HistoricalRecords
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
+import datetime
 
-@python_2_unicode_compatible
-class HarvestStatus(models.Model):
-    class Meta:
-        verbose_name = _("harvest status")
-        verbose_name_plural = _("harvest statuses")
 
-    short_name = models.CharField(
-        verbose_name=_("Short name"),
-        max_length=30
+HARVESTS_STATUS_CHOICES = (
+    (
+        "To-be-confirmed",
+        _("To be confirmed"),
+    ),
+    (
+        "Orphan",
+        _("Orphan"),
+    ),
+    (
+        "Adopted",
+        _("Adopted"),
+    ),
+    (
+        "Date-scheduled",
+        _("Date scheduled"),
+    ),
+    (
+        "Ready",
+        _("Ready"),
+    ),
+    (
+        "Succeeded",
+        _("Succeeded"),
+    ),
+    (
+        "Cancelled",
+        _("Cancelled"),
     )
-
-    description = models.CharField(
-        verbose_name=_("Description"),
-        max_length=150
-    )
-
-    def __str__(self):
-        return self.short_name
+)
 
 
 @python_2_unicode_compatible
@@ -213,6 +227,7 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
+
 @python_2_unicode_compatible
 class Harvest(models.Model):
     """
@@ -224,8 +239,9 @@ class Harvest(models.Model):
         default='True'
     )
 
-    status = models.ForeignKey(
-        'HarvestStatus',
+    status = models.CharField(
+        choices=HARVESTS_STATUS_CHOICES,
+        max_length=100,
         null=True,
         verbose_name=_("Harvest status")
     )
@@ -309,8 +325,29 @@ class Harvest(models.Model):
     def __str__(self):
         return "Harvest on %s at %s" % (self.start_date,self.property)
 
+    def is_urgent(self):
+        if self.start_date:
+            day_before_harvest = (datetime.datetime.now() - self.start_date).days
+
+            if not self.pick_leader and day_before_harvest < 14:
+                return True
+            elif self.status == 'Date-scheduled' and day_before_harvest < 3:
+                return True
+
+        return False
+
+    def is_happening(self):
+        if self.start_date:
+            day_before_harvest = (datetime.datetime.now() - self.start_date).days
+
+            if self.status == 'Ready' and day_before_harvest == 0:
+                return True
+
+        return False
+
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
+
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
