@@ -140,6 +140,14 @@ class HarvestCreate(generic.CreateView):
     def dispatch(self, *args, **kwargs):
         return super(HarvestCreate, self).dispatch(*args, **kwargs)
 
+    def get_initial(self):
+        initial_data = {}
+
+        if 'property' in self.kwargs:
+            initial_data['property'] = self.kwargs['property']
+
+        return initial_data
+
     def get_success_url(self):
         return self.object.get_absolute_url()
 
