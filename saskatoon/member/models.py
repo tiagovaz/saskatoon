@@ -54,7 +54,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         try:
-            return "%s %s" % (self.person.first_name, self.person.family_name)
+            return "%s" % (self.person.__str__())
         except:
        	    return self.email
 
@@ -81,6 +81,11 @@ class Actor(models.Model):
 
 @python_2_unicode_compatible
 class Person(Actor):
+    redmine_contact_id = models.IntegerField(
+        verbose_name=_("Redmine contact"),
+        null=True
+    )
+
     first_name = models.CharField(
         verbose_name=_("First name"),
         max_length=30
@@ -88,7 +93,9 @@ class Person(Actor):
 
     family_name = models.CharField(
         verbose_name=_("Family name"),
-        max_length=50
+        max_length=50,
+        null=True,
+        blank=True
     )
 
     phone = models.CharField(
@@ -210,6 +217,13 @@ class Organization(Actor):
         'Person',
         null=True,
         verbose_name=_("Contact person")
+    )
+
+    contact_person_role = models.CharField(
+        verbose_name=_("Contact person role"),
+        max_length=50,
+        null=True,
+        blank=True
     )
 
     street_number = models.CharField(
