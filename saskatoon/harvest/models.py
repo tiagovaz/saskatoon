@@ -205,8 +205,13 @@ class Property(models.Model):
 
 
 class PropertyImage(models.Model):
-    property = models.ForeignKey(Property, related_name='images')
-    image = models.ImageField()
+    property = models.ForeignKey(
+        Property,
+        related_name='images'
+    )
+    image = models.ImageField(
+        upload_to='properties_images',
+    )
 
 @python_2_unicode_compatible
 class Harvest(models.Model):
