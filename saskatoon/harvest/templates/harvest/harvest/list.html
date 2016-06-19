@@ -45,7 +45,11 @@
                                         {% endfor %}
                                     </td>
                                     <td>{{ harvest.pick_leader }}</td>
-                                    <td>{{ harvest.property }}</td>
+                                    <td>
+                                        <a href='{% url "harvest:property_detail" harvest.property.id %}'>
+                                            {{ harvest.property }}
+                                        </a>
+                                    </td>
                                     <td>{{ harvest.start_date }}</td>
                                     <td>{{ harvest.status }}</td>
                                     <td>
