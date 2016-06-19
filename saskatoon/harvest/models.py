@@ -276,6 +276,12 @@ class Harvest(models.Model):
         null=True
     )
 
+    creation_date = models.DateTimeField(
+        verbose_name=_("Creation date"),
+        auto_now=False,
+        auto_now_add=True
+    )
+
     nb_required_pickers = models.IntegerField(
         verbose_name=_("Number of required pickers"),
         default=3
@@ -344,6 +350,29 @@ class Harvest(models.Model):
                 return True
 
         return False
+
+    def is_publishable(self):
+        now = datetime.datetime.now()
+        is_good_day = self.creation_date.day == now.day
+        is_good_month = self.creation_date.month == now.month
+        is_good_year = self.creation_date.year == now.year
+
+        if is_good_day and is_good_month and is_good_year:
+            is_today = True
+        else:
+            is_today = False
+
+        if self.status in ["Ready", "Date-scheduled",
+                           "Succeeded"]:
+            if is_today:
+                if now.hour > 17:
+                    return True
+                else:
+                    return False
+            else:
+                return True
+        else:
+            return False
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
