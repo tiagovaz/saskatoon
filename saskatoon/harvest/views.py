@@ -4,7 +4,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, PropertyImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
-    HarvestForm, PropertyImageForm
+    HarvestForm, PropertyImageForm, EquipmentForm
 from member.models import Person, AuthUser, Actor
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -107,6 +107,7 @@ class PropertyImageCreate(generic.CreateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+
 class HarvestList(generic.ListView):
     template_name = 'harvest/harvest/list.html'
     context_object_name = 'harvests'
@@ -127,6 +128,7 @@ class HarvestList(generic.ListView):
         context['form'].fields['pick_leader'] = forms.ModelChoiceField(queryset=AuthUser.objects.filter(is_staff=True), required=False)
 
         return context
+
 
 class HarvestDetail(generic.DetailView):
     model = Harvest
@@ -210,13 +212,26 @@ class EquipmentList(generic.ListView):
 class EquipmentCreate(generic.CreateView):
     model = Equipment
     template_name = 'harvest/equipment/create.html'
-    fields = '__all__'
+    form_class = EquipmentForm
 
     def dispatch(self, *args, **kwargs):
         return super(EquipmentCreate, self).dispatch(*args, **kwargs)
 
+    def get_initial(self):
+        initial_data = {}
+
+        if 'property' in self.kwargs:
+            initial_data['property'] = self.kwargs['property']
+
+        return initial_data
+
     def get_success_url(self):
-        return self.object.get_absolute_url()
+        if self.object.property:
+            return self.object.property.get_absolute_url()
+        else:
+            return reverse_lazy(
+                'harvest:equipment_list'
+            )
 
 
 class RequestForParticipationCreate(generic.CreateView):

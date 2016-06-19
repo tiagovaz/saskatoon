@@ -29,6 +29,11 @@ urlpatterns = patterns(
         name='property_add_image'
     ),
     url(
+        r'^properties/(?P<property>\d+)/add_equipment$',
+        views.EquipmentCreate.as_view(),
+        name='property_add_equipment'
+    ),
+    url(
         r'^list/$',
         views.HarvestList.as_view(),
         name='harvest_list'

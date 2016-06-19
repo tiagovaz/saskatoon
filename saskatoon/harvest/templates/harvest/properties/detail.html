@@ -169,24 +169,29 @@
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
+                    <a href='{% url "harvest:property_add_equipment" property.id %}' class="btn btn-xs btn-warning pull-right">
+                        <i class="fa fa-plus"></i> Add equipment
+                    </a>
                     <i class="glyphicon glyphicon-scissors"></i> &nbsp;<b>{% trans "Equipment" %}</b>
                 </div>
-                <div class="panel-body">
-                    {% if harvest.equipment_reserved.all %}
-                    <ul>
-                        {% for equipment in property.equipment_at_property.all %}
-                            <li>
-                                <span class="label label-default" style="margin-right: 5px;">
+                <table class="table">
+                    {% if property.equipment.all %}
+                        {% for equipment in property.equipment.all %}
+                            <tr>
+                                <td>
+                                    <span class="label label-default" style="margin-right: 5px;">
                                     {{ equipment.type }}
-                                </span>
-                                {{ equipment.description }}
-                            </li>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ equipment.description }}
+                                </td>
+                            </tr>
                         {% endfor %}
-                    </ul>
                     {% else %}
                         {% trans "No equipment available at this property." %}
                     {% endif %}
-                </div>
+                </table>
             </div>
         </div>
     </div>

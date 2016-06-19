@@ -504,6 +504,7 @@ class Equipment(models.Model):
     property = models.ForeignKey(
         'Property',
         verbose_name=_("Property"),
+        related_name="equipment",
         null=True,
         blank=True
     )
