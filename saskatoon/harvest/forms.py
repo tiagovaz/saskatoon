@@ -6,16 +6,58 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, D
 from harvest.models import *
 from member.models import *
 
-
 class RequestForm(forms.ModelForm):
+    picker_email = forms.EmailField(help_text='Enter a valid email address, please.')
+    picker_first_name = forms.CharField(label='First name')
+    picker_family_name = forms.CharField(label='Family name')
+    picker_phone = forms.CharField(label='Phone')
+    harvest_id = forms.CharField(widget=forms.HiddenInput())
+
+    def clean(self):
+        email = self.cleaned_data['picker_email']
+        auth_user_count = AuthUser.objects.filter(email=email).count()
+        if auth_user_count > 0: # check if email is already in the database
+            auth_user = AuthUser.objects.get(email=email)
+            harvest_obj = Harvest.objects.get(id=self.cleaned_data['harvest_id'])
+            request_same_user_count = RequestForParticipation.objects.filter(picker = auth_user.person, harvest = harvest_obj).count()
+            if request_same_user_count > 0: # check if email has requested for the same harvest
+                raise forms.ValidationError, 'You have already requested to join this pick.'
+
+    def save(self):
+        instance = super(RequestForm, self).save(commit=False)
+
+        first_name = self.cleaned_data['picker_first_name']
+        family_name = self.cleaned_data['picker_family_name']
+        phone = self.cleaned_data['picker_phone']
+        email = self.cleaned_data['picker_email']
+        harvest_obj = Harvest.objects.get(id=self.cleaned_data['harvest_id'])
+
+        # check if the email is already registered
+        auth_user_count = AuthUser.objects.filter(email = email).count()
+
+        if auth_user_count > 0: # user is already in the database
+            auth_user = AuthUser.objects.get(email=email)
+            instance.picker = auth_user.person
+            instance.harvest = harvest_obj
+        else: # user is not in the database, so create a new one and link it to Person obj
+            instance.picker = Person.objects.create(first_name=first_name, family_name=family_name, phone=phone)
+            auth_user = AuthUser.objects.create(email=email, person=instance.picker)
+
+        instance.save()
+        return instance
+
     class Meta:
         model = RequestForParticipation
         fields = [
             'number_of_people',
             'first_time_picker',
             'helper_picker',
-            'picker',
-            'phone'
+            'picker_first_name',
+            'picker_family_name',
+            'picker_email',
+            'picker_phone',
+            'comment',
+            'harvest_id'
         ]
 
 
@@ -123,15 +165,11 @@ class NewHarvest(forms.ModelForm):
             )
         )
 
-
+# Used in admin interface
 class RFPForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
-        fields = [
-            'picker',
-            'phone'
-        ]
-
+        fields = '__all__'
 
 class PropertyImageForm(forms.ModelForm):
     class Meta:

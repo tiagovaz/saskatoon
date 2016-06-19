@@ -218,7 +218,6 @@ class EquipmentCreate(generic.CreateView):
     def get_success_url(self):
         return self.object.get_absolute_url()
 
-
 class RequestForParticipationCreate(generic.CreateView):
     model = RequestForParticipation
     template_name = 'harvest/participation/create.html'
@@ -230,6 +229,11 @@ class RequestForParticipationCreate(generic.CreateView):
     def form_valid(self, form):
         form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
         return super(RequestForParticipationCreate, self).form_valid(form)
+
+    def get_initial(self):
+        initial = super(RequestForParticipationCreate, self).get_initial()
+        initial['harvest_id'] = self.kwargs['pk']
+        return initial
 
     def get_success_url(self):
         messages.add_message(

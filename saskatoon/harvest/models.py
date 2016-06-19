@@ -380,20 +380,20 @@ class Harvest(models.Model):
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
-    picker = models.EmailField(
-        verbose_name=_("Email of contact person")
-    )
-
-    phone = models.CharField(
-        verbose_name=_("Phone of contact person"),
-        max_length=10,
-        null=True,
-        blank=True
+    picker = models.ForeignKey(
+        'member.Person',
+        verbose_name=_("Contact")
     )
 
     number_of_people = models.IntegerField(
         verbose_name=_("How many people are you?"),
         default=0,
+    )
+
+    comment = models.TextField(
+        verbose_name=_("Comment"),
+        null=True,
+        blank=True
     )
 
     harvest = models.ForeignKey(
@@ -416,15 +416,10 @@ class RequestForParticipation(models.Model):
         default=timezone.now
     )
 
-    confirmed = models.BooleanField(
-        verbose_name=_("Confirmed"),
-        default=False
-    )
-
     confirmation_date = models.DateTimeField(
         verbose_name=_("Confirmed on"),
         null=True,
-        default=timezone.now,
+        blank=True
     )
 
     showed_up = models.BooleanField(
