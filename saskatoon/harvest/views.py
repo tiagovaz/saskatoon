@@ -199,6 +199,11 @@ class RequestForParticipationCreate(generic.CreateView):
         form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
         return super(RequestForParticipationCreate, self).form_valid(form)
 
+    def get_initial(self):
+        initial = super(RequestForParticipationCreate, self).get_initial()
+        initial['harvest_id'] = self.kwargs['pk']
+        return initial
+
     def get_success_url(self):
         messages.add_message(
             self.request,
