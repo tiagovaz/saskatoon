@@ -29,7 +29,7 @@
   	"model": "member.Person",
   	"pk": 1,
   	"fields": {
-                "actor_id": 1,
+        "actor_id": 1,
 		"first_name": "Admin",
 		"family_name": "Saskatoon",
 		"phone": "514 563 1000"
@@ -46,15 +46,6 @@
 		"date_joined": "2015-07-21T03:48:35.416Z"
 	  },
 	"model": "member.authuser",
-	"pk": 1
-  },
-  {
-	"model": "member.organization",
-	"fields": {
-		"contact_person": 1,
-		"civil_name": "Les Fruits Defendus",
-		"description": "About"
-	},
 	"pk": 1
   }
 ]

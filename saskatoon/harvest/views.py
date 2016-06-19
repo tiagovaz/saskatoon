@@ -323,6 +323,9 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
                 if actor not in list_actor:
                     list_actor.append(actor)
 
+        if not list_actor:
+            list_actor = qs
+
         return list_actor
 
 
