@@ -287,13 +287,6 @@ class Harvest(models.Model):
         default=3
     )
 
-    pickers = models.ManyToManyField(
-        'member.Person',
-        related_name='harvests',
-        verbose_name=_("Pickers' names"),
-        blank=True
-    )
-
     equipment_reserved = models.ManyToManyField(
         'Equipment',
         verbose_name=_("Reserve equipment"),
@@ -382,7 +375,7 @@ class Harvest(models.Model):
 class RequestForParticipation(models.Model):
     picker = models.ForeignKey(
         'member.Person',
-        verbose_name=_("Contact")
+        verbose_name=_("Requester")
     )
 
     number_of_people = models.IntegerField(

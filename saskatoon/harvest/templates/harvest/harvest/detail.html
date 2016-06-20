@@ -19,12 +19,22 @@
 
     <div class="row">
         <div class="col-sm-4">
+                <strong>{% trans "Address" %} :</strong>
+                <a href='{% url "harvest:property_detail" harvest.property.id %}'>
+                    {{harvest.property}}
+                </a><br>
             <strong>{% trans "Start" %} :</strong> {{harvest.start_date}}<br>
             <strong>{% trans "End" %} :</strong> {{harvest.end_date}}<br>
+                <strong>{% trans "Owner" %} : </strong>{{harvest.property.owner}}<br>
+            {% if harvest.property.owner|is_person %}
+             <strong>{% trans "Phone" %} : </strong>{{harvest.property.owner.person.phone}}<br>
+            {% else %}
+                <strong>{% trans "Contact" %} : </strong>{{harvest.property.owner.organization.contact_person}}<br>
+            <strong>{% trans "Phone" %} : {{harvest.property.owner.organization.phone}}</strong>
+            {% endif %}
             <strong>{% trans "Status" %} :</strong> {{ harvest.status }}<br>
             <strong>{% trans "Number of required pickers" %} :</strong> {{ harvest.nb_required_pickers }}<br>
-            <strong>{% trans "Number of required pickers" %} :</strong> {{ harvest.property.nb_required_pickers }}<br>
-        </div>
+            </div>
         <div class="col-sm-4">
            <div class="table-responsive">
                <table class='table table-borderless'>
@@ -71,27 +81,7 @@
            <!-- /.table-responsive -->
         </div>
         <div class="col-sm-4">
-            <p>
-                {% trans "Address" %} :
-                <a href='{% url "harvest:property_detail" harvest.property.id %}'>
-                    {{harvest.property}}
-                </a>
-            </p>
-            <p>
-                {% trans "Owner" %} : {{harvest.property.owner}}
-            </p>
-            {% if harvest.property.owner|is_person %}
-            <p>
-                {% trans "Phone" %} : {{harvest.property.owner.person.phone}}
-            </p>
-            {% else %}
-            <p>
-                {% trans "Contact" %} : {{harvest.property.owner.organization.contact_person}}
-            </p>
-            <p>
-                {% trans "Phone" %} : {{harvest.property.owner.organization.phone}}
-            </p>
-            {% endif %}
+
         </div>
     </div>
 
@@ -124,6 +114,50 @@
                 </span>
                 </div>
                 <div class="panel-body">
+
+           <div class="table-responsive">
+               <table class='table table-borderless'>
+                   <tbody>
+                       <tr>
+                           <td><strong>{% trans "Published in the calendar" %}</strong></td>
+                           <td>{% if harvest.is_active %}
+                                   <i class="fa fa-check" style="color:green"></i>
+                               {% else %}
+                                   <i class="fa fa-times" style="color:red"></i>
+                               {% endif %}
+                           </td>
+                       </tr>
+                       <tr>
+                           <td><strong>{% trans "Owner wants to be present" %}</strong></td>
+                           <td>{% if harvest.owner_present %}
+                                   <i class="fa fa-check" style="color:green"></i>
+                               {% else %}
+                                   <i class="fa fa-times" style="color:red"></i>
+                               {% endif %}
+                           </td>
+                       </tr>
+                       <tr>
+                           <td><strong>{% trans "Owner wants to participate" %}</strong></td>
+                           <td>{% if harvest.owner_help %}
+                                   <i class="fa fa-check" style="color:green"></i>
+                               {% else %}
+                                   <i class="fa fa-times" style="color:red"></i>
+                               {% endif %}
+                           </td>
+                       </tr>
+                       <tr>
+                           <td><strong>{% trans "Owner wants his share of fruits" %}</strong></td>
+                           <td>{% if harvest.owner_fruit %}
+                                   <i class="fa fa-check" style="color:green"></i>
+                               {% else %}
+                                   <i class="fa fa-times" style="color:red"></i>
+                               {% endif %}
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+           </div>
+           <!-- /.table-responsive -->
                     {% if harvest.pickers.all %}
                     <ul>
                         {% for picker in harvest.pickers.all %}
@@ -171,12 +205,11 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     {% trans "History" %}
                 </div>
-
                 <table class="table table-hover table-condensed">
                     {% for line in harvest_history %}
                     {% if line.get_history_type_display == "Created" %}
@@ -192,10 +225,29 @@
                 </table>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>{% trans "History" %}</strong>
+                </div>
+
+                <table class="table table-hover table-condensed">
+                    {% for line in harvest_history %}
+                    {% if line.get_history_type_display == "Created" %}
+                    <tr class="success">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                        <td>
+                            Updated by {{ line.history_user }} in {{ line.history_date }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span class="pull-right">
