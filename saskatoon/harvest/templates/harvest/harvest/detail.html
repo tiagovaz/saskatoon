@@ -12,6 +12,9 @@
                 <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
                     <i class="fa fa-pencil"></i> {% trans "Edit" %}
                 </a>
+                <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_adopt" harvest.id %}'>
+                    <i class="fa fa-pencil"></i> {% trans "Adopt" %}
+                </a>
             </h1>
         </div>
         <!-- /.col-lg-12 -->

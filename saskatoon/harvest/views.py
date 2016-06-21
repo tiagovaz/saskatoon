@@ -15,7 +15,7 @@ from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django import forms
-
+from django.shortcuts import redirect
 
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
@@ -229,6 +229,48 @@ class HarvestUpdate(generic.UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+class HarvestAdopt(generic.RedirectView):
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.harvest = get_object_or_404(
+            Harvest,
+            id=kwargs['pk']
+        )
+        is_staff = request.user.is_staff
+
+        if is_staff:
+            return super(HarvestAdopt, self).\
+                dispatch(request, *args, **kwargs)
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                _("You do not have the right permissions")
+            )
+            return redirect(reverse_lazy(
+                "harvest:harvest_detail",
+                args=[self.harvest.id]
+            ))
+
+    def get(self, request, *args, **kwargs):
+        self.harvest.pick_leader = request.user
+        self.harvest.save(update_fields=['pick_leader'])
+
+        messages.add_message(
+            request,
+            messages.WARNING,
+            'The harvest was adopted!'
+        )
+
+        return redirect(self.get_redirect_url(*args, **kwargs))
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy(
+            "harvest:harvest_detail",
+            args=[self.harvest.id]
+        )
+
 
 class EquipmentList(generic.ListView):
     template_name = 'harvest/equipment/list.html'
@@ -318,7 +360,6 @@ class CommentCreate(generic.CreateView):
             'harvest:harvest_detail',
             kwargs={'pk': self.kwargs['pk']}
         )
-
 
 class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
