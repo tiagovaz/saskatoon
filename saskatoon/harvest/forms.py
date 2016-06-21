@@ -243,7 +243,6 @@ class HarvestForm(forms.ModelForm):
     class Meta:
         model = Harvest
         fields = '__all__'
-
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
@@ -262,7 +261,6 @@ class HarvestForm(forms.ModelForm):
             ),
             'nb_required_pickers': forms.NumberInput()
         }
-
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
