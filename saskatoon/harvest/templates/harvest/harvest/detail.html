@@ -33,12 +33,10 @@
             <strong>{% trans "Phone" %} : {{harvest.property.owner.organization.phone}}</strong>
             {% endif %}
             <strong>{% trans "Status" %} :</strong> {{ harvest.status }}<br>
-            <strong>{% trans "Number of required pickers" %} :</strong> {{ harvest.nb_required_pickers }}<br>
             </div>
         <div class="col-sm-4">
            <div class="table-responsive">
-               <table class='table table-borderless'>
-                   <tbody>
+               <table class='table table-borderless table-condensed'>
                        <tr>
                            <td><strong>{% trans "Published in the calendar" %}</strong></td>
                            <td>{% if harvest.is_active %}
@@ -75,13 +73,14 @@
                                {% endif %}
                            </td>
                        </tr>
-                   </tbody>
-               </table>
+                   </table>
            </div>
            <!-- /.table-responsive -->
         </div>
         <div class="col-sm-4">
-
+            <div class="alert alert-warning">
+                <strong>{{ harvest.nb_required_pickers }}</strong> {% trans " pickers required for this harvest!" %}
+            </div>
         </div>
     </div>
 
@@ -99,83 +98,6 @@
                         <li>{{ tree.fruit_name }}</li>
                     {% endfor %}
                     </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                <i class="glyphicon glyphicon-user"></i> <b>{% trans "Pickers" %} :</b>
-                <span class="pull-right">
-                    <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-xs btn-success">
-                        <i class="fa fa-plus"></i>
-                        {% trans "Participate in the pick" %}
-                    </a>
-                </span>
-                </div>
-                <div class="panel-body">
-
-           <div class="table-responsive">
-               <table class='table table-borderless'>
-                   <tbody>
-                       <tr>
-                           <td><strong>{% trans "Published in the calendar" %}</strong></td>
-                           <td>{% if harvest.is_active %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                       <tr>
-                           <td><strong>{% trans "Owner wants to be present" %}</strong></td>
-                           <td>{% if harvest.owner_present %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                       <tr>
-                           <td><strong>{% trans "Owner wants to participate" %}</strong></td>
-                           <td>{% if harvest.owner_help %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                       <tr>
-                           <td><strong>{% trans "Owner wants his share of fruits" %}</strong></td>
-                           <td>{% if harvest.owner_fruit %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                   </tbody>
-               </table>
-           </div>
-           <!-- /.table-responsive -->
-                    {% if harvest.pickers.all %}
-                    <ul>
-                        {% for picker in harvest.pickers.all %}
-                            {% if picker == harvest.pick_leader %}
-                            <li>
-                                <span class="label label-primary" style="margin-right: 5px;">
-                                    {% trans "pickleader" %}
-                                </span>
-                                <b>{{ picker }}</b>
-                            </li>
-                            {% else %}
-                            <li>{{ picker }}</li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                        {% trans "No one picker for the moment" %}
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -202,36 +124,152 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    {% trans "History" %}
+                    <span class="pull-right">
+                        <a data-toggle="modal" data-target="#CommentModal" class="btn btn-xs btn-success">
+                            {% trans "Add comment" %}
+                        </a>
+                    </span>
+                    <i class="fa fa-comments fa-fw"></i> <strong>{% trans "Comments" %}</strong>
                 </div>
-                <table class="table table-hover table-condensed">
-                    {% for line in harvest_history %}
-                    {% if line.get_history_type_display == "Created" %}
-                    <tr class="success">
-                    {% else %}
-                    <tr>
-                    {% endif %}
-                        <td>
-                            <strong>Updated by {{ line.history_user }} in {{ line.history_date }}</strong>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                <div class="panel-body">
+                    <table class="table table-hover table-condensed">
+                        {% for comment in harvest.comment.all %}
+                        <tr>
+                            <td>
+                                <strong>{{comment.author}} on {{comment.created_date}}</strong> :
+                                {{comment.content}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-user"></i> <b>{% trans "Pickers" %} :</b>
+                    <span class="pull-right">
+                        <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-xs btn-success">
+                            <i class="fa fa-plus"></i>
+                            {% trans "New request" %}
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class='table table-hover table-condensed'>
+                            <tr>
+                                <th>Requester name</th>
+                                <th>Number of people</th>
+                                <th>Status</th>
+                                <th>Request date</th>
+                                <th>Confirmation date</th>
+                                <th>First time</th>
+                                <th>Can help with equipment</th>
+                                <th></th>
+                            </tr>
+                            {% for r in requests %}
+                            <tr>
+                                <td>{{ r.picker }}</td>
+                                <td>3</td>
+                                <td>{% if r.confirmation_date %}
+                                        <i class="fa fa-check" style="color:green"></i>
+                                    {% else %}
+                                        <i class="fa fa-times" style="color:red"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{{ r.creation_date }}</td>
+                                <td>{% if r.confirmation_date %}
+                                        {{ r.confirmation_date }}
+                                    {% else %}
+                                        <i class="fa fa-times" style="color:red"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{% if r.first_time_picker %}
+                                        <i class="fa fa-check" style="color:green"></i>
+                                    {% else %}
+                                        <i class="fa fa-times" style="color:red"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{% if r.helper_picker %}
+                                        <i class="fa fa-check" style="color:green"></i>
+                                    {% else %}
+                                        <i class="fa fa-times" style="color:red"></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                        <a class="btn btn-xs btn-warning" href=''>
+                                            <i class="fa fa-pencil"></i> {% trans "Manage" %}
+                                        </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
             </div>
         </div>
 
-        <div class="col-sm-4">
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <strong>{% trans "Fruit distribution" %}</strong>
+                    <span class="pull-right">
+                        <a href="JavaScript:newPopup('/admin/harvest/harvestyield/add/?_popup=1&harvest={{harvest.id}}');" class="btn btn-xs btn-success">
+                            <i class="fa fa-plus"></i>
+                            {% trans "New recipient" %}
+                        </a>
+                    </span>
+
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class='table table-hover table-condensed'>
+                            <tr>
+                                <th>Recipient</th>
+                                <th>Fruit</th>
+                                <th>Donated amount (in lb)</th>
+                                <th></th>
+                            </tr>
+                            {% for d in distribution %}
+                            <tr>
+                                <td>{{ d.recipient }}</td>
+                                <td>{{ d.tree.fruit_name }}</td>
+                                <td>{{ d.total_in_lb }}</td>
+                                <td>
+                                        <a class="btn btn-xs btn-warning" href=''>
+                                            <i class="fa fa-pencil"></i> {% trans "Manage" %}
+                                        </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>{% trans "History" %}</strong>
                 </div>
-
                 <table class="table table-hover table-condensed">
                     {% for line in harvest_history %}
                     {% if line.get_history_type_display == "Created" %}
@@ -241,29 +279,6 @@
                     {% endif %}
                         <td>
                             Updated by {{ line.history_user }} in {{ line.history_date }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="pull-right">
-                        <a data-toggle="modal" data-target="#CommentModal" class="btn btn-xs btn-success">
-                            {% trans "Add comment" %}
-                        </a>
-                    </span>
-                    {% trans "Comments" %}
-                </div>
-
-                <table class="table table-hover table-condensed">
-                    {% for comment in harvest.comment.all %}
-                    <tr>
-                        <td>
-                            <strong>{{comment.author}} on {{comment.created_date}}</strong><br>
-                            {{comment.content}}
                         </td>
                     </tr>
                     {% endfor %}

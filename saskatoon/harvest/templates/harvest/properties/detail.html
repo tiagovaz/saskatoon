@@ -174,24 +174,26 @@
                     </a>
                     <i class="glyphicon glyphicon-scissors"></i> &nbsp;<b>{% trans "Equipment" %}</b>
                 </div>
-                <table class="table">
-                    {% if property.equipment.all %}
-                        {% for equipment in property.equipment.all %}
-                            <tr>
-                                <td>
-                                    <span class="label label-default" style="margin-right: 5px;">
-                                    {{ equipment.type }}
-                                    </span>
-                                </td>
-                                <td>
-                                    {{ equipment.description }}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    {% else %}
-                        {% trans "No equipment available at this property." %}
-                    {% endif %}
-                </table>
+                <div class="panel-body">
+                    <table class="table table-hover table-condensed">
+                        {% if property.equipment.all %}
+                            {% for equipment in property.equipment.all %}
+                                <tr>
+                                    <td>
+                                        <span class="label label-default" style="margin-right: 5px;">
+                                        {{ equipment.type }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ equipment.description }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% trans "No equipment available at this property." %}
+                        {% endif %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>

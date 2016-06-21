@@ -146,9 +146,9 @@ class Property(models.Model):
         blank=True
     )
 
-    cross_street = models.CharField(
-        verbose_name=_("Cross street"),
-        help_text = _("Closest corner, used as a hint for location"),
+    publishable_location = models.CharField(
+        verbose_name=_("Publishable location"),
+        help_text = _("Aproximative location, do not make public the real address."),
         max_length=50,
         null=True,
         blank=True
@@ -237,13 +237,8 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
-
 @python_2_unicode_compatible
 class Harvest(models.Model):
-    """
-    Determines if this harvest appears on public calendar.
-    """
-
     status = models.CharField(
         choices=HARVESTS_STATUS_CHOICES,
         max_length=100,
@@ -292,6 +287,12 @@ class Harvest(models.Model):
 
     end_date = models.DateTimeField(
         verbose_name=_("End date"),
+        blank=True,
+        null=True
+    )
+
+    publication_date = models.DateTimeField(
+        verbose_name=_("Publication date"),
         blank=True,
         null=True
     )
@@ -358,33 +359,43 @@ class Harvest(models.Model):
 
     def is_publishable(self):
         now = datetime.datetime.now()
-        is_good_day = self.creation_date.day == now.day
-        is_good_month = self.creation_date.month == now.month
-        is_good_year = self.creation_date.year == now.year
+        self.publication_hour = 18 #FIXME: add a model to set this up
 
-        if is_good_day and is_good_month and is_good_year:
-            is_today = True
-        else:
-            is_today = False
+        if self.publication_date:
+            is_good_day = self.publication_date.day == now.day
+            is_good_month = self.publication_date.month == now.month
+            is_good_year = self.publication_date.year == now.year
 
-        if self.status in ["Ready", "Date-scheduled",
-                           "Succeeded"]:
-            if is_today:
-                if now.hour > 17:
-                    return True
-                else:
-                    return False
+            if is_good_day and is_good_month and is_good_year:
+                is_today = True
             else:
-                return True
+                is_today = False
+
+            if self.status in ["Ready", "Date-scheduled",
+                               "Succeeded"]:
+                if is_today:
+                    if now.hour >= self.publication_hour and self.publication_date.hour < self.publication_hour+4: #FIXME: timezone
+                        return True
+                    else:
+                        return False
+                else:
+                    return True
+            else:
+                return False
         else:
             return False
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
 
-    def get_season(self):
-        return self.start_date.year
-
+class HarvestImage(models.Model):
+    harvest = models.ForeignKey(
+        Harvest,
+        related_name='images'
+    )
+    image = models.ImageField(
+        upload_to='harvests_images',
+    )
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
@@ -400,6 +411,12 @@ class RequestForParticipation(models.Model):
 
     comment = models.TextField(
         verbose_name=_("Comment"),
+        null=True,
+        blank=True
+    )
+
+    notes_from_pickleader = models.TextField(
+        verbose_name=_("Notes from the pick leader."),
         null=True,
         blank=True
     )

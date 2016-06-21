@@ -2,7 +2,7 @@
 
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
-    RequestForParticipation, TreeType, Comment, PropertyImage
+    RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm
 from member.models import Person, AuthUser, Actor
@@ -16,11 +16,13 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
+
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
     context_object_name = 'properties'
     model = Property
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PropertyList, self).dispatch(*args, **kwargs)
 
@@ -36,6 +38,7 @@ class PropertyDetail(generic.DetailView):
     context_object_name = 'property'
     template_name = 'harvest/properties/detail.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
             Property,
@@ -108,11 +111,35 @@ class PropertyImageCreate(generic.CreateView):
         )
 
 
+
+class HarvestImageCreate(generic.CreateView):
+    model = HarvestImage
+    template_name = 'harvest/harvests/add_image.html'
+    fields = [
+        'image'
+    ]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestImageCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestImageCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
 class HarvestList(generic.ListView):
     template_name = 'harvest/harvest/list.html'
     context_object_name = 'harvests'
     model = Harvest
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HarvestList, self).dispatch(*args, **kwargs)
 
@@ -149,9 +176,15 @@ class HarvestDetail(generic.DetailView):
         context = super(HarvestDetail, self).get_context_data(**kwargs)
 
         harvest_history = Harvest.history.filter(id=self.kwargs['pk'])
+        harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        requests = RequestForParticipation.objects.all() #FIXME: filter
+        distribution = HarvestYield.objects.filter(harvest=harvest)
+
         context['harvest_history'] = harvest_history
         context['form_comment'] = CommentForm()
         context['form_request'] = RequestForm()
+        context['requests'] = requests
+        context['distribution'] = distribution
 
         return context
 
@@ -202,6 +235,7 @@ class EquipmentList(generic.ListView):
     context_object_name = 'equipments'
     model = Equipment
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(EquipmentList, self).dispatch(*args, **kwargs)
 
@@ -214,6 +248,7 @@ class EquipmentCreate(generic.CreateView):
     template_name = 'harvest/equipment/create.html'
     form_class = EquipmentForm
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(EquipmentCreate, self).dispatch(*args, **kwargs)
 
