@@ -90,6 +90,7 @@ class Property(models.Model):
     """
     is_active = models.BooleanField(
         verbose_name=_("Is active"),
+        help_text = _("Harvest in this property is authorized for the current season"),
         default='True'
     )
 
@@ -110,24 +111,25 @@ class Property(models.Model):
         max_length=200
     )
 
-    avg_nb_required_pickers = models.IntegerField(
+    avg_nb_required_pickers = models.PositiveIntegerField(
         verbose_name=_("Required pickers on average"),
+        null=True,
         default=1
     )
 
     public_access = models.BooleanField(
         verbose_name=_("Publicly accessible"),
-        default='False'
+        default=False,
     )
 
     neighbor_access = models.BooleanField(
         verbose_name=_("Access to neighboring terrain if needed"),
-        default='False'
+        default=False,
     )
 
     compost_bin = models.BooleanField(
         verbose_name=_("Compost bin closeby"),
-        default='False'
+        default=False,
     )
 
     street_number = models.CharField(
@@ -139,6 +141,14 @@ class Property(models.Model):
 
     street = models.CharField(
         verbose_name=_("Street"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    cross_street = models.CharField(
+        verbose_name=_("Cross street"),
+        help_text = _("Closest corner, used as a hint for location"),
         max_length=50,
         null=True,
         blank=True
@@ -234,11 +244,6 @@ class Harvest(models.Model):
     Determines if this harvest appears on public calendar.
     """
 
-    is_active = models.BooleanField(
-        verbose_name=_("Is active"),
-        default='True'
-    )
-
     status = models.CharField(
         choices=HARVESTS_STATUS_CHOICES,
         max_length=100,
@@ -257,6 +262,21 @@ class Harvest(models.Model):
         verbose_name=_("Trees")
     )
 
+    owner_present = models.BooleanField(
+        verbose_name=_("Owner wants to be present"),
+        default=False
+    )
+
+    owner_help = models.BooleanField(
+        verbose_name=_("Owner wants to participate"),
+        default=False
+    )
+
+    owner_no_fruit = models.BooleanField(
+        verbose_name=_("Owner does not want his share of fruits"),
+        default=False
+    )
+
     pick_leader = models.ForeignKey(
         'member.AuthUser',
         null=True,
@@ -265,26 +285,15 @@ class Harvest(models.Model):
     )
 
     start_date = models.DateTimeField(
-        verbose_name=_("Start"),
+        verbose_name=_("Start date"),
         blank=True,
         null=True
     )
 
     end_date = models.DateTimeField(
-        verbose_name=_("End"),
+        verbose_name=_("End date"),
         blank=True,
         null=True
-    )
-
-    creation_date = models.DateTimeField(
-        verbose_name=_("Creation date"),
-        auto_now=False,
-        auto_now_add=True
-    )
-
-    nb_required_pickers = models.IntegerField(
-        verbose_name=_("Number of required pickers"),
-        default=3
     )
 
     equipment_reserved = models.ManyToManyField(
@@ -293,26 +302,29 @@ class Harvest(models.Model):
         blank=True
     )
 
-    owner_present = models.BooleanField(
-        verbose_name=_("Owner wants to be present"),
-        default='True'
+    creation_date = models.DateTimeField(
+        verbose_name=_("Creation date"),
+        auto_now=False,
+        auto_now_add=True
     )
 
-    owner_help = models.BooleanField(
-        verbose_name=_("Owner wants to participate"),
-        default='False'
+    nb_required_pickers = models.PositiveIntegerField(
+        verbose_name=_("Number of required pickers"),
+        default=3
     )
 
-    owner_fruit = models.BooleanField(
-        verbose_name=_("Owner wants his share of fruits"),
-        default='True'
+    leader_need_help = models.BooleanField(
+        verbose_name=_("Pick leader needs extra help"),
+        help_text=_("Check the About field for details"),
+        default=False
     )
 
     about = models.TextField(
         verbose_name=_("About"),
         max_length=1000,
+        help_text = _("If any help is needed from volunteer pickers, please describe them in this box."),
         null=True,
-        blank=True,
+        blank=True
     )
 
     history = HistoricalRecords()
@@ -369,6 +381,9 @@ class Harvest(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
+
+    def get_season(self):
+        return self.start_date.year
 
 
 @python_2_unicode_compatible
