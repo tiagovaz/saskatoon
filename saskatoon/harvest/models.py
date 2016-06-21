@@ -237,7 +237,6 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
-
 @python_2_unicode_compatible
 class Harvest(models.Model):
     status = models.CharField(
@@ -389,6 +388,15 @@ class Harvest(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
 
+class HarvestImage(models.Model):
+    harvest = models.ForeignKey(
+        Harvest,
+        related_name='images'
+    )
+    image = models.ImageField(
+        upload_to='harvests_images',
+    )
+
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
     picker = models.ForeignKey(
@@ -403,6 +411,12 @@ class RequestForParticipation(models.Model):
 
     comment = models.TextField(
         verbose_name=_("Comment"),
+        null=True,
+        blank=True
+    )
+
+    notes_from_pickleader = models.TextField(
+        verbose_name=_("Notes from the pick leader."),
         null=True,
         blank=True
     )
