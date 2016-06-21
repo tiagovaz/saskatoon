@@ -389,6 +389,13 @@ class RequestForParticipation(models.Model):
         blank=True
     )
 
+    comment_about_participation = models.TextField(
+        verbose_name=_("Comment about participation"),
+        null=True,
+        blank=True
+    )
+
+
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest")
