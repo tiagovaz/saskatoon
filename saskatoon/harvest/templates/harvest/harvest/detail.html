@@ -166,25 +166,20 @@
                     <div class="table-responsive">
                         <table class='table table-hover table-condensed'>
                             <tr>
-                                <th>Requester name</th>
-                                <th>Number of people</th>
-                                <th>Status</th>
-                                <th>Request date</th>
-                                <th>Confirmation date</th>
-                                <th>First time</th>
-                                <th>Can help with equipment</th>
+                                <th>{% trans "Name" %}</th>
+                                <th>{% trans "Number of people" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Request date" %}</th>
+                                <th>{% trans "Confirmation date" %}</th>
+                                <th>{% trans "First time" %}</th>
+                                <th>{% trans "Can help with equipment" %}</th>
                                 <th></th>
                             </tr>
                             {% for r in requests %}
                             <tr>
                                 <td>{{ r.picker }}</td>
                                 <td>3</td>
-                                <td>{% if r.confirmation_date %}
-                                        <i class="fa fa-check" style="color:green"></i>
-                                    {% else %}
-                                        <i class="fa fa-times" style="color:red"></i>
-                                    {% endif %}
-                                </td>
+                                <td>{{ r.harvest.status }}</td>
                                 <td>{{ r.creation_date }}</td>
                                 <td>{% if r.confirmation_date %}
                                         {{ r.confirmation_date }}
@@ -206,7 +201,7 @@
                                 </td>
                                 <td>
                                         <a class="btn btn-xs btn-warning" href=''>
-                                            <i class="fa fa-pencil"></i> {% trans "Manage" %}
+                                            <i class="fa fa-pencil"></i>
                                         </a>
                                 </td>
                             </tr>
@@ -240,7 +235,7 @@
                             <tr>
                                 <th>Recipient</th>
                                 <th>Fruit</th>
-                                <th>Donated amount (in lb)</th>
+                                <th>Amount (in lb)</th>
                                 <th></th>
                             </tr>
                             {% for d in distribution %}
@@ -250,7 +245,7 @@
                                 <td>{{ d.total_in_lb }}</td>
                                 <td>
                                         <a class="btn btn-xs btn-warning" href=''>
-                                            <i class="fa fa-pencil"></i> {% trans "Manage" %}
+                                            <i class="fa fa-pencil"></i>
                                         </a>
                                 </td>
                             </tr>
@@ -263,7 +258,7 @@
         </div>
     </div>
 
-
+<!-- TBD internally
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
@@ -286,6 +281,7 @@
             </div>
         </div>
     </div>
+-->
 
     <!-----------
     --- MODAL ---
@@ -311,4 +307,26 @@
             </div>
         </div>
     </div>
+
+    <!-- Request modal -->
+    <div class="modal fade" id="RequestModal" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                    <h4 class="modal-title" id="requestLabel">{% trans "New application request" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'harvest:participation_create' harvest.id %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form_request %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

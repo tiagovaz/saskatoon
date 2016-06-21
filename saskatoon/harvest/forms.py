@@ -15,6 +15,7 @@ class RequestForm(forms.ModelForm):
     picker_family_name = forms.CharField(label='Family name')
     picker_phone = forms.CharField(label='Phone')
     harvest_id = forms.CharField(widget=forms.HiddenInput())
+    notes_from_pickleader = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean(self):
         email = self.cleaned_data['picker_email']
@@ -60,7 +61,8 @@ class RequestForm(forms.ModelForm):
             'picker_email',
             'picker_phone',
             'comment',
-            'harvest_id'
+            'harvest_id',
+            'notes_from_pickleader'
         ]
 
 
@@ -206,7 +208,7 @@ class PropertyForm(forms.ModelForm):
 
 class HarvestForm(forms.ModelForm):
 
-    #publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
+    publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Harvest
