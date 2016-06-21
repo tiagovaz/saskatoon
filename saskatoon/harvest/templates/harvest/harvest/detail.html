@@ -10,11 +10,17 @@
             <h1 class="page-header">
                 {% trans "Harvest detail" %}
                 <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
-                    <i class="fa fa-pencil"></i>
+                    <i class="fa fa-pencil"></i> {% trans "Edit" %}
                 </a>
-                <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_adopt" harvest.id %}'>
-                    <i class="fa fa-pencil"></i> {% trans "Adopt" %}
-                </a>
+                {% if harvest.pick_leader != None %}
+                    <br><small> {% trans "Leader" %} : {{ harvest.pick_leader }}</small>
+                {% endif %}
+
+                {% if harvest.pick_leader == None %}
+                    <a class="btn btn-xs btn-success" href='{% url "harvest:harvest_adopt" harvest.id %}'>
+                        <i class="fa fa-hand-o-right"></i> {% trans "Adopt" %}
+                    </a>
+                {% endif %}
             </h1>
         </div>
         <!-- /.col-lg-12 -->

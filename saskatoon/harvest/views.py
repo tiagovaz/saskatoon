@@ -261,7 +261,7 @@ class HarvestAdopt(generic.RedirectView):
         messages.add_message(
             request,
             messages.WARNING,
-            'The harvest was adopted!'
+            'Thanks, you adopted this harvest!'
         )
 
         return redirect(self.get_redirect_url(*args, **kwargs))
