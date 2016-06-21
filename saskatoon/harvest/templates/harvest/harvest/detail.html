@@ -170,40 +170,71 @@
                                 <th>{% trans "Number of people" %}</th>
                                 <th>{% trans "Status" %}</th>
                                 <th>{% trans "Request date" %}</th>
-                                <th>{% trans "Confirmation date" %}</th>
+                                <th>{% trans "Acceptation date" %}</th>
                                 <th>{% trans "First time" %}</th>
                                 <th>{% trans "Can help with equipment" %}</th>
+                                <th>{% trans "Comment from the requester" %}</th>
                                 <th>{% trans "Notes from the pick leader" %}</th>
                                 <th></th>
                             </tr>
                             {% for r in requests %}
                             <tr>
                                 <td>{{ r.picker }}</td>
-                                <td>3</td>
-                                <td>{{ r.harvest.status }}</td>
+                                <td>{{ r.number_of_people }}</td>
+                                <td>
+                                    {% if r.is_accepted == None %}
+                                        <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                                    {% elif r.is_accepted == False %}
+                                        <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                                    {% elif r.is_accepted == True %}
+                                        <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                                    {% endif %}
+                                </td>
                                 <td>{{ r.creation_date }}</td>
-                                <td>{% if r.confirmation_date %}
-                                        {{ r.confirmation_date }}
+                                <td>
+                                    {% if r.acceptation_date %}
+                                        {{ r.acceptation_date }}
                                     {% else %}
                                         <i class="fa fa-times" style="color:red"></i>
                                     {% endif %}
                                 </td>
                                 <td>{% if r.first_time_picker %}
-                                        <i class="fa fa-check" style="color:green"></i>
+                                        <i class="fa fa-check" style="color:green"></i> {% trans "Yes" %}
                                     {% else %}
-                                        <i class="fa fa-times" style="color:red"></i>
+                                        <i class="fa fa-times" style="color:red"></i> {% trans "No" %}
                                     {% endif %}
                                 </td>
                                 <td>{% if r.helper_picker %}
-                                        <i class="fa fa-check" style="color:green"></i>
+                                        <i class="fa fa-check" style="color:green"></i> {% trans "Yes" %}
                                     {% else %}
-                                        <i class="fa fa-times" style="color:red"></i>
+                                        <i class="fa fa-times" style="color:red"></i> {% trans "No" %}
                                     {% endif %}
                                 </td>
+                                <td>{{ r.comment }}</td>
                                 <td>{{ r.notes_from_pickleader }}</td>
                                 <td>
-                                    <a class="btn btn-xs btn-warning" href='{% url "harvest:participation_update" r.id %}'>
-                                        <i class="fa fa-pencil"></i>asd
+                                    <!-- Manage request modal -->
+                                    <div class="modal fade" id="ManageRequestModal-{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                                                    <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action='{% url "harvest:participation_update" r.id %}'>
+                                                        {% csrf_token %}
+                                                        {% bootstrap_form form_manage_request %}
+                                                        {% buttons %}
+                                                        <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                                        {% endbuttons %}
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
+                                        <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -310,25 +341,5 @@
         </div>
     </div>
 
-    <!-- Request modal -->
-    <div class="modal fade" id="RequestModal" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
-                    <h4 class="modal-title" id="requestLabel">{% trans "New application request" %}</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="{% url 'harvest:participation_create' harvest.id %}">
-                        {% csrf_token %}
-                        {% bootstrap_form form_request %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
-                        {% endbuttons %}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
 {% endblock %}

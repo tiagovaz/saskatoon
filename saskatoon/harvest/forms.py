@@ -171,9 +171,33 @@ class CommentForm(forms.ModelForm):
 
 # To be used by the pick leader to accept/deny/etc and add notes on a picker
 class RFPManageForm(forms.ModelForm):
+    STATUS_CHOICES = [('showed_up', 'Picker showed up'), ('didnt_showed_up', "Picker didn't show up"), ('cancelled', "Picker cancelled in advance")]
+    ACCEPT_CHOICES = [('yes', 'ACCEPT'), ('no', "REFUSE"), ('pending', "PENDING")]
+    accept = forms.ChoiceField(label='Please accept or refuse this request :', choices=ACCEPT_CHOICES, widget=forms.RadioSelect(), required=False)
+    status = forms.ChoiceField(label='About the picker partition :', choices=STATUS_CHOICES, widget=forms.RadioSelect(), required=False)
+
     class Meta:
         model = RequestForParticipation
-        fields = '__all__'
+        fields = ['accept','status', 'notes_from_pickleader']
+
+    def save(self):
+        instance = super(RFPManageForm, self).save(commit=False)
+        status = self.cleaned_data['status']
+        accept = self.cleaned_data['accept']
+
+        if accept == 'yes':
+            instance.acceptation_date = datetime.datetime.now()
+            instance.is_accepted = True
+        elif accept == 'no':
+            instance.acceptation_date = None
+            instance.is_accepted = False
+        elif accept == 'pending':
+            instance.acceptation_date = None
+            instance.is_accepted = None
+
+
+        instance.save()
+        return instance
 
 # Used in admin interface
 class RFPForm(forms.ModelForm):

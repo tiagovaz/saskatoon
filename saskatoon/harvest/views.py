@@ -182,6 +182,7 @@ class HarvestDetail(generic.DetailView):
         context['harvest_history'] = harvest_history
         context['form_comment'] = CommentForm()
         context['form_request'] = RequestForm()
+        context['form_manage_request'] = RFPManageForm()
         context['requests'] = requests
         context['distribution'] = distribution
 
@@ -230,6 +231,7 @@ class HarvestUpdate(generic.UpdateView):
 
 class RequestForParticipationUpdate(generic.UpdateView):
     model = RequestForParticipation
+    context_object_name = 'participation'
     template_name = "harvest/participation/update.html"
     form_class = RFPManageForm
 
@@ -247,6 +249,15 @@ class RequestForParticipationUpdate(generic.UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+
+def get_context_data(self, **kwargs):
+    context = super(RequestForParticipationUpdate, self).get_context_data(**kwargs)
+
+    participation = RequestForParticipation.objects.get(id=self.kwargs['pk'])
+
+    context['participation'] = participation
+
+    return context
 
 class EquipmentList(generic.ListView):
     template_name = 'harvest/equipment/list.html'

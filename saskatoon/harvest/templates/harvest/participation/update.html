@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block extrascript %}
+
     <!-- DatePicker JavaScript -->
     <script type="text/javascript" src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'datetimepicker/js/moment.js' %}"></script>
@@ -32,7 +33,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Manage Request
+                Request from <i>{{ participation.picker }}</i>
             </h1>
         </div>
         <!-- /.col-lg-12 -->
@@ -43,7 +44,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Manage request
+                    Manage this request
                 </div>
 
                 <div class="panel-body">
