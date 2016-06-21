@@ -177,7 +177,7 @@ class HarvestDetail(generic.DetailView):
 
         harvest_history = Harvest.history.filter(id=self.kwargs['pk'])
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        requests = RequestForParticipation.objects.all() #FIXME: filter
+        requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
 
         context['harvest_history'] = harvest_history
