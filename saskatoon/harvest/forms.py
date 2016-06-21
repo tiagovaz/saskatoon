@@ -180,6 +180,13 @@ class PropertyImageForm(forms.ModelForm):
             'image'
         ]
 
+class HarvestImageForm(forms.ModelForm):
+    class Meta:
+        model = HarvestImage
+        fields = [
+            'image'
+        ]
+
 
 class PropertyForm(forms.ModelForm):
     class Meta:
@@ -199,7 +206,7 @@ class PropertyForm(forms.ModelForm):
 
 class HarvestForm(forms.ModelForm):
 
-    #publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
+    publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Harvest

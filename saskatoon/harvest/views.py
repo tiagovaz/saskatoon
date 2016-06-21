@@ -2,7 +2,7 @@
 
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
-    RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield
+    RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm
 from member.models import Person, AuthUser, Actor
@@ -105,6 +105,29 @@ class PropertyImageCreate(generic.CreateView):
     def get_success_url(self):
         return reverse_lazy(
             'harvest:property_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+
+class HarvestImageCreate(generic.CreateView):
+    model = HarvestImage
+    template_name = 'harvest/harvests/add_image.html'
+    fields = [
+        'image'
+    ]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestImageCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestImageCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:harvest_detail',
             kwargs={'pk': self.kwargs['pk']}
         )
 
