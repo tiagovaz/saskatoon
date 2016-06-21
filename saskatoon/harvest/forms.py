@@ -1,3 +1,6 @@
+from time import timezone
+
+import datetime
 from django import forms
 from dal import autocomplete
 from django.utils.translation import ugettext_lazy as _
@@ -76,95 +79,94 @@ class CommentForm(forms.ModelForm):
             ),
         }
 
-
-class NewHarvest(forms.ModelForm):
-
-    class Meta:
-        model = Harvest
-        fields = '__all__'
-
-    # """ Determines if this harvest appears on public calendar. """
-    is_active = forms.BooleanField()
-    status = forms.ChoiceField()
-    property = forms.ModelChoiceField(
-        queryset=Property.objects.all()
-    )
-    leader = forms.ModelChoiceField(
-        queryset=Person.objects.all()
-    )
-    start_date = forms.DateTimeField()
-    end_date = forms.DateTimeField()
-    nb_required_pickers = forms.IntegerField()
-    pickers = forms.ModelMultipleChoiceField(
-        queryset=Person.objects.all()
-    )
-    equipment_reserved = forms.ModelMultipleChoiceField(
-        queryset=Equipment.objects.all()
-    )
-    owner_present = forms.BooleanField()
-    owner_help = forms.BooleanField()
-    owner_fruit = forms.BooleanField()
-    about = forms.CharField(
-        widget=forms.Textarea
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(NewHarvest, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-
-        self.helper.layout = Layout(
-            Fieldset(
-                '',
-                # fieldset title
-
-                Div(
-                    Div(
-                        Div('title', css_class='col-lg-12'),
-                        css_class='row'
-                    ),
-                    Div(
-                            Field('description', rows="4")
-                         ),
-                    Div(
-                            Field('comment', css_class='col-lg-12', rows="4")
-                         ),
-                    css_class='col-lg-6'
-                ),
-
-
-                Div(
-                    Div(
-                        Field('start_date'), css_class='col-lg-6'
-                    ),
-                    Div(
-                        Field('end_date'), css_class='col-lg-6',
-                        ),
-                    css_class='col-lg-6'
-                ),
-
-                Div(
-                    Div('leader', css_class='col-lg-6'),
-                    Div('property', css_class='col-lg-6'),
-                    css_class='col-lg-6'
-                ),
-
-                Div(
-                    Div('status', css_class='col-lg-6'),
-                    Div('nb_required_pickers', css_class='col-lg-6'),
-                    Div('equipment_reserved', css_class='col-lg-6'),
-                    Div('pickers', css_class='col-lg-6'),
-                    css_class='col-lg-6'
-                ),
-
-            ),
-            Div(
-                ButtonHolder(
-                    Submit('submit', 'Submit')
-                ),
-                css_class='col-lg-12'
-            )
-        )
-
+#
+# class NewHarvest(forms.ModelForm):
+#     class Meta:
+#         model = Harvest
+#         fields = '__all__'
+#
+#     # """ Determines if this harvest appears on public calendar. """
+#     is_active = forms.BooleanField()
+#     status = forms.ChoiceField()
+#     property = forms.ModelChoiceField(
+#         queryset=Property.objects.all()
+#     )
+#     leader = forms.ModelChoiceField(
+#         queryset=Person.objects.all()
+#     )
+#     start_date = forms.DateTimeField()
+#     end_date = forms.DateTimeField()
+#     nb_required_pickers = forms.IntegerField()
+#     pickers = forms.ModelMultipleChoiceField(
+#         queryset=Person.objects.all()
+#     )
+#     equipment_reserved = forms.ModelMultipleChoiceField(
+#         queryset=Equipment.objects.all()
+#     )
+#     owner_present = forms.BooleanField()
+#     owner_help = forms.BooleanField()
+#     owner_fruit = forms.BooleanField()
+#     about = forms.CharField(
+#         widget=forms.Textarea
+#     )
+#
+#     def __init__(self, *args, **kwargs):
+#         super(NewHarvest, self).__init__(*args, **kwargs)
+#         self.helper = FormHelper()
+#
+#         self.helper.layout = Layout(
+#             Fieldset(
+#                 '',
+#                 # fieldset title
+#
+#                 Div(
+#                     Div(
+#                         Div('title', css_class='col-lg-12'),
+#                         css_class='row'
+#                     ),
+#                     Div(
+#                             Field('description', rows="4")
+#                          ),
+#                     Div(
+#                             Field('comment', css_class='col-lg-12', rows="4")
+#                          ),
+#                     css_class='col-lg-6'
+#                 ),
+#
+#
+#                 Div(
+#                     Div(
+#                         Field('start_date'), css_class='col-lg-6'
+#                     ),
+#                     Div(
+#                         Field('end_date'), css_class='col-lg-6',
+#                         ),
+#                     css_class='col-lg-6'
+#                 ),
+#
+#                 Div(
+#                     Div('leader', css_class='col-lg-6'),
+#                     Div('property', css_class='col-lg-6'),
+#                     css_class='col-lg-6'
+#                 ),
+#
+#                 Div(
+#                     Div('status', css_class='col-lg-6'),
+#                     Div('nb_required_pickers', css_class='col-lg-6'),
+#                     Div('equipment_reserved', css_class='col-lg-6'),
+#                     Div('pickers', css_class='col-lg-6'),
+#                     css_class='col-lg-6'
+#                 ),
+#
+#             ),
+#             Div(
+#                 ButtonHolder(
+#                     Submit('submit', 'Submit')
+#                 ),
+#                 css_class='col-lg-12'
+#             )
+#         )
+#
 # Used in admin interface
 class RFPForm(forms.ModelForm):
     class Meta:
@@ -196,9 +198,13 @@ class PropertyForm(forms.ModelForm):
 
 
 class HarvestForm(forms.ModelForm):
+
+    #publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Harvest
-        fields = ('__all__')
+        fields = '__all__'
+
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
@@ -217,6 +223,20 @@ class HarvestForm(forms.ModelForm):
             ),
             'nb_required_pickers': forms.NumberInput()
         }
+
+
+    def save(self):
+        instance = super(HarvestForm, self).save(commit=False)
+
+        status = self.cleaned_data['status']
+        publication_date = self.cleaned_data['publication_date']
+
+        if status in ["Ready", "Date-scheduled", "Succeeded"]:
+            if publication_date is None:
+                instance.publication_date = timezone.now()
+
+        instance.save()
+        return instance
 
 
 class HarvestYieldForm(forms.ModelForm):
