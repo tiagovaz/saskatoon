@@ -27,6 +27,7 @@
                                     <th>{% trans "Tree(s)" %}</th>
                                     <th>{% trans "Pickleader" %}</th>
                                     <th>{% trans "Property" %}</th>
+                                    <th>{% trans "Neighborhood" %}</th>
                                     <th>{% trans "Scheduled to" %}</th>
                                     <th>{% trans "Status" %}</th>
                                     <th>{% trans "Edit" %}</th>
@@ -50,6 +51,7 @@
                                             {{ harvest.property }}
                                         </a>
                                     </td>
+                                    <td>{{ harvest.property.neighborhood }}</td>
                                     <td>{{ harvest.start_date }}</td>
                                     <td>{{ harvest.status }}</td>
                                     <td>
