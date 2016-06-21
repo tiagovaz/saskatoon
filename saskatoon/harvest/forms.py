@@ -206,7 +206,7 @@ class PropertyForm(forms.ModelForm):
 
 class HarvestForm(forms.ModelForm):
 
-    publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
+    #publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Harvest
@@ -241,6 +241,10 @@ class HarvestForm(forms.ModelForm):
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
             if publication_date is None:
                 instance.publication_date = timezone.now()
+
+        if status in ["To-be-confirmed", "Orphan", "Adopted"]:
+            if publication_date is not None:
+                instance.publication_date = None
 
         instance.save()
         return instance
