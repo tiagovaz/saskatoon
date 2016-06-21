@@ -10,7 +10,7 @@
             <h1 class="page-header">
                 {% trans "Harvest detail" %}
                 <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
-                    <i class="fa fa-pencil"></i> {% trans "Edit" %}
+                    <i class="fa fa-pencil"></i>
                 </a>
             </h1>
         </div>
@@ -173,6 +173,7 @@
                                 <th>{% trans "Confirmation date" %}</th>
                                 <th>{% trans "First time" %}</th>
                                 <th>{% trans "Can help with equipment" %}</th>
+                                <th>{% trans "Notes from the pick leader" %}</th>
                                 <th></th>
                             </tr>
                             {% for r in requests %}
@@ -199,10 +200,11 @@
                                         <i class="fa fa-times" style="color:red"></i>
                                     {% endif %}
                                 </td>
+                                <td>{{ r.notes_from_pickleader }}</td>
                                 <td>
-                                        <a class="btn btn-xs btn-warning" href=''>
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
+                                    <a class="btn btn-xs btn-warning" href='{% url "harvest:participation_update" r.id %}'>
+                                        <i class="fa fa-pencil"></i>asd
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}

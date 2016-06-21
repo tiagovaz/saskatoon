@@ -4,7 +4,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
-    HarvestForm, PropertyImageForm, EquipmentForm
+    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -15,7 +15,6 @@ from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django import forms
-
 
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
@@ -229,6 +228,25 @@ class HarvestUpdate(generic.UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+class RequestForParticipationUpdate(generic.UpdateView):
+    model = RequestForParticipation
+    template_name = "harvest/participation/update.html"
+    form_class = RFPManageForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        participation = get_object_or_404(
+            RequestForParticipation,
+            id=kwargs['pk']
+        )
+        return super(RequestForParticipationUpdate, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
 
 class EquipmentList(generic.ListView):
     template_name = 'harvest/equipment/list.html'
@@ -242,6 +260,17 @@ class EquipmentList(generic.ListView):
     def get_queryset(self):
         return Equipment.objects.all()
 
+class ParticipationList(generic.ListView):
+    template_name = 'harvest/participation/list.html'
+    context_object_name = 'participations'
+    model = RequestForParticipation
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ParticipationList, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return RequestForParticipation.objects.all()
 
 class EquipmentCreate(generic.CreateView):
     model = Equipment

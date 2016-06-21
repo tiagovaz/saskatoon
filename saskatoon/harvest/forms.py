@@ -168,7 +168,13 @@ class CommentForm(forms.ModelForm):
 #                 css_class='col-lg-12'
 #             )
 #         )
-#
+
+# To be used by the pick leader to accept/deny/etc and add notes on a picker
+class RFPManageForm(forms.ModelForm):
+    class Meta:
+        model = RequestForParticipation
+        fields = '__all__'
+
 # Used in admin interface
 class RFPForm(forms.ModelForm):
     class Meta:

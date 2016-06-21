@@ -59,6 +59,16 @@ urlpatterns = patterns(
         name='harvest_update'
     ),
     url(
+        r'^participations/(?P<pk>\d+)/update$',
+        views.RequestForParticipationUpdate.as_view(),
+        name='participation_update'
+    ),
+    url(
+        r'^participations/list/$',
+        views.ParticipationList.as_view(),
+        name='participation_list'
+    ),
+    url(
         r'^equipments/list/$',
         views.EquipmentList.as_view(),
         name='equipment_list'
@@ -77,10 +87,5 @@ urlpatterns = patterns(
         r'^(?P<pk>\d+)/new_comment$',
         views.CommentCreate.as_view(),
         name='comment_create'
-    ),
-    url(
-        r'^(?P<pk>\d+)/new_participation$',
-        views.RequestForParticipationCreate.as_view(),
-        name='participation_create'
     ),
 )
