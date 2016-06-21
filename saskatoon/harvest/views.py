@@ -22,6 +22,7 @@ class PropertyList(generic.ListView):
     context_object_name = 'properties'
     model = Property
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PropertyList, self).dispatch(*args, **kwargs)
 
@@ -37,6 +38,7 @@ class PropertyDetail(generic.DetailView):
     context_object_name = 'property'
     template_name = 'harvest/properties/detail.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
             Property,
@@ -114,6 +116,7 @@ class HarvestList(generic.ListView):
     context_object_name = 'harvests'
     model = Harvest
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HarvestList, self).dispatch(*args, **kwargs)
 
@@ -209,6 +212,7 @@ class EquipmentList(generic.ListView):
     context_object_name = 'equipments'
     model = Equipment
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(EquipmentList, self).dispatch(*args, **kwargs)
 
@@ -221,6 +225,7 @@ class EquipmentCreate(generic.CreateView):
     template_name = 'harvest/equipment/create.html'
     form_class = EquipmentForm
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(EquipmentCreate, self).dispatch(*args, **kwargs)
 
