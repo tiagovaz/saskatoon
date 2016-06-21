@@ -222,7 +222,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <strong>{% trans "Fruit distribution" %}</strong>
@@ -240,7 +240,7 @@
                             <tr>
                                 <th>Recipient</th>
                                 <th>Fruit</th>
-                                <th>Lb</th>
+                                <th>Donated amount (in lb)</th>
                                 <th></th>
                             </tr>
                             {% for d in distribution %}
@@ -253,14 +253,12 @@
                                             <i class="fa fa-pencil"></i> {% trans "Manage" %}
                                         </a>
                                 </td>
-
                             </tr>
                             {% endfor %}
                         </table>
                     </div>
                     <!-- /.table-responsive -->
                 </div>
-
             </div>
         </div>
     </div>
