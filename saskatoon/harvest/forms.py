@@ -242,7 +242,7 @@ class HarvestForm(forms.ModelForm):
 
     class Meta:
         model = Harvest
-        fields = '__all__'
+        fields = ('__all__')
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
@@ -267,6 +267,7 @@ class HarvestForm(forms.ModelForm):
 
         status = self.cleaned_data['status']
         publication_date = self.cleaned_data['publication_date']
+        trees = self.cleaned_data['trees']
 
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
             if publication_date is None:
@@ -276,6 +277,7 @@ class HarvestForm(forms.ModelForm):
             if publication_date is not None:
                 instance.publication_date = None
 
+        instance.trees = trees
         instance.save()
         return instance
 
