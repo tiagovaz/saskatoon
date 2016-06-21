@@ -441,15 +441,24 @@ class RequestForParticipation(models.Model):
         default=timezone.now
     )
 
-    confirmation_date = models.DateTimeField(
-        verbose_name=_("Confirmed on"),
+    acceptation_date = models.DateTimeField(
+        verbose_name=_("Accepted on"),
         null=True,
         blank=True
     )
 
-    showed_up = models.BooleanField(
+    is_accepted = models.NullBooleanField(
+        verbose_name=_("Accepted"),
+        default=None,
+        null = True,
+        blank = True
+    )
+
+    showed_up = models.NullBooleanField(
         verbose_name=_("Showed up"),
-        default=True
+        default=None,
+        null = True,
+        blank = True
     )
 
     is_cancelled = models.BooleanField(

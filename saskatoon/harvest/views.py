@@ -4,7 +4,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
-    HarvestForm, PropertyImageForm, EquipmentForm
+    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -183,6 +183,7 @@ class HarvestDetail(generic.DetailView):
         context['harvest_history'] = harvest_history
         context['form_comment'] = CommentForm()
         context['form_request'] = RequestForm()
+        context['form_manage_request'] = RFPManageForm()
         context['requests'] = requests
         context['distribution'] = distribution
 
@@ -271,6 +272,35 @@ class HarvestAdopt(generic.RedirectView):
             args=[self.harvest.id]
         )
 
+class RequestForParticipationUpdate(generic.UpdateView):
+    model = RequestForParticipation
+    context_object_name = 'participation'
+    template_name = "harvest/participation/update.html"
+    form_class = RFPManageForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        participation = get_object_or_404(
+            RequestForParticipation,
+            id=kwargs['pk']
+        )
+        return super(RequestForParticipationUpdate, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+def get_context_data(self, **kwargs):
+    context = super(RequestForParticipationUpdate, self).get_context_data(**kwargs)
+
+    participation = RequestForParticipation.objects.get(id=self.kwargs['pk'])
+
+    context['participation'] = participation
+
+    return context
 
 class EquipmentList(generic.ListView):
     template_name = 'harvest/equipment/list.html'
@@ -284,6 +314,17 @@ class EquipmentList(generic.ListView):
     def get_queryset(self):
         return Equipment.objects.all()
 
+class ParticipationList(generic.ListView):
+    template_name = 'harvest/participation/list.html'
+    context_object_name = 'participations'
+    model = RequestForParticipation
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ParticipationList, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return RequestForParticipation.objects.all()
 
 class EquipmentCreate(generic.CreateView):
     model = Equipment

@@ -15,6 +15,7 @@ class RequestForm(forms.ModelForm):
     picker_family_name = forms.CharField(label='Family name')
     picker_phone = forms.CharField(label='Phone')
     harvest_id = forms.CharField(widget=forms.HiddenInput())
+    notes_from_pickleader = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean(self):
         email = self.cleaned_data['picker_email']
@@ -60,7 +61,8 @@ class RequestForm(forms.ModelForm):
             'picker_email',
             'picker_phone',
             'comment',
-            'harvest_id'
+            'harvest_id',
+            'notes_from_pickleader'
         ]
 
 
@@ -166,7 +168,37 @@ class CommentForm(forms.ModelForm):
 #                 css_class='col-lg-12'
 #             )
 #         )
-#
+
+# To be used by the pick leader to accept/deny/etc and add notes on a picker
+class RFPManageForm(forms.ModelForm):
+    STATUS_CHOICES = [('showed_up', 'Picker showed up'), ('didnt_showed_up', "Picker didn't show up"), ('cancelled', "Picker cancelled in advance")]
+    ACCEPT_CHOICES = [('yes', 'ACCEPT'), ('no', "REFUSE"), ('pending', "PENDING")]
+    accept = forms.ChoiceField(label='Please accept or refuse this request :', choices=ACCEPT_CHOICES, widget=forms.RadioSelect(), required=False)
+    status = forms.ChoiceField(label='About the picker partition :', choices=STATUS_CHOICES, widget=forms.RadioSelect(), required=False)
+
+    class Meta:
+        model = RequestForParticipation
+        fields = ['accept','status', 'notes_from_pickleader']
+
+    def save(self):
+        instance = super(RFPManageForm, self).save(commit=False)
+        status = self.cleaned_data['status']
+        accept = self.cleaned_data['accept']
+
+        if accept == 'yes':
+            instance.acceptation_date = datetime.datetime.now()
+            instance.is_accepted = True
+        elif accept == 'no':
+            instance.acceptation_date = None
+            instance.is_accepted = False
+        elif accept == 'pending':
+            instance.acceptation_date = None
+            instance.is_accepted = None
+
+
+        instance.save()
+        return instance
+
 # Used in admin interface
 class RFPForm(forms.ModelForm):
     class Meta:
@@ -241,6 +273,10 @@ class HarvestForm(forms.ModelForm):
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
             if publication_date is None:
                 instance.publication_date = timezone.now()
+
+        if status in ["To-be-confirmed", "Orphan", "Adopted"]:
+            if publication_date is not None:
+                instance.publication_date = None
 
         instance.save()
         return instance
