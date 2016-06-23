@@ -59,10 +59,9 @@ db.sqlite3
 *.png
 
 django_bootstrap_calendar/*
-user_profile/migrations/*
-main/migrations/*
 .project
 /.pydevproject
 /.settings/
 saskatoon/saskatoon/static
 saskatoon/saskatoon/settings.py
+saskatoon/media
