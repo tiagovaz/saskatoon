@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
 
+from harvest.models import RequestForParticipation
+
 
 class AuthUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -195,6 +197,13 @@ class Person(Actor):
     def name(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
+    def email(self):
+        auth_obj = AuthUser.objects.get(person=self)
+        return auth_obj.email
+
+    def participation_count(self):
+        count = RequestForParticipation.objects.filter(picker=self, is_accepted=True).count()
+        return count
 
 @python_2_unicode_compatible
 class Organization(Actor):
