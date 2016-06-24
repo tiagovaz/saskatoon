@@ -73,7 +73,7 @@ class PropertyCreate(generic.CreateView):
 class PropertyUpdate(generic.UpdateView):
     model = Property
     template_name = "harvest/properties/update.html"
-    fields = '__all__'
+    form_class = PropertyForm
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -88,7 +88,6 @@ class PropertyUpdate(generic.UpdateView):
             'harvest:property_detail',
             kwargs={'pk': self.kwargs['pk']}
         )
-
 
 class PropertyImageCreate(generic.CreateView):
     model = PropertyImage

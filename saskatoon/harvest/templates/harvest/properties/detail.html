@@ -10,8 +10,8 @@
             <h1 class="page-header">
                 {{ property }} <small> (#{{ property.id }})</small>
                 <span class="pull-right">
-                    <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
-                        <i class="fa fa-pencil"></i> {% trans "Edit the property" %}
+                    <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
+                        <i class="fa fa-pencil"></i> {% trans "Edit this property" %}
                     </a>
                     <a class="btn btn-xs btn-primary" href='{% url "harvest:harvest_create" property.id %}'>
                         <i class="fa fa-plus"></i> {% trans "Add harvest" %}
