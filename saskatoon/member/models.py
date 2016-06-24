@@ -195,6 +195,11 @@ class Person(Actor):
     def name(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
+    def email(self):
+        auth_obj = AuthUser.objects.get(person=self)
+        return auth_obj.email
+
+
 
 @python_2_unicode_compatible
 class Organization(Actor):
