@@ -1,5 +1,5 @@
 # coding: utf-8
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
@@ -426,7 +426,11 @@ class RequestForParticipation(models.Model):
 
     number_of_people = models.IntegerField(
         verbose_name=_("How many people are you?"),
-        default=0,
+        default=1,
+        validators=[
+            MaxValueValidator(3),
+            MinValueValidator(1)
+        ]
     )
 
     comment = models.TextField(
