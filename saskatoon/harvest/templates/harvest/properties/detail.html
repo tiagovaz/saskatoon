@@ -127,10 +127,9 @@
                             {% if property.owner.person.address %}
                                     {% trans "Personal address" %} : {{ property.owner.person.address }}.<br>
                             {% endif %}
-                            {% trans "Phone" %} : {{ property.owner.person.phone }}.<br>
-                                {% if property.owner.person.language %}
-                                    {% trans "Preferred language" %} : <strong>{{ property.owner.person.language }}</strong>.<br>
-                                {% endif %}
+                            {% trans "Phone" %} : {{ property.owner.person.phone }}<br>
+                            {% trans "Email" %} : {{ property.owner.person.auth_user.email }}<br>
+                            {% trans "Preferred language" %} : <strong>{{ property.owner.person.language }}</strong><br>
                                 {% if property.owner.person.comments %}
                                     {% trans "Additional comments" %} : <i>{{ property.owner.person.comments }}</i><br>
                                 {% endif %}
