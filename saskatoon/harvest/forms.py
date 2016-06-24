@@ -54,8 +54,6 @@ class RequestForm(forms.ModelForm):
         model = RequestForParticipation
         fields = [
             'number_of_people',
-            'first_time_picker',
-            'helper_picker',
             'picker_first_name',
             'picker_family_name',
             'picker_email',
@@ -277,8 +275,11 @@ class HarvestForm(forms.ModelForm):
             if publication_date is not None:
                 instance.publication_date = None
 
+        #FIXME: maybe there is a better way to add trees before saving instance
+        instance.save()
         instance.trees = trees
         instance.save()
+
         return instance
 
 

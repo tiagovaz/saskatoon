@@ -221,8 +221,12 @@ class Property(models.Model):
         verbose_name_plural = _("properties")
 
     def __str__(self):
-        return u"Property of %s at %s %s" % \
+        if self.street_number:
+            return u"%s at %s %s" % \
                (self.owner, self.street_number, self.street)
+        else:
+            return u"%s at %s" % \
+               (self.owner, self.street)
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:property_detail', args=[self.id])
@@ -424,16 +428,6 @@ class RequestForParticipation(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest")
-    )
-
-    first_time_picker = models.BooleanField(
-        verbose_name=_("Is this your first pick with us?"),
-        default=False
-    )
-
-    helper_picker = models.BooleanField(
-        verbose_name=_("Can you help with equipment transportation?"),
-        default=False
     )
 
     creation_date = models.DateTimeField(
