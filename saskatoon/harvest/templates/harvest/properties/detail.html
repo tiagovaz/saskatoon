@@ -40,7 +40,7 @@
                     {% for image in property.images.all %}
                         {% if forloop.first %}
                         <div class="item active" style="height:200px;">
-                            <img src="{{ MEDIA_URL }}{{image.image}}" alt="Sample image" style="max-height:100%; max-width: 100%;" />
+                            <img src="{{ MEDIA_URL }}{{f.image}}" alt="Sample image" style="max-height:100%; max-width: 100%;" />
                         </div>
                         {% else %}
                         <div class="item" style="height:200px;">

@@ -288,9 +288,10 @@ class RequestForParticipationUpdate(generic.UpdateView):
         return super(RequestForParticipationUpdate, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
+        request = RequestForParticipation.objects.get(id=self.kwargs['pk'])
         return reverse_lazy(
             'harvest:harvest_detail',
-            kwargs={'pk': self.kwargs['pk']}
+            kwargs={'pk': request.harvest.id}
         )
 
 

@@ -49,6 +49,12 @@ class TreeType(models.Model):
         default=''
     )
 
+    image = models.ImageField(
+        upload_to='fruits_images',
+        verbose_name=_("Fruit image"),
+        null=True
+    )
+
     fruit_name = models.CharField(
         verbose_name=_("Fruit name"),
         max_length=20
@@ -146,14 +152,6 @@ class Property(models.Model):
         blank=True
     )
 
-    publishable_location = models.CharField(
-        verbose_name=_("Publishable location"),
-        help_text = _("Aproximative location, do not make public the real address."),
-        max_length=50,
-        null=True,
-        blank=True
-    )
-
     complement = models.CharField(
         verbose_name=_("Complement"),
         max_length=150,
@@ -164,6 +162,14 @@ class Property(models.Model):
     postal_code = models.CharField(
         verbose_name=_("Postal code"),
         max_length=10,
+        null=True,
+        blank=True
+    )
+
+    publishable_location = models.CharField(
+        verbose_name=_("Publishable location"),
+        help_text = _("Aproximative location, do not make public the real address."),
+        max_length=50,
         null=True,
         blank=True
     )
@@ -227,6 +233,16 @@ class Property(models.Model):
         else:
             return u"%s at %s" % \
                (self.owner, self.street)
+
+    def short_address(self):
+        if self.street_number and self.street and self.complement:
+            return "%s %s, %s" % (self.street_number, self.street, self.complement)
+        elif self.street and self.street_number:
+            return "%s %s" % (self.street_number, self.street)
+        elif self.street and self.complement:
+            return "%s, %s" % (self.street, self.complement)
+        else:
+            return self.street
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:property_detail', args=[self.id])
