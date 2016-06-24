@@ -11,6 +11,11 @@
                     <i class="fa fa-plus"></i> {% trans "New property" %}
                 </a>
             </h1>
+            {% if "active" in request.get_full_path  %}
+                <p class="text-right"><a href="/harvest/properties/"> {% trans "Show all" %}</a></p>
+            {% else %}
+                <p class="text-right"><a href="/harvest/properties/active"> {% trans "Show active only" %}</a></p>
+            {% endif %}
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -30,11 +35,39 @@
                                     <th>{% trans "Owner" %}</th>
                                     <th>{% trans "Address" %}</th>
                                     <th>{% trans "Neighborhood" %}</th>
-                                    <th>{% trans "Active" %}</th>
-                                    <th>{% trans "Edit" %}</th>
+                                    {% if "active" not in request.get_full_path  %}
+                                        <th>{% trans "Active" %}</th>
+                                    {% endif %}
+                                    <th>{% trans "Action" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            {% if "active" in request.get_full_path  %}
+                               {% for property in active_properties %}
+                                <tr class="odd gradeX">
+                                    <td class="text-center">
+                                        <a href='{% url "harvest:property_detail" property.id %}'>
+                                            #{{ property.id }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% for tree in property.trees.all %}
+                                            {{ tree }}<br>
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ property.owner }}</td>
+                                    <td>{{ property.street }}</td>
+                                    <td>{{ property.neighborhood.name }}</td>
+                                    <td>
+                                        <center>
+                                        <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        </center>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
                                {% for property in properties %}
                                 <tr class="odd gradeX">
                                     <td class="text-center">
@@ -58,12 +91,15 @@
                                         {% endif %}
                                     </td></center>
                                     <td>
-                                        <a href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
-                                            {% trans "Edit" %}
-                                        </a>
+                                         <center>
+                                         <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
+                                            <i class="fa fa-pencil"></i>
+                                         </a>
+                                         </center>
                                     </td>
                                 </tr>
                                 {% endfor %}
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>

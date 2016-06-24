@@ -1,5 +1,4 @@
 # coding: utf-8
-
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
@@ -7,7 +6,7 @@ from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, resolve
 from filters import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -28,7 +27,9 @@ class PropertyList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertyList, self).get_context_data(**kwargs)
+        active_properties = Property.objects.filter(is_active=True)
         context['view'] = "properties"
+        context['active_properties'] = active_properties
 
         return context
 

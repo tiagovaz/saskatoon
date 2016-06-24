@@ -9,6 +9,11 @@ urlpatterns = patterns(
         name='property_list'
     ),
     url(
+        r'^properties/active/$',
+        views.PropertyList.as_view(),
+        name='property_list_active'
+    ),
+    url(
         r'^property/(?P<pk>\d+)$',
         views.PropertyDetail.as_view(),
         name='property_detail'

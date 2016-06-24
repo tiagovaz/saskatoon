@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {{ property }}
+                {{ property }} <small> (#{{ property.id }})</small>
                 <span class="pull-right">
                     <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
                         <i class="fa fa-pencil"></i> {% trans "Edit the property" %}
