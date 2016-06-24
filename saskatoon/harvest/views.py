@@ -4,7 +4,7 @@ from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
-from member.models import Person, AuthUser, Actor
+from member.models import Person, AuthUser, Actor, Organization
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy, resolve
 from filters import *
@@ -375,6 +375,124 @@ class RequestForParticipationCreate(generic.CreateView):
             self.request,
             messages.SUCCESS,
             _('Your request of participation has been send. The pickleader will contact you soon!')
+        )
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class HarvestYieldCreate(generic.CreateView):
+    model = HarvestYield
+    template_name = 'harvest/harvest_yield/create.html'
+    fields = [
+        'tree',
+        'total_in_lb',
+        'recipient',
+    ]
+
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestYieldCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestYieldCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(HarvestYieldCreate, self).get_context_data(**kwargs)
+
+        trees = Harvest.objects.get(id=self.kwargs['pk']).trees.all()
+        model_choice_tree = forms.ModelChoiceField(queryset=trees, required=False)
+        context['form'].fields['tree'] = model_choice_tree
+
+        harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        requests = harvest.request_for_participation.filter(is_accepted=True)
+        pickers = []
+        for request_participation in requests:
+            pickers.append(request_participation.picker)
+
+        organizations = Organization.objects.filter(is_beneficiary=True)
+        owner = harvest.property.owner
+
+        recipients = set()
+        recipients.add(owner.actor_id)
+        for organization in organizations:
+            recipients.add(organization.pk)
+        for picker in pickers:
+            recipients.add(picker.pk)
+
+        recipients = Actor.objects.filter(pk__in=recipients)
+
+        model_choice_recipient = forms.ModelChoiceField(queryset=recipients, required=False)
+        context['form'].fields['recipient'] = model_choice_recipient
+
+        return context
+
+    def get_success_url(self):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            _('Your recipient has been added!')
+        )
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class HarvestYieldUpdate(generic.UpdateView):
+    model = HarvestYield
+    template_name = 'harvest/harvest_yield/update.html'
+    fields = [
+        'tree',
+        'total_in_lb',
+        'recipient',
+    ]
+
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestYieldUpdate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestYieldUpdate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(HarvestYieldUpdate, self).get_context_data(**kwargs)
+
+        harvest = HarvestYield.objects.get(id=self.kwargs['pk']).harvest
+
+        trees = Harvest.objects.get(id=harvest.id).trees.all()
+        model_choice_tree = forms.ModelChoiceField(queryset=trees, required=False)
+        context['form'].fields['tree'] = model_choice_tree
+
+        harvest = Harvest.objects.get(id=harvest.id)
+        requests = harvest.request_for_participation.filter(is_accepted=True)
+        pickers = []
+        for request_participation in requests:
+            pickers.append(request_participation.picker)
+
+        organizations = Organization.objects.filter(is_beneficiary=True)
+        owner = harvest.property.owner
+
+        recipients = set()
+        recipients.add(owner.actor_id)
+        for organization in organizations:
+            recipients.add(organization.pk)
+        for picker in pickers:
+            recipients.add(picker.pk)
+
+        recipients = Actor.objects.filter(pk__in=recipients)
+
+        model_choice_recipient = forms.ModelChoiceField(queryset=recipients, required=False)
+        context['form'].fields['recipient'] = model_choice_recipient
+
+        return context
+
+    def get_success_url(self):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            _('Your recipient has been updated!')
         )
         return reverse_lazy(
             'harvest:harvest_detail',

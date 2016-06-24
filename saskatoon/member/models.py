@@ -207,6 +207,11 @@ class Person(Actor):
 
 @python_2_unicode_compatible
 class Organization(Actor):
+    is_beneficiary = models.BooleanField(
+        verbose_name=_('is beneficiary'),
+        default=False
+    )
+
     redmine_contact_id = models.IntegerField(
         verbose_name=_("Redmine contact"),
         null=True,
