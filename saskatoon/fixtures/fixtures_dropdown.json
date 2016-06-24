@@ -30,9 +30,9 @@
     "pk": 4,
     "fields":
     {
-      "name": "Field Binder",
-      "name_en": "Field Binder",
-      "name_fr": "Cartable de terrain"
+      "name": "Operations Binder",
+      "name_en": "Operations Binder",
+      "name_fr": "Pochette des documents logistiques"
     }
   },  {
     "model": "harvest.EquipmentType",
@@ -57,8 +57,8 @@
     "pk": 7,
     "fields":
     {
-      "name": "Fruit Picker",
-      "name_en": "Fruit Picker",
+      "name": "Fruit Pickers",
+      "name_en": "Fruit Pickers",
       "name_fr": "Cueille-fruits"
     }
   },  {
@@ -66,8 +66,8 @@
     "pk": 8,
     "fields":
     {
-      "name": "Pencil and tools case",
-      "name_en": "Pencil and tools case",
+      "name": "Pencil and tool case",
+      "name_en": "Pencil and tool case",
       "name_fr": "Étuis à crayon et outils"
     }
   },  {
@@ -96,6 +96,24 @@
       "name": "Scissors",
       "name_en": "Scissors",
       "name_fr": "Ciseaux"
+    }
+  },  {
+    "model": "harvest.EquipmentType",
+    "pk": 12,
+    "fields":
+    {
+      "name": "Gloves",
+      "name_en": "Gloves",
+      "name_fr": "Gants"
+    }
+  },  {
+    "model": "harvest.EquipmentType",
+    "pk": 13,
+    "fields":
+    {
+      "name": "Plastic baskets",
+      "name_en": "Plastic baskets",
+      "name_fr": "Bacs en plastic"
     }
   },  {
     "model": "member.Language",
@@ -281,16 +299,6 @@
     "pk": 17,
     "fields":
     {
-      "name": "Little-Italy",
-      "name_en": "Little-Italy",
-      "name_fr": "Petite-Italie"
-    }
-  },
-  {
-    "model": "member.Neighborhood",
-    "pk": 18,
-    "fields":
-    {
       "name": "Petite-Patrie",
       "name_en": "Petite-Patrie",
       "name_fr": "Petite-Patrie"
@@ -298,7 +306,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 19,
+    "pk": 18,
     "fields":
     {
       "name": "Pierrefonds-Roxboro",
@@ -308,7 +316,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 20,
+    "pk": 19,
     "fields":
     {
       "name": "Plateau-Mont-Royal",
@@ -318,7 +326,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 21,
+    "pk": 20,
     "fields":
     {
       "name": "Pointe-Saint-Charles",
@@ -328,7 +336,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 22,
+    "pk": 21,
     "fields":
     {
       "name": "Rivière-des-Prairies-Pointe-aux-Trembles",
@@ -338,7 +346,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 23,
+    "pk": 22,
     "fields":
     {
       "name": "Rosemont",
@@ -348,7 +356,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 24,
+    "pk": 23,
     "fields":
     {
       "name": "Saint-Henri-Little-Burgundy-Griffintown",
@@ -358,7 +366,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 25,
+    "pk": 24,
     "fields":
     {
       "name": "Saint-Laurent",
@@ -368,7 +376,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 26,
+    "pk": 25,
     "fields":
     {
       "name": "Saint-Léonard",
@@ -378,7 +386,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 27,
+    "pk": 26,
     "fields":
     {
       "name": "Saint-Michel",
@@ -388,7 +396,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 28,
+    "pk": 27,
     "fields":
     {
       "name": "Senneville",
@@ -398,7 +406,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 29,
+    "pk": 28,
     "fields":
     {
       "name": "Snowdon",
@@ -408,7 +416,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 30,
+    "pk": 29,
     "fields":
     {
       "name": "Verdun",
@@ -418,7 +426,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 31,
+    "pk": 30,
     "fields":
     {
       "name": "Ville-Marie",
@@ -428,7 +436,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 32,
+    "pk": 31,
     "fields":
     {
       "name": "Villeray",
@@ -438,7 +446,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 33,
+    "pk": 32,
     "fields":
     {
       "name": "Town-of-Mont-Royal",
@@ -448,7 +456,7 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 34,
+    "pk": 33,
     "fields":
     {
       "name": "Westmount",
@@ -458,12 +466,12 @@
   },
   {
     "model": "member.Neighborhood",
-    "pk": 35,
+    "pk": 34,
     "fields":
     {
-      "name": "Off-Island",
-      "name_en": "Off-Island",
-      "name_fr": "Hors-de-l'Île"
+      "name": "Other",
+      "name_en": "Other",
+      "name_fr": "Autre"
     }
   },
   {
@@ -501,7 +509,7 @@
     {
       "name": "Sweet cherry tree",
       "name_en": "Sweet cherry tree",
-      "name_fr": "Cerisier sucrée",
+      "name_fr": "Cerisier sucré",
       "fruit_name": "Sweet cherry",
       "fruit_name_en": "Sweet cherry",
       "fruit_name_fr": "Cerise sucrée",
@@ -571,10 +579,10 @@
     {
       "name": "Blackberry",
       "name_en": "Blackberry",
-      "name_fr": "Mûre",
+      "name_fr": "Mûrier",
       "fruit_name": "Blackberry",
       "fruit_name_en": "Blackberry",
-      "fruit_name_fr": "Mûrier",
+      "fruit_name_fr": "Mûre",
       "season_start": "9999-08-01"
     }
   },
@@ -611,12 +619,12 @@
     "pk": 11,
     "fields":
     {
-      "name": "Pear tree",
-      "name_en": "Pear tree",
-      "name_fr": "Poirier",
-      "fruit_name": "Pear",
-      "fruit_name_en": "Pear",
-      "fruit_name_fr": "Poire",
+      "name": "Red pear tree",
+      "name_en": "Red pear tree",
+      "name_fr": "Poirier rouge",
+      "fruit_name": "Red pear",
+      "fruit_name_en": "Red pear",
+      "fruit_name_fr": "Poire rouge",
       "season_start": "9999-08-01"
     }
   },
@@ -625,18 +633,46 @@
     "pk": 12,
     "fields":
     {
-      "name": "Green apple tree",
-      "name_en": "Green apple tree",
-      "name_fr": "Pommier vert",
-      "fruit_name": "Green apple",
-      "fruit_name_en": "Green apple",
-      "fruit_name_fr": "Pomme vert",
-      "season_start": "9999-08-15"
+      "name": "Yellow pear tree",
+      "name_en": "Yellow pear tree",
+      "name_fr": "Poirier jaune",
+      "fruit_name": "Yellow pear",
+      "fruit_name_en": "Yellow pear",
+      "fruit_name_fr": "Poire jaune",
+      "season_start": "9999-08-01"
     }
   },
   {
     "model": "harvest.TreeType",
     "pk": 13,
+    "fields":
+    {
+      "name": "Green pear tree",
+      "name_en": "Green pear tree",
+      "name_fr": "Poirier vert",
+      "fruit_name": "Green pear",
+      "fruit_name_en": "Green pear",
+      "fruit_name_fr": "Poire verte",
+      "season_start": "9999-08-01"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 14,
+    "fields":
+    {
+      "name": "Green apple tree",
+      "name_en": "Green apple tree",
+      "name_fr": "Pommier vert",
+      "fruit_name": "Green apple",
+      "fruit_name_en": "Green apple",
+      "fruit_name_fr": "Pomme verte",
+      "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 15,
     "fields":
     {
       "name": "Red apple tree",
@@ -650,7 +686,7 @@
   },
   {
     "model": "harvest.TreeType",
-    "pk": 14,
+    "pk": 16,
     "fields":
     {
       "name": "Yellow apple tree",
@@ -664,7 +700,7 @@
   },
   {
     "model": "harvest.TreeType",
-    "pk": 15,
+    "pk": 17,
     "fields":
     {
       "name": "Crabapple tree",
@@ -673,12 +709,12 @@
       "fruit_name": "Crabapple",
       "fruit_name_en": "Crabapple",
       "fruit_name_fr": "Pommette",
-      "season_start": "9999-08-01"
+      "season_start": "9999-07-15"
     }
   },
   {
     "model": "harvest.TreeType",
-    "pk": 16,
+    "pk": 18,
     "fields":
     {
       "name": "Plum tree",
@@ -687,35 +723,7 @@
       "fruit_name": "Plum",
       "fruit_name_en": "Plum",
       "fruit_name_fr": "Prune",
-      "season_start": "9999-08-15"
-    }
-  },
-  {
-    "model": "harvest.TreeType",
-    "pk": 17,
-    "fields":
-    {
-      "name": "White grapevine",
-      "name_en": "White grapevine",
-      "name_fr": "Vigne blanc",
-      "fruit_name": "White grape",
-      "fruit_name_en": "White grape",
-      "fruit_name_fr": "Raisin blanc",
-      "season_start": "9999-08-15"
-    }
-  },
-  {
-    "model": "harvest.TreeType",
-    "pk": 18,
-    "fields":
-    {
-      "name": "Black grapevine",
-      "name_en": "Black grapevine",
-      "name_fr": "Vigne noir",
-      "fruit_name": "Black grape",
-      "fruit_name_en": "Black grape",
-      "fruit_name_fr": "Raisin noir",
-      "season_start": "9999-08-15"
+      "season_start": "9999-08-01"
     }
   },
   {
@@ -723,9 +731,37 @@
     "pk": 19,
     "fields":
     {
+      "name": "Green grapevine",
+      "name_en": "Green grapevine",
+      "name_fr": "Vigne verte",
+      "fruit_name": "Green grape",
+      "fruit_name_en": "Green grape",
+      "fruit_name_fr": "Raisin vert",
+      "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 20,
+    "fields":
+    {
+      "name": "Purple grapevine",
+      "name_en": "Purple grapevine",
+      "name_fr": "Vigne rouge",
+      "fruit_name": "Purple grape",
+      "fruit_name_en": "Purple grape",
+      "fruit_name_fr": "Raisin rouge",
+      "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 21,
+    "fields":
+    {
       "name": "Rhubarb",
       "name_en": "Rhubarb",
-      "name_fr": "Pied de Rhubarbe",
+      "name_fr": "Rhubarbe",
       "fruit_name": "Rhubarb",
       "fruit_name_en": "Rhubarb",
       "fruit_name_fr": "Rhubarbe",
@@ -734,7 +770,7 @@
   },
   {
     "model": "harvest.TreeType",
-    "pk": 20,
+    "pk": 22,
     "fields":
     {
       "name": "Elderberry",
@@ -744,6 +780,20 @@
       "fruit_name_en": "Elderberry",
       "fruit_name_fr": "Sureau",
       "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 23,
+    "fields":
+    {
+      "name": "Fig tree",
+      "name_en": "Fig tree",
+      "name_fr": "Figuier",
+      "fruit_name": "Fig",
+      "fruit_name_en": "Fig",
+      "fruit_name_fr": "Figue",
+      "season_start": "9999-09-01"
     }
   }
 ]
