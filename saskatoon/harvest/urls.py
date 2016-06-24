@@ -49,6 +49,16 @@ urlpatterns = patterns(
         name='harvest_detail'
     ),
     url(
+        r'^(?P<pk>\d+)/add_recipient$',
+        views.HarvestYieldCreate.as_view(),
+        name='harvest_add_recipient'
+    ),
+    url(
+        r'^(?P<pk>\d+)/edit_recipient$',
+        views.HarvestYieldUpdate.as_view(),
+        name='harvest_edit_recipient'
+    ),
+    url(
         r'^create$',
         views.HarvestCreate.as_view(),
         name='harvest_create'

@@ -285,7 +285,7 @@
                 <div class="panel-heading">
                     <i class="fa fa-smile-o"></i> <b>{% trans "Fruit distribution" %}</b>
                     <span class="pull-right">
-                        <a href="JavaScript:newPopup('/admin/harvest/harvestyield/add/?_popup=1&harvest={{harvest.id}}');" class="btn btn-xs btn-success">
+                        <a href="{% url 'harvest:harvest_add_recipient' harvest.id %}" class="btn btn-xs btn-success">
                             <i class="fa fa-plus"></i>
                             {% trans "New recipient" %}
                         </a>
@@ -307,9 +307,9 @@
                                 <td>{{ d.tree.fruit_name }}</td>
                                 <td>{{ d.total_in_lb }}</td>
                                 <td>
-                                        <a class="btn btn-xs btn-warning" href=''>
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
+                                    <a class="btn btn-xs btn-warning" href="{% url 'harvest:harvest_edit_recipient' d.id %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
