@@ -121,11 +121,11 @@
         {% endif %}
         <div class="col-sm-3">
             {% for tree in harvest.trees.all %}
-            {% if tree.image %}
-                <img src="{{ MEDIA_URL }}{{tree.image}}" alt="{{ tree.fruit_name}}" style="max-height:100px; max-width: 100%;" />
-            {% else %}
-                <strong>{% trans "Fruits" %} : </strong>{{ tree.fruit_name }}<br>
-            {% endif %}
+               {% if tree.image %}
+                    <img src="{{ MEDIA_URL }}{{tree.image}}" alt="{{ tree.fruit_name}}" style="max-height:100px; max-width: 100%;" />
+               {% else %}
+                    <strong>{% trans "Fruit" %} : </strong>{{ tree.fruit_name }}
+                {% endif %}
             {% endfor %}
         </div>
     </div>
