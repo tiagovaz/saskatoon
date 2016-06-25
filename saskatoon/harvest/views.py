@@ -161,15 +161,13 @@ class HarvestList(generic.ListView):
 class HarvestDetail(generic.DetailView):
     model = Harvest
     context_object_name = 'harvest'
-    template_name = 'harvest/harvest/detail_public.html'
+    template_name = 'harvest/harvest/detail.html'
 
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
             Harvest,
             id=self.kwargs['pk']
         )
-        if self.request.user.is_authenticated():
-            self.template_name = 'harvest/harvest/detail.html'
 
         return super(HarvestDetail, self).dispatch(*args, **kwargs)
 

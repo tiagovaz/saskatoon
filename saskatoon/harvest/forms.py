@@ -298,7 +298,6 @@ class HarvestYieldForm(forms.ModelForm):
 
 
 class EquipmentForm(forms.ModelForm):
-
     def clean(self):
         cleaned_data = super(EquipmentForm, self).clean()
 

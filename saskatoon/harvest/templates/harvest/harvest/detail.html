@@ -8,13 +8,19 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {% trans "Harvest at" %} <i>{{ harvest.property.short_address}}</i>
+                {% if user.is_authenticated %}
+                    {% trans "Harvest at" %} <i>{{ harvest.property.short_address}}</i>
+                {% else %}
+                    {% trans "Harvest at" %} <i>{{ harvest.property.publishable_location }}</i>
+                {% endif %}
                 <small>(#{{ harvest.id }})</small>
-                <span class="pull-right">
-                    <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
-                        <i class="fa fa-pencil"></i> {% trans "Edit this harvest" %}
-                    </a>
-                </span>
+                {% if user.is_authenticated %}
+                    <span class="pull-right">
+                        <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
+                            <i class="fa fa-pencil"></i> {% trans "Edit this harvest" %}
+                        </a>
+                    </span>
+                {% endif %}
                 {% if harvest.pick_leader != None %}
                     <br><small><strong>{{ harvest.status }}</strong> by pick leader <strong>{{ harvest.pick_leader }}</strong></small>
                 {% endif %}
@@ -39,7 +45,7 @@
                                 <i class="glyphicon glyphicon-time fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{ harvest.start_date|date:"D d M" }}</div>
+                                <div class="huge">{{ harvest.start_date|date:"d M" }}</div>
                                 <div>{% trans "from" %} {{ harvest.start_date|date:"H:m" }} {% trans "to" %} {{ harvest.end_date|date:"H:m" }}</div>
                             </div>
                         </div>
@@ -62,62 +68,94 @@
                 </div>
             </div>
         {% endif %}
-
         <div class="col-sm-3">
-            <span class="lead">{% trans "Property of" %} {{ harvest.property }}</span>
-            <a href='{% url "harvest:property_detail" harvest.property.id %}'><br>
-                {% trans " See full details about this property" %}</a><br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-group fa-5x"></i>
+                        </div>
+                        <div class="col-xs-10 text-right">
+                            <div class="huge">{{ requests.count }} requests</div>
+                            <div><strong>{{ harvest.nb_required_pickers }}</strong> {% trans "pickers needed in total" %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
-        <div class="col-sm-2">
-           <div class="table-responsive">
-               <table class='table table-borderless table-condensed'>
-                       <tr>
-                           <td><strong>{% trans "Owner wants to be present" %}</strong></td>
-                           <td>{% if harvest.owner_present %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                       <tr>
-                           <td><strong>{% trans "Owner wants to participate" %}</strong></td>
-                           <td>{% if harvest.owner_help %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                       <tr>
-                           <td><strong>{% trans "Owner wants his share of fruits" %}</strong></td>
-                           <td>{% if harvest.owner_fruit %}
-                                   <i class="fa fa-check" style="color:green"></i>
-                               {% else %}
-                                   <i class="fa fa-times" style="color:red"></i>
-                               {% endif %}
-                           </td>
-                       </tr>
-                   </table>
-           </div>
-           <!-- /.table-responsive -->
-        </div>
-        <div class="col-sm-4">
+        {% if user.is_authenticated %}
+            <div class="col-sm-2">
+               <div class="table-responsive">
+                   <table class='table table-borderless table-condensed'>
+                           <tr>
+                               <td><strong>{% trans "Owner wants to be present" %}</strong></td>
+                               <td>{% if harvest.owner_present %}
+                                       <i class="fa fa-check" style="color:green"></i>
+                                   {% else %}
+                                       <i class="fa fa-times" style="color:red"></i>
+                                   {% endif %}
+                               </td>
+                           </tr>
+                           <tr>
+                               <td><strong>{% trans "Owner wants to participate" %}</strong></td>
+                               <td>{% if harvest.owner_help %}
+                                       <i class="fa fa-check" style="color:green"></i>
+                                   {% else %}
+                                       <i class="fa fa-times" style="color:red"></i>
+                                   {% endif %}
+                               </td>
+                           </tr>
+                           <tr>
+                               <td><strong>{% trans "Owner wants his share of fruits" %}</strong></td>
+                               <td>{% if harvest.owner_fruit %}
+                                       <i class="fa fa-check" style="color:green"></i>
+                                   {% else %}
+                                       <i class="fa fa-times" style="color:red"></i>
+                                   {% endif %}
+                               </td>
+                           </tr>
+                       </table>
+               </div>
+               <!-- /.table-responsive -->
+            </div>
+        {% endif %}
+        <div class="col-sm-3">
             {% for tree in harvest.trees.all %}
-                {% if tree.image %}
-                    <img src="{{ MEDIA_URL }}{{tree.image}}" alt="{{ tree.fruit_name}}" style="max-height:100px; max-width: 100%;" />
-                {% else %}
-                    <strong>{% trans "Fruits" %} : </strong>{{ tree.fruit_name }}<br>
-                {% endif %}
+            {% if tree.image %}
+                <img src="{{ MEDIA_URL }}{{tree.image}}" alt="{{ tree.fruit_name}}" style="max-height:100px; max-width: 100%;" />
+            {% else %}
+                <strong>{% trans "Fruits" %} : </strong>{{ tree.fruit_name }}<br>
+            {% endif %}
             {% endfor %}
         </div>
-
     </div>
-
+    <div class="row">
+        {% if user.is_authenticated %}
+            <div class="col-sm-6">
+                <span class="lead">{% trans "Property of" %} {{ harvest.property }}</span>
+                <a href='{% url "harvest:property_detail" harvest.property.id %}'><br>
+                <p>{% trans " See full details about this property" %}</a></p>
+            </div>
+        {% endif %}
+    </div>
+    {% if harvest.about %}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="well well-sm">
+                    <h4>{% trans "Notes about this harvest" %}</h4>
+                    <p>{{ harvest.about }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if user.is_authenticated == False %}
+            <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-success btn-lg">
+                <i class="fa fa-plus"></i>
+                {% trans "Request to join!" %}
+            </a>
+    {% endif %}
     <hr>
-
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-sm-6">
                     <div class="chat-panel panel panel-default">
@@ -275,8 +313,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <div class="row">
@@ -320,6 +356,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
 <!-- TBD internally
     <div class="row">
