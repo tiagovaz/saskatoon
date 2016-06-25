@@ -34,7 +34,7 @@ class HarvestYieldInline(admin.TabularInline):
     form = HarvestYieldForm
 
 class HarvestAdmin(admin.ModelAdmin):
-    form = HarvestForm
+    #form = HarvestForm
     inlines = (PersonInline, HarvestYieldInline)
 
 
