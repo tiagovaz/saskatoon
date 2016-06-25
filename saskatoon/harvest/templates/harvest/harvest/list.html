@@ -30,7 +30,7 @@
                                     <th>{% trans "Neighborhood" %}</th>
                                     <th>{% trans "Scheduled to" %}</th>
                                     <th>{% trans "Status" %}</th>
-                                    <th>{% trans "Edit" %}</th>
+                                    <th>{% trans "Action" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,8 +54,8 @@
                                     <td>{{ harvest.property.neighborhood }}</td>
                                     <td>{{ harvest.start_date }}</td>
                                     <td>{{ harvest.status }}</td>
-                                    <td>
-                                        <a href="JavaScript:newPopup('/admin/harvest/harvest/{{ harvest.id }}/change/?_popup=1');">{% trans "Edit" %}</a>
+                                    <td class="text-center">
+                                        <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'><i class="fa fa-pencil"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}

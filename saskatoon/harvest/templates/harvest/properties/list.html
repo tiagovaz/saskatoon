@@ -7,9 +7,7 @@
         <div class="col-lg-12">
             <h1 class="page-header">
                 {% trans "Properties" %}
-                <a class="btn btn-xs btn-primary" href="JavaScript:newPopup('/admin/harvest/property/add/?_popup=1');">
-                    <i class="fa fa-plus"></i> {% trans "New property" %}
-                </a>
+                <a class="btn btn-xs btn-primary" href='{% url "harvest:property_create"%}'><i class="fa fa-plus"></i> {% trans "New property" %}</a>
             </h1>
             {% if "active" in request.get_full_path  %}
                 <p class="text-right"><a href="/harvest/properties/"> {% trans "Show all" %}</a></p>
@@ -60,9 +58,10 @@
                                     <td>{{ property.neighborhood.name }}</td>
                                     <td>
                                         <center>
-                                        <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
+                                        <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
                                             <i class="fa fa-pencil"></i>
                                         </a>
+
                                         </center>
                                     </td>
                                 </tr>
@@ -92,8 +91,8 @@
                                     </td></center>
                                     <td>
                                          <center>
-                                         <a class="btn btn-xs btn-warning" href="JavaScript:newPopup('/admin/harvest/property/{{ property.id }}/change/?_popup=1');">
-                                            <i class="fa fa-pencil"></i>
+                                         <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
+                                             <i class="fa fa-pencil"></i>
                                          </a>
                                          </center>
                                     </td>
