@@ -380,7 +380,11 @@ class Harvest(models.Model):
     def is_publishable(self):
 
         #FIXME: returning true while buggy
-        return True
+        if self.status in ["Ready", "Date-scheduled",
+                           "Succeeded"]:
+            return True
+        else:
+            return False
 
         now = datetime.datetime.now()
         self.publication_hour = 18 #FIXME: add a model to set this up
