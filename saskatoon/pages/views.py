@@ -38,7 +38,7 @@ class JsonCalendar(generic.View):
                 event = {}
                 event["title"] = harvest.property.neighborhood.name
                 event["allday"] = "false"
-                event["description"] = harvest.about
+                event["description"] = harvest.about #FIXME: see http://fullcalendar.io/docs/event_rendering/eventRender/
                 if harvest.start_date:
                     event["start"] = harvest.start_date - datetime.timedelta(hours=4) #FIXME: ugly hack, needs proper interaction with calendar (http://fullcalendar.io/docs/timezone/timezone/)
                 if harvest.end_date:
