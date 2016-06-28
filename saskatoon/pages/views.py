@@ -3,7 +3,7 @@ from harvest.models import Harvest, Property
 from member.models import AuthUser
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
-
+from pytz import timezone
 
 class Calendar(generic.TemplateView):
     template_name = 'pages/calendar.html'
@@ -39,15 +39,17 @@ class JsonCalendar(generic.View):
                 event["title"] = harvest.property.neighborhood.name
                 event["allday"] = "false"
                 event["description"] = harvest.about
-                event["start"] = harvest.start_date
-                event["end"] = harvest.end_date
+                if harvest.start_date:
+                    event["start"] = harvest.start_date.replace(tzinfo=timezone('America/Montreal'))
+                if harvest.end_date:
+                    event["end"] = harvest.end_date.replace(tzinfo=timezone('America/Montreal'))
                 event["url"] = reverse(
                     'harvest:harvest_detail',
                     kwargs={'pk': harvest.id}
                 )
                 event["color"] = color
                 event["textColor"] = text_color
-                event["timezone"] = "local"
+#                event["timezone"] = "America/Montreal"
                 events.append(event)
                 del event
 
