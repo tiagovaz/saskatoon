@@ -30,7 +30,7 @@ class AuthUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
+@python_2_unicode_compatible
 class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     person = models.OneToOneField('Person', null=True)
@@ -54,9 +54,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.email
 
-    def __unicode__(self):
+    def __str__(self):
         try:
-            return "%s" % (self.person.__str__())
+            return u"%s" % (self.person.__str__())
         except:
        	    return self.email
 
