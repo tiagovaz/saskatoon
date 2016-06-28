@@ -47,6 +47,7 @@ class JsonCalendar(generic.View):
                 )
                 event["color"] = color
                 event["textColor"] = text_color
+                event["timezone"] = "local"
                 events.append(event)
                 del event
 
