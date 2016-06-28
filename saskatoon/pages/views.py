@@ -25,6 +25,16 @@ class JsonCalendar(generic.View):
         events = []
         for harvest in harvests:
             if harvest.is_publishable():
+                text_color = "#ffffff"
+                if harvest.status == "Date-scheduled":
+                    color = "#f0ad4e"
+                elif harvest.status == "Ready":
+                    color = "#5cb85c"
+                elif harvest.status == "Succeeded":
+                    color = "#337ab7"
+                elif harvest.status == "Cancelled":
+                    color = "#f9f9f9"
+                    text_color = "#000000"
                 event = {}
                 event["title"] = harvest.property.neighborhood.name
                 event["allday"] = "false"
@@ -35,6 +45,8 @@ class JsonCalendar(generic.View):
                     'harvest:harvest_detail',
                     kwargs={'pk': harvest.id}
                 )
+                event["color"] = color
+                event["textColor"] = text_color
                 events.append(event)
                 del event
 
