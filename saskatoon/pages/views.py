@@ -22,10 +22,10 @@ class Calendar(generic.TemplateView):
 class JsonCalendar(generic.View):
     def get(self, test):
         harvests = Harvest.objects.all()
-        event = {}
         events = []
         for harvest in harvests:
             if harvest.is_publishable():
+                event = {}
                 event["title"] = harvest.property.neighborhood.name
                 event["allday"] = "false"
                 event["description"] = harvest.about
@@ -36,8 +36,8 @@ class JsonCalendar(generic.View):
                     kwargs={'pk': harvest.id}
                 )
                 events.append(event)
+                del event
 
-        print events
         return JsonResponse(events, safe=False)
 
 
