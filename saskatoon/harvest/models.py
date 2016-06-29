@@ -334,16 +334,10 @@ class Harvest(models.Model):
         default=3
     )
 
-    leader_need_help = models.BooleanField(
-        verbose_name=_("Pick leader needs extra help"),
-        help_text=_("Check the About field for details"),
-        default=False
-    )
-
     about = models.TextField(
-        verbose_name=_("About"),
+        verbose_name=_("Public announcement"),
         max_length=1000,
-        help_text = _("If any help is needed from volunteer pickers, please describe them in this box."),
+        help_text = _("If any help is needed from volunteer pickers, please describe them here."),
         null=True,
         blank=True
     )
