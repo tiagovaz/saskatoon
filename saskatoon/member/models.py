@@ -72,14 +72,11 @@ class Actor(models.Model):
         verbose_name_plural = _("actors")
 
     def __str__(self):
-        #FIXME: much simplier as auth_user is now, no need to decode utf. change it when unit tests are available. 
         try:
-            person = u'%s' % (self.person.__str__())
-            return person.decode('utf8')
+            return u"%s" % (self.person)
         except Person.DoesNotExist:
-            organization = u'%s' % (self.organization.__str__())
             # if it is not a person it must be an organization
-            return organization.decode('utf8')
+            return u"%s" % (self.organization)
 
 
 @python_2_unicode_compatible
