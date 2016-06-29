@@ -113,9 +113,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href='{% url "harvest:property_list_active" %}'>
-                                    <i class="glyphicon glyphicon-tree-deciduous"></i>
-                                    {% trans "Properties" %}
+                                <a href='{% url "pages:calendar" %}'>
+                                    <i class="fa fa-calendar fa-fw"></i>
+                                    {% trans "Calendar" %}
                                 </a>
                             </li>
                             <li>
@@ -125,21 +125,27 @@
                                 </a>
                             </li>
                             <li>
+                                <a href='{% url "harvest:property_list_active" %}'>
+                                    <i class="glyphicon glyphicon-tree-deciduous"></i>
+                                    {% trans "Properties" %}
+                                </a>
+                            </li>
+                            <li>
                                 <a href='{% url "harvest:equipment_list" %}'>
                                     <i class="fa fa-scissors fa-fw"></i>
                                     {% trans "Equipment" %}
                                 </a>
                             </li>
                             <li>
-                                <a href='{% url "pages:calendar" %}'>
-                                    <i class="fa fa-calendar fa-fw"></i>
-                                    {% trans "Calendar" %}
-                                </a>
-                            </li>
-                            <li>
                                 <a href='/admin/'>
                                     <i class="fa fa-gear fa-fw"></i>
                                     {% trans "Admin" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href='https://lesfruitsdefendus.titanpad.com/17'>
+                                    <i class="fa fa-bug fa-fw"></i>
+                                    {% trans "Bugs" %}
                                 </a>
                             </li>
                         </ul>
