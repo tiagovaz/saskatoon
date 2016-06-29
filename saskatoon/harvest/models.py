@@ -287,8 +287,8 @@ class Harvest(models.Model):
         default=False
     )
 
-    owner_no_fruit = models.BooleanField(
-        verbose_name=_("Owner does not want his share of fruits"),
+    owner_fruit = models.BooleanField(
+        verbose_name=_("Owner want his share of fruits"),
         default=False
     )
 

@@ -88,7 +88,10 @@
                <div class="table-responsive">
                    <table class='table table-borderless table-condensed'>
                            <tr>
-                               <td><strong>{% trans "Owner wants to be present" %}</strong></td>
+                               <td><strong>{% trans "Owner wants to... " %}</strong></td>
+                           </tr>
+                           <tr>
+                               <td><strong>{% trans "... be present " %}</strong></td>
                                <td>{% if harvest.owner_present %}
                                        <i class="fa fa-check" style="color:green"></i>
                                    {% else %}
@@ -97,7 +100,7 @@
                                </td>
                            </tr>
                            <tr>
-                               <td><strong>{% trans "Owner wants to participate" %}</strong></td>
+                               <td><strong>{% trans "... participate" %}</strong></td>
                                <td>{% if harvest.owner_help %}
                                        <i class="fa fa-check" style="color:green"></i>
                                    {% else %}
@@ -106,7 +109,7 @@
                                </td>
                            </tr>
                            <tr>
-                               <td><strong>{% trans "Owner wants his share of fruits" %}</strong></td>
+                               <td><strong>{% trans "... have his share of fruits" %}</strong></td>
                                <td>{% if harvest.owner_fruit %}
                                        <i class="fa fa-check" style="color:green"></i>
                                    {% else %}
