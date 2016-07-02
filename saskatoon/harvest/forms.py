@@ -32,7 +32,7 @@ class RequestForm(forms.ModelForm):
         send_mail(
                 subject,
                 message,
-                'saskatoon@lesfruitsdefendus.org',
+                'info@lesfruitsdefendus.org',
                 mail_to,
                 fail_silently=False,
             )
@@ -100,10 +100,19 @@ Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publisha
 
 
 class CommentForm(forms.ModelForm):
+    def send_email(self, subject, message, mail_to):
+        send_mail(
+                subject,
+                message,
+                'info@lesfruitsdefendus.org',
+                mail_to,
+                fail_silently=False,
+            )
+
     class Meta:
         model = Comment
         fields = [
-            'content'
+            'content',
         ]
 
         widgets = {
@@ -114,93 +123,34 @@ class CommentForm(forms.ModelForm):
             ),
         }
 
-#
-# class NewHarvest(forms.ModelForm):
-#     class Meta:
-#         model = Harvest
-#         fields = '__all__'
-#
-#     # """ Determines if this harvest appears on public calendar. """
-#     is_active = forms.BooleanField()
-#     status = forms.ChoiceField()
-#     property = forms.ModelChoiceField(
-#         queryset=Property.objects.all()
-#     )
-#     leader = forms.ModelChoiceField(
-#         queryset=Person.objects.all()
-#     )
-#     start_date = forms.DateTimeField()
-#     end_date = forms.DateTimeField()
-#     nb_required_pickers = forms.IntegerField()
-#     pickers = forms.ModelMultipleChoiceField(
-#         queryset=Person.objects.all()
-#     )
-#     equipment_reserved = forms.ModelMultipleChoiceField(
-#         queryset=Equipment.objects.all()
-#     )
-#     owner_present = forms.BooleanField()
-#     owner_help = forms.BooleanField()
-#     owner_fruit = forms.BooleanField()
-#     about = forms.CharField(
-#         widget=forms.Textarea
-#     )
-#
-#     def __init__(self, *args, **kwargs):
-#         super(NewHarvest, self).__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#
-#         self.helper.layout = Layout(
-#             Fieldset(
-#                 '',
-#                 # fieldset title
-#
-#                 Div(
-#                     Div(
-#                         Div('title', css_class='col-lg-12'),
-#                         css_class='row'
-#                     ),
-#                     Div(
-#                             Field('description', rows="4")
-#                          ),
-#                     Div(
-#                             Field('comment', css_class='col-lg-12', rows="4")
-#                          ),
-#                     css_class='col-lg-6'
-#                 ),
-#
-#
-#                 Div(
-#                     Div(
-#                         Field('start_date'), css_class='col-lg-6'
-#                     ),
-#                     Div(
-#                         Field('end_date'), css_class='col-lg-6',
-#                         ),
-#                     css_class='col-lg-6'
-#                 ),
-#
-#                 Div(
-#                     Div('leader', css_class='col-lg-6'),
-#                     Div('property', css_class='col-lg-6'),
-#                     css_class='col-lg-6'
-#                 ),
-#
-#                 Div(
-#                     Div('status', css_class='col-lg-6'),
-#                     Div('nb_required_pickers', css_class='col-lg-6'),
-#                     Div('equipment_reserved', css_class='col-lg-6'),
-#                     Div('pickers', css_class='col-lg-6'),
-#                     css_class='col-lg-6'
-#                 ),
-#
-#             ),
-#             Div(
-#                 ButtonHolder(
-#                     Submit('submit', 'Submit')
-#                 ),
-#                 css_class='col-lg-12'
-#             )
-#         )
+    def save(self):
+        print "ASDASDASD"
+        instance = super(CommentForm, self).save(commit=False)
+
+        content = self.cleaned_data['content']
+        author = self.cleaned_data['author']
+        harvest_obj = Harvest.objects.get(id=harvest_id)
+
+        # Building email content
+        pick_leader_email = []
+        pick_leader_email.append(str(harvest_obj.pick_leader.email))
+        pick_leader_name  = harvest_obj.pick_leader.person.first_name
+        publishable_location = harvest_obj.property.publishable_location
+        mail_subject = u"New comment from %s" % author
+        message = u"Hi %s, \n\n\
+Author: %s\n\
+Comment: %s\n\
+Yours,\n\
+--\n\
+Saskatoon Harvest System"  % (pick_leader_name, author, content)
+
+
+        # Sending email to pick leader
+        self.send_email(mail_subject, message, pick_leader_email)
+
+        instance.save()
+
+        return instance
 
 # To be used by the pick leader to accept/deny/etc and add notes on a picker
 class RFPManageForm(forms.ModelForm):
