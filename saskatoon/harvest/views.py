@@ -16,6 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.shortcuts import redirect
 
+
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
     context_object_name = 'properties'
@@ -370,7 +371,7 @@ class RequestForParticipationCreate(generic.CreateView):
         messages.add_message(
             self.request,
             messages.SUCCESS,
-            _('Your request of participation has been send. The pickleader will contact you soon!')
+            _('Your request of participation has been sent. The pick leader will contact you soon!')
         )
         return reverse_lazy(
             'harvest:harvest_detail',
