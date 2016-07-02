@@ -75,6 +75,15 @@
                         </ul>
                     </li>
                     {% if user.email %}
+                    <li>
+                        <a href='{% url "pages:index"%}'>
+                            <i class="fa fa-bell fa-fw"></i>
+                            {% trans "Notification" %}
+                            {% if number_of_notification %}
+                            <span class="badge" style="background-color: red;">{{ number_of_notification }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user fa-fw"></i> {{ user.email }} <i class="fa fa-caret-down"></i>
