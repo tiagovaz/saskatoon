@@ -256,7 +256,28 @@ class HarvestImageForm(forms.ModelForm):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ('__all__')
+        fields = (
+            'is_active',
+            'owner',
+            'trees',
+            'trees_location',
+            'avg_nb_required_pickers',
+            'public_access',
+            'neighbor_access',
+            'compost_bin',
+            'street_number',
+            'street',
+            'complement',
+            'postal_code',
+            'publishable_location',
+            'neighborhood',
+            'city',
+            'state',
+            'country',
+            'longitude',
+            'latitude',
+            'about',
+        )
         widgets = {
             'owner': autocomplete.ModelSelect2(
                'actor-autocomplete'
@@ -272,7 +293,19 @@ class PropertyForm(forms.ModelForm):
 class HarvestForm(forms.ModelForm):
     class Meta:
         model = Harvest
-        fields = ('__all__')
+        fields = (
+            'status',
+            'property',
+            'trees',
+            'owner_present',
+            'owner_help',
+            'owner_fruit',
+            'pick_leader',
+            'start_date',
+            'end_date',
+            'nb_required_pickers',
+            'about',
+        )
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
@@ -323,8 +356,8 @@ class HarvestForm(forms.ModelForm):
             if publication_date is not None:
                 instance.publication_date = None
 
-        #FIXME: maybe there is a better way to add trees before saving instance
-        instance.save()
+        if not instance.id:
+            instance.save()
         instance.trees = trees
         instance.save()
 
