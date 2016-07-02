@@ -153,7 +153,6 @@ class HarvestList(generic.ListView):
         all_harvests = HarvestFilter(self.request.GET, queryset=Harvest.objects.all())
         context['view'] = "harvests"
         context['form'] = all_harvests.form
-        context['form'].fields['pick_leader'] = forms.ModelChoiceField(queryset=AuthUser.objects.filter(is_staff=True), required=False)
 
         return context
 
