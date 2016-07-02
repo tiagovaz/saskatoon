@@ -16,6 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.shortcuts import redirect
 
+
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
     context_object_name = 'properties'

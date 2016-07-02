@@ -8,6 +8,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, Div
 from harvest.models import *
 from member.models import *
+from django.core.mail import send_mail
 
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(help_text='Enter a valid email address, please.')
@@ -27,14 +28,25 @@ class RequestForm(forms.ModelForm):
             if request_same_user_count > 0: # check if email has requested for the same harvest
                 raise forms.ValidationError, 'You have already requested to join this pick.'
 
+    def send_email(self, subject, message, mail_to):
+        send_mail(
+                subject,
+                message,
+                'saskatoon@lesfruitsdefendus.org',
+                mail_to,
+                fail_silently=False,
+            )
+
     def save(self):
         instance = super(RequestForm, self).save(commit=False)
 
+        harvest_id = self.cleaned_data['harvest_id']
         first_name = self.cleaned_data['picker_first_name']
         family_name = self.cleaned_data['picker_family_name']
         phone = self.cleaned_data['picker_phone']
         email = self.cleaned_data['picker_email']
-        harvest_obj = Harvest.objects.get(id=self.cleaned_data['harvest_id'])
+        comment = self.cleaned_data['comment']
+        harvest_obj = Harvest.objects.get(id=harvest_id)
 
         # check if the email is already registered
         auth_user_count = AuthUser.objects.filter(email = email).count()
@@ -47,7 +59,30 @@ class RequestForm(forms.ModelForm):
             instance.picker = Person.objects.create(first_name=first_name, family_name=family_name, phone=phone)
             auth_user = AuthUser.objects.create(email=email, person=instance.picker)
 
+
+        # Building email content
+        pick_leader_email = []
+        pick_leader_email.append(str(harvest_obj.pick_leader.email))
+        pick_leader_name  = harvest_obj.pick_leader.person.first_name
+        publishable_location = harvest_obj.property.publishable_location
+        mail_subject = "New request from %s %s" % (first_name, family_name)
+        message = u"Hi %s, \n\n\
+There is a new request from %s to partitipate in harvest #%s at '%s'.\n\n\
+Full name: %s %s\n\
+Email: %s\n\
+Phone: %s\n\
+Comment: %s\n\n\
+Please contact %s directly and then manage this request through\n\
+http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n\
+Yours,\n\
+--\n\
+Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publishable_location, first_name, family_name, email, phone, comment, first_name, harvest_id)
+
+        self.send_email(mail_subject, message, pick_leader_email)
+
+
         instance.save()
+
         return instance
 
     class Meta:
