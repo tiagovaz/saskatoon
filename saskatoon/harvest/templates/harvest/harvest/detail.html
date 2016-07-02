@@ -368,7 +368,6 @@
     </div>
     {% endif %}
 
-<!-- TBD internally
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
@@ -383,7 +382,7 @@
                     <tr>
                     {% endif %}
                         <td>
-                            Updated by {{ line.history_user }} in {{ line.history_date }}
+                            Updated by {{ line.changed_by }} in {{ line.history_date }}<br>
                         </td>
                     </tr>
                     {% endfor %}
@@ -391,7 +390,6 @@
             </div>
         </div>
     </div>
--->
 
     <!-----------
     --- MODAL ---
