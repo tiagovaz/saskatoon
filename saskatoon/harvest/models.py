@@ -222,7 +222,11 @@ class Property(models.Model):
 
     history = HistoricalRecords()
 
-    changed_by = models.ForeignKey('member.AuthUser')
+    changed_by = models.ForeignKey(
+        'member.AuthUser',
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _("property")
@@ -354,7 +358,9 @@ class Harvest(models.Model):
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
-        related_name='harvest_edited'
+        related_name='harvest_edited',
+        null=True,
+        blank=True
     )
 
     class Meta:
