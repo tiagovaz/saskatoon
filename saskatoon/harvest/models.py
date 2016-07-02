@@ -222,7 +222,11 @@ class Property(models.Model):
 
     history = HistoricalRecords()
 
-    changed_by = models.ForeignKey('member.AuthUser')
+    changed_by = models.ForeignKey(
+        'member.AuthUser',
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _("property")
@@ -354,7 +358,9 @@ class Harvest(models.Model):
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
-        related_name='harvest_edited'
+        related_name='harvest_edited',
+        null=True,
+        blank=True
     )
 
     class Meta:
@@ -362,7 +368,10 @@ class Harvest(models.Model):
         verbose_name_plural = _("harvests")
 
     def __str__(self):
-        return "Harvest on %s at %s" % (self.start_date,self.property)
+        if self.start_date:
+            return u"Harvest on %s at %s" % (self.start_date,self.property)
+        else:
+            return u"Harvest at %s" % (self.property)
 
     def is_urgent(self):
         if self.start_date:
