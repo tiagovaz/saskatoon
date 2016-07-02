@@ -235,9 +235,6 @@ class PropertyForm(forms.ModelForm):
 
 
 class HarvestForm(forms.ModelForm):
-
-    publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
-
     class Meta:
         model = Harvest
         fields = ('__all__')
@@ -259,6 +256,22 @@ class HarvestForm(forms.ModelForm):
             ),
             'nb_required_pickers': forms.NumberInput()
         }
+
+    publication_date = forms.DateTimeField(widget=forms.HiddenInput(), required=False)
+
+    start_date = forms.DateTimeField(
+        input_formats=('%Y-%m-%d %H:%M',),
+        widget=forms.DateInput(
+            format='%Y-%m-%d %H:%M',
+        )
+    )
+
+    end_date = forms.DateTimeField(
+        input_formats=('%Y-%m-%d %H:%M',),
+        widget=forms.DateInput(
+            format='%Y-%m-%d %H:%M',
+        )
+    )
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
