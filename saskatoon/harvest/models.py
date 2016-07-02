@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
 import datetime
-
+from harvest import signals
 
 HARVESTS_STATUS_CHOICES = (
     (
@@ -222,6 +222,8 @@ class Property(models.Model):
 
     history = HistoricalRecords()
 
+    changed_by = models.ForeignKey('member.AuthUser')
+
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
@@ -246,6 +248,12 @@ class Property(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:property_detail', args=[self.id])
+
+# SIGNALS CONNECTED
+models.signals.pre_save.connect(
+    signals.changed_by,
+    sender=Property
+)
 
 
 class PropertyImage(models.Model):
@@ -344,6 +352,11 @@ class Harvest(models.Model):
 
     history = HistoricalRecords()
 
+    changed_by = models.ForeignKey(
+        'member.AuthUser',
+        related_name='harvest_edited'
+    )
+
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
@@ -409,6 +422,13 @@ class Harvest(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('harvest:harvest_detail', args=[self.id])
+
+# SIGNALS CONNECTED
+models.signals.pre_save.connect(
+    signals.changed_by,
+    sender=Harvest
+)
+
 
 class HarvestImage(models.Model):
     harvest = models.ForeignKey(
