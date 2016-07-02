@@ -100,15 +100,6 @@ Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publisha
 
 
 class CommentForm(forms.ModelForm):
-    def send_email(self, subject, message, mail_to):
-        send_mail(
-                subject,
-                message,
-                'info@lesfruitsdefendus.org',
-                mail_to,
-                fail_silently=False,
-            )
-
     class Meta:
         model = Comment
         fields = [
@@ -122,35 +113,6 @@ class CommentForm(forms.ModelForm):
                 }
             ),
         }
-
-    def save(self):
-        print "ASDASDASD"
-        instance = super(CommentForm, self).save(commit=False)
-
-        content = self.cleaned_data['content']
-        author = self.cleaned_data['author']
-        harvest_obj = Harvest.objects.get(id=harvest_id)
-
-        # Building email content
-        pick_leader_email = []
-        pick_leader_email.append(str(harvest_obj.pick_leader.email))
-        pick_leader_name  = harvest_obj.pick_leader.person.first_name
-        publishable_location = harvest_obj.property.publishable_location
-        mail_subject = u"New comment from %s" % author
-        message = u"Hi %s, \n\n\
-Author: %s\n\
-Comment: %s\n\
-Yours,\n\
---\n\
-Saskatoon Harvest System"  % (pick_leader_name, author, content)
-
-
-        # Sending email to pick leader
-        self.send_email(mail_subject, message, pick_leader_email)
-
-        instance.save()
-
-        return instance
 
 # To be used by the pick leader to accept/deny/etc and add notes on a picker
 class RFPManageForm(forms.ModelForm):

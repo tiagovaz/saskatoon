@@ -439,6 +439,7 @@ models.signals.pre_save.connect(
 )
 
 
+
 class HarvestImage(models.Model):
     harvest = models.ForeignKey(
         Harvest,
@@ -628,3 +629,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+# SIGNALS CONNECTED
+models.signals.post_save.connect(
+    signals.comment_send_mail,
+    sender=Comment
+)
