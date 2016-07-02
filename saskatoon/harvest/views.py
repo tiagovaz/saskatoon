@@ -519,6 +519,12 @@ class CommentCreate(generic.CreateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+    def get_initial(self):
+        initial = super(CommentCreate, self).get_initial()
+        initial['harvest_id'] = self.kwargs['pk']
+        return initial
+
+
 class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !

@@ -4,9 +4,8 @@ from member import views
 urlpatterns = patterns(
     '',
     url(
-        r'^profile/(?P<pk>\d+)$',
+        r'^(?P<pk>\d+)/profile/$',
         views.Profile.as_view(),
         name='profile'
     ),
-
 )

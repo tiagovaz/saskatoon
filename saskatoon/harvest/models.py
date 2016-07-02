@@ -222,7 +222,11 @@ class Property(models.Model):
 
     history = HistoricalRecords()
 
-    changed_by = models.ForeignKey('member.AuthUser')
+    changed_by = models.ForeignKey(
+        'member.AuthUser',
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _("property")
@@ -354,7 +358,9 @@ class Harvest(models.Model):
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
-        related_name='harvest_edited'
+        related_name='harvest_edited',
+        null=True,
+        blank=True
     )
 
     class Meta:
@@ -431,6 +437,7 @@ models.signals.pre_save.connect(
     signals.changed_by,
     sender=Harvest
 )
+
 
 
 class HarvestImage(models.Model):
@@ -625,3 +632,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+# SIGNALS CONNECTED
+models.signals.post_save.connect(
+    signals.comment_send_mail,
+    sender=Comment
+)
