@@ -1,5 +1,8 @@
 {% extends "base.html" %}
+
 {% load i18n %}
+{% load humanize %}
+
 {% block content %}
             <div class="row">
                 <div class="col-lg-12">
@@ -7,15 +10,48 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
+
             <div class="row">
                 <div class="col-sm-12">
                     <div class="alert alert-info">
-                        {% trans "This dashboard is still in development, many other features will come soon." %}
+                            {% trans "This dashboard is still in development, many other features will come soon." %}
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> {% trans "Statistics" %}
+                            <i class="fa fa-bell fa-fw"></i> {% trans "Notifications" %}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                {% if notifications %}
+                                {% for notification in notifications %}
+                                <a href="{{ notification.url }}" class="list-group-item">
+                                    <i class="{{ notification.get_icon }}"></i>
+                                    {{ notification.text }}<br>
+                                    <p class="text-right" style="margin:0px">
+                                        {{ notification.creation_date|naturaltime|capfirst }}
+                                    </p>
+                                </a>
+                                {% endfor %}
+                                {% else %}
+                                <a class="list-group-item">
+                                    {% trans "No notifications for the moment" %}
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-pie-chart fa-fw"></i> {% trans "Statistics" %}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

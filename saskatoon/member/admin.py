@@ -3,8 +3,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
-from member.models import AuthUser, Person
+from member.models import AuthUser, Person, Notification
 from django import forms
+
 
 class CustomUserCreationForm(UserCreationForm):
     """ A form for creating new users. Includes all the required fields, plus a repeated password. """
@@ -16,7 +17,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('email',)
 
     def clean_password2(self):
-        #Check that the two password entries match
+        # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
 
@@ -25,7 +26,7 @@ class CustomUserCreationForm(UserCreationForm):
         return password2
 
     def save(self, commit=True):
-        #Save the provided password in hashed format
+        # Save the provided password in hashed format
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -58,15 +59,17 @@ class AuthUserAdmin(UserAdmin):
     list_filter = ('is_superuser',)
 
     fieldsets = (
-#        (None, {'fields': ('username', 'email', 'password','person')}),
-        (None, {'fields': ('email', 'password','person')}),
+        # (None, {'fields': ('username', 'email', 'password','person')}),
+        (None, {'fields': ('email', 'password', 'person')}),
         ('Permissions', {'fields': ('is_active', 'is_superuser', 'is_staff')}),
     )
 
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_superuser')}
+        (
+            None, {
+                'classes': ('wide',),
+                'fields': ('email', 'password1', 'password2', 'is_staff', 'is_superuser')
+            }
         ),
     )
 
@@ -75,3 +78,4 @@ class AuthUserAdmin(UserAdmin):
     filter_horizontal = ('groups', 'user_permissions',)
 
 admin.site.register(AuthUser, AuthUserAdmin)
+admin.site.register(Notification)
