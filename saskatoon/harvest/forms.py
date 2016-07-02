@@ -65,7 +65,7 @@ class RequestForm(forms.ModelForm):
         pick_leader_email.append(str(harvest_obj.pick_leader.email))
         pick_leader_name  = harvest_obj.pick_leader.person.first_name
         publishable_location = harvest_obj.property.publishable_location
-        mail_subject = "New request from %s %s" % (first_name, family_name)
+        mail_subject = u"New request from %s %s" % (first_name, family_name)
         message = u"Hi %s, \n\n\
 There is a new request from %s to partitipate in harvest #%s at '%s'.\n\n\
 Full name: %s %s\n\
