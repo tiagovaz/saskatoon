@@ -449,7 +449,7 @@ class RequestForParticipation(models.Model):
         verbose_name=_("Requester")
     )
 
-    number_of_people = models.IntegerField(
+    number_of_people = models.PositiveIntegerField(
         verbose_name=_("How many people are you?"),
         default=1,
         validators=[
@@ -534,7 +534,10 @@ class HarvestYield(models.Model):
     )
 
     total_in_lb = models.FloatField(
-        verbose_name=_("Total yield (lb)")
+        verbose_name=_("Weight (lb)"),
+        validators=[
+            MinValueValidator(0.0)
+        ]
     )
 
     recipient = models.ForeignKey(
