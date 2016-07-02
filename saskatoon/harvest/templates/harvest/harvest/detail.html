@@ -239,88 +239,83 @@
                         </a>
                     </span>
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class='table table-hover table-condensed'>
-                            <tr>
-                                <th>{% trans "Picker" %}</th>
-                                <th>{% trans "Number of people" %}</th>
-                                <th>{% trans "Status" %}</th>
-                                <th>{% trans "Requested on" %}</th>
-                                <th>{% trans "Accepted on" %}</th>
-                                <th>{% trans "First time" %}</th>
-                                <th>{% trans "Comment from picker" %}</th>
-                                <th>{% trans "Comment from pick leader" %}</th>
-                                <th>{% trans "Action" %}</th>
-                            </tr>
-                            {% for r in requests %}
-                            <tr>
-                                <td>{{ r.picker }}
-                                {% if r.picker.phone %}
-                                    <br>{{ r.picker.phone }}
-                                {% endif %}
-                                {% if r.picker.email %}
-                                    <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
-                                {% endif %}
-                                </td>
-                                <td>{{ r.number_of_people }}</td>
-                                <td>
-                                    {% if r.is_accepted == None %}
-                                        <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
-                                    {% elif r.is_accepted == False %}
-                                        <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
-                                    {% elif r.is_accepted == True %}
-                                        <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
-                                    {% endif %}
-                                </td>
-                                <td>{{ r.creation_date }}</td>
-                                <td>
-                                    {% if r.acceptation_date %}
-                                        {{ r.acceptation_date }}
-                                    {% else %}
-                                        <i class="fa fa-times" style="color:red"></i>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
-                                        <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
-                                    {% else  %}
-                                        <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong>{{r.picker.participation_count}}</strong> accepted request(s).
-                                    {% endif %}
-                                </td>
-                                <td>{{ r.comment }}</td>
-                                <td>{{ r.notes_from_pickleader }}</td>
-                                <td>
-                                    <!-- Manage request modal -->
-                                    <div class="modal fade" id="ManageRequestModal-{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
-                                                    <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" action='{% url "harvest:participation_update" r.id %}'>
-                                                        {% csrf_token %}
-                                                        {% bootstrap_form form_manage_request %}
-                                                        {% buttons %}
-                                                        <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
-                                                        {% endbuttons %}
-                                                    </form>
-                                                </div>
-                                            </div>
+                <table class='panel-body table-responsive table table-hover table-condensed'>
+                    <tr>
+                        <th>{% trans "Picker" %}</th>
+                        <th>{% trans "Number of people" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Requested on" %}</th>
+                        <th>{% trans "Accepted on" %}</th>
+                        <th>{% trans "First time" %}</th>
+                        <th>{% trans "Comment from picker" %}</th>
+                        <th>{% trans "Comment from pick leader" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                    {% for r in requests %}
+                    <tr>
+                        <td>{{ r.picker }}
+                        {% if r.picker.phone %}
+                            <br>{{ r.picker.phone }}
+                        {% endif %}
+                        {% if r.picker.email %}
+                            <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
+                        {% endif %}
+                        </td>
+                        <td>{{ r.number_of_people }}</td>
+                        <td>
+                            {% if r.is_accepted == None %}
+                                <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                            {% elif r.is_accepted == False %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                            {% elif r.is_accepted == True %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                            {% endif %}
+                        </td>
+                        <td>{{ r.creation_date }}</td>
+                        <td>
+                            {% if r.acceptation_date %}
+                                {{ r.acceptation_date }}
+                            {% else %}
+                                <i class="fa fa-times" style="color:red"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
+                            {% else  %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong>{{r.picker.participation_count}}</strong> accepted request(s).
+                            {% endif %}
+                        </td>
+                        <td>{{ r.comment }}</td>
+                        <td>{{ r.notes_from_pickleader }}</td>
+                        <td>
+                            <!-- Manage request modal -->
+                            <div class="modal fade" id="ManageRequestModal-{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                                            <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action='{% url "harvest:participation_update" r.id %}'>
+                                                {% csrf_token %}
+                                                {% bootstrap_form form_manage_request %}
+                                                {% buttons %}
+                                                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                                {% endbuttons %}
+                                            </form>
                                         </div>
                                     </div>
-                                    <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <!-- /.table-responsive -->
-                </div>
+                                </div>
+                            </div>
+                            <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
     </div>
@@ -338,31 +333,26 @@
                     </span>
 
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class='table table-hover table-condensed'>
-                            <tr>
-                                <th>Recipient</th>
-                                <th>Fruit</th>
-                                <th>Amount (in lb)</th>
-                                <th></th>
-                            </tr>
-                            {% for d in distribution %}
-                            <tr>
-                                <td>{{ d.recipient }}</td>
-                                <td>{{ d.tree.fruit_name }}</td>
-                                <td>{{ d.total_in_lb }}</td>
-                                <td>
-                                    <a class="btn btn-xs btn-warning" href="{% url 'harvest:harvest_edit_recipient' d.id %}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <!-- /.table-responsive -->
-                </div>
+                <table class='panel-body table-responsive table table-hover table-condensed'>
+                    <tr>
+                        <th>Recipient</th>
+                        <th>Fruit</th>
+                        <th>Amount (in lb)</th>
+                        <th></th>
+                    </tr>
+                    {% for d in distribution %}
+                    <tr>
+                        <td>{{ d.recipient }}</td>
+                        <td>{{ d.tree.fruit_name }}</td>
+                        <td>{{ d.total_in_lb }}</td>
+                        <td>
+                            <a class="btn btn-xs btn-warning" href="{% url 'harvest:harvest_edit_recipient' d.id %}">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
     </div>
@@ -374,19 +364,21 @@
                 <div class="panel-heading">
                     <strong>{% trans "History" %}</strong>
                 </div>
-                <table class="table table-hover table-condensed">
-                    {% for line in harvest_history %}
-                    {% if line.get_history_type_display == "Created" %}
-                    <tr class="success">
-                    {% else %}
-                    <tr>
-                    {% endif %}
-                        <td>
-                            Updated by {{ line.changed_by }} in {{ line.history_date }}<br>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                <div class="panel-body" style="max-height: 150px; overflow-y: auto; padding: 0px;">
+                    <table class="table table-hover table-condensed">
+                        {% for line in harvest_history %}
+                        {% if line.get_history_type_display == "Created" %}
+                        <tr class="success">
+                        {% else %}
+                        <tr>
+                        {% endif %}
+                            <td>
+                                Updated by {{ line.changed_by }} in {{ line.history_date }}<br>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>

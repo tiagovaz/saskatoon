@@ -173,26 +173,24 @@
                     </a>
                     <i class="glyphicon glyphicon-scissors"></i> &nbsp;<b>{% trans "Equipment" %}</b>
                 </div>
-                <div class="panel-body">
-                    <table class="table table-hover table-condensed">
-                        {% if property.equipment.all %}
-                            {% for equipment in property.equipment.all %}
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="margin-right: 5px;">
-                                        {{ equipment.type }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {{ equipment.description }}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
-                            {% trans "No equipment available at this property." %}
-                        {% endif %}
-                    </table>
-                </div>
+                <table class="panel-body table table-hover table-condensed">
+                    {% if property.equipment.all %}
+                        {% for equipment in property.equipment.all %}
+                            <tr>
+                                <td>
+                                    <span class="label label-default" style="margin-right: 5px;">
+                                    {{ equipment.type }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ equipment.description }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% trans "No equipment available at this property." %}
+                    {% endif %}
+                </table>
             </div>
         </div>
     </div>
@@ -203,19 +201,21 @@
                     <strong>{% trans "History" %}</strong>
                 </div>
 
-                <table class="table table-hover table-condensed">
-                    {% for line in property_history %}
-                    {% if line.get_history_type_display == "Created" %}
-                    <tr class="success">
-                    {% else %}
-                    <tr>
-                    {% endif %}
-                        <td>
-                            Updated by {{ line.changed_by }} in {{ line.history_date }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                <div class="panel-body" style="max-height: 150px; overflow-y: auto; padding: 0px;">
+                    <table class="table table-hover table-condensed">
+                        {% for line in property_history %}
+                        {% if line.get_history_type_display == "Created" %}
+                        <tr class="success">
+                        {% else %}
+                        <tr>
+                        {% endif %}
+                            <td>
+                                Updated by {{ line.changed_by }} in {{ line.history_date }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>
