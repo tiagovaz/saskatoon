@@ -349,7 +349,10 @@ class Harvest(models.Model):
         verbose_name_plural = _("harvests")
 
     def __str__(self):
-        return "Harvest on %s at %s" % (self.start_date,self.property)
+        if self.start_date:
+            return u"Harvest on %s at %s" % (self.start_date,self.property)
+        else:
+            return u"Harvest at %s" % (self.property)
 
     def is_urgent(self):
         if self.start_date:
