@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saskatoon',
+        'NAME': 'saskatoon2',
         'USER': 'root',
         'PASSWORD': 'pass',
     }
