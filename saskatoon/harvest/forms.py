@@ -78,8 +78,8 @@ Yours,\n\
 --\n\
 Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publishable_location, first_name, family_name, email, phone, comment, first_name, harvest_id)
 
+        # Sending email to pick leader
         self.send_email(mail_subject, message, pick_leader_email)
-
 
         instance.save()
 

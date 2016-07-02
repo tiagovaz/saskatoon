@@ -372,7 +372,7 @@ class RequestForParticipationCreate(generic.CreateView):
         messages.add_message(
             self.request,
             messages.SUCCESS,
-            _('Your request of participation has been send. The pickleader will contact you soon!')
+            _('Your request of participation has been sent. The pick leader will contact you soon!')
         )
         return reverse_lazy(
             'harvest:harvest_detail',
