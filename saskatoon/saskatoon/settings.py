@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'crispy_forms',
     'simple_history',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -87,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.media',
+                'saskatoon.context_processor.get_number_notification',
             ],
         },
     },
@@ -100,7 +102,7 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saskatoon2',
+        'NAME': 'saskatoon',
         'USER': 'root',
         'PASSWORD': 'pass',
     }

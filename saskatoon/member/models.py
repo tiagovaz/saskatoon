@@ -11,6 +11,18 @@ from django.core.validators import RegexValidator
 from harvest.models import RequestForParticipation
 
 
+NOTIFICATION_TYPE_CHOICES = (
+    (
+        "RequestForParticipation",
+        _("Request for participation"),
+    ),
+    (
+        "Harvest",
+        _("Harvest"),
+    ),
+)
+
+
 class AuthUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
         if not email:
@@ -396,3 +408,49 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
+
+@python_2_unicode_compatible
+class Notification(models.Model):
+    text = models.TextField(
+        verbose_name=_("Text"),
+    )
+
+    url = models.URLField(
+        verbose_name=_("URL"),
+        max_length=150
+    )
+
+    user = models.ForeignKey(
+        'member.AuthUser',
+        related_name='notification'
+    )
+
+    type = models.CharField(
+        max_length=100,
+        choices=NOTIFICATION_TYPE_CHOICES
+    )
+
+    creation_date = models.DateTimeField(
+        auto_now=False,
+        auto_now_add=True,
+        null=True
+    )
+
+    is_read = models.BooleanField(
+        default=False
+    )
+
+    class Meta:
+        verbose_name = _("Notification")
+        verbose_name_plural = _("Notifications")
+
+    def get_icon(self):
+        if self.type == NOTIFICATION_TYPE_CHOICES[0][0]:
+            return "fa fa-users"
+        elif self.type == NOTIFICATION_TYPE_CHOICES[1][0]:
+            return "fa fa-shopping-basket"
+        else:
+            return "fa fa-bell"
+
+    def __str__(self):
+        return self.text

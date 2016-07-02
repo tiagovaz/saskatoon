@@ -1,9 +1,10 @@
 from django.views import generic
 from harvest.models import Harvest, Property
-from member.models import AuthUser
+from member.models import AuthUser, Notification
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 import datetime
+
 
 class Calendar(generic.TemplateView):
     template_name = 'pages/calendar.html'
@@ -71,6 +72,10 @@ class Index(generic.TemplateView):
             context['number_of_harvests'] = Harvest.objects.all().count()
             context['number_of_properties'] = Property.objects.all().count()
             context['number_of_users'] = AuthUser.objects.all().count()
+            context['notifications'] = Notification.objects.filter(
+                user=self.request.user,
+                is_read=False
+            )
 
         return context
 

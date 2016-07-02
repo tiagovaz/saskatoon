@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from django.views import generic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
