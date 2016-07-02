@@ -38,7 +38,7 @@
                                 <tr class="odd gradeX">
                                     <td class="text-center">
                                         <a href='{% url "harvest:harvest_detail" harvest.id %}'>
-                                            #{{ harvest.id }}
+                                            {{ harvest.id }}
                                         </a>
                                     </td>
                                     <td>{% for tree in harvest.trees.all %}
