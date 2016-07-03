@@ -10,20 +10,23 @@ def get_number_notification(request):
     :return: number of notification of current user
     """
 
-    notifications = Notification.objects.filter(
-        user=request.user,
-        is_read=False
-    )
+    if request.user.is_authenticated():
+        notifications = Notification.objects.filter(
+            user=request.user,
+            is_read=False
+        )
 
-    number_of_notification = notifications.count()
-
-    for notification in notifications:
-        print request.build_absolute_uri()
-        if notification.url == request.build_absolute_uri():
-            notification.is_read = True
-            notification.save()
-            number_of_notification -= 1
-
+        number_of_notification = notifications.count()
+    
+        for notification in notifications:
+            print request.build_absolute_uri()
+            if notification.url == request.build_absolute_uri():
+                notification.is_read = True
+                notification.save()
+                number_of_notification -= 1
+    
+    else:
+        number_of_notification = 0
     return {
-        "number_of_notification": number_of_notification
+            "number_of_notification": number_of_notification
     }
