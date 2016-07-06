@@ -254,7 +254,8 @@ class HarvestAdopt(generic.RedirectView):
 
     def get(self, request, *args, **kwargs):
         self.harvest.pick_leader = request.user
-        self.harvest.save(update_fields=['pick_leader'])
+        self.harvest.status = "Adopted"
+        self.harvest.save(update_fields=['pick_leader', 'status'])
 
         messages.add_message(
             request,
