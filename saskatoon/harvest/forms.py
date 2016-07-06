@@ -67,7 +67,7 @@ class RequestForm(forms.ModelForm):
         publishable_location = harvest_obj.property.publishable_location
         mail_subject = u"New request from %s %s" % (first_name, family_name)
         message = u"Hi %s, \n\n\
-There is a new request from %s to partitipate in harvest #%s at '%s'.\n\n\
+There is a new request from %s to participate in harvest #%s at '%s'.\n\n\
 Full name: %s %s\n\
 Email: %s\n\
 Phone: %s\n\
