@@ -145,12 +145,12 @@ class HarvestList(generic.ListView):
         return super(HarvestList, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        return HarvestFilter(self.request.GET, queryset=Harvest.objects.all())
+        return HarvestFilter(self.request.GET, queryset=Harvest.objects.all().order_by('-id'))
 
     def get_context_data(self, **kwargs):
         context = super(HarvestList, self).get_context_data(**kwargs)
 
-        all_harvests = HarvestFilter(self.request.GET, queryset=Harvest.objects.all())
+        all_harvests = HarvestFilter(self.request.GET, queryset=Harvest.objects.all().order_by('-id'))
         context['view'] = "harvests"
         context['form'] = all_harvests.form
 
