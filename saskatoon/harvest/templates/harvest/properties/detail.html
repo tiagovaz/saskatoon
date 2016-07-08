@@ -216,8 +216,8 @@
                         {% for h in property.get_harvests %}
                         <tr>
                             <td><a href="{% url 'harvest:harvest_detail' h.id %}">{{ h.id }}</a></td>
-                            <td>{{ h.pick_leader }}</td>
-                            <td>{{ h.start_date }}</td>
+                            <td>{{ h.pick_leader|default:"-" }}</td>
+                            <td>{{ h.start_date|default:"-" }}</td>
                             <td>{{ h.status }}</td>
                             <td>
                                 {% for tree in h.trees.all %}
