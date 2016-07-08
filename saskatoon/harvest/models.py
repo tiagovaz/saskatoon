@@ -363,6 +363,13 @@ class Harvest(models.Model):
         blank=True
     )
 
+    def get_total_distribution(self):
+        total = 0
+        yields = HarvestYield.objects.filter(harvest=self)
+        for y in yields:
+            total += y.total_in_lb
+        return total
+
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
@@ -551,6 +558,7 @@ class HarvestYield(models.Model):
         'member.Actor',
         verbose_name=_("Recipient")
     )
+
 
     class Meta:
         verbose_name = _("harvest yield")
