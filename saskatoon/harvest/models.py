@@ -253,6 +253,10 @@ class Property(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('harvest:property_detail', args=[self.id])
 
+    def get_harvests(self):
+        harvests_list = Harvest.objects.filter(property=self)
+        return harvests_list
+
 # SIGNALS CONNECTED
 models.signals.pre_save.connect(
     signals.changed_by,

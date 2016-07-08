@@ -196,6 +196,43 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <strong>{% trans "Harvests at this property" %}</strong>
+                </div>
+
+                <div class="panel-body" style="max-height: 150px; overflow-y: auto; padding: 0px;">
+                    <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Id" %}</th>
+                            <th>{% trans "Pickleader" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Tree(s)" %}</th>
+                        </tr>
+                    </thead>
+
+                        {% for h in property.get_harvests %}
+                        <tr>
+                            <td><a href="{% url 'harvest:harvest_detail' h.id %}">{{ h.id }}</a></td>
+                            <td>{{ h.pick_leader }}</td>
+                            <td>{{ h.start_date }}</td>
+                            <td>{{ h.status }}</td>
+                            <td>
+                                {% for tree in h.trees.all %}
+                                    {{ tree.fruit_name }}<br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>{% trans "History" %}</strong>
