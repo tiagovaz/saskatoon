@@ -209,9 +209,11 @@
                         {% else %}
                         <tr>
                         {% endif %}
+                        {% if line.changed_by != None %}
                             <td>
                                 Updated by {{ line.changed_by }} in {{ line.history_date }}
                             </td>
+                        {% endif %}
                         </tr>
                         {% endfor %}
                     </table>

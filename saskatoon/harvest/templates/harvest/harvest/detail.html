@@ -161,7 +161,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="well well-sm">
-                    <h4>{% trans "Notes about this harvest" %}</h4>
+                    <h4><strong>{% trans "Public announcement :" %}</strong></h4>
                     <p>{{ harvest.about }}</p>
                 </div>
             </div>
@@ -374,6 +374,7 @@
     </div>
     {% endif %}
 
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
@@ -388,15 +389,18 @@
                         {% else %}
                         <tr>
                         {% endif %}
+                        {% if line.changed_by != None %}
                             <td>
                                 Updated by {{ line.changed_by }} in {{ line.history_date }}<br>
                             </td>
+                        {% endif %}
                         </tr>
                         {% endfor %}
                     </table>
                 </div>
             </div>
         </div>
+    {% endif %}
     </div>
 
     <!-----------
