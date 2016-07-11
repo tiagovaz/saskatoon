@@ -205,6 +205,9 @@ class PropertyForm(forms.ModelForm):
 class HarvestForm(forms.ModelForm):
     class Meta:
         model = Harvest
+        help_texts = {
+            'status': 'test',
+        }
         fields = (
             'status',
             'property',
