@@ -168,7 +168,7 @@
         </div>
     {% endif %}
     {% if user.is_authenticated == False %}
-        {% if harvest.is_open_to_request == True %}
+        {% if harvest.is_open_to_requests == True %}
             <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-success btn-lg">
                 <i class="fa fa-plus"></i>
                 {% trans "Request to join!" %}
