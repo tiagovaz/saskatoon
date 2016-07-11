@@ -404,6 +404,12 @@ class Harvest(models.Model):
 
         return False
 
+    def is_open_to_requests(self):
+        if self.status in ["Ready", "Date-scheduled"] and self.is_publishable(self) and self.start_date > datetime.datetime.now():
+            return True
+        else:
+            return False
+
     def is_publishable(self):
 
         #FIXME: returning true while buggy

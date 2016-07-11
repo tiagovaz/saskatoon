@@ -102,7 +102,7 @@
                     {% else %}
                     <li>
                     <!--    <a href='{% url "pages:login" %}'> -->
-                        <a href='https://saskatoon.lesfruitsdefendus.org/login'>
+                        <a href='https://{{ request.META.HTTP_HOST }}/login'>
                             <i class="fa fa-sign-in fa-fw"></i>
                             {% trans "Login" %}
                         </a>
