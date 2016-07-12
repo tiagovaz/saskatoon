@@ -68,7 +68,7 @@ class RequestForm(forms.ModelForm):
         pick_leader_email.append(str(harvest_obj.pick_leader.email))
         pick_leader_name  = harvest_obj.pick_leader.person.first_name
         publishable_location = harvest_obj.property.publishable_location
-        mail_subject = u"New request from %s %s" % (first_name, family_name)
+        mail_subject = _(u"New request from ") + "%s %s" % (first_name, family_name)
         message = u"Hi %s, \n\n\
 There is a new request from %s to participate in harvest #%s at '%s'.\n\n\
 Full name: %s %s\n\
@@ -119,10 +119,10 @@ class CommentForm(forms.ModelForm):
 
 # To be used by the pick leader to accept/deny/etc and add notes on a picker
 class RFPManageForm(forms.ModelForm):
-    STATUS_CHOICES = [('showed_up', 'Picker showed up'), ('didnt_showed_up', "Picker didn't show up"), ('cancelled', "Picker cancelled in advance")]
-    ACCEPT_CHOICES = [('yes', 'ACCEPT'), ('no', "REFUSE"), ('pending', "PENDING")]
-    accept = forms.ChoiceField(label='Please accept or refuse this request :', choices=ACCEPT_CHOICES, widget=forms.RadioSelect(), required=False)
-    status = forms.ChoiceField(label='About the picker partition :', choices=STATUS_CHOICES, widget=forms.RadioSelect(), required=False)
+    STATUS_CHOICES = [('showed_up', _('Picker showed up')), ('didnt_showed_up', _("Picker didn't show up")), ('cancelled', _("Picker cancelled in advance"))]
+    ACCEPT_CHOICES = [('yes', _('ACCEPT')), ('no', _("REFUSE")), ('pending', _("PENDING"))]
+    accept = forms.ChoiceField(label=_('Please accept or refuse this request :'), choices=ACCEPT_CHOICES, widget=forms.RadioSelect(), required=False)
+    status = forms.ChoiceField(label=_('About the picker partition :'), choices=STATUS_CHOICES, widget=forms.RadioSelect(), required=False)
 
     class Meta:
         model = RequestForParticipation
@@ -301,7 +301,7 @@ class EquipmentForm(forms.ModelForm):
         cleaned_data = super(EquipmentForm, self).clean()
 
         if not (bool(self.cleaned_data['property']) != bool(self.cleaned_data['owner'])):
-            raise forms.ValidationError, 'Fill in one of the two fields: property or owner.'
+            raise forms.ValidationError, _('Fill in one of the two fields: property or owner.')
 
         return cleaned_data
 

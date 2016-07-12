@@ -367,6 +367,12 @@ class Harvest(models.Model):
         blank=True
     )
 
+    def get_status_l10n(self):
+        status_list = list(HARVESTS_STATUS_CHOICES)
+        for s in status_list:
+            if s[0] in self.status:
+                return s[1]
+
     def get_total_distribution(self):
         total = 0
         yields = HarvestYield.objects.filter(harvest=self)

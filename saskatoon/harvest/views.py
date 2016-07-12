@@ -254,13 +254,13 @@ class HarvestAdopt(generic.RedirectView):
 
     def get(self, request, *args, **kwargs):
         self.harvest.pick_leader = request.user
-        self.harvest.status = "Adopted"
+        self.harvest.status = _("Adopted")
         self.harvest.save(update_fields=['pick_leader', 'status'])
 
         messages.add_message(
             request,
             messages.WARNING,
-            'Thanks, you adopted this harvest!'
+            _('Thanks, you adopted this harvest!')
         )
 
         return redirect(self.get_redirect_url(*args, **kwargs))

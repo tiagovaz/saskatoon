@@ -23,7 +23,7 @@
                     </span>
                 {% endif %}
                 {% if harvest.pick_leader != None %}
-                    <br><small><strong>{{ harvest.status }}</strong>{% trans " by pick leader" %} <strong>{{ harvest.pick_leader }}</strong></small>
+                    <br><small><strong>{{ harvest.get_status_l10n }}</strong>{% trans " by pick leader" %} <strong>{{ harvest.pick_leader }}</strong></small>
                 {% endif %}
 
                 {% if harvest.pick_leader == None %}
