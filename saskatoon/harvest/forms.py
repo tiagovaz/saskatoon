@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from time import timezone
 
 import datetime
@@ -11,10 +13,11 @@ from member.models import *
 from django.core.mail import send_mail
 
 class RequestForm(forms.ModelForm):
-    picker_email = forms.EmailField(help_text=_("Enter a valid email address, please."))
-    picker_first_name = forms.CharField()
-    picker_family_name = forms.CharField()
-    picker_phone = forms.CharField()
+    picker_email = forms.EmailField(help_text=_("Enter a valid email address, please."), label=_("Email"))
+    picker_first_name = forms.CharField(label=_("First name"))
+    picker_family_name = forms.CharField(label=_("Family name"))
+    picker_phone = forms.CharField(label=_("Phone"))
+    picker_comment = forms.CharField(label=_("Comment"), required=False, widget=forms.widgets.Textarea())
     harvest_id = forms.CharField(widget=forms.HiddenInput())
     notes_from_pickleader = forms.CharField(widget=forms.HiddenInput(), required=False)
 
@@ -45,7 +48,7 @@ class RequestForm(forms.ModelForm):
         family_name = self.cleaned_data['picker_family_name']
         phone = self.cleaned_data['picker_phone']
         email = self.cleaned_data['picker_email']
-        comment = self.cleaned_data['comment']
+        comment = self.cleaned_data['picker_comment']
         harvest_obj = Harvest.objects.get(id=harvest_id)
 
         # check if the email is already registered
@@ -93,7 +96,7 @@ Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publisha
             'picker_family_name',
             'picker_email',
             'picker_phone',
-            'comment',
+            'picker_comment',
             'harvest_id',
             'notes_from_pickleader'
         ]

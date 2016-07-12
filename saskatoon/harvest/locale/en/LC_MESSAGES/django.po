@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 12:35-0400\n"
+"POT-Creation-Date: 2016-07-12 12:46-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: harvest/forms.py:14
+#: harvest/forms.py:16
 msgid "Enter a valid email address, please."
 msgstr ""
 
-#: harvest/forms.py:29
+#: harvest/forms.py:16 harvest/templates/harvest/properties/detail.html.py:131
+msgid "Email"
+msgstr ""
+
+#: harvest/forms.py:17
+msgid "First name"
+msgstr ""
+
+#: harvest/forms.py:18
+msgid "Family name"
+msgstr ""
+
+#: harvest/forms.py:19 harvest/templates/harvest/properties/detail.html.py:130
+#: harvest/templates/harvest/properties/detail.html:141
+msgid "Phone"
+msgstr ""
+
+#: harvest/forms.py:20 harvest/models.py:489
+msgid "Comment"
+msgstr ""
+
+#: harvest/forms.py:32
 msgid "You have already requested to join this pick."
 msgstr ""
 
-#: harvest/forms.py:112
+#: harvest/forms.py:115
 msgid "Your comment here."
 msgstr ""
 
@@ -262,10 +283,6 @@ msgstr ""
 
 #: harvest/models.py:480
 msgid "How many people are you?"
-msgstr ""
-
-#: harvest/models.py:489
-msgid "Comment"
 msgstr ""
 
 #: harvest/models.py:495
@@ -689,15 +706,6 @@ msgstr ""
 
 #: harvest/templates/harvest/properties/detail.html:128
 msgid "Personal address"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:130
-#: harvest/templates/harvest/properties/detail.html:141
-msgid "Phone"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:131
-msgid "Email"
 msgstr ""
 
 #: harvest/templates/harvest/properties/detail.html:132
