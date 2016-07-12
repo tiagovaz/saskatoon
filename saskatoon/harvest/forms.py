@@ -11,10 +11,10 @@ from member.models import *
 from django.core.mail import send_mail
 
 class RequestForm(forms.ModelForm):
-    picker_email = forms.EmailField(help_text='Enter a valid email address, please.')
-    picker_first_name = forms.CharField(label='First name')
-    picker_family_name = forms.CharField(label='Family name')
-    picker_phone = forms.CharField(label='Phone')
+    picker_email = forms.EmailField(help_text=_("Enter a valid email address, please."))
+    picker_first_name = forms.CharField()
+    picker_family_name = forms.CharField()
+    picker_phone = forms.CharField()
     harvest_id = forms.CharField(widget=forms.HiddenInput())
     notes_from_pickleader = forms.CharField(widget=forms.HiddenInput(), required=False)
 
@@ -26,7 +26,7 @@ class RequestForm(forms.ModelForm):
             harvest_obj = Harvest.objects.get(id=self.cleaned_data['harvest_id'])
             request_same_user_count = RequestForParticipation.objects.filter(picker = auth_user.person, harvest = harvest_obj).count()
             if request_same_user_count > 0: # check if email has requested for the same harvest
-                raise forms.ValidationError, 'You have already requested to join this pick.'
+                raise forms.ValidationError, _("You have already requested to join this pick.")
 
     def send_email(self, subject, message, mail_to):
         send_mail(
