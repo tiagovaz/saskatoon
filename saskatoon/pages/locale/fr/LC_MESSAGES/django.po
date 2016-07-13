@@ -19,7 +19,7 @@ msgstr ""
 
 #: pages/templates/pages/calendar.html:42
 msgid "Harvest calendar"
-msgstr "Calendrier de récolte"
+msgstr "Calendrier de récoltes"
 
 #: pages/templates/pages/dashboard.html:9
 msgid "Welcome"
