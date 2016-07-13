@@ -79,7 +79,7 @@ Please contact %s directly and then manage this request through\n\
 http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n\
 Yours,\n\
 --\n\
-Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publishable_location, first_name, family_name, email, phone, comment, first_name, harvest_id)
+Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publishable_location, first_name, family_name, email, phone, picker_comment, first_name, harvest_id)
 
         # Sending email to pick leader
         self.send_email(mail_subject, message, pick_leader_email)
