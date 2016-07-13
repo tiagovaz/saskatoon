@@ -21,11 +21,13 @@ class Calendar(generic.TemplateView):
 
 
 class JsonCalendar(generic.View):
+
     def get(self, test):
         harvests = Harvest.objects.all()
         events = []
         for harvest in harvests:
-            if harvest.is_publishable() or self.request.user.is_staff:
+            #if self.request.user.is_staff == True or harvest.is_publishable() == True:
+            if harvest.is_publishable() == True:
                 text_color = "#ffffff"
                 if harvest.status == "Date-scheduled":
                     color = "#f0ad4e"

@@ -413,39 +413,40 @@ class Harvest(models.Model):
 
     def is_publishable(self):
 
-        #FIXME: returning true while buggy
-        if self.status in ["Ready", "Date-scheduled",
-                           "Succeeded"]:
-            return True
-        else:
-            return False
-
         now = datetime.datetime.now()
-        self.publication_hour = 18 #FIXME: add a model to set this up
+        publication_hour = 18 #FIXME: add a model to set this up
 
-        if self.publication_date:
+        print "Publication date: ", self.publication_date
+        if self.publication_date != None:
             is_good_day = self.publication_date.day == now.day
+            print self.publication_date.day, now.day, "<== PUBLICATION DAY & NOW DAY"
             is_good_month = self.publication_date.month == now.month
+            print self.publication_date.month
             is_good_year = self.publication_date.year == now.year
+            print self.publication_date.year
 
+            print is_good_day, is_good_month, is_good_year
+
+            print "TODAY: ", now
             if is_good_day and is_good_month and is_good_year:
                 is_today = True
             else:
                 is_today = False
 
-            if self.status in ["Ready", "Date-scheduled",
-                               "Succeeded"]:
-                if is_today:
-                    if now.hour >= self.publication_hour and self.publication_date.hour < self.publication_hour+4: #FIXME: timezone
-                        return True
+            if self.status in ["Ready", "Date-scheduled", "Succeeded"]:
+                if is_today == True:
+                    print "is today"
+                    if now.hour >= publication_hour and self.publication_date.hour < publication_hour+4: #FIXME: timezone
+                        print "TODAY OK"
+                        return True # publish if it was published today earlier and it's time to go online
                     else:
-                        return False
+                        return False # do not publish otherwise
                 else:
-                    return True
+                    return True # publish if date of publication is in the pas
             else:
-                return False
+                return False # do not publish if harvest is not ready/scheduled/succeeded
         else:
-            return False
+            return False # do not publish if there's no publication_date
 
     def is_open_to_requests(self):
         now = datetime.datetime.now().date()
