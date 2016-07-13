@@ -335,7 +335,7 @@
                             {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
                                 <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
                             {% else  %}
-                                <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong>{{r.picker.participation_count}}</strong> accepted request(s).
+                                <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong> {{r.picker.participation_count}}</strong> accepted request(s).
                             {% endif %}
                         </td>
                         <td>{{ r.comment }}</td>
