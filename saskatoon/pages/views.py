@@ -26,8 +26,7 @@ class JsonCalendar(generic.View):
         harvests = Harvest.objects.all()
         events = []
         for harvest in harvests:
-            #if self.request.user.is_staff == True or harvest.is_publishable() == True:
-            if harvest.is_publishable() == True:
+            if (harvest.start_date and harvest.end_date and self.request.user.is_staff == True) or harvest.is_publishable() == True:
                 text_color = "#ffffff"
                 if harvest.status == "Date-scheduled":
                     color = "#f0ad4e"
