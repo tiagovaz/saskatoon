@@ -17,7 +17,7 @@ class RequestForm(forms.ModelForm):
     picker_first_name = forms.CharField(label=_("First name"))
     picker_family_name = forms.CharField(label=_("Family name"))
     picker_phone = forms.CharField(label=_("Phone"))
-    picker_comment = forms.CharField(label=_("Comment"), required=False, widget=forms.widgets.Textarea())
+    comment = forms.CharField(label=_("Comment"), required=False, widget=forms.widgets.Textarea())
     harvest_id = forms.CharField(widget=forms.HiddenInput())
     notes_from_pickleader = forms.CharField(widget=forms.HiddenInput(), required=False)
 
@@ -48,7 +48,7 @@ class RequestForm(forms.ModelForm):
         family_name = self.cleaned_data['picker_family_name']
         phone = self.cleaned_data['picker_phone']
         email = self.cleaned_data['picker_email']
-        comment = self.cleaned_data['picker_comment']
+        comment = self.cleaned_data['comment']
         harvest_obj = Harvest.objects.get(id=harvest_id)
 
         # check if the email is already registered
@@ -79,7 +79,7 @@ Please contact %s directly and then manage this request through\n\
 http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n\
 Yours,\n\
 --\n\
-Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publishable_location, first_name, family_name, email, phone, picker_comment, first_name, harvest_id)
+Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publishable_location, first_name, family_name, email, phone, comment, first_name, harvest_id)
 
         # Sending email to pick leader
         self.send_email(mail_subject, message, pick_leader_email)
@@ -96,7 +96,7 @@ Saskatoon Harvest System"  % (pick_leader_name, first_name, harvest_id, publisha
             'picker_family_name',
             'picker_email',
             'picker_phone',
-            'picker_comment',
+            'comment',
             'harvest_id',
             'notes_from_pickleader'
         ]
