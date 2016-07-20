@@ -199,8 +199,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="well well-sm">
-                    <h4><strong>{% trans "Public announcement :" %}</strong></h4>
-                    <p>{{ harvest.about }}</p>
+                    <p>{{ harvest.about|safe }}</p>
                 </div>
             </div>
         </div>

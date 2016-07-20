@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'dal_select2',
     'django_filters',
     'modeltranslation',
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -191,3 +192,29 @@ EMAIL_HOST_PASSWORD = ''
 #SESSION_COOKIE_SECURE = True
 #CSRF_COOKIE_SECURE = True
 
+#CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+#        'toolbar': [
+#            [      'Undo', 'Redo',
+#              '-', 'Bold', 'Italic', 'Underline',
+#              '-', 'Link', 'Unlink', 'Anchor',
+#              '-', 'Format',
+#              '-', 'SpellChecker', 'Scayt',
+#              '-', 'Maximize',
+#            ],
+#        ],
+        'width': 'auto',
+        'height': 'auto' ,
+        'toolbarCanCollapse': True,
+    },
+
+    'simple_toolbar': {
+        'toolbar': [
+            [ 'Bold', 'Italic', 'Underline' ],
+        ],
+        'width': 840,
+        'height': 300,
+    },
+}

@@ -11,6 +11,8 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, D
 from harvest.models import *
 from member.models import *
 from django.core.mail import send_mail
+from ckeditor.widgets import CKEditorWidget
+from django.utils.safestring import mark_safe
 
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(help_text=_("Enter a valid email address, please."), label=_("Email"))
@@ -193,6 +195,8 @@ class PropertyForm(forms.ModelForm):
             'latitude',
             'about',
         )
+
+
         widgets = {
             'owner': autocomplete.ModelSelect2(
                'actor-autocomplete'
@@ -206,6 +210,7 @@ class PropertyForm(forms.ModelForm):
 
 
 class HarvestForm(forms.ModelForm):
+    about = forms.CharField(widget=CKEditorWidget(), label=mark_safe(_("Public announcement<p>")))
     class Meta:
         model = Harvest
         help_texts = {
