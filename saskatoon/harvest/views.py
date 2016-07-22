@@ -414,6 +414,7 @@ class HarvestYieldCreate(generic.CreateView):
 
         recipients = set()
         recipients.add(owner.actor_id)
+        recipients.add(harvest.pick_leader.person.actor_id)
         for organization in organizations:
             recipients.add(organization.pk)
         for picker in pickers:
