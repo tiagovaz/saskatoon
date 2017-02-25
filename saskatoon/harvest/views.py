@@ -7,7 +7,7 @@ from harvest.forms import CommentForm, RequestForm, PropertyForm, \
 from member.models import Person, AuthUser, Actor, Organization
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy, resolve
-from filters import *
+from django_filters import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from dal import autocomplete
