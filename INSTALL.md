@@ -1,26 +1,31 @@
-# Documentation d'installation
+# Install process
 
- 1 - Installation des packages requis
+1. Create a virtual environment
+    ```
+    virtualenv -p python3 ve
+    . ve/bin/activate
+    ```
 
+2. Installation of python requirements
+    ```
+    pip3 install -r requirements.txt
+    ```
+
+3. Initialisation of the DB
+    ```
+    cd saskatoon
+    python3 manage.py migrate
+    ```
+
+4. Create administrator account
+    ```
+    python3 manage.py createsuperuser
+    ```
+
+# Usage
+
+**To launch the project :**
 ```
-pip install -r requirements.txt
-```
-
- 2 - Synchronisation de la base de données
-
-```
-python manage.py migrate
-```
-
- 3 - Création d'un profil root
-
-```
-python manage.py createsuperuser
-```
-
- 4 - Lancement du projet
-
-```
-python manage.py runserver
+python3 manage.py runserver
 ```
 
