@@ -5,6 +5,7 @@ from harvest.models import Harvest, Property, Equipment, \
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor, Organization
+from harvest.filters import HarvestFilter
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy, resolve
 from django_filters import *
