@@ -1,5 +1,5 @@
 import django_filters
-from models import Harvest, HARVESTS_STATUS_CHOICES
+from harvest.models import Harvest, HARVESTS_STATUS_CHOICES
 from member.models import AuthUser, Neighborhood
 from django import forms
 from django_filters import FilterSet, ChoiceFilter, ModelChoiceFilter, NumberFilter
