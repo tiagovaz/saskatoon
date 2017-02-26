@@ -26,7 +26,10 @@ class JsonCalendar(generic.View):
         harvests = Harvest.objects.all()
         events = []
         for harvest in harvests:
-            if (harvest.start_date and harvest.end_date and self.request.user.is_staff == True) or harvest.is_publishable() == True:
+            if (harvest.start_date and
+                    harvest.end_date and
+                    self.request.user.is_staff) \
+                    or harvest.is_publishable():
                 text_color = "#ffffff"
                 if harvest.status == "Date-scheduled":
                     color = "#f0ad4e"
@@ -39,14 +42,20 @@ class JsonCalendar(generic.View):
                     text_color = "#000000"
                 else:
                     color = "#000000"
-                event = {}
+                event = dict()
                 event["title"] = harvest.property.neighborhood.name
                 event["allday"] = "false"
-                event["description"] = harvest.about #FIXME: see http://fullcalendar.io/docs/event_rendering/eventRender/
+                event["description"] = harvest.about
+                # FIXME: see
+                # http://fullcalendar.io/docs/event_rendering/eventRender/
                 if harvest.start_date:
-                    event["start"] = harvest.start_date - datetime.timedelta(hours=4) #FIXME: ugly hack, needs proper interaction with calendar (http://fullcalendar.io/docs/timezone/timezone/)
+                    event["start"] = harvest.start_date - \
+                                     datetime.timedelta(hours=4)
+                # FIXME: ugly hack, needs proper interaction with calendar
+                # http://fullcalendar.io/docs/timezone/timezone/
                 if harvest.end_date:
-                    event["end"] = harvest.end_date - datetime.timedelta(hours=4)
+                    event["end"] = harvest.end_date - \
+                                   datetime.timedelta(hours=4)
                 event["url"] = reverse(
                     'harvest:harvest_detail',
                     kwargs={'pk': harvest.id}

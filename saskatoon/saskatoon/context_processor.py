@@ -17,14 +17,14 @@ def get_number_notification(request):
         )
 
         number_of_notification = notifications.count()
-    
+
         for notification in notifications:
             print(request.build_absolute_uri())
             if notification.url == request.build_absolute_uri():
                 notification.is_read = True
                 notification.save()
                 number_of_notification -= 1
-    
+
     else:
         number_of_notification = 0
     return {

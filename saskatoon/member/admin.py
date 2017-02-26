@@ -2,15 +2,24 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, \
+    ReadOnlyPasswordHashField
 from member.models import AuthUser, Person, Notification
 from django import forms
 
 
 class CustomUserCreationForm(UserCreationForm):
-    """ A form for creating new users. Includes all the required fields, plus a repeated password. """
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+    """A form for creating new users. Includes all the required fields,
+    plus a repeated password."""
+
+    password1 = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput
+    )
+    password2 = forms.CharField(
+        label='Password Confirmation',
+        widget=forms.PasswordInput
+    )
 
     class Meta(UserCreationForm.Meta):
         model = AuthUser
@@ -35,14 +44,17 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
-    password = ReadOnlyPasswordHashField(label="password",
-                                         help_text="""Raw passwords are not stored, so there is no way to see this
-                                         user's password, but you can change the password using <a href=\"password/\">
-                                         this form</a>.""")
+    password = ReadOnlyPasswordHashField(
+        label="password",
+        help_text="""Raw passwords are not stored, so there is no way to
+        see this user's password, but you can change the password using
+        <a href=\"password/\"> this form</a>."""
+    )
 
     class Meta(UserChangeForm.Meta):
         model = AuthUser
-        fields = ('email', 'password', 'is_active', 'is_staff', 'is_superuser', 'user_permissions')
+        fields = ('email', 'password', 'is_active',
+                  'is_staff', 'is_superuser', 'user_permissions')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -59,16 +71,39 @@ class AuthUserAdmin(UserAdmin):
     list_filter = ('is_superuser',)
 
     fieldsets = (
-        # (None, {'fields': ('username', 'email', 'password','person')}),
-        (None, {'fields': ('email', 'password', 'person')}),
-        ('Permissions', {'fields': ('is_active', 'is_superuser', 'is_staff')}),
+        (
+            None,
+            {
+                'fields': (
+                    'email',
+                    'password',
+                    'person'
+                )
+            }
+        ),
+        (
+            'Permissions',
+            {
+                'fields': (
+                    'is_active',
+                    'is_superuser',
+                    'is_staff'
+                )
+            }
+        ),
     )
 
     add_fieldsets = (
         (
             None, {
-                'classes': ('wide',),
-                'fields': ('email', 'password1', 'password2', 'is_staff', 'is_superuser')
+                'classes': 'wide',
+                'fields': (
+                    'email',
+                    'password1',
+                    'password2',
+                    'is_staff',
+                    'is_superuser'
+                )
             }
         ),
     )
