@@ -40,6 +40,9 @@
         <!-- DataTables Responsive CSS -->
         <link href="{% static 'sbadmin2/bower_components/datatables-responsive/css/dataTables.responsive.css' %}" rel="stylesheet">
 
+        <!-- Custom css -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
         {% block extrahead %}
         {% endblock %}
     </head>
@@ -209,7 +212,14 @@
             <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
-
+        <div id="footer">
+            Saskatoon - Free software - License AGPLv3 - Version 0.1
+            <span style="float:right;">
+                <a href="https://github.com/tiagovaz/saskatoon/">
+                    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </span>
+        </div>
         <!-- jQuery -->
         <script src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.min.js' %}"></script>
 
