@@ -31,7 +31,7 @@ class RequestForm(forms.ModelForm):
             harvest_obj = Harvest.objects.get(id=self.cleaned_data['harvest_id'])
             request_same_user_count = RequestForParticipation.objects.filter(picker = auth_user.person, harvest = harvest_obj).count()
             if request_same_user_count > 0: # check if email has requested for the same harvest
-                raise forms.ValidationError, _("You have already requested to join this pick.")
+                raise forms.ValidationError(_("You have already requested to join this pick."))
 
     def send_email(self, subject, message, mail_to):
         send_mail(
@@ -306,7 +306,7 @@ class EquipmentForm(forms.ModelForm):
         cleaned_data = super(EquipmentForm, self).clean()
 
         if not (bool(self.cleaned_data['property']) != bool(self.cleaned_data['owner'])):
-            raise forms.ValidationError, _('Fill in one of the two fields: property or owner.')
+            raise forms.ValidationError(_('Fill in one of the two fields: property or owner.'))
 
         return cleaned_data
 

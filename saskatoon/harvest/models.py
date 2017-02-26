@@ -416,18 +416,18 @@ class Harvest(models.Model):
         now = datetime.datetime.now()
         publication_hour = 18 #FIXME: add a model to set this up
 
-        print "Publication date: ", self.publication_date
+        print("Publication date: ", self.publication_date)
         if self.publication_date != None:
             is_good_day = self.publication_date.day == now.day
-            print self.publication_date.day, now.day, "<== PUBLICATION DAY & NOW DAY"
+            print(self.publication_date.day, now.day, "<== PUBLICATION DAY & NOW DAY")
             is_good_month = self.publication_date.month == now.month
-            print self.publication_date.month
+            print(self.publication_date.month)
             is_good_year = self.publication_date.year == now.year
-            print self.publication_date.year
+            print(self.publication_date.year)
 
-            print is_good_day, is_good_month, is_good_year
+            print(is_good_day, is_good_month, is_good_year)
 
-            print "TODAY: ", now
+            print("TODAY: ", now)
             if is_good_day and is_good_month and is_good_year:
                 is_today = True
             else:
@@ -435,9 +435,9 @@ class Harvest(models.Model):
 
             if self.status in ["Ready", "Date-scheduled", "Succeeded"]:
                 if is_today == True:
-                    print "is today"
+                    print("is today")
                     if now.hour >= publication_hour and self.publication_date.hour < publication_hour+4: #FIXME: timezone
-                        print "TODAY OK"
+                        print("TODAY OK")
                         return True # publish if it was published today earlier and it's time to go online
                     else:
                         return False # do not publish otherwise
