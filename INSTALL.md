@@ -1,45 +1,58 @@
-# Install process
+# Installation guide
 
-1. Create a virtual environment
-    ```
-    virtualenv -p python3 ve
-    . ve/bin/activate
-    ```
+Please follow each part of this documentation to install the project.
 
-2. Installation of python requirements
-    ```
-    pip3 install -r requirements.txt
-    ```
+## Installation of requirements
 
-3. Change settings of the DB connexion
-    You need to change setting of the DB connexion in function of your installation.
-    [Some information here](https://docs.djangoproject.com/en/1.10/ref/databases/)
-    ```
-       DATABASES = {
-           'default': {
-               'ENGINE': 'django.db.backends.mysql',
-               'NAME': 'saskatoon',
-               'USER': 'your_username',
-               'PASSWORD': 'your_password',
-           }
-       }
-    ```
-    
-4. Initialisation of the DB
-    ```
-    cd saskatoon
-    python3 manage.py migrate
-    ```
+All requirements are present in the `requirements.txt` file at the project's root.
 
-5. Create administrator account
-    ```
-    python3 manage.py createsuperuser
-    ```
-
-# Usage
-
-**To launch the project :**
+> You can optionnaly use `virtualenv` to manage your dependencies.
 ```
-python3 manage.py runserver
+cd /.../saskatoon
+virtualenv ve
+. ve/bin/activate
 ```
 
+To install requirements use :
+```
+cd /.../saskatoon
+pip install -r requirements.txt
+```
+
+## Database migration
+
+We use an `sqlite3` database in our development environment because it's really fast to setup.
+
+> You can optionnaly configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/1.11/ref/settings/#databases).
+
+To migrate the database use :
+```
+cd /.../saskatoon/saskatoon
+python manage.py migrate
+```
+
+## Create administrator account
+
+This part is optionnal but you can create a new administrator account to access the admin panel.
+
+This admin panel allow you to see all data of the DB and make some action on it.
+
+To create a new administrator account use :
+```
+cd /.../saskatoon/saskatoon
+python3 manage.py createsuperuser
+```
+
+To access the admin panel go on :
+```
+localhost:8000/admin
+```
+
+## Launch the server
+
+Django have an embedded server for development purpose. To run the development server use :
+
+```
+cd /.../saskatoon/saskatoon
+python manage.py runserver 8000
+```
