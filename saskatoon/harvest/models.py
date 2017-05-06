@@ -431,12 +431,7 @@ class Harvest(models.Model):
 
     def is_publishable(self):
         now = datetime.datetime.now()
-<<<<<<< HEAD
         publication_hour = 18 #FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
-=======
-        publication_hour = 18  # FIXME: add a model to set this up
->>>>>>> 4d75d7854073f46b8ae7af5c977990d831039689
-
         print("Publication date: ", self.publication_date)
         if self.publication_date is not None:
             is_good_day = self.publication_date.day == now.day

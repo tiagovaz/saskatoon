@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-ly1!%ui5z+*cfy9&wb=os6c(iysect2od0di1d$p(o$a696jo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'saskatoon',
+#        'NAME': 'saskatoon_dev',
 #        'USER': '',
-#        'PASSWORD': '',
+#        'PASSWORD': 'FDgwBoom!',
 #    }
 #}
 
