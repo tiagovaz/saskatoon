@@ -57,7 +57,6 @@ target/
 db.sqlite3
 .idea
 *.png
-
 django_bootstrap_calendar/*
 .project
 /.pydevproject
@@ -65,3 +64,4 @@ django_bootstrap_calendar/*
 saskatoon/saskatoon/static
 saskatoon/saskatoon/settings.py
 saskatoon/media
+ve/

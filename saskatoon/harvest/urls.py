@@ -9,6 +9,11 @@ urlpatterns = patterns(
         name='property_list'
     ),
     url(
+        r'^properties/active/$',
+        views.PropertyList.as_view(),
+        name='property_list_active'
+    ),
+    url(
         r'^property/(?P<pk>\d+)$',
         views.PropertyDetail.as_view(),
         name='property_detail'
@@ -24,6 +29,16 @@ urlpatterns = patterns(
         name='property_update'
     ),
     url(
+        r'^properties/(?P<pk>\d+)/new_image$',
+        views.PropertyImageCreate.as_view(),
+        name='property_add_image'
+    ),
+    url(
+        r'^properties/(?P<property>\d+)/add_equipment$',
+        views.EquipmentCreate.as_view(),
+        name='property_add_equipment'
+    ),
+    url(
         r'^list/$',
         views.HarvestList.as_view(),
         name='harvest_list'
@@ -34,7 +49,22 @@ urlpatterns = patterns(
         name='harvest_detail'
     ),
     url(
+        r'^(?P<pk>\d+)/add_recipient$',
+        views.HarvestYieldCreate.as_view(),
+        name='harvest_add_recipient'
+    ),
+    url(
+        r'^(?P<pk>\d+)/edit_recipient$',
+        views.HarvestYieldUpdate.as_view(),
+        name='harvest_edit_recipient'
+    ),
+    url(
         r'^create$',
+        views.HarvestCreate.as_view(),
+        name='harvest_create'
+    ),
+    url(
+        r'^create/(?P<property>\d+)$',
         views.HarvestCreate.as_view(),
         name='harvest_create'
     ),
@@ -42,6 +72,26 @@ urlpatterns = patterns(
         r'^(?P<pk>\d+)/update$',
         views.HarvestUpdate.as_view(),
         name='harvest_update'
+    ),
+    url(
+        r'^(?P<pk>\d+)/adopt$',
+        views.HarvestAdopt.as_view(),
+        name='harvest_adopt'
+    ),
+    url(
+        r'^participations/(?P<pk>\d+)/update$',
+        views.RequestForParticipationUpdate.as_view(),
+        name='participation_update'
+    ),
+    url(
+        r'^participations/list/$',
+        views.ParticipationList.as_view(),
+        name='participation_list'
+    ),
+    url(
+        r'^equipments/list/$',
+        views.EquipmentList.as_view(),
+        name='equipment_list'
     ),
     url(
         r'^equipments/create$',
@@ -57,10 +107,5 @@ urlpatterns = patterns(
         r'^(?P<pk>\d+)/new_comment$',
         views.CommentCreate.as_view(),
         name='comment_create'
-    ),
-    url(
-        r'^(?P<pk>\d+)/new_participation$',
-        views.RequestForParticipationCreate.as_view(),
-        name='participation_create'
     ),
 )

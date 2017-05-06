@@ -1,480 +1,799 @@
-[
-  {
-    "model": "saskatoon.Language",
+[  {
+    "model": "harvest.EquipmentType",
     "pk": 1,
     "fields":
     {
-      "name": "Français"
+      "name": "Bycicle",
+      "name_en": "Bycicle",
+      "name_fr": "Vélo"
     }
-  },
-  {
-    "model": "saskatoon.Language",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 2,
     "fields":
     {
-      "name": "English"
+      "name": "Trailer",
+      "name_en": "Trailer",
+      "name_fr": "Remorque"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
-    "pk": 1,
-    "fields":
-    {
-      "name": "Ahuntsic"
-    }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
-    "pk": 2,
-    "fields":
-    {
-      "name": "Anjou"
-    }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 3,
     "fields":
     {
-      "name": "Cartierville"
+      "name": "Ladder",
+      "name_en": "Ladder",
+      "name_fr": "Échelle"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 4,
     "fields":
     {
-      "name": "Côte-des-Neiges"
+      "name": "Operations Binder",
+      "name_en": "Operations Binder",
+      "name_fr": "Pochette des documents logistiques"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 5,
     "fields":
     {
-      "name": "Ghetto McGill"
+      "name": "Scale",
+      "name_en": "Scale",
+      "name_fr": "Balance"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 6,
     "fields":
     {
-      "name": "Île-Bizard-Sainte-Geneviève"
+      "name": "First aid kit",
+      "name_en": "First aid kit",
+      "name_fr": "Trousse de premiers soins"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 7,
     "fields":
     {
-      "name": "Ile-des-Soeurs / Nuns-Island"
+      "name": "Fruit Pickers",
+      "name_en": "Fruit Pickers",
+      "name_fr": "Cueille-fruits"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 8,
     "fields":
     {
-      "name": "Lachine"
+      "name": "Pencil and tool case",
+      "name_en": "Pencil and tool case",
+      "name_fr": "Étuis à crayon et outils"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 9,
     "fields":
     {
-      "name": "LaSalle"
+      "name": "Bike hitch",
+      "name_en": "Bike hitch",
+      "name_fr": "Hitch à vélo"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 10,
     "fields":
     {
-      "name": "Mercier-Hochelaga-Maisonneuve"
+      "name": "Wooden crates",
+      "name_en": "Wooden crates",
+      "name_fr": "Caisses en bois"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 11,
     "fields":
     {
-      "name": "Mile End"
+      "name": "Scissors",
+      "name_en": "Scissors",
+      "name_fr": "Ciseaux"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 12,
     "fields":
     {
-      "name": "Montréal-Nord"
+      "name": "Gloves",
+      "name_en": "Gloves",
+      "name_fr": "Gants"
     }
-  },
-  {
-    "model": "saskatoon.Neighborhood",
+  },  {
+    "model": "harvest.EquipmentType",
     "pk": 13,
     "fields":
     {
-      "name": "Montréal-Ouest"
+      "name": "Plastic baskets",
+      "name_en": "Plastic baskets",
+      "name_fr": "Bacs en plastic"
+    }
+  },  {
+    "model": "member.Language",
+    "pk": 1,
+    "fields":
+    {
+      "name": "French",
+      "name_en": "French",
+      "name_fr": "Français"
+    }
+  },  {
+    "model": "member.Language",
+    "pk": 2,
+    "fields":
+    {
+      "name": "English",
+      "name_en": "English",
+      "name_fr": "Anglais"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
+    "pk": 1,
+    "fields":
+    {
+      "name": "Ahuntsic",
+      "name_en": "Ahuntsic",
+      "name_fr": "Ahuntsic"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 2,
+    "fields":
+    {
+      "name": "Anjou",
+      "name_en": "Anjou",
+      "name_fr": "Anjou"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Cartierville",
+      "name_en": "Cartierville",
+      "name_fr": "Cartierville"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 4,
+    "fields":
+    {
+      "name": "Côte-des-Neiges",
+      "name_en": "Côte-des-Neiges",
+      "name_fr": "Côte-des-Neiges"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 5,
+    "fields":
+    {
+      "name": "Ghetto-McGill",
+      "name_en": "Ghetto-McGill",
+      "name_fr": "Ghetto-McGill"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 6,
+    "fields":
+    {
+      "name": "Île-Bizard-Sainte-Geneviève",
+      "name_en": "Île-Bizard-Sainte-Geneviève",
+      "name_fr": "Île-Bizard-Sainte-Geneviève"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 7,
+    "fields":
+    {
+      "name": "Nuns-Island",
+      "name_en": "Nuns-Island",
+      "name_fr": "Ile-des-Soeurs"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 8,
+    "fields":
+    {
+      "name": "Lachine",
+      "name_en": "Lachine",
+      "name_fr": "Lachine"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 9,
+    "fields":
+    {
+      "name": "LaSalle",
+      "name_en": "LaSalle",
+      "name_fr": "LaSalle"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 10,
+    "fields":
+    {
+      "name": "Mercier-Hochelaga-Maisonneuve",
+      "name_en": "Mercier-Hochelaga-Maisonneuve",
+      "name_fr": "Mercier-Hochelaga-Maisonneuve"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 11,
+    "fields":
+    {
+      "name": "Mile End",
+      "name_en": "Mile End",
+      "name_fr": "Mile End"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 12,
+    "fields":
+    {
+      "name": "Montreal-North",
+      "name_en": "Montreal-North",
+      "name_fr": "Montréal-Nord"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
+    "pk": 13,
+    "fields":
+    {
+      "name": "Montreal-West",
+      "name_en": "Montreal-West",
+      "name_fr": "Montréal-Ouest"
+    }
+  },
+  {
+    "model": "member.Neighborhood",
     "pk": 14,
     "fields":
     {
-      "name": "Notre-Dame-de-Grâce"
+      "name": "Notre-Dame-de-Grâce",
+      "name_en": "Notre-Dame-de-Grâce",
+      "name_fr": "Notre-Dame-de-Grâce"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 15,
     "fields":
     {
-      "name": "Outremont"
+      "name": "Outremont",
+      "name_en": "Outremont",
+      "name_fr": "Outremont"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 16,
     "fields":
     {
-      "name": "Parc-Extension"
+      "name": "Parc-Extension",
+      "name_en": "Parc-Extension",
+      "name_fr": "Parc-Extension"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 17,
     "fields":
     {
-      "name": "Petite Italie"
+      "name": "Petite-Patrie",
+      "name_en": "Petite-Patrie",
+      "name_fr": "Petite-Patrie"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 18,
     "fields":
     {
-      "name": "Petite Patrie"
+      "name": "Pierrefonds-Roxboro",
+      "name_en": "Pierrefonds-Roxboro",
+      "name_fr": "Pierrefonds-Roxboro"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 19,
     "fields":
     {
-      "name": "Pierrefonds-Roxboro"
+      "name": "Plateau-Mont-Royal",
+      "name_en": "Plateau-Mont-Royal",
+      "name_fr": "Plateau-Mont-Royal"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 20,
     "fields":
     {
-      "name": "Plateau-Mont-Royal"
+      "name": "Pointe-Saint-Charles",
+      "name_en": "Pointe-Saint-Charles",
+      "name_fr": "Pointe-Saint-Charles"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 21,
     "fields":
     {
-      "name": "Point Saint Charles"
+      "name": "Rivière-des-Prairies-Pointe-aux-Trembles",
+      "name_en": "Rivière-des-Prairies-Pointe-aux-Trembles",
+      "name_fr": "Rivière-des-Prairies-Pointe-aux-Trembles"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 22,
     "fields":
     {
-      "name": "Rivière-des-Prairies-Pointe-aux-Trembles"
+      "name": "Rosemont",
+      "name_en": "Rosemont",
+      "name_fr": "Rosemont"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 23,
     "fields":
     {
-      "name": "Rosemont"
+      "name": "Saint-Henri-Little-Burgundy-Griffintown",
+      "name_en": "Saint-Henri-Little-Burgundy-Griffintown",
+      "name_fr": "Saint-Henri-Little-Burgundy-Griffintown"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 24,
     "fields":
     {
-      "name": "Saint-Henri-Little-Burgundy-GriffintownSaint-Laurent"
+      "name": "Saint-Laurent",
+      "name_en": "Saint-Laurent",
+      "name_fr": "Saint-Laurent"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 25,
     "fields":
     {
-      "name": "Saint-Léonard"
+      "name": "Saint-Léonard",
+      "name_en": "Saint-Léonard",
+      "name_fr": "Saint-Léonard"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 26,
     "fields":
     {
-      "name": "Saint-Michel"
+      "name": "Saint-Michel",
+      "name_en": "Saint-Michel",
+      "name_fr": "Saint-Michel"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 27,
     "fields":
     {
-      "name": "Senneville"
+      "name": "Senneville",
+      "name_en": "Senneville",
+      "name_fr": "Senneville"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 28,
     "fields":
     {
-      "name": "Snowdon"
+      "name": "Snowdon",
+      "name_en": "Snowdon",
+      "name_fr": "Snowdon"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 29,
     "fields":
     {
-      "name": "Verdun"
+      "name": "Verdun",
+      "name_en": "Verdun",
+      "name_fr": "Verdun"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 30,
     "fields":
     {
-      "name": "Ville-Marie"
+      "name": "Ville-Marie",
+      "name_en": "Ville-Marie",
+      "name_fr": "Ville-Marie"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 31,
     "fields":
     {
-      "name": "Villeray"
+      "name": "Villeray",
+      "name_en": "Villeray",
+      "name_fr": "Villeray"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 32,
     "fields":
     {
-      "name": "Ville-de / Town-of-Mont-Royal"
+      "name": "Town-of-Mont-Royal",
+      "name_en": "Town-of-Mont-Royal",
+      "name_fr": "Ville-de-Mont-Royal"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 33,
     "fields":
     {
-      "name": "Westmount"
+      "name": "Westmount",
+      "name_en": "Westmount",
+      "name_fr": "Westmount"
     }
   },
   {
-    "model": "saskatoon.Neighborhood",
+    "model": "member.Neighborhood",
     "pk": 34,
     "fields":
     {
-      "name": "Hors-de-l'Île / Off-Island"
+      "name": "Other",
+      "name_en": "Other",
+      "name_fr": "Autre"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 1,
     "fields":
     {
-      "name": "Abricotier",
+      "name": "Apricot tree",
+      "name_en": "Apricot tree",
+      "name_fr": "Abricotier",
       "fruit_name": "Apricot",
-      "avg_harvest_date": "9999-07-01"
+      "fruit_name_en": "Apricot",
+      "fruit_name_fr": "Abricot",
+      "season_start": "9999-07-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 2,
     "fields":
     {
-      "name": "Amélanchier",
-      "fruit_name": "Amélanche",
-      "avg_harvest_date": "9999-06-15"
+      "name": "Saskatoon",
+      "name_en": "Saskatoon",
+      "name_fr": "Amélanchier",
+      "fruit_name": "Saskatoon berry",
+      "fruit_name_en": "Saskatoon berry",
+      "fruit_name_fr": "Amélanche",
+      "season_start": "9999-06-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 3,
     "fields":
     {
-      "name": "Cerisier sucrée",
-      "fruit_name": "Cerise sucrée",
-      "avg_harvest_date": "9999-06-15"
+      "name": "Sweet cherry tree",
+      "name_en": "Sweet cherry tree",
+      "name_fr": "Cerisier sucré",
+      "fruit_name": "Sweet cherry",
+      "fruit_name_en": "Sweet cherry",
+      "fruit_name_fr": "Cerise sucrée",
+      "season_start": "9999-06-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 4,
     "fields":
     {
-      "name": "Cerisier griotte",
-      "fruit_name": "Cerise griotte",
-      "avg_harvest_date": "9999-06-15"
+      "name": "Sour cherry tree",
+      "name_en": "Sour cherry tree",
+      "name_fr": "Cerisier griotte",
+      "fruit_name": "Sour cherry",
+      "fruit_name_en": "Sour cherry",
+      "fruit_name_fr": "Cerise griotte",
+      "season_start": "9999-06-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 5,
     "fields":
     {
-      "name": "Fraisier",
-      "fruit_name": "Fraise",
-      "avg_harvest_date": "9999-06-15"
+      "name": "Strawberry",
+      "name_en": "Strawberry",
+      "name_fr": "Fraisier",
+      "fruit_name": "Strawberry",
+      "fruit_name_en": "Strawberry",
+      "fruit_name_fr": "Fraise",
+      "season_start": "9999-06-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 6,
     "fields":
     {
-      "name": "Framboisier",
-      "fruit_name": "Framboise",
-      "avg_harvest_date": "9999-06-15"
+      "name": "Raspberry",
+      "name_en": "Raspberry",
+      "name_fr": "Framboisier",
+      "fruit_name": "Raspberry",
+      "fruit_name_en": "Raspberry",
+      "fruit_name_fr": "Framboise",
+      "season_start": "9999-06-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 7,
     "fields":
     {
-      "name": "Groseillier",
-      "fruit_name": "Groseille",
-      "avg_harvest_date": "9999-07-15"
+      "name": "Redcurrant",
+      "name_en": "Redcurrant",
+      "name_fr": "Groseillier",
+      "fruit_name": "Redcurrant",
+      "fruit_name_en": "Redcurrant",
+      "fruit_name_fr": "Groseille",
+      "season_start": "9999-07-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 8,
     "fields":
     {
-      "name": "Mûre",
-      "fruit_name": "Mûrier",
-      "avg_harvest_date": "9999-08-01"
+      "name": "Blackberry",
+      "name_en": "Blackberry",
+      "name_fr": "Mûrier",
+      "fruit_name": "Blackberry",
+      "fruit_name_en": "Blackberry",
+      "fruit_name_fr": "Mûre",
+      "season_start": "9999-08-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 9,
     "fields":
     {
-      "name": "Pêcher",
-      "fruit_name": "Pêche",
-      "avg_harvest_date": "9999-07-01"
+      "name": "Walnut tree",
+      "name_en": "Walnut tree",
+      "name_fr": "Noyer",
+      "fruit_name": "Walnut",
+      "fruit_name_en": "Walnut",
+      "fruit_name_fr": "Noix de Grenoble",
+      "season_start": "9999-09-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 10,
     "fields":
     {
-      "name": "Poirier",
-      "fruit_name": "Poire",
-      "avg_harvest_date": "9999-08-01"
+      "name": "Peach tree",
+      "name_en": "Peach tree",
+      "name_fr": "Pêcher",
+      "fruit_name": "Peach",
+      "fruit_name_en": "Peach",
+      "fruit_name_fr": "Pêche",
+      "season_start": "9999-07-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 11,
     "fields":
     {
-      "name": "Pommier vert",
-      "fruit_name": "Pomme vert",
-      "avg_harvest_date": "9999-08-15"
+      "name": "Red pear tree",
+      "name_en": "Red pear tree",
+      "name_fr": "Poirier rouge",
+      "fruit_name": "Red pear",
+      "fruit_name_en": "Red pear",
+      "fruit_name_fr": "Poire rouge",
+      "season_start": "9999-08-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 12,
     "fields":
     {
-      "name": "Pommier rouge",
-      "fruit_name": "Pomme rouge",
-      "avg_harvest_date": "9999-08-15"
+      "name": "Yellow pear tree",
+      "name_en": "Yellow pear tree",
+      "name_fr": "Poirier jaune",
+      "fruit_name": "Yellow pear",
+      "fruit_name_en": "Yellow pear",
+      "fruit_name_fr": "Poire jaune",
+      "season_start": "9999-08-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 13,
     "fields":
     {
-      "name": "Pommier jaune",
-      "fruit_name": "Pomme jaune",
-      "avg_harvest_date": "9999-07-15"
+      "name": "Green pear tree",
+      "name_en": "Green pear tree",
+      "name_fr": "Poirier vert",
+      "fruit_name": "Green pear",
+      "fruit_name_en": "Green pear",
+      "fruit_name_fr": "Poire verte",
+      "season_start": "9999-08-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 14,
     "fields":
     {
-      "name": "Pommettier",
-      "fruit_name": "Pommette",
-      "avg_harvest_date": "9999-08-01"
+      "name": "Green apple tree",
+      "name_en": "Green apple tree",
+      "name_fr": "Pommier vert",
+      "fruit_name": "Green apple",
+      "fruit_name_en": "Green apple",
+      "fruit_name_fr": "Pomme verte",
+      "season_start": "9999-08-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 15,
     "fields":
     {
-      "name": "Prunier",
-      "fruit_name": "Prune",
-      "avg_harvest_date": "9999-08-15"
+      "name": "Red apple tree",
+      "name_en": "Red apple tree",
+      "name_fr": "Pommier rouge",
+      "fruit_name": "Red apple",
+      "fruit_name_en": "Red apple",
+      "fruit_name_fr": "Pomme rouge",
+      "season_start": "9999-08-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 16,
     "fields":
     {
-      "name": "Vigne blanc",
-      "fruit_name": "Raisin blanc",
-      "avg_harvest_date": "9999-08-15"
+      "name": "Yellow apple tree",
+      "name_en": "Yellow apple tree",
+      "name_fr": "Pommier jaune",
+      "fruit_name": "Yellow apple",
+      "fruit_name_en": "Yellow apple",
+      "fruit_name_fr": "Pomme jaune",
+      "season_start": "9999-07-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 17,
     "fields":
     {
-      "name": "Vigne noir",
-      "fruit_name": "Raisin noir",
-      "avg_harvest_date": "9999-08-15"
+      "name": "Crabapple tree",
+      "name_en": "Crabapple tree",
+      "name_fr": "Pommettier",
+      "fruit_name": "Crabapple",
+      "fruit_name_en": "Crabapple",
+      "fruit_name_fr": "Pommette",
+      "season_start": "9999-07-15"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 18,
     "fields":
     {
-      "name": "Pied de Rhubarbe",
-      "fruit_name": "Rhubarbe",
-      "avg_harvest_date": "9999-08-01"
+      "name": "Plum tree",
+      "name_en": "Plum tree",
+      "name_fr": "Prunier",
+      "fruit_name": "Plum",
+      "fruit_name_en": "Plum",
+      "fruit_name_fr": "Prune",
+      "season_start": "9999-08-01"
     }
   },
   {
-    "model": "saskatoon.TreeType",
+    "model": "harvest.TreeType",
     "pk": 19,
     "fields":
     {
-      "name": "Sureau",
-      "fruit_name": "Sureau",
-      "avg_harvest_date": "9999-08-15"
+      "name": "Green grapevine",
+      "name_en": "Green grapevine",
+      "name_fr": "Vigne verte",
+      "fruit_name": "Green grape",
+      "fruit_name_en": "Green grape",
+      "fruit_name_fr": "Raisin vert",
+      "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 20,
+    "fields":
+    {
+      "name": "Purple grapevine",
+      "name_en": "Purple grapevine",
+      "name_fr": "Vigne rouge",
+      "fruit_name": "Purple grape",
+      "fruit_name_en": "Purple grape",
+      "fruit_name_fr": "Raisin rouge",
+      "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 21,
+    "fields":
+    {
+      "name": "Rhubarb",
+      "name_en": "Rhubarb",
+      "name_fr": "Rhubarbe",
+      "fruit_name": "Rhubarb",
+      "fruit_name_en": "Rhubarb",
+      "fruit_name_fr": "Rhubarbe",
+      "season_start": "9999-08-01"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 22,
+    "fields":
+    {
+      "name": "Elderberry",
+      "name_en": "Elderberry",
+      "name_fr": "Sureau",
+      "fruit_name": "Elderberry",
+      "fruit_name_en": "Elderberry",
+      "fruit_name_fr": "Sureau",
+      "season_start": "9999-08-15"
+    }
+  },
+  {
+    "model": "harvest.TreeType",
+    "pk": 23,
+    "fields":
+    {
+      "name": "Fig tree",
+      "name_en": "Fig tree",
+      "name_fr": "Figuier",
+      "fruit_name": "Fig",
+      "fruit_name_en": "Fig",
+      "fruit_name_fr": "Figue",
+      "season_start": "9999-09-01"
     }
   }
 ]

@@ -40,6 +40,9 @@
         <!-- DataTables Responsive CSS -->
         <link href="{% static 'sbadmin2/bower_components/datatables-responsive/css/dataTables.responsive.css' %}" rel="stylesheet">
 
+        <!-- Custom css -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
         {% block extrahead %}
         {% endblock %}
     </head>
@@ -75,6 +78,15 @@
                         </ul>
                     </li>
                     {% if user.email %}
+                    <li>
+                        <a href='{% url "pages:index"%}'>
+                            <i class="fa fa-bell fa-fw"></i>
+                            {% trans "Notification" %}
+                            {% if number_of_notification %}
+                            <span class="badge" style="background-color: red;">{{ number_of_notification }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user fa-fw"></i> {{ user.email }} <i class="fa fa-caret-down"></i>
@@ -92,7 +104,8 @@
                     </li>
                     {% else %}
                     <li>
-                        <a href='{% url "pages:login" %}'>
+                    <!--    <a href='{% url "pages:login" %}'> -->
+                        <a href='https://{{ request.META.HTTP_HOST }}/login'>
                             <i class="fa fa-sign-in fa-fw"></i>
                             {% trans "Login" %}
                         </a>
@@ -113,9 +126,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href='{% url "harvest:property_list" %}'>
-                                    <i class="glyphicon glyphicon-tree-deciduous"></i>
-                                    {% trans "Properties" %}
+                                <a href='{% url "pages:calendar" %}'>
+                                    <i class="fa fa-calendar fa-fw"></i>
+                                    {% trans "Calendar" %}
                                 </a>
                             </li>
                             <li>
@@ -125,21 +138,27 @@
                                 </a>
                             </li>
                             <li>
-                                <a href=''>
-                                    <i class="fa fa-scissors fa-fw"></i>
-                                    {% trans "Equipment" %}
+                                <a href='{% url "harvest:property_list_active" %}'>
+                                    <i class="glyphicon glyphicon-tree-deciduous"></i>
+                                    {% trans "Properties" %}
                                 </a>
                             </li>
                             <li>
-                                <a href='{% url "pages:calendar" %}'>
-                                    <i class="fa fa-calendar fa-fw"></i>
-                                    {% trans "Calendar" %}
+                                <a href='{% url "harvest:equipment_list" %}'>
+                                    <i class="fa fa-scissors fa-fw"></i>
+                                    {% trans "Equipment" %}
                                 </a>
                             </li>
                             <li>
                                 <a href='/admin/'>
                                     <i class="fa fa-gear fa-fw"></i>
                                     {% trans "Admin" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href='https://lesfruitsdefendus.titanpad.com/17'>
+                                    <i class="fa fa-bug fa-fw"></i>
+                                    {% trans "Bugs" %}
                                 </a>
                             </li>
                         </ul>
@@ -193,7 +212,14 @@
             <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
-
+        <div id="footer">
+            Saskatoon - Free software - License AGPLv3 - Version 0.1
+            <span style="float:right;">
+                <a href="https://github.com/tiagovaz/saskatoon/">
+                    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </span>
+        </div>
         <!-- jQuery -->
         <script src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.min.js' %}"></script>
 
@@ -209,7 +235,7 @@
                 <!-- DataTables JavaScript -->
         <script src="{% static 'sbadmin2/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js' %}"></script>
-        <script src="{% static 'sbadmin2/test.js' %}"></script>
+        <script src="{% static 'sbadmin2/custom.js' %}"></script>
 
         <!-- Morris Charts JavaScript -->
         <script src="{% static 'sbadmin2/bower_components/raphael/raphael-min.js' %}"></script>

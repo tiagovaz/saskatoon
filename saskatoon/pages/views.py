@@ -1,8 +1,9 @@
 from django.views import generic
 from harvest.models import Harvest, Property
-from member.models import AuthUser
+from member.models import AuthUser, Notification
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
+import datetime
 
 
 class Calendar(generic.TemplateView):
@@ -20,23 +21,50 @@ class Calendar(generic.TemplateView):
 
 
 class JsonCalendar(generic.View):
+
     def get(self, test):
-        harvests = Harvest.objects.filter(is_active=True)
-        event = {}
+        harvests = Harvest.objects.all()
         events = []
         for harvest in harvests:
-            event["title"] = harvest.property.address.neighborhood.name
-            event["allday"] = "false"
-            event["description"] = harvest.about
-            event["start"] = harvest.start_date
-            event["end"] = harvest.end_date
-            event["url"] = reverse(
-                'harvest:harvest_detail',
-                kwargs={'pk': harvest.id}
-            )
-            events.append(event)
+            if (harvest.start_date and
+                    harvest.end_date and
+                    self.request.user.is_staff) \
+                    or harvest.is_publishable():
+                text_color = "#ffffff"
+                if harvest.status == "Date-scheduled":
+                    color = "#f0ad4e"
+                elif harvest.status == "Ready":
+                    color = "#5cb85c"
+                elif harvest.status == "Succeeded":
+                    color = "#337ab7"
+                elif harvest.status == "Cancelled":
+                    color = "#f9f9f9"
+                    text_color = "#000000"
+                else:
+                    color = "#000000"
+                event = dict()
+                event["title"] = harvest.property.neighborhood.name
+                event["allday"] = "false"
+                event["description"] = harvest.about
+                # FIXME: see
+                # http://fullcalendar.io/docs/event_rendering/eventRender/
+                if harvest.start_date:
+                    event["start"] = harvest.start_date - \
+                                     datetime.timedelta(hours=4)
+                # FIXME: ugly hack, needs proper interaction with calendar
+                # http://fullcalendar.io/docs/timezone/timezone/
+                if harvest.end_date:
+                    event["end"] = harvest.end_date - \
+                                   datetime.timedelta(hours=4)
+                event["url"] = reverse(
+                    'harvest:harvest_detail',
+                    kwargs={'pk': harvest.id}
+                )
+                event["color"] = color
+                event["textColor"] = text_color
+                events.append(event)
+                del event
 
-        print events
         return JsonResponse(events, safe=False)
 
 
@@ -56,6 +84,10 @@ class Index(generic.TemplateView):
             context['number_of_harvests'] = Harvest.objects.all().count()
             context['number_of_properties'] = Property.objects.all().count()
             context['number_of_users'] = AuthUser.objects.all().count()
+            context['notifications'] = Notification.objects.filter(
+                user=self.request.user,
+                is_read=False
+            )
 
         return context
 

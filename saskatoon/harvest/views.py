@@ -1,18 +1,21 @@
 # coding: utf-8
-
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
-    RequestForParticipation, TreeType, Comment
-from member.models import Person, AuthUser, Actor
-from harvest.forms import CommentForm, RequestForm
+    RequestForParticipation, TreeType, Comment, \
+    PropertyImage, HarvestYield, HarvestImage
+from harvest.forms import CommentForm, RequestForm, PropertyForm, \
+    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
+from member.models import Person, AuthUser, Actor, Organization
+from harvest.filters import HarvestFilter
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
-from filters import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from django import forms
+from django.shortcuts import redirect
 
 
 class PropertyList(generic.ListView):
@@ -20,12 +23,15 @@ class PropertyList(generic.ListView):
     context_object_name = 'properties'
     model = Property
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PropertyList, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(PropertyList, self).get_context_data(**kwargs)
+        active_properties = Property.objects.filter(is_active=True)
         context['view'] = "properties"
+        context['active_properties'] = active_properties
 
         return context
 
@@ -35,6 +41,7 @@ class PropertyDetail(generic.DetailView):
     context_object_name = 'property'
     template_name = 'harvest/properties/detail.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
             Property,
@@ -47,6 +54,7 @@ class PropertyDetail(generic.DetailView):
         context = super(PropertyDetail, self).get_context_data(**kwargs)
         property_history = Property.history.filter(id=self.kwargs['pk'])
         context['property_history'] = property_history
+        context['form_image'] = PropertyImageForm()
 
         return context
 
@@ -54,7 +62,7 @@ class PropertyDetail(generic.DetailView):
 class PropertyCreate(generic.CreateView):
     model = Property
     template_name = 'harvest/properties/create.html'
-    fields = '__all__'
+    form_class = PropertyForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -67,7 +75,7 @@ class PropertyCreate(generic.CreateView):
 class PropertyUpdate(generic.UpdateView):
     model = Property
     template_name = "harvest/properties/update.html"
-    fields = '__all__'
+    form_class = PropertyForm
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -84,21 +92,72 @@ class PropertyUpdate(generic.UpdateView):
         )
 
 
+class PropertyImageCreate(generic.CreateView):
+    model = PropertyImage
+    template_name = 'harvest/properties/add_image.html'
+    fields = [
+        'image'
+    ]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PropertyImageCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.property = Property.objects.get(id=self.kwargs['pk'])
+        return super(PropertyImageCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:property_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class HarvestImageCreate(generic.CreateView):
+    model = HarvestImage
+    template_name = 'harvest/harvests/add_image.html'
+    fields = [
+        'image'
+    ]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestImageCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestImageCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
 class HarvestList(generic.ListView):
     template_name = 'harvest/harvest/list.html'
     context_object_name = 'harvests'
     model = Harvest
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HarvestList, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        return HarvestFilter(self.request.GET, queryset=Harvest.objects.all())
+        return HarvestFilter(
+            self.request.GET,
+            queryset=Harvest.objects.all().order_by('-id')
+        )
 
     def get_context_data(self, **kwargs):
         context = super(HarvestList, self).get_context_data(**kwargs)
 
-        all_harvests = HarvestFilter(self.request.GET, queryset=Harvest.objects.all())
+        all_harvests = HarvestFilter(
+            self.request.GET,
+            queryset=Harvest.objects.all().order_by('-id')
+        )
         context['view'] = "harvests"
         context['form'] = all_harvests.form
 
@@ -108,15 +167,13 @@ class HarvestList(generic.ListView):
 class HarvestDetail(generic.DetailView):
     model = Harvest
     context_object_name = 'harvest'
-    template_name = 'harvest/harvest/detail_public.html'
+    template_name = 'harvest/harvest/detail.html'
 
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
-            Property,
+            Harvest,
             id=self.kwargs['pk']
         )
-        if self.request.user.is_authenticated():
-            self.template_name = 'harvest/harvest/detail.html'
 
         return super(HarvestDetail, self).dispatch(*args, **kwargs)
 
@@ -124,9 +181,16 @@ class HarvestDetail(generic.DetailView):
         context = super(HarvestDetail, self).get_context_data(**kwargs)
 
         harvest_history = Harvest.history.filter(id=self.kwargs['pk'])
+        harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        requests = RequestForParticipation.objects.filter(harvest=harvest)
+        distribution = HarvestYield.objects.filter(harvest=harvest)
+
         context['harvest_history'] = harvest_history
         context['form_comment'] = CommentForm()
         context['form_request'] = RequestForm()
+        context['form_manage_request'] = RFPManageForm()
+        context['requests'] = requests
+        context['distribution'] = distribution
 
         return context
 
@@ -134,11 +198,19 @@ class HarvestDetail(generic.DetailView):
 class HarvestCreate(generic.CreateView):
     model = Harvest
     template_name = 'harvest/harvest/create.html'
-    fields = '__all__'
+    form_class = HarvestForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HarvestCreate, self).dispatch(*args, **kwargs)
+
+    def get_initial(self):
+        initial_data = {}
+
+        if 'property' in self.kwargs:
+            initial_data['property'] = self.kwargs['property']
+
+        return initial_data
 
     def get_success_url(self):
         return self.object.get_absolute_url()
@@ -147,7 +219,7 @@ class HarvestCreate(generic.CreateView):
 class HarvestUpdate(generic.UpdateView):
     model = Harvest
     template_name = "harvest/harvest/update.html"
-    fields = '__all__'
+    form_class = HarvestForm
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -164,16 +236,134 @@ class HarvestUpdate(generic.UpdateView):
         )
 
 
+class HarvestAdopt(generic.RedirectView):
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.harvest = get_object_or_404(
+            Harvest,
+            id=kwargs['pk']
+        )
+        is_staff = request.user.is_staff
+
+        if is_staff:
+            return super(HarvestAdopt, self).\
+                dispatch(request, *args, **kwargs)
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                _("You do not have the right permissions")
+            )
+            return redirect(reverse_lazy(
+                "harvest:harvest_detail",
+                args=[self.harvest.id]
+            ))
+
+    def get(self, request, *args, **kwargs):
+        self.harvest.pick_leader = request.user
+        self.harvest.status = _("Adopted")
+        self.harvest.save(update_fields=['pick_leader', 'status'])
+
+        messages.add_message(
+            request,
+            messages.WARNING,
+            _('Thanks, you adopted this harvest!')
+        )
+
+        return redirect(self.get_redirect_url(*args, **kwargs))
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy(
+            "harvest:harvest_detail",
+            args=[self.harvest.id]
+        )
+
+
+class RequestForParticipationUpdate(generic.UpdateView):
+    model = RequestForParticipation
+    context_object_name = 'participation'
+    template_name = "harvest/participation/update.html"
+    form_class = RFPManageForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        participation = get_object_or_404(
+            RequestForParticipation,
+            id=kwargs['pk']
+        )
+        return super(RequestForParticipationUpdate, self).\
+            dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        request = RequestForParticipation.objects.get(id=self.kwargs['pk'])
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': request.harvest.id}
+        )
+
+
+def get_context_data(self, **kwargs):
+    context = super(RequestForParticipationUpdate, self).\
+        get_context_data(**kwargs)
+
+    participation = RequestForParticipation.objects.get(id=self.kwargs['pk'])
+
+    context['participation'] = participation
+
+    return context
+
+
+class EquipmentList(generic.ListView):
+    template_name = 'harvest/equipment/list.html'
+    context_object_name = 'equipments'
+    model = Equipment
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(EquipmentList, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Equipment.objects.all()
+
+
+class ParticipationList(generic.ListView):
+    template_name = 'harvest/participation/list.html'
+    context_object_name = 'participations'
+    model = RequestForParticipation
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ParticipationList, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return RequestForParticipation.objects.all()
+
+
 class EquipmentCreate(generic.CreateView):
     model = Equipment
     template_name = 'harvest/equipment/create.html'
-    fields = '__all__'
+    form_class = EquipmentForm
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(EquipmentCreate, self).dispatch(*args, **kwargs)
 
+    def get_initial(self):
+        initial_data = {}
+
+        if 'property' in self.kwargs:
+            initial_data['property'] = self.kwargs['property']
+
+        return initial_data
+
     def get_success_url(self):
-        return self.object.get_absolute_url()
+        if self.object.property:
+            return self.object.property.get_absolute_url()
+        else:
+            return reverse_lazy(
+                'harvest:equipment_list'
+            )
 
 
 class RequestForParticipationCreate(generic.CreateView):
@@ -182,17 +372,162 @@ class RequestForParticipationCreate(generic.CreateView):
     form_class = RequestForm
 
     def dispatch(self, *args, **kwargs):
-        return super(RequestForParticipationCreate, self).dispatch(*args, **kwargs)
+        return super(RequestForParticipationCreate, self).\
+            dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
         return super(RequestForParticipationCreate, self).form_valid(form)
 
+    def get_initial(self):
+        initial = super(RequestForParticipationCreate, self).get_initial()
+        initial['harvest_id'] = self.kwargs['pk']
+        return initial
+
     def get_success_url(self):
         messages.add_message(
             self.request,
             messages.SUCCESS,
-            _('Your request of participation has been send. The pickleader will contact you soon!')
+            _('Your request of participation has been sent. '
+              'The pick leader will contact you soon!')
+        )
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class HarvestYieldCreate(generic.CreateView):
+    model = HarvestYield
+    template_name = 'harvest/harvest_yield/create.html'
+    fields = [
+        'tree',
+        'total_in_lb',
+        'recipient',
+    ]
+
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestYieldCreate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestYieldCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(HarvestYieldCreate, self).get_context_data(**kwargs)
+
+        trees = Harvest.objects.get(id=self.kwargs['pk']).trees.all()
+        model_choice_tree = forms.ModelChoiceField(
+            queryset=trees,
+            required=False
+        )
+        context['form'].fields['tree'] = model_choice_tree
+
+        harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        requests = harvest.request_for_participation.filter(
+            is_accepted=True
+        )
+        pickers = []
+        for request_participation in requests:
+            pickers.append(request_participation.picker)
+
+        organizations = Organization.objects.filter(is_beneficiary=True)
+        owner = harvest.property.owner
+
+        recipients = set()
+        recipients.add(owner.actor_id)
+        if harvest.pick_leader:
+            recipients.add(harvest.pick_leader.person.actor_id)
+        for organization in organizations:
+            recipients.add(organization.pk)
+        for picker in pickers:
+            recipients.add(picker.pk)
+
+        recipients = Actor.objects.filter(pk__in=recipients)
+
+        model_choice_recipient = forms.ModelChoiceField(
+            queryset=recipients,
+            required=False
+        )
+        context['form'].fields['recipient'] = model_choice_recipient
+
+        return context
+
+    def get_success_url(self):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            _('Your recipient has been added!')
+        )
+        return reverse_lazy(
+            'harvest:harvest_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class HarvestYieldUpdate(generic.UpdateView):
+    model = HarvestYield
+    template_name = 'harvest/harvest_yield/update.html'
+    fields = [
+        'tree',
+        'total_in_lb',
+        'recipient',
+    ]
+
+    def dispatch(self, *args, **kwargs):
+        return super(HarvestYieldUpdate, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        return super(HarvestYieldUpdate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(HarvestYieldUpdate, self).get_context_data(**kwargs)
+
+        harvest = HarvestYield.objects.get(id=self.kwargs['pk']).harvest
+
+        trees = Harvest.objects.get(id=harvest.id).trees.all()
+        model_choice_tree = forms.ModelChoiceField(
+            queryset=trees,
+            required=False
+        )
+        context['form'].fields['tree'] = model_choice_tree
+
+        harvest = Harvest.objects.get(id=harvest.id)
+        requests = harvest.request_for_participation.filter(
+            is_accepted=True
+        )
+        pickers = []
+        for request_participation in requests:
+            pickers.append(request_participation.picker)
+
+        organizations = Organization.objects.filter(
+            is_beneficiary=True
+        )
+        owner = harvest.property.owner
+
+        recipients = set()
+        recipients.add(owner.actor_id)
+        for organization in organizations:
+            recipients.add(organization.pk)
+        for picker in pickers:
+            recipients.add(picker.pk)
+
+        recipients = Actor.objects.filter(pk__in=recipients)
+
+        model_choice_recipient = forms.ModelChoiceField(
+            queryset=recipients,
+            required=False
+        )
+        context['form'].fields['recipient'] = model_choice_recipient
+
+        return context
+
+    def get_success_url(self):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            _('Your recipient has been updated!')
         )
         return reverse_lazy(
             'harvest:harvest_detail',
@@ -222,6 +557,25 @@ class CommentCreate(generic.CreateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+    def get_initial(self):
+        initial = super(CommentCreate, self).get_initial()
+        initial['harvest_id'] = self.kwargs['pk']
+        return initial
+
+
+class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return Person.objects.none()
+
+        qs = AuthUser.objects.filter(is_staff=True)
+
+        if self.q:
+            qs = qs.filter(person__first_name__istartswith=self.q)
+
+        return qs
+
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -232,9 +586,10 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
         qs = Person.objects.all()
 
         if self.q:
-            qs = qs.filter(first_name__istartswith=self.q)
+            qs = qs.filter(first_name__icontains=self.q)
 
         return qs
+
 
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -243,11 +598,36 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
             return Actor.objects.none()
 
         qs = Actor.objects.all()
+        list_actor = []
 
         if self.q:
-            qs = qs.filter(first_name__istartswith=self.q)
+            first_name = qs.filter(
+                person__first_name__icontains=self.q
+            )
+            family_name = qs.filter(
+                person__family_name__icontains=self.q
+            )
+            civil_name = qs.filter(
+                organization__civil_name__icontains=self.q
+            )
 
-        return qs
+            for actor in first_name:
+                if actor not in list_actor:
+                    list_actor.append(actor)
+
+            for actor in family_name:
+                if actor not in list_actor:
+                    list_actor.append(actor)
+
+            for actor in civil_name:
+                if actor not in list_actor:
+                    list_actor.append(actor)
+
+        if not list_actor:
+            list_actor = qs
+
+        return list_actor
+
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -258,7 +638,7 @@ class TreeAutocomplete(autocomplete.Select2QuerySetView):
         qs = TreeType.objects.all()
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
 
@@ -270,11 +650,25 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
             return Property.objects.none()
 
         qs = Property.objects.all()
+        list_property = []
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            first_name = qs.filter(
+                owner__person__first_name__icontains=self.q
+            )
+            family_name = qs.filter(
+                owner__person__family_name__icontains=self.q
+            )
 
-        return qs
+            for actor in first_name:
+                if actor not in list_property:
+                    list_property.append(actor)
+
+            for actor in family_name:
+                if actor not in list_property:
+                    list_property.append(actor)
+
+        return list_property
 
 
 class EquipmentAutocomplete(autocomplete.Select2QuerySetView):

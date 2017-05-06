@@ -2,92 +2,270 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load bootstrap3 %}
+{% load is_person %}
+{% load order_by %}
 
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {% trans "Harvest detail" %}
-                <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
-                    <i class="fa fa-pencil"></i> {% trans "Edit" %}
-                </a>
+                {% if user.is_authenticated %}
+                    {% for f in harvest.trees.all %}
+                       {{ f }},
+                    {% endfor %}
+                    <i> {{ harvest.property.short_address}}</i>
+                {% else %}
+                    {% for f in harvest.trees.all %}
+                       {{ f }},
+                    {% endfor %}
+                    <i> {{ harvest.property.publishable_location }}</i>
+                {% endif %}
+                <small>(#{{ harvest.id }})</small>
+                {% if user.is_authenticated %}
+                    <span class="pull-right">
+                        <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'>
+                            <i class="fa fa-pencil"></i> {% trans "Edit this harvest" %}
+                        </a>
+                    </span>
+                {% endif %}
+                {% if harvest.pick_leader != None %}
+                    <br><small><strong>{{ harvest.get_status_l10n }}</strong>{% trans " by pick leader" %} <strong>{{ harvest.pick_leader }}</strong></small>
+                {% endif %}
+
+                {% if harvest.pick_leader == None %}
+                    <br><small>{% trans "No pick leader assigned to this harvest" %}</small>
+                    <a class="btn btn-xs btn-success" href='{% url "harvest:harvest_adopt" harvest.id %}'>
+                        <i class="fa fa-hand-o-right"></i> {% trans "Adopt" %}
+                    </a>
+                {% endif %}
             </h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
     <div class="row">
-        <div class="col-sm-6">
-            <strong>{% trans "Start" %} :</strong> {{harvest.start_date}}<br>
-            <strong>{% trans "End" %} :</strong> {{harvest.end_date}}<br>
+        {% if harvest.start_date and harvest.end_date and harvest.status == "Ready"%}
+            <div class="col-sm-3">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="glyphicon glyphicon-time fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ harvest.start_date|date:"d M" }}</div>
+                                <div>{% trans "from" %} {{ harvest.start_date|date:"H:i" }} {% trans "to" %} {{ harvest.end_date|date:"H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% elif harvest.status == "Cancelled" %}
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <i class="glyphicon glyphicon-remove fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 text-right">
+                                <div class="huge">{% trans "Cancelled" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% elif harvest.status == "Date-scheduled" and harvest.start_date and harvest.end_date %}
+            <div class="col-sm-3">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="glyphicon glyphicon-time fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ harvest.start_date|date:"d M" }}</div>
+                                <div>{% trans "from" %} {{ harvest.start_date|date:"H:i" }} {% trans "to" %} {{ harvest.end_date|date:"H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% elif harvest.status == "Succeeded" and harvest.start_date and harvest.end_date %}
+            <div class="col-sm-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="glyphicon glyphicon-ok fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ harvest.start_date|date:"d M" }}</div>
+                                <div>{% trans "from" %} {{ harvest.start_date|date:"H:i" }} {% trans "to" %} {{ harvest.end_date|date:"H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <i class="glyphicon glyphicon-time fa-5x"></i>
+                            </div>
+                            <div class="col-xs-10 text-right">
+                                <div class="huge">{% trans "Not scheduled" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-group fa-5x"></i>
+                        </div>
+                        <div class="col-xs-10 text-right">
+                            <div class="huge">{{ requests.count }} {% trans "requests" %}</div>
+                            <div><strong>{{ harvest.nb_required_pickers }}</strong> {% trans "pickers needed in total" %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6">
-            <strong>{% trans "Status" %} :</strong> {{ harvest.status }}<br>
-            <strong>{% trans "Number of required pickers" %} :</strong> {{ harvest.nb_required_pickers }}<br>
+        {% if user.is_authenticated %}
+            <div class="col-sm-2">
+               <div class="table-responsive">
+                   <table class='table table-borderless table-condensed'>
+                           <tr>
+                               <td><strong>{% trans "Owner wants to... " %}</strong></td>
+                           </tr>
+                           <tr>
+                               <td><strong>{% trans "... be present " %}</strong></td>
+                               <td>{% if harvest.owner_present %}
+                                       <i class="fa fa-check" style="color:green"></i>
+                                   {% else %}
+                                       <i class="fa fa-times" style="color:red"></i>
+                                   {% endif %}
+                               </td>
+                           </tr>
+                           <tr>
+                               <td><strong>{% trans "... participate" %}</strong></td>
+                               <td>{% if harvest.owner_help %}
+                                       <i class="fa fa-check" style="color:green"></i>
+                                   {% else %}
+                                       <i class="fa fa-times" style="color:red"></i>
+                                   {% endif %}
+                               </td>
+                           </tr>
+                           <tr>
+                               <td><strong>{% trans "... have his share of fruits" %}</strong></td>
+                               <td>{% if harvest.owner_fruit %}
+                                       <i class="fa fa-check" style="color:green"></i>
+                                   {% else %}
+                                       <i class="fa fa-times" style="color:red"></i>
+                                   {% endif %}
+                               </td>
+                           </tr>
+                       </table>
+               </div>
+               <!-- /.table-responsive -->
+            </div>
+        {% endif %}
+        <div class="col-sm-3">
+            {% for tree in harvest.trees.all %}
+               {% if tree.image %}
+                    <img src="{{ MEDIA_URL }}{{tree.image}}" alt="{{ tree.fruit_name}}" style="max-height:100px; max-width: 100%;" />
+               {% else %}
+                    <strong>{% trans "Fruit" %} : </strong>{{ tree.fruit_name }}
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
-
+    <div class="row">
+        {% if user.is_authenticated %}
+            <div class="col-sm-6">
+                <span class="lead">{% trans "Property of" %} {{ harvest.property }}</span>
+                <a href='{% url "harvest:property_detail" harvest.property.id %}'><br>
+                <p>{% trans " See full details about this property" %}</a></p>
+            </div>
+        {% endif %}
+    </div>
+    {% if harvest.about %}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="well well-sm">
+                    <p>{{ harvest.about|safe }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if user.is_authenticated == False %}
+        {% if harvest.is_open_to_requests == True %}
+            <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-success btn-lg">
+                <strong>{% trans "Request to join!" %}</strong>
+            </a>
+        {% endif %}
+    {% endif %}
     <hr>
-
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-sm-6">
-            <p><b>{% trans "Property" %} :</b><br> {{ harvest.property }}</p>
-
-            <p><b>{% trans "Owner wants to be present" %} :</b> {{ harvest.owner_present }}</p>
-            <p><b>{% trans "Owner wants to participate" %} :</b> {{ harvest.owner_help }}</p>
-            <p><b>{% trans "Owner wants his share of fruits" %} :</b> {{ harvest.owner_fruit }}</p>
-        </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <span class="pull-right">
+                                <a data-toggle="modal" data-target="#CommentModal" class="btn btn-xs btn-success">
+                                    {% trans "Add comment" %}
+                                </a>
+                            </span>
+                            <i class="fa fa-comments fa-fw"></i> <strong>{% trans "Comments" %}</strong>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" style="max-height: 350px; overflow-y: auto; padding: 5px;">
+                            <ul class="chat">
+                                {% if not harvest.comment.all %}
+                                    {% trans "No comments so far." %}
+                                {% endif %}
+                                {% for comment in harvest.comment.all|order_by:"-created_date" %}
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">{{comment.author}}</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <i class="fa fa-clock-o fa-fw"></i> {{comment.created_date}}
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    {{ comment.content }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel .chat-panel -->
+                </div>
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                <b>{% trans "Trees" %} :</b>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                    {% for tree in harvest.trees.all %}
-                        <li>{{ tree.fruit_name }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                <b>{% trans "Pickers" %} :</b>
-                <span class="pull-right">
-                    <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-xs btn-success">
+                    <span class="pull-right">
+                        <a data-toggle="modal" data-target="#CommentModal" class="btn btn-xs btn-success">
                         <i class="fa fa-plus"></i>
-                        {% trans "Participate to the harvest" %}
-                    </a>
-                </span>
+                            {% trans "New reservation" %}
+                        </a>
+                       </span>
+                <i class="glyphicon glyphicon-scissors"></i> &nbsp;<b>{% trans "Reserved equipment" %}</b>
                 </div>
-                <div class="panel-body">
-                    {% if harvest.pickers.all %}
-                    <ul>
-                        {% for picker in harvest.pickers.all %}
-                            {% if picker == harvest.pick_leader %}
-                            <li>
-                                <span class="label label-primary" style="margin-right: 5px;">
-                                    {% trans "pickleader" %}
-                                </span>
-                                <b>{{ picker }}</b>
-                            </li>
-                            {% else %}
-                            <li>{{ picker }}</li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                        {% trans "No one picker for the moment" %}
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                <b>{% trans "Reserved equipment" %} :</b>
-                </div>
-                <div class="panel-body">
+                <div class="panel-body" style="max-height: 350px; overflow-y: auto; padding: 5px;">
                     {% if harvest.equipment_reserved.all %}
                     <ul>
                         {% for equipment in harvest.equipment_reserved.all %}
@@ -106,23 +284,91 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {% trans "Historical" %}
+                    <i class="glyphicon glyphicon-user"></i> <b>{% trans "Pickers" %}</b>
+                    <span class="pull-right">
+                        <a href='{% url "harvest:participation_create" harvest.id %}' class="btn btn-xs btn-success">
+                            <i class="fa fa-plus"></i>
+                            {% trans "New request" %}
+                        </a>
+                    </span>
                 </div>
-
-                <table class="table table-hover table-condensed">
-                    {% for line in harvest_history %}
-                    {% if line.get_history_type_display == "Created" %}
-                    <tr class="success">
-                    {% else %}
+                <table class='panel-body table-responsive table table-hover table-condensed'>
                     <tr>
-                    {% endif %}
+                        <th>{% trans "Picker" %}</th>
+                        <th>{% trans "Number of people" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Requested on" %}</th>
+                        <th>{% trans "Accepted on" %}</th>
+                        <th>{% trans "First time" %}</th>
+                        <th>{% trans "Comment from picker" %}</th>
+                        <th>{% trans "Comment from pick leader" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                    {% for r in requests %}
+                    <tr>
+                        <td>{{ r.picker }}
+                        {% if r.picker.phone %}
+                            <br>{{ r.picker.phone }}
+                        {% endif %}
+                        {% if r.picker.email %}
+                            <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
+                        {% endif %}
+                        </td>
+                        <td>{{ r.number_of_people }}</td>
                         <td>
-                            <strong>Updated by {{ line.history_user }} in {{ line.history_date }}</strong>
+                            {% if r.is_accepted == None %}
+                                <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                            {% elif r.is_accepted == False %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                            {% elif r.is_accepted == True %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                            {% endif %}
+                        </td>
+                        <td>{{ r.creation_date }}</td>
+                        <td>
+                            {% if r.acceptation_date %}
+                                {{ r.acceptation_date }}
+                            {% else %}
+                                <i class="fa fa-times" style="color:red"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
+                            {% else  %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong> {{r.picker.participation_count}}</strong> accepted request(s).
+                            {% endif %}
+                        </td>
+                        <td>{{ r.comment }}</td>
+                        <td>{{ r.notes_from_pickleader }}</td>
+                        <td>
+                            <!-- Manage request modal -->
+                            <div class="modal fade" id="ManageRequestModal-{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                                            <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action='{% url "harvest:participation_update" r.id %}'>
+                                                {% csrf_token %}
+                                                {% bootstrap_form form_manage_request %}
+                                                {% buttons %}
+                                                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                                {% endbuttons %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -135,26 +381,74 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <i class="fa fa-smile-o"></i> <b>{% trans "Fruit distribution" %}</b>
                     <span class="pull-right">
-                        <a data-toggle="modal" data-target="#CommentModal" class="btn btn-xs btn-success">
-                            {% trans "Add comment" %}
+                        <a href="{% url 'harvest:harvest_add_recipient' harvest.id %}" class="btn btn-xs btn-success">
+                            <i class="fa fa-plus"></i>
+                            {% trans "New recipient" %}
                         </a>
                     </span>
-                    {% trans "Comments" %}
-                </div>
 
-                <table class="table table-hover table-condensed">
-                    {% for comment in harvest.comment.all %}
+                </div>
+                <table class='panel-body table-responsive table table-hover table-condensed'>
                     <tr>
+                        <th>Recipient</th>
+                        <th>Fruit</th>
+                        <th>Amount (in lb)</th>
+                        <th></th>
+                    </tr>
+                    {% for d in distribution %}
+                    <tr>
+                        <td>{{ d.recipient }}</td>
+                        <td>{{ d.tree.fruit_name }}</td>
+                        <td>{{ d.total_in_lb }}</td>
                         <td>
-                            <strong>{{comment.author}} on {{comment.created_date}}</strong><br>
-                            {{comment.content}}
+                            <a class="btn btn-xs btn-warning" href="{% url 'harvest:harvest_edit_recipient' d.id %}">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <strong>Total: {{ harvest.get_total_distribution }}</strong>
+                        </td>
+                    <tr>
                 </table>
             </div>
         </div>
+    </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>{% trans "History" %}</strong>
+                </div>
+                <div class="panel-body" style="max-height: 150px; overflow-y: auto; padding: 2px;">
+                    <table class="table table-hover table-condensed">
+                        {% for line in harvest_history %}
+                        {% if line.get_history_type_display == "Created" %}
+                        <tr class="success">
+                        {% else %}
+                        <tr>
+                        {% endif %}
+                        {% if line.changed_by != None %}
+                            <td>
+                                Updated by {{ line.changed_by }} in {{ line.history_date }}<br>
+                            </td>
+                        {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     </div>
 
     <!-----------
@@ -181,4 +475,6 @@
             </div>
         </div>
     </div>
+
+
 {% endblock %}

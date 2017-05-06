@@ -1,8 +1,53 @@
-import django_filters
-from models import Harvest
+from harvest.models import Harvest, HARVESTS_STATUS_CHOICES
+from member.models import AuthUser, Neighborhood
+from django_filters import FilterSet, ChoiceFilter, ModelChoiceFilter
+
+FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
+FILTER_HARVEST_CHOICES.insert(0, ('', '---------'))
 
 
-class HarvestFilter(django_filters.FilterSet):
+class HarvestFilter(FilterSet):
+    seasons = []
+
     class Meta:
         model = Harvest
-        fields = ['status', 'pick_leader', 'is_active']
+        fields = {
+            'status': ['exact'],
+            'pick_leader': ['exact'],
+            'trees': ['exact'],
+            'property__neighborhood': ['exact'],
+            'start_date': ['exact']
+        }
+
+    def __init__(self, *args, **kwargs):
+        """Return a list of years based on past and
+        current harvests dates"""
+
+        super(HarvestFilter, self).__init__(*args, **kwargs)
+        seasons = []
+        for y in Harvest.objects.all():
+            if y.start_date is not None:
+                t_seasons = (
+                    y.start_date.strftime("%Y"),
+                    y.start_date.strftime("%Y")
+                )
+                seasons.append(t_seasons)
+        seasons.insert(0, ('', '---------'))
+        self.seasons = seasons
+
+    status = ChoiceFilter(
+        choices=FILTER_HARVEST_CHOICES
+    )
+
+    pick_leader = ModelChoiceFilter(
+        queryset=AuthUser.objects.filter(
+            is_staff=True
+        ),
+        required=False
+    )
+
+    start_date = ChoiceFilter(
+        choices=seasons,
+        label="Season",
+        lookup_expr='year'
+    )

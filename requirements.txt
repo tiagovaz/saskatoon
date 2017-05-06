@@ -1,6 +1,6 @@
 Django==1.9
 django-bootstrap3==6.2.2
-
+django-crequest==2014.9.19
 django-forms-bootstrap
 django-extensions
 django-fixtureless
@@ -11,4 +11,8 @@ django-suit
 django-tables2
 django-pagination
 django-bootstrap3-datepicker
-django-filters
+django-filter
+django-modeltranslation
+django-ckeditor
+mysqlclient==1.3.10
+Pillow
