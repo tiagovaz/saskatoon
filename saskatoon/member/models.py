@@ -463,4 +463,5 @@ class Notification(models.Model):
             return "fa fa-bell"
 
     def __str__(self):
+
         return self.text

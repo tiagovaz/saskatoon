@@ -57,7 +57,6 @@ target/
 db.sqlite3
 .idea
 *.png
-
 django_bootstrap_calendar/*
 .project
 /.pydevproject
