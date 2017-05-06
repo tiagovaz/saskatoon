@@ -414,7 +414,7 @@ class Harvest(models.Model):
     def is_publishable(self):
 
         now = datetime.datetime.now()
-        publication_hour = 18 #FIXME: add a model to set this up
+        publication_hour = 18 #FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
 
         print "Publication date: ", self.publication_date
         if self.publication_date != None:

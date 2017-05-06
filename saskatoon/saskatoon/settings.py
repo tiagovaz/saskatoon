@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-ly1!%ui5z+*cfy9&wb=os6c(iysect2od0di1d$p(o$a696jo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -103,9 +103,9 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saskatoon',
+        'NAME': 'saskatoon_dev',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'FDgwBoom!',
     }
 }
 
@@ -185,10 +185,10 @@ FILTERS_HELP_TEXT_FILTER = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = ''
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'lesfruitsdefendus.montreal@gmail.com'
+EMAIL_HOST_PASSWORD = 'SR3112syrup'
 #SESSION_COOKIE_SECURE = True
 #CSRF_COOKIE_SECURE = True
 
