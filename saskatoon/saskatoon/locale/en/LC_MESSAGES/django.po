@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-01 12:49-0400\n"
+"POT-Creation-Date: 2017-05-06 13:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,50 +21,50 @@ msgstr ""
 msgid "Saskatoon - Urbain harvesting management system"
 msgstr ""
 
-#: saskatoon/templates/base.html:63 saskatoon/templates/base.html.py:66
+#: saskatoon/templates/base.html:66 saskatoon/templates/base.html.py:69
 msgid "Language"
 msgstr ""
 
-#: saskatoon/templates/base.html:81
+#: saskatoon/templates/base.html:84
 msgid "Notification"
 msgstr ""
 
-#: saskatoon/templates/base.html:92
+#: saskatoon/templates/base.html:95
 msgid "Account"
 msgstr ""
 
-#: saskatoon/templates/base.html:96
+#: saskatoon/templates/base.html:99
 msgid "Logout"
 msgstr ""
 
-#: saskatoon/templates/base.html:107
+#: saskatoon/templates/base.html:110
 msgid "Login"
 msgstr ""
 
-#: saskatoon/templates/base.html:122
+#: saskatoon/templates/base.html:125
 msgid "Dashboard"
 msgstr ""
 
-#: saskatoon/templates/base.html:128
+#: saskatoon/templates/base.html:131
 msgid "Calendar"
 msgstr ""
 
-#: saskatoon/templates/base.html:134
+#: saskatoon/templates/base.html:137
 msgid "Harvests"
 msgstr ""
 
-#: saskatoon/templates/base.html:140
+#: saskatoon/templates/base.html:143
 msgid "Properties"
 msgstr ""
 
-#: saskatoon/templates/base.html:146
+#: saskatoon/templates/base.html:149
 msgid "Equipment"
 msgstr ""
 
-#: saskatoon/templates/base.html:152
+#: saskatoon/templates/base.html:155
 msgid "Admin"
 msgstr ""
 
-#: saskatoon/templates/base.html:158
+#: saskatoon/templates/base.html:161
 msgid "Bugs"
 msgstr ""
