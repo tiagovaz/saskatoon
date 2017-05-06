@@ -96,7 +96,8 @@ class Property(models.Model):
     """
     is_active = models.BooleanField(
         verbose_name=_("Is active"),
-        help_text = _("Harvest in this property is authorized for the current season"),
+        help_text=_("Harvest in this property is "
+                    "authorized for the current season"),
         default='True'
     )
 
@@ -168,7 +169,8 @@ class Property(models.Model):
 
     publishable_location = models.CharField(
         verbose_name=_("Publishable location"),
-        help_text = _("Aproximative location, do not make public the real address."),
+        help_text=_("Aproximative location, "
+                    "do not make public the real address."),
         max_length=50,
         null=True,
         blank=True
@@ -242,11 +244,21 @@ class Property(models.Model):
 
     def short_address(self):
         if self.street_number and self.street and self.complement:
-            return "%s %s, %s" % (self.street_number, self.street, self.complement)
+            return "%s %s, %s" % (
+                self.street_number,
+                self.street,
+                self.complement
+            )
         elif self.street and self.street_number:
-            return "%s %s" % (self.street_number, self.street)
+            return "%s %s" % (
+                self.street_number,
+                self.street
+            )
         elif self.street and self.complement:
-            return "%s, %s" % (self.street, self.complement)
+            return "%s, %s" % (
+                self.street,
+                self.complement
+            )
         else:
             return self.street
 
@@ -272,6 +284,7 @@ class PropertyImage(models.Model):
     image = models.ImageField(
         upload_to='properties_images',
     )
+
 
 @python_2_unicode_compatible
 class Harvest(models.Model):
@@ -353,7 +366,8 @@ class Harvest(models.Model):
     about = models.TextField(
         verbose_name=_("Public announcement"),
         max_length=1000,
-        help_text = _("If any help is needed from volunteer pickers, please describe them here."),
+        help_text=_("If any help is needed from volunteer pickers, "
+                    "please describe them here."),
         null=True,
         blank=True
     )
@@ -386,13 +400,17 @@ class Harvest(models.Model):
 
     def __str__(self):
         if self.start_date:
-            return u"Harvest on %s at %s" % (self.start_date,self.property)
+            return u"Harvest on %s at %s" % (
+                self.start_date,
+                self.property
+            )
         else:
-            return u"Harvest at %s" % (self.property)
+            return u"Harvest at %s" % self.property
 
     def is_urgent(self):
         if self.start_date:
-            day_before_harvest = (datetime.datetime.now() - self.start_date).days
+            diff = datetime.datetime.now() - self.start_date
+            day_before_harvest = diff.days
 
             if not self.pick_leader and day_before_harvest < 14:
                 return True
@@ -403,55 +421,72 @@ class Harvest(models.Model):
 
     def is_happening(self):
         if self.start_date:
-            day_before_harvest = (datetime.datetime.now() - self.start_date).days
+            diff = datetime.datetime.now() - self.start_date
+            day_before_harvest = diff.days
 
             if self.status == 'Ready' and day_before_harvest == 0:
                 return True
 
         return False
 
-
     def is_publishable(self):
-
         now = datetime.datetime.now()
+<<<<<<< HEAD
         publication_hour = 18 #FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
+=======
+        publication_hour = 18  # FIXME: add a model to set this up
+>>>>>>> 4d75d7854073f46b8ae7af5c977990d831039689
 
-        print "Publication date: ", self.publication_date
-        if self.publication_date != None:
+        print("Publication date: ", self.publication_date)
+        if self.publication_date is not None:
             is_good_day = self.publication_date.day == now.day
-            print self.publication_date.day, now.day, "<== PUBLICATION DAY & NOW DAY"
+            print(
+                self.publication_date.day,
+                now.day,
+                "<== PUBLICATION DAY & NOW DAY"
+            )
             is_good_month = self.publication_date.month == now.month
-            print self.publication_date.month
+            print(self.publication_date.month)
             is_good_year = self.publication_date.year == now.year
-            print self.publication_date.year
+            print(self.publication_date.year)
 
-            print is_good_day, is_good_month, is_good_year
+            print(is_good_day, is_good_month, is_good_year)
 
-            print "TODAY: ", now
+            print("TODAY: ", now)
             if is_good_day and is_good_month and is_good_year:
                 is_today = True
             else:
                 is_today = False
 
             if self.status in ["Ready", "Date-scheduled", "Succeeded"]:
-                if is_today == True:
-                    print "is today"
-                    if now.hour >= publication_hour and self.publication_date.hour < publication_hour+4: #FIXME: timezone
-                        print "TODAY OK"
-                        return True # publish if it was published today earlier and it's time to go online
+                if is_today:
+                    print("is today")
+                    cond = self.publication_date.hour < publication_hour+4
+                    if now.hour >= publication_hour and cond:
+                        # FIXME: timezone
+                        print("TODAY OK")
+                        return True
+                        # publish if it was published today
+                        # earlier and it's time to go online
                     else:
-                        return False # do not publish otherwise
+                        return False
+                        # do not publish otherwise
                 else:
-                    return True # publish if date of publication is in the pas
+                    return True
+                    # publish if date of publication is in the pas
             else:
-                return False # do not publish if harvest is not ready/scheduled/succeeded
+                return False
+                # do not publish if harvest
+                # is not ready/scheduled/succeeded
         else:
-            return False # do not publish if there's no publication_date
+            return False
+            # do not publish if there's no publication_date
 
     def is_open_to_requests(self):
         now = datetime.datetime.now().date()
         start_date = self.start_date.date()
-        if self.status in ["Ready", "Date-scheduled"] and self.is_publishable() and now <= start_date:
+        if self.status in ["Ready", "Date-scheduled"] and \
+                self.is_publishable() and now <= start_date:
             return True
         else:
             return False
@@ -466,7 +501,6 @@ models.signals.pre_save.connect(
 )
 
 
-
 class HarvestImage(models.Model):
     harvest = models.ForeignKey(
         Harvest,
@@ -475,6 +509,7 @@ class HarvestImage(models.Model):
     image = models.ImageField(
         upload_to='harvests_images',
     )
+
 
 @python_2_unicode_compatible
 class RequestForParticipation(models.Model):
@@ -524,15 +559,15 @@ class RequestForParticipation(models.Model):
     is_accepted = models.NullBooleanField(
         verbose_name=_("Accepted"),
         default=None,
-        null = True,
-        blank = True
+        null=True,
+        blank=True
     )
 
     showed_up = models.NullBooleanField(
         verbose_name=_("Showed up"),
         default=None,
-        null = True,
-        blank = True
+        null=True,
+        blank=True
     )
 
     is_cancelled = models.BooleanField(
@@ -578,7 +613,6 @@ class HarvestYield(models.Model):
         'member.Actor',
         verbose_name=_("Recipient")
     )
-
 
     class Meta:
         verbose_name = _("harvest yield")
@@ -627,7 +661,7 @@ class Equipment(models.Model):
         verbose_name_plural = _("equipment")
 
     def __str__(self):
-        return "%s (%s)" % (self.description,self.type)
+        return "%s (%s)" % (self.description, self.type)
 
 
 @python_2_unicode_compatible

@@ -1,26 +1,13 @@
-import django_filters
-from models import Harvest, HARVESTS_STATUS_CHOICES
+from harvest.models import Harvest, HARVESTS_STATUS_CHOICES
 from member.models import AuthUser, Neighborhood
-from django import forms
-from django_filters import FilterSet, ChoiceFilter, ModelChoiceFilter, NumberFilter
+from django_filters import FilterSet, ChoiceFilter, ModelChoiceFilter
 
 FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
 FILTER_HARVEST_CHOICES.insert(0, ('', '---------'))
 
-def get_seasons():
-    """Return a list of years based on past and current harvests dates"""
-    seasons = []
-    t_seasons = ()
-    for y in Harvest.objects.all():
-        if y.start_date != None:
-            t_seasons = (y.start_date.strftime("%Y"), y.start_date.strftime("%Y"))
-            seasons.append(t_seasons)
-    seasons.insert(0, ('', '---------'))
-    return set(seasons)
-
-FILTER_HARVEST_SEASONS = get_seasons()
 
 class HarvestFilter(FilterSet):
+    seasons = []
 
     class Meta:
         model = Harvest
@@ -28,9 +15,25 @@ class HarvestFilter(FilterSet):
             'status': ['exact'],
             'pick_leader': ['exact'],
             'trees': ['exact'],
-            'property__neighborhood':['exact'],
+            'property__neighborhood': ['exact'],
             'start_date': ['exact']
         }
+
+    def __init__(self, *args, **kwargs):
+        """Return a list of years based on past and
+        current harvests dates"""
+
+        super(HarvestFilter, self).__init__(*args, **kwargs)
+        seasons = []
+        for y in Harvest.objects.all():
+            if y.start_date is not None:
+                t_seasons = (
+                    y.start_date.strftime("%Y"),
+                    y.start_date.strftime("%Y")
+                )
+                seasons.append(t_seasons)
+        seasons.insert(0, ('', '---------'))
+        self.seasons = seasons
 
     status = ChoiceFilter(
         choices=FILTER_HARVEST_CHOICES
@@ -44,8 +47,7 @@ class HarvestFilter(FilterSet):
     )
 
     start_date = ChoiceFilter(
-        choices=FILTER_HARVEST_SEASONS,
+        choices=seasons,
         label="Season",
-        lookup_expr=('year')
+        lookup_expr='year'
     )
-

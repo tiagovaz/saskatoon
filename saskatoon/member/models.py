@@ -1,13 +1,11 @@
 # coding: utf-8
 
 from django.db import models
-from django.template.defaultfilters import register
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
-from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, \
+    PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
-
 from harvest.models import RequestForParticipation
 
 
@@ -24,33 +22,41 @@ NOTIFICATION_TYPE_CHOICES = (
 
 
 class AuthUserManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
+    def create_user(self, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
-        user = self.model(username=username, email=self.normalize_email(email),
+        user = self.model(email=self.normalize_email(email),
                           )
         user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, password):
-        user = self.create_user(username=username, email=email, password=password)
+    def create_superuser(self, email, password):
+        user = self.create_user(email=email, password=password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
 
 @python_2_unicode_compatible
 class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     person = models.OneToOneField('Person', null=True)
 
-    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', message='Only alphanumeric characters are allowed.')
+    alphanumeric = RegexValidator(
+        r'^[0-9a-zA-Z]*$',
+        message='Only alphanumeric characters are allowed.'
+    )
 
     # Redefine the basic fields that would normally be defined in User
-    email = models.EmailField(verbose_name='email address', unique=True, max_length=255)
+    email = models.EmailField(
+        verbose_name='email address',
+        unique=True,
+        max_length=255
+    )
 
     # Our own fields
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -68,9 +74,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         try:
-            return u"%s" % (self.person)
+            return u"%s" % self.person
         except:
-       	    return self.email
+            return self.email
 
 
 @python_2_unicode_compatible
@@ -212,8 +218,12 @@ class Person(Actor):
         return auth_obj.email
 
     def participation_count(self):
-        count = RequestForParticipation.objects.filter(picker=self, is_accepted=True).count()
+        count = RequestForParticipation.objects.filter(
+            picker=self,
+            is_accepted=True
+        ).count()
         return count
+
 
 @python_2_unicode_compatible
 class Organization(Actor):

@@ -1,13 +1,14 @@
 # coding: utf-8
 from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
-    RequestForParticipation, TreeType, Comment, PropertyImage, HarvestYield, HarvestImage
+    RequestForParticipation, TreeType, Comment, \
+    PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor, Organization
+from harvest.filters import HarvestFilter
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse_lazy, resolve
-from filters import *
+from django.core.urlresolvers import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from dal import autocomplete
@@ -90,6 +91,7 @@ class PropertyUpdate(generic.UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+
 class PropertyImageCreate(generic.CreateView):
     model = PropertyImage
     template_name = 'harvest/properties/add_image.html'
@@ -110,7 +112,6 @@ class PropertyImageCreate(generic.CreateView):
             'harvest:property_detail',
             kwargs={'pk': self.kwargs['pk']}
         )
-
 
 
 class HarvestImageCreate(generic.CreateView):
@@ -145,12 +146,18 @@ class HarvestList(generic.ListView):
         return super(HarvestList, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        return HarvestFilter(self.request.GET, queryset=Harvest.objects.all().order_by('-id'))
+        return HarvestFilter(
+            self.request.GET,
+            queryset=Harvest.objects.all().order_by('-id')
+        )
 
     def get_context_data(self, **kwargs):
         context = super(HarvestList, self).get_context_data(**kwargs)
 
-        all_harvests = HarvestFilter(self.request.GET, queryset=Harvest.objects.all().order_by('-id'))
+        all_harvests = HarvestFilter(
+            self.request.GET,
+            queryset=Harvest.objects.all().order_by('-id')
+        )
         context['view'] = "harvests"
         context['form'] = all_harvests.form
 
@@ -228,6 +235,7 @@ class HarvestUpdate(generic.UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+
 class HarvestAdopt(generic.RedirectView):
 
     @method_decorator(login_required)
@@ -271,6 +279,7 @@ class HarvestAdopt(generic.RedirectView):
             args=[self.harvest.id]
         )
 
+
 class RequestForParticipationUpdate(generic.UpdateView):
     model = RequestForParticipation
     context_object_name = 'participation'
@@ -283,7 +292,8 @@ class RequestForParticipationUpdate(generic.UpdateView):
             RequestForParticipation,
             id=kwargs['pk']
         )
-        return super(RequestForParticipationUpdate, self).dispatch(request, *args, **kwargs)
+        return super(RequestForParticipationUpdate, self).\
+            dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         request = RequestForParticipation.objects.get(id=self.kwargs['pk'])
@@ -294,13 +304,15 @@ class RequestForParticipationUpdate(generic.UpdateView):
 
 
 def get_context_data(self, **kwargs):
-    context = super(RequestForParticipationUpdate, self).get_context_data(**kwargs)
+    context = super(RequestForParticipationUpdate, self).\
+        get_context_data(**kwargs)
 
     participation = RequestForParticipation.objects.get(id=self.kwargs['pk'])
 
     context['participation'] = participation
 
     return context
+
 
 class EquipmentList(generic.ListView):
     template_name = 'harvest/equipment/list.html'
@@ -314,6 +326,7 @@ class EquipmentList(generic.ListView):
     def get_queryset(self):
         return Equipment.objects.all()
 
+
 class ParticipationList(generic.ListView):
     template_name = 'harvest/participation/list.html'
     context_object_name = 'participations'
@@ -325,6 +338,7 @@ class ParticipationList(generic.ListView):
 
     def get_queryset(self):
         return RequestForParticipation.objects.all()
+
 
 class EquipmentCreate(generic.CreateView):
     model = Equipment
@@ -351,13 +365,15 @@ class EquipmentCreate(generic.CreateView):
                 'harvest:equipment_list'
             )
 
+
 class RequestForParticipationCreate(generic.CreateView):
     model = RequestForParticipation
     template_name = 'harvest/participation/create.html'
     form_class = RequestForm
 
     def dispatch(self, *args, **kwargs):
-        return super(RequestForParticipationCreate, self).dispatch(*args, **kwargs)
+        return super(RequestForParticipationCreate, self).\
+            dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
@@ -372,7 +388,8 @@ class RequestForParticipationCreate(generic.CreateView):
         messages.add_message(
             self.request,
             messages.SUCCESS,
-            _('Your request of participation has been sent. The pick leader will contact you soon!')
+            _('Your request of participation has been sent. '
+              'The pick leader will contact you soon!')
         )
         return reverse_lazy(
             'harvest:harvest_detail',
@@ -400,11 +417,16 @@ class HarvestYieldCreate(generic.CreateView):
         context = super(HarvestYieldCreate, self).get_context_data(**kwargs)
 
         trees = Harvest.objects.get(id=self.kwargs['pk']).trees.all()
-        model_choice_tree = forms.ModelChoiceField(queryset=trees, required=False)
+        model_choice_tree = forms.ModelChoiceField(
+            queryset=trees,
+            required=False
+        )
         context['form'].fields['tree'] = model_choice_tree
 
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        requests = harvest.request_for_participation.filter(is_accepted=True)
+        requests = harvest.request_for_participation.filter(
+            is_accepted=True
+        )
         pickers = []
         for request_participation in requests:
             pickers.append(request_participation.picker)
@@ -423,7 +445,10 @@ class HarvestYieldCreate(generic.CreateView):
 
         recipients = Actor.objects.filter(pk__in=recipients)
 
-        model_choice_recipient = forms.ModelChoiceField(queryset=recipients, required=False)
+        model_choice_recipient = forms.ModelChoiceField(
+            queryset=recipients,
+            required=False
+        )
         context['form'].fields['recipient'] = model_choice_recipient
 
         return context
@@ -462,16 +487,23 @@ class HarvestYieldUpdate(generic.UpdateView):
         harvest = HarvestYield.objects.get(id=self.kwargs['pk']).harvest
 
         trees = Harvest.objects.get(id=harvest.id).trees.all()
-        model_choice_tree = forms.ModelChoiceField(queryset=trees, required=False)
+        model_choice_tree = forms.ModelChoiceField(
+            queryset=trees,
+            required=False
+        )
         context['form'].fields['tree'] = model_choice_tree
 
         harvest = Harvest.objects.get(id=harvest.id)
-        requests = harvest.request_for_participation.filter(is_accepted=True)
+        requests = harvest.request_for_participation.filter(
+            is_accepted=True
+        )
         pickers = []
         for request_participation in requests:
             pickers.append(request_participation.picker)
 
-        organizations = Organization.objects.filter(is_beneficiary=True)
+        organizations = Organization.objects.filter(
+            is_beneficiary=True
+        )
         owner = harvest.property.owner
 
         recipients = set()
@@ -483,7 +515,10 @@ class HarvestYieldUpdate(generic.UpdateView):
 
         recipients = Actor.objects.filter(pk__in=recipients)
 
-        model_choice_recipient = forms.ModelChoiceField(queryset=recipients, required=False)
+        model_choice_recipient = forms.ModelChoiceField(
+            queryset=recipients,
+            required=False
+        )
         context['form'].fields['recipient'] = model_choice_recipient
 
         return context
@@ -541,6 +576,7 @@ class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -565,9 +601,15 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
         list_actor = []
 
         if self.q:
-            first_name = qs.filter(person__first_name__icontains=self.q)
-            family_name = qs.filter(person__family_name__icontains=self.q)
-            civil_name = qs.filter(organization__civil_name__icontains=self.q)
+            first_name = qs.filter(
+                person__first_name__icontains=self.q
+            )
+            family_name = qs.filter(
+                person__family_name__icontains=self.q
+            )
+            civil_name = qs.filter(
+                organization__civil_name__icontains=self.q
+            )
 
             for actor in first_name:
                 if actor not in list_actor:
@@ -611,8 +653,12 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
         list_property = []
 
         if self.q:
-            first_name = qs.filter(owner__person__first_name__icontains=self.q)
-            family_name = qs.filter(owner__person__family_name__icontains=self.q)
+            first_name = qs.filter(
+                owner__person__first_name__icontains=self.q
+            )
+            family_name = qs.filter(
+                owner__person__family_name__icontains=self.q
+            )
 
             for actor in first_name:
                 if actor not in list_property:

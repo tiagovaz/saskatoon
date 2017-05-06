@@ -3,10 +3,10 @@
 
 from django.contrib import admin
 
-from forms import RFPForm, PropertyForm, HarvestForm, HarvestYieldForm, EquipmentForm
 from member.models import *
 from harvest.models import *
 from harvest.forms import *
+
 
 class PropertyInline(admin.TabularInline):
     model = Property
@@ -33,8 +33,9 @@ class HarvestYieldInline(admin.TabularInline):
     model = HarvestYield
     form = HarvestYieldForm
 
+
 class HarvestAdmin(admin.ModelAdmin):
-    #form = HarvestForm
+    # form = HarvestForm
     model = Harvest
     inlines = (PersonInline, HarvestYieldInline)
 
@@ -42,16 +43,19 @@ class HarvestAdmin(admin.ModelAdmin):
 class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
+
 class EquipmentAdmin(admin.ModelAdmin):
     form = EquipmentForm
+
 
 class PropertyImageInline(admin.TabularInline):
     model = PropertyImage
     extra = 3
 
+
 class PropertyAdmin(admin.ModelAdmin):
     model = Property
-    inlines = [ PropertyImageInline, ]
+    inlines = [PropertyImageInline]
     form = PropertyForm
 
 admin.site.register(Property, PropertyAdmin)

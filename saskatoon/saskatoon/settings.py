@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -105,14 +106,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'saskatoon_dev',
         'USER': 'root',
+<<<<<<< HEAD
         'PASSWORD': 'FDgwBoom!',
+=======
+        'PASSWORD': 'qqCXmHsj27',
+>>>>>>> 4d75d7854073f46b8ae7af5c977990d831039689
     }
 }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
-from django.core.urlresolvers import reverse_lazy
-
 AUTH_USER_MODEL = "member.AuthUser"
 
 LOGIN_URL = reverse_lazy('pages:login')
@@ -124,8 +127,6 @@ LOGIN_REDIRECT_URL = reverse_lazy('pages:index')
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 # http://django-modeltranslation.readthedocs.io/en/latest/installation.html
 
-from django.utils.translation import gettext_lazy as _
-
 LANGUAGE_CODE = 'fr-ca'
 
 TIME_ZONE = 'America/Montreal'
@@ -136,7 +137,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-gettext = lambda s: s
 LANGUAGES = (
     ('fr', u'Français'),
     ('en', u'English'),
@@ -187,32 +187,38 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+<<<<<<< HEAD
 EMAIL_HOST_USER = 'lesfruitsdefendus.montreal@gmail.com'
 EMAIL_HOST_PASSWORD = 'SR3112syrup'
 #SESSION_COOKIE_SECURE = True
 #CSRF_COOKIE_SECURE = True
+=======
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+>>>>>>> 4d75d7854073f46b8ae7af5c977990d831039689
 
-#CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+# CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 
 CKEDITOR_CONFIGS = {
     'default': {
-#        'toolbar': [
-#            [      'Undo', 'Redo',
-#              '-', 'Bold', 'Italic', 'Underline',
-#              '-', 'Link', 'Unlink', 'Anchor',
-#              '-', 'Format',
-#              '-', 'SpellChecker', 'Scayt',
-#              '-', 'Maximize',
-#            ],
-#        ],
+        # 'toolbar': [
+        # [      'Undo', 'Redo',
+        # '-', 'Bold', 'Italic', 'Underline',
+        # '-', 'Link', 'Unlink', 'Anchor',
+        # '-', 'Format',
+        # '-', 'SpellChecker', 'Scayt',
+        # '-', 'Maximize',
+        # ],
+        # ],
         'width': 'auto',
-        'height': 'auto' ,
+        'height': 'auto',
         'toolbarCanCollapse': True,
     },
-
     'simple_toolbar': {
         'toolbar': [
-            [ 'Bold', 'Italic', 'Underline' ],
+            ['Bold', 'Italic', 'Underline'],
         ],
         'width': 840,
         'height': 300,
