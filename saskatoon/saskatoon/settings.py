@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-ly1!%ui5z+*cfy9&wb=os6c(iysect2od0di1d$p(o$a696jo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -34,13 +33,11 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'crequest',
     'bootstrap3_datepicker',
+    'suit',
     'dal',
     'dal_select2',
     'django_filters',
-    'modeltranslation',
-    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +53,6 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'crispy_forms',
     'simple_history',
-    'django.contrib.humanize',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -69,7 +65,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'crequest.middleware.CrequestMiddleware',
 ]
 
 ROOT_URLCONF = 'saskatoon.urls'
@@ -89,8 +84,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.media',
-                'saskatoon.context_processor.get_number_notification',
             ],
         },
     },
@@ -99,23 +92,31 @@ TEMPLATES = [
 WSGI_APPLICATION = 'saskatoon.wsgi.application'
 
 
-# USE MySQL for your local tests
+# Database
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'saskatoon',
+#        'USER': '',
+#        'PASSWORD': '',
+#    }
+#}
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saskatoon_dev',
-        'USER': 'root',
-<<<<<<< HEAD
-        'PASSWORD': 'FDgwBoom!',
-=======
-        'PASSWORD': 'qqCXmHsj27',
->>>>>>> 4d75d7854073f46b8ae7af5c977990d831039689
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+from django.core.urlresolvers import reverse_lazy
+
 AUTH_USER_MODEL = "member.AuthUser"
 
 LOGIN_URL = reverse_lazy('pages:login')
@@ -125,7 +126,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('pages:index')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-# http://django-modeltranslation.readthedocs.io/en/latest/installation.html
+from django.utils.translation import gettext_lazy as _
 
 LANGUAGE_CODE = 'fr-ca'
 
@@ -148,23 +149,12 @@ LOCALE_PATHS = [
     'pages/locale/',
     'saskatoon/locale/'
 ]
-
-MODELTRANSLATION_TRANSLATION_FILES = (
-    'harvest.translation',
-    'member.translation',
-)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'saskatoon/static')
 
 STATIC_URL = '/static/'
-
-# Media files (uploaded files, images)
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-MEDIA_URL = '/media/'
 
 # BOOTSRATP 3
 
@@ -180,47 +170,3 @@ SUIT_CONFIG = {
     }
 
 FILTERS_HELP_TEXT_FILTER = False
-
-# EMAIL #
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-<<<<<<< HEAD
-EMAIL_HOST_USER = 'lesfruitsdefendus.montreal@gmail.com'
-EMAIL_HOST_PASSWORD = 'SR3112syrup'
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
-=======
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
->>>>>>> 4d75d7854073f46b8ae7af5c977990d831039689
-
-# CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        # 'toolbar': [
-        # [      'Undo', 'Redo',
-        # '-', 'Bold', 'Italic', 'Underline',
-        # '-', 'Link', 'Unlink', 'Anchor',
-        # '-', 'Format',
-        # '-', 'SpellChecker', 'Scayt',
-        # '-', 'Maximize',
-        # ],
-        # ],
-        'width': 'auto',
-        'height': 'auto',
-        'toolbarCanCollapse': True,
-    },
-    'simple_toolbar': {
-        'toolbar': [
-            ['Bold', 'Italic', 'Underline'],
-        ],
-        'width': 840,
-        'height': 300,
-    },
-}
