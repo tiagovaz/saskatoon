@@ -8,6 +8,28 @@
 {% block extrahead %}
     {% leaflet_js %}
     {% leaflet_css %}
+    <style>
+      .leaflet-container { height: 600px; width: 100%;}
+    </style>
+    <script type="text/javascript">
+      var dataurl = '{% url "pages:data" %}';
+      window.addEventListener("map:init", function (event) {
+        var map = event.detail.map;
+        // Download GeoJSON data with Ajax
+        fetch(dataurl)
+          .then(function(resp) {
+            return resp.json();
+          })
+          .then(function(data) {
+            L.geoJson(data, {
+              onEachFeature: function onEachFeature(feature, layer) {
+                var props = feature.properties;
+                var content = `<img width="300" src="https://decaturite.files.wordpress.com/2009/04/mak-home-tree-destroyed.png"/><b>${props.get_owner_name}</b><p>${props.short_address}</p><a href="/harvest/property/${props.id}">Property details</a>`;
+                layer.bindPopup(content);
+            }}).addTo(map);
+          });
+      });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -28,6 +50,17 @@
 
             <div class="row">
                 <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-tree-deciduous"></i> {% trans "Properties" %}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            {% leaflet_map "main" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bell fa-fw"></i> {% trans "Notifications" %}
@@ -53,12 +86,6 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        {% leaflet_map "yourmap" %}
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-pie-chart fa-fw"></i> {% trans "Statistics" %}

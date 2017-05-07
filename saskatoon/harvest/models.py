@@ -247,7 +247,7 @@ class Property(models.Model):
         else:
             return u"%s at %s" % \
                (self.owner, self.street)
-
+    @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
             return "%s %s, %s" % (
@@ -274,6 +274,10 @@ class Property(models.Model):
     def get_harvests(self):
         harvests_list = Harvest.objects.filter(property=self)
         return harvests_list
+
+    @property
+    def get_owner_name(self):
+        return self.owner.__str__()
 
 # SIGNALS CONNECTED
 models.signals.pre_save.connect(

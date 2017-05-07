@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-06 13:55-0400\n"
+"POT-Creation-Date: 2017-05-07 12:15-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,36 +21,36 @@ msgstr ""
 msgid "Harvest calendar"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:9
+#: pages/templates/pages/dashboard.html:16
 msgid "Welcome"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:17
+#: pages/templates/pages/dashboard.html:24
 msgid ""
 "This dashboard is still in development, many other features will come soon."
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:26
+#: pages/templates/pages/dashboard.html:33
 msgid "Notifications"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:43
+#: pages/templates/pages/dashboard.html:50
 msgid "No notifications for the moment"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:54
+#: pages/templates/pages/dashboard.html:64
 msgid "Statistics"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:61
+#: pages/templates/pages/dashboard.html:71
 msgid "Number of harvests"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:68
+#: pages/templates/pages/dashboard.html:78
 msgid "Number of properties"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:75
+#: pages/templates/pages/dashboard.html:85
 msgid "Number of users"
 msgstr ""
 

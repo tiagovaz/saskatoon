@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, url
 from pages import views
+from harvest.models import Property
+from djgeojson.views import GeoJSONLayerView
+
 
 urlpatterns = patterns(
     '',
@@ -23,4 +26,8 @@ urlpatterns = patterns(
         views.JsonCalendar.as_view(),
         name='calendarJSON'
     ),
+    url(r'^data.geojson$',
+        GeoJSONLayerView.as_view(model=Property, properties=('id', 'get_owner_name', 'short_address')),
+        name='data')
+
 )
