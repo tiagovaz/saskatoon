@@ -3,6 +3,13 @@
 {% load i18n %}
 {% load humanize %}
 
+{% load leaflet_tags %}
+
+{% block extrahead %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+{% endblock %}
+
 {% block content %}
             <div class="row">
                 <div class="col-lg-12">
@@ -45,6 +52,9 @@
                                 {% endif %}
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        {% leaflet_map "yourmap" %}
                     </div>
                 </div>
 

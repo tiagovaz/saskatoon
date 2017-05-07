@@ -292,6 +292,7 @@ class PropertyForm(forms.ModelForm):
             'country',
             'longitude',
             'latitude',
+            'geom',
             'about',
         )
 
