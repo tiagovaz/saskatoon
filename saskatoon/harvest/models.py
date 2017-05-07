@@ -8,6 +8,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
 import datetime
 from harvest import signals
+from djgeojson.fields import PointField
+
 
 HARVESTS_STATUS_CHOICES = (
     (
@@ -100,6 +102,8 @@ class Property(models.Model):
                     "authorized for the current season"),
         default='True'
     )
+
+    geom = PointField(null=True, blank=True)
 
     owner = models.ForeignKey(
         'member.Actor',
@@ -222,6 +226,8 @@ class Property(models.Model):
         blank=True
     )
 
+    #geom = PointField()
+
     history = HistoricalRecords()
 
     changed_by = models.ForeignKey(
@@ -241,7 +247,7 @@ class Property(models.Model):
         else:
             return u"%s at %s" % \
                (self.owner, self.street)
-
+    @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
             return "%s %s, %s" % (
@@ -269,12 +275,15 @@ class Property(models.Model):
         harvests_list = Harvest.objects.filter(property=self)
         return harvests_list
 
+    @property
+    def get_owner_name(self):
+        return self.owner.__str__()
+
 # SIGNALS CONNECTED
 models.signals.pre_save.connect(
     signals.changed_by,
     sender=Property
 )
-
 
 class PropertyImage(models.Model):
     property = models.ForeignKey(

@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
 
 from member.models import *
 from harvest.models import *
 from harvest.forms import *
+
 
 
 class PropertyInline(admin.TabularInline):
@@ -53,7 +55,7 @@ class PropertyImageInline(admin.TabularInline):
     extra = 3
 
 
-class PropertyAdmin(admin.ModelAdmin):
+class PropertyAdmin(LeafletGeoAdmin):
     model = Property
     inlines = [PropertyImageInline]
     form = PropertyForm
@@ -76,3 +78,5 @@ admin.site.register(City)
 admin.site.register(State)
 admin.site.register(Country)
 admin.site.register(PropertyImage)
+
+

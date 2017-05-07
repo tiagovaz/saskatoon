@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-01 12:49-0400\n"
+"POT-Creation-Date: 2017-05-07 12:15-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,171 +17,171 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: member/models.py:17
+#: member/models.py:15
 msgid "Request for participation"
 msgstr ""
 
-#: member/models.py:21
+#: member/models.py:19
 msgid "Harvest"
 msgstr ""
 
-#: member/models.py:83
+#: member/models.py:89
 msgid "actor"
 msgstr ""
 
-#: member/models.py:84
+#: member/models.py:90
 msgid "actors"
 msgstr ""
 
-#: member/models.py:97 member/models.py:226
+#: member/models.py:103 member/models.py:236
 msgid "Redmine contact"
 msgstr ""
 
-#: member/models.py:103
+#: member/models.py:109
 msgid "First name"
 msgstr ""
 
-#: member/models.py:108
+#: member/models.py:114
 msgid "Family name"
 msgstr ""
 
-#: member/models.py:115 member/models.py:242
+#: member/models.py:121 member/models.py:252
 msgid "Phone"
 msgstr ""
 
-#: member/models.py:122 member/models.py:261
+#: member/models.py:128 member/models.py:271
 msgid "Number"
 msgstr ""
 
-#: member/models.py:129 member/models.py:268
+#: member/models.py:135 member/models.py:278
 msgid "Street"
 msgstr ""
 
-#: member/models.py:136 member/models.py:275
+#: member/models.py:142 member/models.py:285
 msgid "Complement"
 msgstr ""
 
-#: member/models.py:143 member/models.py:282
+#: member/models.py:149 member/models.py:292
 msgid "Postal code"
 msgstr ""
 
-#: member/models.py:151 member/models.py:290
+#: member/models.py:157 member/models.py:300
 msgid "Neighborhood"
 msgstr ""
 
-#: member/models.py:157 member/models.py:296
+#: member/models.py:163 member/models.py:306
 msgid "City"
 msgstr ""
 
-#: member/models.py:164 member/models.py:303
+#: member/models.py:170 member/models.py:313
 msgid "State"
 msgstr ""
 
-#: member/models.py:171 member/models.py:310
+#: member/models.py:177 member/models.py:320
 msgid "Country"
 msgstr ""
 
-#: member/models.py:177 member/models.py:316
+#: member/models.py:183 member/models.py:326
 msgid "Longitude"
 msgstr ""
 
-#: member/models.py:183 member/models.py:322
+#: member/models.py:189 member/models.py:332
 msgid "Latitude"
 msgstr ""
 
-#: member/models.py:192
+#: member/models.py:198
 msgid "Preferred language"
 msgstr ""
 
-#: member/models.py:196
+#: member/models.py:202
 msgid "Comments"
 msgstr ""
 
-#: member/models.py:201
+#: member/models.py:207
 msgid "person"
 msgstr ""
 
-#: member/models.py:202
+#: member/models.py:208
 msgid "people"
 msgstr ""
 
-#: member/models.py:221
+#: member/models.py:231
 msgid "is beneficiary"
 msgstr ""
 
-#: member/models.py:232 member/models.py:341 member/models.py:356
-#: member/models.py:371 member/models.py:385 member/models.py:400
+#: member/models.py:242 member/models.py:351 member/models.py:366
+#: member/models.py:381 member/models.py:395 member/models.py:410
 msgid "Name"
 msgstr ""
 
-#: member/models.py:237
+#: member/models.py:247
 msgid "Description"
 msgstr ""
 
-#: member/models.py:250
+#: member/models.py:260
 msgid "Contact person"
 msgstr ""
 
-#: member/models.py:254
+#: member/models.py:264
 msgid "Contact person role"
 msgstr ""
 
-#: member/models.py:328
+#: member/models.py:338
 msgid "organization"
 msgstr ""
 
-#: member/models.py:329
+#: member/models.py:339
 msgid "organizations"
 msgstr ""
 
-#: member/models.py:346
+#: member/models.py:356
 msgid "neighborhood"
 msgstr ""
 
-#: member/models.py:347
+#: member/models.py:357
 msgid "neighborhoods"
 msgstr ""
 
-#: member/models.py:361
+#: member/models.py:371
 msgid "city"
 msgstr ""
 
-#: member/models.py:362
+#: member/models.py:372
 msgid "cities"
 msgstr ""
 
-#: member/models.py:376
+#: member/models.py:386
 msgid "states"
 msgstr ""
 
-#: member/models.py:390
+#: member/models.py:400
 msgid "country"
 msgstr ""
 
-#: member/models.py:391
+#: member/models.py:401
 msgid "countries"
 msgstr ""
 
-#: member/models.py:405
+#: member/models.py:415
 msgid "language"
 msgstr ""
 
-#: member/models.py:406
+#: member/models.py:416
 msgid "languages"
 msgstr ""
 
-#: member/models.py:415
+#: member/models.py:425
 msgid "Text"
 msgstr ""
 
-#: member/models.py:419
+#: member/models.py:429
 msgid "URL"
 msgstr ""
 
-#: member/models.py:444
+#: member/models.py:454
 msgid "Notification"
 msgstr ""
 
-#: member/models.py:445
+#: member/models.py:455
 msgid "Notifications"
 msgstr ""
