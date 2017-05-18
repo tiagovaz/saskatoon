@@ -159,6 +159,7 @@ class HarvestList(generic.ListView):
             queryset=Harvest.objects.all().order_by('-id')
         )
         context['view'] = "harvests"
+        context['list_harvests'] = all_harvests
         context['form'] = all_harvests.form
 
         return context
