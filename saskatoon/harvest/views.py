@@ -17,6 +17,21 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.shortcuts import redirect
 
+class OrganizationList(generic.ListView):
+    template_name = 'harvest/organizations/list.html'
+    context_object_name = 'organizations'
+    model = Organization
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrganizationList, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(OrganizationList, self).get_context_data(**kwargs)
+        organizations = Organization.objects.all()
+        context['view'] = "organizations"
+
+        return context
 
 class PropertyList(generic.ListView):
     template_name = 'harvest/properties/list.html'
