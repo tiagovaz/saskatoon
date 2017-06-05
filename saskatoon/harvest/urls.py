@@ -4,6 +4,31 @@ from harvest import views
 urlpatterns = patterns(
     '',
     url(
+        r'^organizations/$',
+        views.OrganizationList.as_view(),
+        name='organization_list'
+    ),
+    url(
+        r'^organizations/active/$',
+        views.PropertyList.as_view(),
+        name='organization_list_active'
+    ),
+    url(
+        r'^organization/(?P<pk>\d+)$',
+        views.PropertyDetail.as_view(),
+        name='organization_detail'
+    ),
+    url(
+        r'^organizations/create$',
+        views.PropertyCreate.as_view(),
+        name='organization_create'
+    ),
+    url(
+        r'^organizations/(?P<pk>\d+)/update$',
+        views.PropertyUpdate.as_view(),
+        name='organization_update'
+    ),
+    url(
         r'^properties/$',
         views.PropertyList.as_view(),
         name='property_list'

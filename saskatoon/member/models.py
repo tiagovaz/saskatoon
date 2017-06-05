@@ -333,6 +333,27 @@ class Organization(Actor):
         null=True,
         blank=True
     )
+    @property
+    def short_address(self):
+        if self.street_number and self.street and self.complement:
+            return "%s %s, %s" % (
+                self.street_number,
+                self.street,
+                self.complement
+            )
+        elif self.street and self.street_number:
+            return "%s %s" % (
+                self.street_number,
+                self.street
+            )
+        elif self.street and self.complement:
+            return "%s, %s" % (
+                self.street,
+                self.complement
+            )
+        else:
+            return self.street
+
 
     class Meta:
         verbose_name = _("organization")
