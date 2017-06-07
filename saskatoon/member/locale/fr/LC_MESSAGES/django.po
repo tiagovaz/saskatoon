@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-07 12:15-0400\n"
+"POT-Creation-Date: 2017-06-05 18:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,8 +109,8 @@ msgstr "personnes"
 msgid "is beneficiary"
 msgstr "bénéficiaire"
 
-#: member/models.py:242 member/models.py:351 member/models.py:366
-#: member/models.py:381 member/models.py:395 member/models.py:410
+#: member/models.py:242 member/models.py:372 member/models.py:387
+#: member/models.py:402 member/models.py:416 member/models.py:431
 msgid "Name"
 msgstr "Nom"
 
@@ -128,63 +128,63 @@ msgstr "Personne à contacter"
 msgid "Contact person role"
 msgstr "Personne à contacter"
 
-#: member/models.py:338
+#: member/models.py:359
 msgid "organization"
 msgstr "organisation"
 
-#: member/models.py:339
+#: member/models.py:360
 msgid "organizations"
 msgstr "organisations"
 
-#: member/models.py:356
+#: member/models.py:377
 msgid "neighborhood"
 msgstr "quartier"
 
-#: member/models.py:357
+#: member/models.py:378
 msgid "neighborhoods"
 msgstr "quartiers"
 
-#: member/models.py:371
+#: member/models.py:392
 msgid "city"
 msgstr "ville"
 
-#: member/models.py:372
+#: member/models.py:393
 msgid "cities"
 msgstr "villes"
 
-#: member/models.py:386
+#: member/models.py:407
 msgid "states"
 msgstr "états"
 
-#: member/models.py:400
+#: member/models.py:421
 msgid "country"
 msgstr "région"
 
-#: member/models.py:401
+#: member/models.py:422
 msgid "countries"
 msgstr "régions"
 
-#: member/models.py:415
+#: member/models.py:436
 msgid "language"
 msgstr "langue"
 
-#: member/models.py:416
+#: member/models.py:437
 msgid "languages"
 msgstr "langues"
 
-#: member/models.py:425
+#: member/models.py:446
 msgid "Text"
 msgstr "Text"
 
-#: member/models.py:429
+#: member/models.py:450
 msgid "URL"
 msgstr "URL"
 
-#: member/models.py:454
+#: member/models.py:475
 msgid "Notification"
 msgstr "Notification"
 
-#: member/models.py:455
+#: member/models.py:476
 msgid "Notifications"
 msgstr "Notifications"
 

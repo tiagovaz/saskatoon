@@ -17,6 +17,7 @@ To install requirements use :
 ```
 cd /.../saskatoon
 pip install -r requirements.txt
+pip install django-leaflet jsonfield
 ```
 
 ## Database migration
@@ -24,6 +25,12 @@ pip install -r requirements.txt
 We use an `sqlite3` database in our development environment because it's really fast to setup.
 
 > You can optionnaly configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/1.11/ref/settings/#databases).
+
+For local instances you can use the base setting file provided as settings-base.py:
+
+```
+mv saskatoon/saskatoon/settings-base.py saskatoon/settings.py
+```
 
 To migrate the database use :
 ```

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-07 12:15-0400\n"
+"POT-Creation-Date: 2017-06-05 18:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,16 +64,20 @@ msgid "Properties"
 msgstr ""
 
 #: saskatoon/templates/base.html:149
-msgid "Equipment"
+msgid "Organizations"
 msgstr ""
 
 #: saskatoon/templates/base.html:155
+msgid "Equipment"
+msgstr ""
+
+#: saskatoon/templates/base.html:161
 #, fuzzy
 #| msgid " Admin"
 msgid "Admin"
 msgstr "Administation"
 
-#: saskatoon/templates/base.html:161
+#: saskatoon/templates/base.html:167
 msgid "Bugs"
 msgstr ""
 
