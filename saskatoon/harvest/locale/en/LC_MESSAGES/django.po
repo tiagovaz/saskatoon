@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-18 17:10-0400\n"
+"POT-Creation-Date: 2017-06-05 18:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,8 @@ msgstr ""
 msgid "Enter a valid email address, please."
 msgstr ""
 
-#: harvest/forms.py:19 harvest/templates/harvest/properties/detail.html.py:131
+#: harvest/forms.py:19 harvest/templates/harvest/organizations/detail.html:131
+#: harvest/templates/harvest/properties/detail.html:131
 msgid "Email"
 msgstr ""
 
@@ -33,7 +34,9 @@ msgstr ""
 msgid "Family name"
 msgstr ""
 
-#: harvest/forms.py:28 harvest/templates/harvest/properties/detail.html.py:130
+#: harvest/forms.py:28 harvest/templates/harvest/organizations/detail.html:130
+#: harvest/templates/harvest/organizations/detail.html:141
+#: harvest/templates/harvest/properties/detail.html:130
 #: harvest/templates/harvest/properties/detail.html:141
 msgid "Phone"
 msgstr ""
@@ -102,7 +105,7 @@ msgstr ""
 msgid "Orphan"
 msgstr ""
 
-#: harvest/models.py:25 harvest/views.py:265
+#: harvest/models.py:25 harvest/views.py:281
 msgid "Adopted"
 msgstr ""
 
@@ -154,7 +157,9 @@ msgstr ""
 msgid "equipment types"
 msgstr ""
 
-#: harvest/models.py:100 harvest/templates/harvest/properties/detail.html:73
+#: harvest/models.py:100
+#: harvest/templates/harvest/organizations/detail.html:73
+#: harvest/templates/harvest/properties/detail.html:73
 msgid "Is active"
 msgstr ""
 
@@ -171,7 +176,9 @@ msgstr ""
 msgid "Fruit trees"
 msgstr ""
 
-#: harvest/models.py:119 harvest/templates/harvest/properties/detail.html:164
+#: harvest/models.py:119
+#: harvest/templates/harvest/organizations/detail.html:164
+#: harvest/templates/harvest/properties/detail.html:164
 msgid "Trees location"
 msgstr ""
 
@@ -179,7 +186,9 @@ msgstr ""
 msgid "Required pickers on average"
 msgstr ""
 
-#: harvest/models.py:132 harvest/templates/harvest/properties/detail.html:82
+#: harvest/models.py:132
+#: harvest/templates/harvest/organizations/detail.html:82
+#: harvest/templates/harvest/properties/detail.html:82
 msgid "Publicly accessible"
 msgstr ""
 
@@ -187,7 +196,9 @@ msgstr ""
 msgid "Access to neighboring terrain if needed"
 msgstr ""
 
-#: harvest/models.py:142 harvest/templates/harvest/properties/detail.html:64
+#: harvest/models.py:142
+#: harvest/templates/harvest/organizations/detail.html:64
+#: harvest/templates/harvest/properties/detail.html:64
 msgid "Compost bin closeby"
 msgstr ""
 
@@ -390,6 +401,7 @@ msgid "Type"
 msgstr ""
 
 #: harvest/models.py:638 harvest/templates/harvest/equipment/list.html.py:27
+#: harvest/templates/harvest/organizations/detail.html:138
 #: harvest/templates/harvest/properties/detail.html:138
 msgid "Description"
 msgstr ""
@@ -427,12 +439,15 @@ msgid "comments"
 msgstr ""
 
 #: harvest/templates/harvest/equipment/list.html:10
+#: harvest/templates/harvest/organizations/detail.html:174
 #: harvest/templates/harvest/properties/detail.html:174
 msgid "Equipment"
 msgstr ""
 
 #: harvest/templates/harvest/equipment/list.html:25
 #: harvest/templates/harvest/harvest/list.html:26
+#: harvest/templates/harvest/organizations/detail.html:208
+#: harvest/templates/harvest/organizations/list.html:25
 #: harvest/templates/harvest/participation/list.html:26
 #: harvest/templates/harvest/properties/detail.html:208
 #: harvest/templates/harvest/properties/list.html:31
@@ -567,6 +582,7 @@ msgstr ""
 
 #: harvest/templates/harvest/harvest/detail.html:303
 #: harvest/templates/harvest/harvest/list.html:32
+#: harvest/templates/harvest/organizations/detail.html:211
 #: harvest/templates/harvest/participation/list.html:32
 #: harvest/templates/harvest/properties/detail.html:211
 msgid "Status"
@@ -590,6 +606,7 @@ msgstr ""
 
 #: harvest/templates/harvest/harvest/detail.html:309
 #: harvest/templates/harvest/harvest/list.html:33
+#: harvest/templates/harvest/organizations/list.html:30
 #: harvest/templates/harvest/properties/list.html:39
 msgid "Action"
 msgstr ""
@@ -617,6 +634,7 @@ msgstr ""
 #: harvest/templates/harvest/harvest/detail.html:362
 #: harvest/templates/harvest/harvest/detail.html:471
 #: harvest/templates/harvest/harvest/detail_public.html:98
+#: harvest/templates/harvest/organizations/detail.html:279
 #: harvest/templates/harvest/properties/detail.html:279
 msgid "Save"
 msgstr ""
@@ -630,6 +648,7 @@ msgid "New recipient"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/detail.html:430
+#: harvest/templates/harvest/organizations/detail.html:238
 #: harvest/templates/harvest/properties/detail.html:238
 msgid "History"
 msgstr ""
@@ -663,6 +682,7 @@ msgid "Pick-leader"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/detail_public.html:46
+#: harvest/templates/harvest/organizations/detail.html:151
 #: harvest/templates/harvest/properties/detail.html:151
 msgid "Trees"
 msgstr ""
@@ -682,6 +702,7 @@ msgid "New harvest"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/list.html:27
+#: harvest/templates/harvest/organizations/detail.html:212
 #: harvest/templates/harvest/participation/list.html:27
 #: harvest/templates/harvest/properties/detail.html:212
 #: harvest/templates/harvest/properties/list.html:32
@@ -689,6 +710,7 @@ msgid "Tree(s)"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/list.html:28
+#: harvest/templates/harvest/organizations/detail.html:209
 #: harvest/templates/harvest/participation/list.html:28
 #: harvest/templates/harvest/properties/detail.html:209
 msgid "Pickleader"
@@ -697,6 +719,116 @@ msgstr ""
 #: harvest/templates/harvest/harvest/list.html:31
 #: harvest/templates/harvest/participation/list.html:31
 msgid "Scheduled to"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/add_image.html:10
+#: harvest/templates/harvest/organizations/detail.html:53
+#: harvest/templates/harvest/properties/add_image.html:10
+#: harvest/templates/harvest/properties/detail.html:53
+msgid "Add an image"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:14
+#: harvest/templates/harvest/properties/detail.html:14
+msgid "Edit this property"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:17
+#: harvest/templates/harvest/properties/detail.html:17
+msgid "Add harvest"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:91
+#: harvest/templates/harvest/properties/detail.html:91
+msgid "Access to neighbors terrain"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:106
+#: harvest/templates/harvest/properties/detail.html:106
+msgid "About this property"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:110
+#: harvest/templates/harvest/properties/detail.html:110
+msgid " pickers are recommended at this property!"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:121
+#: harvest/templates/harvest/properties/detail.html:121
+msgid "Owner information"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:128
+#: harvest/templates/harvest/properties/detail.html:128
+msgid "Personal address"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:132
+#: harvest/templates/harvest/properties/detail.html:132
+msgid "Preferred language"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:134
+#: harvest/templates/harvest/properties/detail.html:134
+msgid "Additional comments"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:139
+#: harvest/templates/harvest/properties/detail.html:139
+msgid "Contact person"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:140
+#: harvest/templates/harvest/organizations/list.html:29
+#: harvest/templates/harvest/properties/detail.html:140
+#: harvest/templates/harvest/properties/list.html:34
+msgid "Address"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:142
+#: harvest/templates/harvest/properties/detail.html:142
+msgid "Language"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:161
+#: harvest/templates/harvest/properties/detail.html:161
+msgid "No tree in this property."
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:191
+#: harvest/templates/harvest/properties/detail.html:191
+msgid "No equipment available at this property."
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:201
+#: harvest/templates/harvest/properties/detail.html:201
+msgid "Harvests at this property"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:210
+#: harvest/templates/harvest/properties/detail.html:210
+msgid "Date"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/detail.html:272
+#: harvest/templates/harvest/properties/detail.html:272
+msgid "New image"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/list.html:9
+msgid "Organizations"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/list.html:26
+msgid "Civil name"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/list.html:27
+msgid "Is beneficiary?"
+msgstr ""
+
+#: harvest/templates/harvest/organizations/list.html:28
+msgid "Contact"
 msgstr ""
 
 #: harvest/templates/harvest/participation/create.html:34
@@ -710,80 +842,6 @@ msgstr ""
 #: harvest/templates/harvest/participation/list.html:33
 #: harvest/templates/harvest/participation/list.html:58
 msgid "Edit"
-msgstr ""
-
-#: harvest/templates/harvest/properties/add_image.html:10
-#: harvest/templates/harvest/properties/detail.html:53
-msgid "Add an image"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:14
-msgid "Edit this property"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:17
-msgid "Add harvest"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:91
-msgid "Access to neighbors terrain"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:106
-msgid "About this property"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:110
-msgid " pickers are recommended at this property!"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:121
-msgid "Owner information"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:128
-msgid "Personal address"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:132
-msgid "Preferred language"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:134
-msgid "Additional comments"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:139
-msgid "Contact person"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:140
-#: harvest/templates/harvest/properties/list.html:34
-msgid "Address"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:142
-msgid "Language"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:161
-msgid "No tree in this property."
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:191
-msgid "No equipment available at this property."
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:201
-msgid "Harvests at this property"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:210
-msgid "Date"
-msgstr ""
-
-#: harvest/templates/harvest/properties/detail.html:272
-msgid "New image"
 msgstr ""
 
 #: harvest/templates/harvest/properties/list.html:9
@@ -806,24 +864,24 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: harvest/views.py:256
+#: harvest/views.py:272
 msgid "You do not have the right permissions"
 msgstr ""
 
-#: harvest/views.py:271
+#: harvest/views.py:287
 msgid "Thanks, you adopted this harvest!"
 msgstr ""
 
-#: harvest/views.py:391
+#: harvest/views.py:407
 msgid ""
 "Your request of participation has been sent. The pick leader will contact "
 "you soon!"
 msgstr ""
 
-#: harvest/views.py:460
+#: harvest/views.py:476
 msgid "Your recipient has been added!"
 msgstr ""
 
-#: harvest/views.py:530
+#: harvest/views.py:546
 msgid "Your recipient has been updated!"
 msgstr ""

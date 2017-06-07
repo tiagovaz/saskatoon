@@ -58,13 +58,17 @@ msgid "Properties"
 msgstr ""
 
 #: saskatoon/templates/base.html:149
-msgid "Equipment"
+msgid "Organizations"
 msgstr ""
 
 #: saskatoon/templates/base.html:155
-msgid "Admin"
+msgid "Equipment"
 msgstr ""
 
 #: saskatoon/templates/base.html:161
+msgid "Admin"
+msgstr ""
+
+#: saskatoon/templates/base.html:167
 msgid "Bugs"
 msgstr ""
