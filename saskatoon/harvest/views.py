@@ -28,8 +28,9 @@ class OrganizationList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(OrganizationList, self).get_context_data(**kwargs)
-        organizations = Organization.objects.all()
-        context['view'] = "organizations"
+        organizations = Organization.objects.filter(is_beneficiary=True)
+        context['view'] = organizations
+        context['organizations'] = organizations
 
         return context
 
