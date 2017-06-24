@@ -73,9 +73,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def __str__(self):
-        try:
+        if self.person:
             return u"%s" % self.person
-        except:
+        else:
             return self.email
 
 
