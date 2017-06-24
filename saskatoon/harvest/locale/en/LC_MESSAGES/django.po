@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-05 18:28-0400\n"
+"POT-Creation-Date: 2017-06-23 21:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: harvest/filters.py:24
+msgid "Season"
+msgstr ""
 
 #: harvest/forms.py:18
 msgid "Enter a valid email address, please."
@@ -105,7 +109,7 @@ msgstr ""
 msgid "Orphan"
 msgstr ""
 
-#: harvest/models.py:25 harvest/views.py:281
+#: harvest/models.py:25 harvest/views.py:282
 msgid "Adopted"
 msgstr ""
 
@@ -402,6 +406,7 @@ msgstr ""
 
 #: harvest/models.py:638 harvest/templates/harvest/equipment/list.html.py:27
 #: harvest/templates/harvest/organizations/detail.html:138
+#: harvest/templates/harvest/organizations/list.html:27
 #: harvest/templates/harvest/properties/detail.html:138
 msgid "Description"
 msgstr ""
@@ -823,10 +828,6 @@ msgstr ""
 msgid "Civil name"
 msgstr ""
 
-#: harvest/templates/harvest/organizations/list.html:27
-msgid "Is beneficiary?"
-msgstr ""
-
 #: harvest/templates/harvest/organizations/list.html:28
 msgid "Contact"
 msgstr ""
@@ -864,24 +865,24 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: harvest/views.py:272
+#: harvest/views.py:273
 msgid "You do not have the right permissions"
 msgstr ""
 
-#: harvest/views.py:287
+#: harvest/views.py:288
 msgid "Thanks, you adopted this harvest!"
 msgstr ""
 
-#: harvest/views.py:407
+#: harvest/views.py:408
 msgid ""
 "Your request of participation has been sent. The pick leader will contact "
 "you soon!"
 msgstr ""
 
-#: harvest/views.py:476
+#: harvest/views.py:477
 msgid "Your recipient has been added!"
 msgstr ""
 
-#: harvest/views.py:546
+#: harvest/views.py:547
 msgid "Your recipient has been updated!"
 msgstr ""

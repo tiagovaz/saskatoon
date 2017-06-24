@@ -162,17 +162,24 @@ class HarvestList(generic.ListView):
         return super(HarvestList, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
+        request = self.request.GET
+        queryset=Harvest.objects.all().order_by('-id')
         return HarvestFilter(
-            self.request.GET,
-            queryset=Harvest.objects.all().order_by('-id')
+            request,
+            queryset
         )
 
     def get_context_data(self, **kwargs):
         context = super(HarvestList, self).get_context_data(**kwargs)
-
+        request = self.request.GET.copy()
+        queryset=Harvest.objects.all().order_by('-id')
+        if 'start_date' not in request:
+            import time
+            current_year = time.strftime("%Y")
+            request['start_date'] = current_year
         all_harvests = HarvestFilter(
-            self.request.GET,
-            queryset=Harvest.objects.all().order_by('-id')
+            request,
+            queryset
         )
         context['view'] = "harvests"
         context['list_harvests'] = all_harvests
