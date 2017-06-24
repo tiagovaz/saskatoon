@@ -45,7 +45,7 @@
                                             {{ tree }}<br>
                                         {% endfor %}
                                     </td>
-                                    <td>{{ harvest.pick_leader }}</td>
+                                    <td>{{ harvest.pick_leader|default:"" }}</td>
                                     <td>
                                         <a href='{% url "harvest:property_detail" harvest.property.id %}'>
                                             {{ harvest.property }}

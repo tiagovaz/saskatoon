@@ -22,7 +22,7 @@ class HarvestFilter(FilterSet):
     start_date = ChoiceFilter(
         choices=seasons,
         label=_("Season"),
-        lookup_expr='year'
+        lookup_expr='year',
     )
 
     status = ChoiceFilter(

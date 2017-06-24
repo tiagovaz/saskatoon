@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-18 17:10-0400\n"
+"POT-Creation-Date: 2017-06-23 21:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,52 +34,71 @@ msgid "Account"
 msgstr ""
 
 #: saskatoon/templates/base.html:99
+msgid "Change password"
+msgstr ""
+
+#: saskatoon/templates/base.html:105
 msgid "Logout"
 msgstr ""
 
-#: saskatoon/templates/base.html:110
+#: saskatoon/templates/base.html:116
 msgid "Login"
 msgstr ""
 
-#: saskatoon/templates/base.html:125
+#: saskatoon/templates/base.html:131
 #, fuzzy
 #| msgid " Dashboard"
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: saskatoon/templates/base.html:131
+#: saskatoon/templates/base.html:137
 #, fuzzy
 #| msgid " Calendar"
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: saskatoon/templates/base.html:137
+#: saskatoon/templates/base.html:143
 #, fuzzy
 #| msgid " Harvests"
 msgid "Harvests"
 msgstr "Récolte"
 
-#: saskatoon/templates/base.html:143
+#: saskatoon/templates/base.html:149
 msgid "Properties"
 msgstr ""
 
-#: saskatoon/templates/base.html:149
-msgid "Organizations"
-msgstr ""
-
 #: saskatoon/templates/base.html:155
-msgid "Equipment"
+msgid "Beneficiaries"
 msgstr ""
 
 #: saskatoon/templates/base.html:161
-#, fuzzy
-#| msgid " Admin"
-msgid "Admin"
-msgstr "Administation"
+msgid "Equipment"
+msgstr ""
 
-#: saskatoon/templates/base.html:167
+#: saskatoon/templates/base.html:169
+msgid "Add user"
+msgstr ""
+
+#: saskatoon/templates/base.html:170
+msgid "Manage users"
+msgstr ""
+
+#: saskatoon/templates/base.html:171
+msgid "Manage beneficiaries"
+msgstr ""
+
+#: saskatoon/templates/base.html:172
+msgid "Full admin interface"
+msgstr ""
+
+#: saskatoon/templates/base.html:179
 msgid "Bugs"
 msgstr ""
+
+#, fuzzy
+#~| msgid " Admin"
+#~ msgid "Admin"
+#~ msgstr "Administation"
 
 #~ msgid "Français"
 #~ msgstr "Français"
