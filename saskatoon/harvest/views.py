@@ -502,7 +502,9 @@ class HarvestYieldUpdate(generic.UpdateView):
         return super(HarvestYieldUpdate, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
-        form.instance.harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        harvest = HarvestYield.objects.get(id=self.kwargs['pk']).harvest
+        form.instance.harvest = Harvest.objects.get(id=harvest.id)
+        self.kwargs['pk'] = harvest.id #not sure why we needed it
         return super(HarvestYieldUpdate, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -532,6 +534,8 @@ class HarvestYieldUpdate(generic.UpdateView):
 
         recipients = set()
         recipients.add(owner.actor_id)
+        if harvest.pick_leader:
+            recipients.add(harvest.pick_leader.person.actor_id)
         for organization in organizations:
             recipients.add(organization.pk)
         for picker in pickers:
@@ -544,6 +548,7 @@ class HarvestYieldUpdate(generic.UpdateView):
             required=False
         )
         context['form'].fields['recipient'] = model_choice_recipient
+        context['harvest'] = harvest
 
         return context
 

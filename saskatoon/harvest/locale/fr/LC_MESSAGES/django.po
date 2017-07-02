@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 21:59-0400\n"
+"POT-Creation-Date: 2017-06-23 23:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,7 +121,7 @@ msgstr "À confirmer"
 msgid "Orphan"
 msgstr "Orphelin"
 
-#: harvest/models.py:25 harvest/views.py:282
+#: harvest/models.py:25 harvest/views.py:289
 msgid "Adopted"
 msgstr "Adopté"
 
@@ -895,17 +895,17 @@ msgstr "Afficher les actifs uniquement"
 msgid "Active"
 msgstr "Actif"
 
-#: harvest/views.py:273
+#: harvest/views.py:280
 msgid "You do not have the right permissions"
 msgstr ""
 
-#: harvest/views.py:288
+#: harvest/views.py:295
 #, fuzzy
 #| msgid "Edit this harvest"
 msgid "Thanks, you adopted this harvest!"
 msgstr "Modifier cette récolte"
 
-#: harvest/views.py:408
+#: harvest/views.py:415
 msgid ""
 "Your request of participation has been sent. The pick leader will contact "
 "you soon!"
@@ -913,11 +913,11 @@ msgstr ""
 "Votre demande de participation a été bien envoyée.Le cueilleur principal va "
 "vous contacter bientôt."
 
-#: harvest/views.py:477
+#: harvest/views.py:484
 msgid "Your recipient has been added!"
 msgstr "Le bénéficiaire a été ajouté !"
 
-#: harvest/views.py:547
+#: harvest/views.py:554
 msgid "Your recipient has been updated!"
 msgstr "Le bénéficiaire a été mis à jour!"
 
