@@ -7,7 +7,7 @@ from djgeojson.views import GeoJSONLayerView
 urlpatterns = patterns(
     '',
     url(
-        r'^index/$',
+        r'^$',
         views.Index.as_view(),
         name='index'
     ),
@@ -17,7 +17,7 @@ urlpatterns = patterns(
         name='login'
     ),
     url(
-        r'^$',
+        r'^calendar$',
         views.Calendar.as_view(),
         name='calendar'
     ),
