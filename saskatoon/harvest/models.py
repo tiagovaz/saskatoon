@@ -489,7 +489,7 @@ class Harvest(models.Model):
     def is_open_to_requests(self):
         now = datetime.datetime.now().date()
         start_date = self.start_date.date()
-        if self.status in ["Ready", "Date-scheduled"] and \
+        if self.status in ["Date-scheduled"] and \
                 self.is_publishable() and now <= start_date:
             return True
         else:
