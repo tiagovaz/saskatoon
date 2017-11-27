@@ -133,4 +133,9 @@ urlpatterns = patterns(
         views.CommentCreate.as_view(),
         name='comment_create'
     ),
+    url(
+        r'^stats/',
+        views.Stats.as_view(),
+        name='stats'
+    ),
 )

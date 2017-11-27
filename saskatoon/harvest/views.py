@@ -16,6 +16,8 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.shortcuts import redirect
+from django.shortcuts import render_to_response
+from django.db.models import Sum
 
 class OrganizationList(generic.ListView):
     template_name = 'harvest/organizations/list.html'
@@ -712,3 +714,88 @@ class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__istartswith=self.q)
 
         return qs
+
+# nvd3 views
+class Stats(generic.ListView):
+    template_name = 'harvest/stats/stats.html'
+    context_object_name = 'stats'
+    model = Harvest
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(Stats, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(Stats, self).get_context_data(**kwargs)
+#        active_properties = Property.objects.filter(is_active=True)
+        context['view'] = "stats"
+#        context['active_properties'] = active_properties
+        context['data'] = self.demo_linechart_without_date()
+        #data = self.demo_linechart_without_date()
+        data = self.demo_piechart()
+        return data
+
+    def demo_linechart_without_date(self):
+        """
+        lineChart page
+        """
+        extra_serie = {}
+        xdata = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        ydata = [3, 5, 7, 8, 3, 5, 3, 5, 7, 6, 3, 1]
+        chartdata = {
+            'x': xdata,
+            'name1': 'series 1', 'y1': ydata, 'extra1': extra_serie,
+        }
+        charttype = "lineChart"
+        chartcontainer = 'linechart_container'  # container name
+        data = {
+            'charttype': charttype,
+            'chartdata': chartdata,
+            'chartcontainer': chartcontainer,
+            'extra': {
+                'x_is_date': False,
+                'x_axis_format': '',
+                'tag_script_js': True,
+                'jquery_on_ready': False,
+            }
+        }
+        #return render_to_response('harvest/stats/linechart.html', data)
+        return data
+
+    def demo_piechart(self):
+        """
+        pieChart page
+        """
+        tt = TreeType.objects.all()
+        xdata = []
+        ydata = []
+        for t in tt:
+            total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            if total.get('total_in_lb__sum') is not None:
+                xdata.append(t.fruit_name)
+                ydata.append(total.get('total_in_lb__sum'))
+
+        color_list = ['#5d8aa8', '#e32636', '#efdecd', '#ffbf00', '#a4c639', '#ff033e', 
+                      '#b2beb5', '#8db600', '#7fffd4', '#ff007f', '#ff55a3', '#5f9ea0']
+        extra_serie = {
+            "tooltip": {"y_start": "", "y_end": " lb"},
+            "color_list": color_list
+        }
+        chartdata = {'x': xdata, 'y1': ydata, 'extra1': extra_serie}
+        charttype = "pieChart"
+        chartcontainer = 'piechart_container'  # container name
+    
+        data = {
+            'charttype': charttype,
+            'chartdata': chartdata,
+            'chartcontainer': chartcontainer,
+            'extra': {
+                'x_is_date': False,
+                'x_axis_format': '',
+                'tag_script_js': True,
+                'jquery_on_ready': False,
+            }
+        }
+        return data
+    
+        
