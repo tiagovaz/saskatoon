@@ -17,32 +17,10 @@
             <h1 class="page-header">
                 {% trans "Statistics" %}
             </h1>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                <div class="panel panel-default">
                    <div class="panel-heading">
-                       Total weight per season
-                   </div>
-                   <!-- /.panel-heading -->
-                   <div class="panel-body">
-                        <table class="table table-responsive table-condensed">
-                           <tr>
-        		   <th>Season</th><th>Harvests</th><th>Weight (lb)</th>
-        		   </tr>
-                           {% for t in total_weight %}
-                           <tr><td>{{ t.0 }}</td>
-                             <td>{{ t.1 }}</td>
-                             <td>{{ t.2 }}</td>
-                           </tr>
-                          {% endfor %}
-                        </table>
-                   </div>
-              </div>
-          </div>
-
-            <div class="col-lg-4">
-               <div class="panel panel-default">
-                   <div class="panel-heading">
-                       Total weight per fruit
+                       Total per fruit
                    </div>
                    <!-- /.panel-heading -->
                    <div class="panel-body">
@@ -50,7 +28,7 @@
                 <tr>
 		    <th>Fruit</th><th>Harvests</th><th>Weight (lb)</th>
 		</tr>
-                          {% for f in total_weight_fruit %}
+                          {% for f in total_fruit %}
                               <tr><td>{{ f.0 }}</td>
                                   <td>{{ f.1 }}</td>
                                   <td>{{ f.2 }}</td>
@@ -61,10 +39,10 @@
                     </div>
                </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                <div class="panel panel-default">
                    <div class="panel-heading">
-                       Total weight per beneficiary
+                       Total per beneficiary
                    </div>
                    <!-- /.panel-heading -->
                    <div class="panel-body">
@@ -72,7 +50,7 @@
                           <tr>
           		    <th>Beneficiary</th><th>Harvests</th><th>Weight (lb)</th>
               		</tr>
-                          {% for b in total_weight_beneficiary %}
+                          {% for b in total_beneficiary %}
                               <tr><td>{{ b.0 }}</td>
                                   <td>{{ b.1 }}</td>
                                   <td>{{ b.2 }}</td>
@@ -82,8 +60,72 @@
                     </div>
                  </div>
               </div>
-        </div>
-        <!-- /.col-lg-12 -->
+    <!-- /.col-lg-12 -->
     </div>
+    <div class="col-lg-12">
+            <div class="col-lg-6">
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                       Total per neighbordhood
+                   </div>
+                   <!-- /.panel-heading -->
+                   <div class="panel-body">
+                        <table class="table table-responsive table-condensed">
+                          <tr>
+          		    <th>Neighborhood</th><th>Harvests</th><th>Weight (lb)</th>
+              		</tr>
+                          {% for n in total_neighborhood %}
+                              <tr><td>{{ n.0 }}</td>
+                                  <td>{{ n.1 }}</td>
+                                  <td>{{ n.2 }}</td>
+                              </tr>
+                          {% endfor %}
+                        </table>
+                    </div>
+                 </div>
+              </div>
+            <div class="col-lg-6">
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                       Total per picker
+                   </div>
+                   <!-- /.panel-heading -->
+                   <div class="panel-body">
+                        <table class="table table-responsive table-condensed">
+                          <tr>
+          		    <th>Picker</th><th>Harvests</th><th>Weight (lb)</th>
+              		</tr>
+                          {% for p in total_picker %}
+                              <tr><td>{{ p.0 }}</td>
+                                  <td>{{ p.1 }}</td>
+                                  <td>{{ p.2 }}</td>
+                              </tr>
+                          {% endfor %}
+                        </table>
+                    </div>
+                 </div>
+              </div>
+    <!--        <div class="col-lg-4">
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                       Total per season
+                   </div>
+                   <div class="panel-body">
+                        <table class="table table-responsive table-condensed">
+                           <tr>
+        		   <th>Season</th><th>Harvests</th><th>Weight (lb)</th>
+        		   </tr>
+                           {% for t in total %}
+                           <tr><td>{{ t.0 }}</td>
+                             <td>{{ t.1 }}</td>
+                             <td>{{ t.2 }}</td>
+                           </tr>
+                          {% endfor %}
+                        </table>
+                   </div>
+              </div>
+          </div>
+     </div>
+    -->
     {% include_container data2.chartcontainer 400 1050 %}
 {% endblock %}

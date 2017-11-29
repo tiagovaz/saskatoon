@@ -5,7 +5,7 @@ from harvest.models import Harvest, Property, Equipment, \
     PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import CommentForm, RequestForm, PropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
-from member.models import Person, AuthUser, Actor, Organization
+from member.models import Person, AuthUser, Actor, Organization, Neighborhood
 from harvest.filters import HarvestFilter
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -727,12 +727,14 @@ class Stats(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(Stats, self).get_context_data(**kwargs)
-        season = id=self.kwargs['season']
+        season = self.kwargs['season']
         context['view'] = "stats"
         context['data2'] = self.barchart()
-        context['total_weight'] = self.get_total_weight()
-        context['total_weight_fruit'] = self.get_total_weight_per_fruit(season)
-        context['total_weight_beneficiary'] = self.get_total_weight_per_beneficiary(season)
+        context['total'] = self.get_total_weight()
+        context['total_fruit'] = self.get_total_weight_per_fruit(season)
+        context['total_beneficiary'] = self.get_total_weight_per_beneficiary(season)
+        context['total_picker'] = self.get_total_weight_per_picker(season)
+        context['total_neighborhood'] = self.get_total_weight_per_neighborhood(season)
         
         return context
 
@@ -753,28 +755,58 @@ class Stats(generic.ListView):
             total_list.append((s, total_times, total.get('total_in_lb__sum')))
         return total_list
 
-    def get_total_weight_per_fruit(self, season=None):
+
+    def get_total_weight_per_fruit(self, season):
         tt = TreeType.objects.all()
         total_list = []
         for t in tt:
-            if season is not None:
-                total = HarvestYield.objects.filter(tree=t).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-            else:
+            if season == 'all':
                 total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(tree=t).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
             total_times = HarvestYield.objects.filter(tree=t).count()
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (t.fruit_name, total_times, total.get('total_in_lb__sum'))
                 total_list.append(total_tuple)
         return total_list
 
-    def get_total_weight_per_beneficiary(self, season=None):
+    def get_total_weight_per_neighborhood(self, season):
+        nn = Neighborhood.objects.all()
+        total_list = []
+        for n in nn:
+            if season == 'all':
+                total = HarvestYield.objects.filter(harvest__property__neighborhood=n).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(harvest__property__neighborhood=n).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+            total_times = HarvestYield.objects.filter(harvest__property__neighborhood=n).count()
+            print total
+            if total.get('total_in_lb__sum') is not None:
+                total_tuple = (n, total_times, total.get('total_in_lb__sum'))
+                total_list.append(total_tuple)
+        return total_list
+
+    def get_total_weight_per_beneficiary(self, season):
         beneficiaries = Organization.objects.all()
         total_list = []
         for beneficiary in beneficiaries:
-            if season is not None:
-                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-            else:
+            if season == 'all':
                 total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+            total_times = HarvestYield.objects.filter(recipient=beneficiary).count()
+            if total.get('total_in_lb__sum') is not None:
+                total_tuple = (beneficiary, total_times, total.get('total_in_lb__sum'))
+                total_list.append(total_tuple)
+        return total_list
+
+    def get_total_weight_per_picker(self, season):
+        beneficiaries = Person.objects.all()
+        total_list = []
+        for beneficiary in beneficiaries:
+            if season == 'all':
+                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
             total_times = HarvestYield.objects.filter(recipient=beneficiary).count()
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (beneficiary, total_times, total.get('total_in_lb__sum'))
