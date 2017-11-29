@@ -727,13 +727,33 @@ class Stats(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(Stats, self).get_context_data(**kwargs)
-#        active_properties = Property.objects.filter(is_active=True)
         context['view'] = "stats"
-#        context['active_properties'] = active_properties
         context['data'] = self.demo_linechart_without_date()
-        #data = self.demo_linechart_without_date()
-        data = self.demo_piechart()
-        return data
+        context['data2'] = self.barchart()
+        context['total_weight'] = self.get_total_weight()
+        
+        return context
+
+    def get_seasons(self):
+        seasons = []
+        for y in Harvest.objects.all():
+            if y.start_date is not None:
+                seasons.append(y.start_date.strftime("%Y"))
+        seasons = list(set(seasons))
+        return seasons 
+
+    def get_total_weight(self):
+        seasons = self.get_seasons()
+        total_dict = {}
+        for s in seasons:
+            total = HarvestYield.objects.filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb'))
+            total_dict[s] = total.get('total_in_lb__sum')
+
+        total = HarvestYield.objects.all().aggregate(Sum('total_in_lb'))
+        total_dict['Total'] = total.get('total_in_lb__sum')
+        import operator
+        sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
+        return sorted_total_dict
 
     def demo_linechart_without_date(self):
         """
@@ -798,4 +818,33 @@ class Stats(generic.ListView):
         }
         return data
     
+    def barchart(self):
+        tt = TreeType.objects.all()
+        xdata = []
+        ydata = []
+        for t in tt:
+            total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            if total.get('total_in_lb__sum') is not None:
+                xdata.append(t.fruit_name)
+                ydata.append(total.get('total_in_lb__sum'))
+
+        extra_serie1 = {
+            "tooltip": {"y_start": "", "y_end": " lb"},
+        }
+        chartdata = {'x': xdata, 'name1' : 'iaa', 'y1': ydata, 'extra1': extra_serie1}
+        charttype = "discreteBarChart"
+        chartcontainer = 'discretebarchart_container'
+    
+        data = {
+            'charttype': charttype,
+            'chartdata': chartdata,
+            'chartcontainer': chartcontainer,
+            'extra': {
+                'x_is_date': False,
+                'x_axis_format': '',
+                'tag_script_js': True,
+                'jquery_on_ready': False,
+            }
+        }
+        return data
         
