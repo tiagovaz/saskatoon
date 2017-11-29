@@ -134,7 +134,7 @@ urlpatterns = patterns(
         name='comment_create'
     ),
     url(
-        r'^stats/',
+        r'^stats/(?P<season>[0-9]{4})/$',
         views.Stats.as_view(),
         name='stats'
     ),

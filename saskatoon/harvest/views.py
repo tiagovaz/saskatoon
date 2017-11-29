@@ -727,12 +727,12 @@ class Stats(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(Stats, self).get_context_data(**kwargs)
+        season = id=self.kwargs['season']
         context['view'] = "stats"
-        context['data'] = self.demo_linechart_without_date()
         context['data2'] = self.barchart()
         context['total_weight'] = self.get_total_weight()
-        context['total_weight_fruit'] = self.get_total_weight_per_fruit()
-        context['total_weight_beneficiary'] = self.get_total_weight_per_beneficiary()
+        context['total_weight_fruit'] = self.get_total_weight_per_fruit(season)
+        context['total_weight_beneficiary'] = self.get_total_weight_per_beneficiary(season)
         
         return context
 
@@ -746,69 +746,40 @@ class Stats(generic.ListView):
 
     def get_total_weight(self):
         seasons = self.get_seasons()
-        total_dict = {}
+        total_list = []
         for s in seasons:
             total = HarvestYield.objects.filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb'))
-            total_dict[s] = total.get('total_in_lb__sum')
+            total_times = HarvestYield.objects.filter(harvest__start_date__year=s).count()
+            total_list.append((s, total_times, total.get('total_in_lb__sum')))
+        return total_list
 
-        #total = HarvestYield.objects.all().aggregate(Sum('total_in_lb'))
-        #total_dict['Total'] = total.get('total_in_lb__sum')
-        import operator
-        sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
-        return sorted_total_dict
-
-    def get_total_weight_per_fruit(self):
-        seasons = self.get_seasons()
+    def get_total_weight_per_fruit(self, season=None):
         tt = TreeType.objects.all()
-        total_dict = {}
+        total_list = []
         for t in tt:
-            total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            if season is not None:
+                total = HarvestYield.objects.filter(tree=t).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            total_times = HarvestYield.objects.filter(tree=t).count()
             if total.get('total_in_lb__sum') is not None:
-                total_dict[t.fruit_name] = total.get('total_in_lb__sum')
+                total_tuple = (t.fruit_name, total_times, total.get('total_in_lb__sum'))
+                total_list.append(total_tuple)
+        return total_list
 
-        import operator
-        sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
-        return sorted_total_dict
-
-    def get_total_weight_per_beneficiary(self):
-        seasons = self.get_seasons()
+    def get_total_weight_per_beneficiary(self, season=None):
         beneficiaries = Organization.objects.all()
-        total_dict = {}
+        total_list = []
         for beneficiary in beneficiaries:
-            total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            if season is not None:
+                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            total_times = HarvestYield.objects.filter(recipient=beneficiary).count()
             if total.get('total_in_lb__sum') is not None:
-                total_dict[beneficiary] = total.get('total_in_lb__sum')
-
-        import operator
-        sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
-        return sorted_total_dict
-
-    def demo_linechart_without_date(self):
-        """
-        lineChart page
-        """
-        extra_serie = {}
-        xdata = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        ydata = [3, 5, 7, 8, 3, 5, 3, 5, 7, 6, 3, 1]
-        chartdata = {
-            'x': xdata,
-            'name1': 'series 1', 'y1': ydata, 'extra1': extra_serie,
-        }
-        charttype = "lineChart"
-        chartcontainer = 'linechart_container'  # container name
-        data = {
-            'charttype': charttype,
-            'chartdata': chartdata,
-            'chartcontainer': chartcontainer,
-            'extra': {
-                'x_is_date': False,
-                'x_axis_format': '',
-                'tag_script_js': True,
-                'jquery_on_ready': False,
-            }
-        }
-        #return render_to_response('harvest/stats/linechart.html', data)
-        return data
+                total_tuple = (beneficiary, total_times, total.get('total_in_lb__sum'))
+                total_list.append(total_tuple)
+        return total_list
 
     def demo_piechart(self):
         """
