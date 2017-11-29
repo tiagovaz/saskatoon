@@ -731,6 +731,8 @@ class Stats(generic.ListView):
         context['data'] = self.demo_linechart_without_date()
         context['data2'] = self.barchart()
         context['total_weight'] = self.get_total_weight()
+        context['total_weight_fruit'] = self.get_total_weight_per_fruit()
+        context['total_weight_beneficiary'] = self.get_total_weight_per_beneficiary()
         
         return context
 
@@ -749,8 +751,34 @@ class Stats(generic.ListView):
             total = HarvestYield.objects.filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb'))
             total_dict[s] = total.get('total_in_lb__sum')
 
-        total = HarvestYield.objects.all().aggregate(Sum('total_in_lb'))
-        total_dict['Total'] = total.get('total_in_lb__sum')
+        #total = HarvestYield.objects.all().aggregate(Sum('total_in_lb'))
+        #total_dict['Total'] = total.get('total_in_lb__sum')
+        import operator
+        sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
+        return sorted_total_dict
+
+    def get_total_weight_per_fruit(self):
+        seasons = self.get_seasons()
+        tt = TreeType.objects.all()
+        total_dict = {}
+        for t in tt:
+            total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            if total.get('total_in_lb__sum') is not None:
+                total_dict[t.fruit_name] = total.get('total_in_lb__sum')
+
+        import operator
+        sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
+        return sorted_total_dict
+
+    def get_total_weight_per_beneficiary(self):
+        seasons = self.get_seasons()
+        beneficiaries = Organization.objects.all()
+        total_dict = {}
+        for beneficiary in beneficiaries:
+            total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            if total.get('total_in_lb__sum') is not None:
+                total_dict[beneficiary] = total.get('total_in_lb__sum')
+
         import operator
         sorted_total_dict = sorted(total_dict.items(), key=operator.itemgetter(0))
         return sorted_total_dict

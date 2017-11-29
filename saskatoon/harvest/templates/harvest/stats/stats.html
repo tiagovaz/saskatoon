@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" media="screen" href="{% static 'bower_components/nvd3/build/nv.d3.min.css' %}">
         <script src="{% static 'bower_components/d3/d3.min.js' %}" type="text/javascript" charset="utf-8"></script>
         <script src="{% static 'bower_components/nvd3/build/nv.d3.min.js' %}" type="text/javascript" charset="utf-8"></script>
-    {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
     {% load_chart data2.charttype data2.chartdata data2.chartcontainer data2.extra %}
 {% endblock %}
     
@@ -18,17 +17,38 @@
             <h1 class="page-header">
                 {% trans "Statistics" %}
             </h1>
-            <table class="table">
+            <table class="table table-responsive table-condensed table-bordered">
+                <tr>
+		    <th>Season</th><th>Weight (lb)</th>
+		</tr>
             {% for t in total_weight %}
                 <tr><td>{{ t.0 }}</td>
                     <td>{{ t.1 }}</td>
                 </tr>
             {% endfor %}
             </table>
-            {{ total_weight }}
+            <table class="table table-responsive table-condensed table-bordered">
+                <tr>
+		    <th>Fruit</th><th>Weight (lb)</th>
+		</tr>
+            {% for f in total_weight_fruit %}
+                <tr><td>{{ f.0 }}</td>
+                    <td>{{ f.1 }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+            <table class="table table-responsive table-condensed table-bordered">
+                <tr>
+		    <th>Beneficiary</th><th>Weight (lb)</th>
+		</tr>
+            {% for b in total_weight_beneficiary %}
+                <tr><td>{{ b.0 }}</td>
+                    <td>{{ b.1 }}</td>
+                </tr>
+            {% endfor %}
+            </table>
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    {% include_container data.chartcontainer 400 1050 %}
     {% include_container data2.chartcontainer 400 1050 %}
 {% endblock %}
