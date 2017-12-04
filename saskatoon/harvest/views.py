@@ -17,7 +17,8 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
-from django.db.models import Sum
+from django.db.models import Sum, Count
+
 
 class OrganizationList(generic.ListView):
     template_name = 'harvest/organizations/list.html'
@@ -729,12 +730,17 @@ class Stats(generic.ListView):
         context = super(Stats, self).get_context_data(**kwargs)
         season = self.kwargs['season']
         context['view'] = "stats"
+        context['seasons'] = self.get_seasons()
+        context['season'] = self.kwargs['season']
+        print self.get_seasons()
         context['data2'] = self.barchart()
-        context['total'] = self.get_total_weight()
         context['total_fruit'] = self.get_total_weight_per_fruit(season)
         context['total_beneficiary'] = self.get_total_weight_per_beneficiary(season)
         context['total_picker'] = self.get_total_weight_per_picker(season)
         context['total_neighborhood'] = self.get_total_weight_per_neighborhood(season)
+
+        # Highlights
+        context['highlights'] = self.get_highlights(season)
         
         return context
 
@@ -746,7 +752,33 @@ class Stats(generic.ListView):
         seasons = list(set(seasons))
         return seasons 
 
-    def get_total_weight(self):
+    def get_highlights(self, season):
+        s = season
+        h = {}
+        if s == "all":
+            h["total_weight"] = int(HarvestYield.objects.aggregate(Sum('total_in_lb')).get('total_in_lb__sum'))
+            h["total_harvests"] = Harvest.objects.filter(status="Succeeded").count()
+            h["total_pickers"] = HarvestYield.objects.values('recipient').distinct().count()
+        else:
+            h["total_weight"] = int(HarvestYield.objects.filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb')).get('total_in_lb__sum'))
+            h["total_harvests"] = Harvest.objects.filter(status="Succeeded").filter(start_date__year=s).count()
+            h["total_pickers"] = HarvestYield.objects.filter(harvest__start_date__year=s).values('recipient').distinct().count()
+
+        beneficiaries = Organization.objects.all()
+        b_list = []
+        for beneficiary in beneficiaries:
+            if season == 'all':
+                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+            # If beneficiary got some fruit
+            if total.get('total_in_lb__sum') is not None:
+                b_list.append(beneficiary) 
+        h["total_beneficiary"] = len(b_list)
+
+        return h
+
+    def get_total_weight_list_all_seasons(self):
         seasons = self.get_seasons()
         total_list = []
         for s in seasons:
@@ -802,53 +834,43 @@ class Stats(generic.ListView):
     def get_total_weight_per_picker(self, season):
         beneficiaries = Person.objects.all()
         total_list = []
+        total_tuple = ()
         for beneficiary in beneficiaries:
             if season == 'all':
                 total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
             else:
                 total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+	    # FIXME: we need a single place for picker stats. Some are
+	    # recipients wihout being in RequestForParticipation (maybe they're pickleaders?)
+	    total_times_leader = Harvest.objects.filter(pick_leader__person=beneficiary).count()
+	    total_times_rfp = RequestForParticipation.objects.filter(picker=beneficiary).count()
+            total_times_is_accepted = RequestForParticipation.objects.filter(picker=beneficiary).filter(is_accepted=True).count()
+            total_times_recipient = HarvestYield.objects.filter(recipient=beneficiary).count()
+#            if total.get('total_in_lb__sum') is not None:
+            if total_times_rfp > 0 and total_times_recipient > 0:
+                total_tuple = (beneficiary, total_times_leader, total_times_rfp, total_times_is_accepted, total_times_recipient, total.get('total_in_lb__sum'))
+                total_list.append(total_tuple)
+        return total_list
+
+    def get_pickers_info(self, season):
+        pickers = Person.objects.all()
+        total_list = []
+        for beneficiary in beneficiaries:
+            if season == 'all':
+                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+            else:
+                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+	    # FIXME: we need a single place for picker stats. Some are
+	    # recipients wihout being in RequestForParticipation (maybe they're pickleaders?)
+	    # total_times = RequestForParticipation.objects.filter(picker=beneficiary).count()
             total_times = HarvestYield.objects.filter(recipient=beneficiary).count()
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (beneficiary, total_times, total.get('total_in_lb__sum'))
                 total_list.append(total_tuple)
         return total_list
+        
+        
 
-    def demo_piechart(self):
-        """
-        pieChart page
-        """
-        tt = TreeType.objects.all()
-        xdata = []
-        ydata = []
-        for t in tt:
-            total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
-            if total.get('total_in_lb__sum') is not None:
-                xdata.append(t.fruit_name)
-                ydata.append(total.get('total_in_lb__sum'))
-
-        color_list = ['#5d8aa8', '#e32636', '#efdecd', '#ffbf00', '#a4c639', '#ff033e', 
-                      '#b2beb5', '#8db600', '#7fffd4', '#ff007f', '#ff55a3', '#5f9ea0']
-        extra_serie = {
-            "tooltip": {"y_start": "", "y_end": " lb"},
-            "color_list": color_list
-        }
-        chartdata = {'x': xdata, 'y1': ydata, 'extra1': extra_serie}
-        charttype = "pieChart"
-        chartcontainer = 'piechart_container'  # container name
-    
-        data = {
-            'charttype': charttype,
-            'chartdata': chartdata,
-            'chartcontainer': chartcontainer,
-            'extra': {
-                'x_is_date': False,
-                'x_axis_format': '',
-                'tag_script_js': True,
-                'jquery_on_ready': False,
-            }
-        }
-        return data
-    
     def barchart(self):
         tt = TreeType.objects.all()
         xdata = []
