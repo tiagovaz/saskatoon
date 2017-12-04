@@ -15,8 +15,90 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {% trans "Statistics" %}
+                {% if season == "all" %}
+                   {% trans "Statistics for all seasons" %}
+                {% else %}
+                   {% trans "Statistics for" %} {{ season }}
+                {% endif %}
+              <span class="pull-right">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Select season
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    {% for s in seasons %}
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/harvest/stats/{{s}}">{{s}}</a></li>
+                    {% endfor %}
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/harvest/stats/all">All seasons</a></li>    
+                  </ul>
+                </div>
+              </span>
             </h1>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-basket fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{ highlights.total_harvests}}</div>
+                                    <div>harvests succeeded!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-balance-scale fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{ highlights.total_weight}}</div>
+                                    <div>lbs of fruits!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{ highlights.total_pickers }}</div>
+                                    <div>pickers participated!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-university fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{ highlights.total_beneficiary }}</div>
+                                    <div>recipient organizations!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
             <div class="col-lg-6">
                <div class="panel panel-default">
                    <div class="panel-heading">
@@ -59,14 +141,16 @@
                         </table>
                     </div>
                  </div>
+                 </div>
               </div>
     <!-- /.col-lg-12 -->
     </div>
+    <div class="row">
     <div class="col-lg-12">
             <div class="col-lg-6">
                <div class="panel panel-default">
                    <div class="panel-heading">
-                       Total per neighbordhood
+                       Total per neighborhood
                    </div>
                    <!-- /.panel-heading -->
                    <div class="panel-body">
@@ -93,18 +177,28 @@
                    <div class="panel-body">
                         <table class="table table-responsive table-condensed">
                           <tr>
-          		    <th>Picker</th><th>Harvests</th><th>Weight (lb)</th>
+          		    <th>Picker</th><th>Leader</th><th>RFP</th><th>Accepted</th><th>Recipient<th>Weight (lb)</th>
               		</tr>
                           {% for p in total_picker %}
                               <tr><td>{{ p.0 }}</td>
                                   <td>{{ p.1 }}</td>
                                   <td>{{ p.2 }}</td>
+                                  <td>{{ p.3 }}</td>
+                                  <td>{{ p.4 }}</td>
+                                  <td>{{ p.5 }}</td>
                               </tr>
                           {% endfor %}
                         </table>
                     </div>
                  </div>
+                 </div>
               </div>
+
+
+
+
+
+
     <!--        <div class="col-lg-4">
                <div class="panel panel-default">
                    <div class="panel-heading">
@@ -126,6 +220,6 @@
               </div>
           </div>
      </div>
-    -->
     {% include_container data2.chartcontainer 400 1050 %}
+    -->
 {% endblock %}
