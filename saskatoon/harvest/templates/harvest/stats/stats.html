@@ -185,7 +185,7 @@
                                   <td>{{ p.2 }}</td>
                                   <td>{{ p.3 }}</td>
                                   <td>{{ p.4 }}</td>
-                                  <td>{{ p.5 }}</td>
+                                  <td>{{ p.5|default_if_none:"0.0" }}</td>
                               </tr>
                           {% endfor %}
                         </table>
