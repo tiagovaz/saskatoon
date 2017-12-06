@@ -716,7 +716,6 @@ class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
-# nvd3 views
 class Stats(generic.ListView):
     template_name = 'harvest/stats/stats.html'
     context_object_name = 'stats'
@@ -789,7 +788,7 @@ class Stats(generic.ListView):
 
 
     def get_total_weight_per_fruit(self, season):
-        tt = TreeType.objects.all()
+        tt = TreeType.objects.all().order_by('fruit_name')
         total_list = []
         for t in tt:
             if season == 'all':
@@ -804,7 +803,7 @@ class Stats(generic.ListView):
         return total_list
 
     def get_total_weight_per_neighborhood(self, season):
-        nn = Neighborhood.objects.all()
+        nn = Neighborhood.objects.all().order_by('name')
         total_list = []
         for n in nn:
             if season == 'all':
@@ -820,7 +819,7 @@ class Stats(generic.ListView):
         return total_list
 
     def get_total_weight_per_beneficiary(self, season):
-        beneficiaries = Organization.objects.all()
+        beneficiaries = Organization.objects.all().order_by('civil_name')
         total_list = []
         for beneficiary in beneficiaries:
             if season == 'all':
@@ -835,7 +834,7 @@ class Stats(generic.ListView):
         return total_list
 
     def get_total_weight_per_picker(self, season):
-        beneficiaries = Person.objects.all()
+        beneficiaries = Person.objects.all().order_by('first_name')
         total_list = []
         total_tuple = ()
         for beneficiary in beneficiaries:
@@ -859,7 +858,7 @@ class Stats(generic.ListView):
         return total_list
 
     def get_pickers_info(self, season):
-        pickers = Person.objects.all()
+        pickers = Person.objects.all().order_by('first_name')
         total_list = []
         for beneficiary in beneficiaries:
             if season == 'all':
@@ -879,7 +878,7 @@ class Stats(generic.ListView):
         
 
     def barchart(self):
-        tt = TreeType.objects.all()
+        tt = TreeType.objects.all().order_by('fruit_name')
         xdata = []
         ydata = []
         for t in tt:
