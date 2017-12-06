@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 15:38-0500\n"
+"POT-Creation-Date: 2017-12-04 23:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,23 +75,27 @@ msgstr ""
 msgid "Equipment"
 msgstr ""
 
-#: saskatoon/templates/base.html:169
+#: saskatoon/templates/base.html:167
+msgid "Statistics"
+msgstr ""
+
+#: saskatoon/templates/base.html:175
 msgid "Add user"
 msgstr ""
 
-#: saskatoon/templates/base.html:170
+#: saskatoon/templates/base.html:176
 msgid "Manage users"
 msgstr ""
 
-#: saskatoon/templates/base.html:171
+#: saskatoon/templates/base.html:177
 msgid "Manage beneficiaries"
 msgstr ""
 
-#: saskatoon/templates/base.html:172
+#: saskatoon/templates/base.html:178
 msgid "Full admin interface"
 msgstr ""
 
-#: saskatoon/templates/base.html:179
+#: saskatoon/templates/base.html:185
 msgid "Bugs"
 msgstr ""
 

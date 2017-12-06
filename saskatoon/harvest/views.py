@@ -756,21 +756,21 @@ class Stats(generic.ListView):
         s = season
         h = {}
         if s == "all":
-            h["total_weight"] = int(HarvestYield.objects.aggregate(Sum('total_in_lb')).get('total_in_lb__sum'))
+            h["total_weight"] = int(HarvestYield.objects.filter(harvest__status="Succeeded").aggregate(Sum('total_in_lb')).get('total_in_lb__sum'))
             h["total_harvests"] = Harvest.objects.filter(status="Succeeded").count()
-            h["total_pickers"] = HarvestYield.objects.values('recipient').distinct().count()
+            h["total_pickers"] = HarvestYield.objects.filter(harvest__status="Succeeded").values('recipient').distinct().count()
         else:
-            h["total_weight"] = int(HarvestYield.objects.filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb')).get('total_in_lb__sum'))
+            h["total_weight"] = int(HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb')).get('total_in_lb__sum'))
             h["total_harvests"] = Harvest.objects.filter(status="Succeeded").filter(start_date__year=s).count()
-            h["total_pickers"] = HarvestYield.objects.filter(harvest__start_date__year=s).values('recipient').distinct().count()
+            h["total_pickers"] = HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__start_date__year=s).values('recipient').distinct().count()
 
         beneficiaries = Organization.objects.all()
         b_list = []
         for beneficiary in beneficiaries:
             if season == 'all':
-                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
             else:
-                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
             # If beneficiary got some fruit
             if total.get('total_in_lb__sum') is not None:
                 b_list.append(beneficiary) 
@@ -782,8 +782,8 @@ class Stats(generic.ListView):
         seasons = self.get_seasons()
         total_list = []
         for s in seasons:
-            total = HarvestYield.objects.filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb'))
-            total_times = HarvestYield.objects.filter(harvest__start_date__year=s).count()
+            total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__start_date__year=s).aggregate(Sum('total_in_lb'))
+            total_times = Harvest.objects.filter(status="Succeeded").filter(harvest__start_date__year=s).count()
             total_list.append((s, total_times, total.get('total_in_lb__sum')))
         return total_list
 
@@ -793,10 +793,11 @@ class Stats(generic.ListView):
         total_list = []
         for t in tt:
             if season == 'all':
-                total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(tree=t).aggregate(Sum('total_in_lb'))
+                total_times = Harvest.objects.filter(status="Succeeded").filter(trees__in=[t]).count()
             else:
-                total = HarvestYield.objects.filter(tree=t).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-            total_times = HarvestYield.objects.filter(tree=t).count()
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(tree=t).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+                total_times = Harvest.objects.filter(start_date__year=season).filter(status="Succeeded").filter(trees__in=[t]).count()
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (t.fruit_name, total_times, total.get('total_in_lb__sum'))
                 total_list.append(total_tuple)
@@ -807,10 +808,11 @@ class Stats(generic.ListView):
         total_list = []
         for n in nn:
             if season == 'all':
-                total = HarvestYield.objects.filter(harvest__property__neighborhood=n).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__property__neighborhood=n).aggregate(Sum('total_in_lb'))
+                total_times = Harvest.objects.filter(status="Succeeded").filter(property__neighborhood=n).count()
             else:
-                total = HarvestYield.objects.filter(harvest__property__neighborhood=n).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-            total_times = HarvestYield.objects.filter(harvest__property__neighborhood=n).count()
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__property__neighborhood=n).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+                total_times = Harvest.objects.filter(start_date__year=season).filter(status="Succeeded").filter(property__neighborhood=n).count()
             print total
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (n, total_times, total.get('total_in_lb__sum'))
@@ -822,10 +824,11 @@ class Stats(generic.ListView):
         total_list = []
         for beneficiary in beneficiaries:
             if season == 'all':
-                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total_times = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).count()
             else:
-                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-            total_times = HarvestYield.objects.filter(recipient=beneficiary).count()
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+                total_times = HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__start_date__year=season).filter(recipient=beneficiary).count()
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (beneficiary, total_times, total.get('total_in_lb__sum'))
                 total_list.append(total_tuple)
@@ -837,17 +840,20 @@ class Stats(generic.ListView):
         total_tuple = ()
         for beneficiary in beneficiaries:
             if season == 'all':
-                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total_times_leader = Harvest.objects.filter(status="Succeeded").filter(pick_leader__person=beneficiary).count()
+	        total_times_rfp = RequestForParticipation.objects.filter(picker=beneficiary).count()
+                total_times_is_accepted = RequestForParticipation.objects.filter(picker=beneficiary).filter(is_accepted=True).count()
+                total_times_recipient = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).count()
             else:
-                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-	    # FIXME: we need a single place for picker stats. Some are
-	    # recipients wihout being in RequestForParticipation (maybe they're pickleaders?)
-	    total_times_leader = Harvest.objects.filter(pick_leader__person=beneficiary).count()
-	    total_times_rfp = RequestForParticipation.objects.filter(picker=beneficiary).count()
-            total_times_is_accepted = RequestForParticipation.objects.filter(picker=beneficiary).filter(is_accepted=True).count()
-            total_times_recipient = HarvestYield.objects.filter(recipient=beneficiary).count()
-#            if total.get('total_in_lb__sum') is not None:
-            if total_times_rfp > 0 and total_times_recipient > 0:
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+                # FIXME: we need a single place for picker stats. Some are
+                # recipients wihout being in RequestForParticipation (maybe they're pickleaders?)
+                total_times_leader = Harvest.objects.filter(status="Succeeded").filter(start_date__year=season).filter(pick_leader__person=beneficiary).count()
+                total_times_rfp = RequestForParticipation.objects.filter(harvest__start_date__year=season).filter(picker=beneficiary).count()
+                total_times_is_accepted = RequestForParticipation.objects.filter(harvest__start_date__year=season).filter(picker=beneficiary).filter(is_accepted=True).count()
+                total_times_recipient = HarvestYield.objects.filter(harvest__status="Succeeded").filter(harvest__start_date__year=season).filter(recipient=beneficiary).count()
+            if total_times_rfp > 0 or total_times_recipient > 0 or total_times_leader > 0 or total.get('total_in_lb__sum') is not None or total_times_is_accepted > 0:
                 total_tuple = (beneficiary, total_times_leader, total_times_rfp, total_times_is_accepted, total_times_recipient, total.get('total_in_lb__sum'))
                 total_list.append(total_tuple)
         return total_list
@@ -857,13 +863,14 @@ class Stats(generic.ListView):
         total_list = []
         for beneficiary in beneficiaries:
             if season == 'all':
-                total = HarvestYield.objects.filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).aggregate(Sum('total_in_lb'))
+                total_times = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).count()
             else:
-                total = HarvestYield.objects.filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
-	    # FIXME: we need a single place for picker stats. Some are
-	    # recipients wihout being in RequestForParticipation (maybe they're pickleaders?)
-	    # total_times = RequestForParticipation.objects.filter(picker=beneficiary).count()
-            total_times = HarvestYield.objects.filter(recipient=beneficiary).count()
+                total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(recipient=beneficiary).filter(harvest__start_date__year=season).aggregate(Sum('total_in_lb'))
+	        # FIXME: we need a single place for picker stats. Some are
+	        # recipients wihout being in RequestForParticipation (maybe they're pickleaders?)
+	        # total_times = RequestForParticipation.objects.filter(picker=beneficiary).count()
+                total_times = HarvestYield.objects.filter(harvest__start_date__year=season).filter(harvest__status="Succeeded").filter(recipient=beneficiary).count()
             if total.get('total_in_lb__sum') is not None:
                 total_tuple = (beneficiary, total_times, total.get('total_in_lb__sum'))
                 total_list.append(total_tuple)
@@ -876,7 +883,7 @@ class Stats(generic.ListView):
         xdata = []
         ydata = []
         for t in tt:
-            total = HarvestYield.objects.filter(tree=t).aggregate(Sum('total_in_lb'))
+            total = HarvestYield.objects.filter(harvest__status="Succeeded").filter(tree=t).aggregate(Sum('total_in_lb'))
             if total.get('total_in_lb__sum') is not None:
                 xdata.append(t.fruit_name)
                 ydata.append(total.get('total_in_lb__sum'))
