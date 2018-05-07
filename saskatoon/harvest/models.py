@@ -103,6 +103,13 @@ class Property(models.Model):
         default='True'
     )
 
+    validated = models.BooleanField(
+        verbose_name=_("Validated"),
+        help_text=_("This property data has been reviewed and validated"
+                    "by a collective member"),
+        default='True'
+    )
+
     geom = PointField(null=True, blank=True)
 
     owner = models.ForeignKey(
@@ -121,6 +128,14 @@ class Property(models.Model):
         blank=True,
         max_length=200
     )
+
+    trees_accessibility = models.CharField(
+        verbose_name=_("Trees accessibility"),
+        null=True,
+        blank=True,
+        max_length=200
+    )
+
 
     avg_nb_required_pickers = models.PositiveIntegerField(
         verbose_name=_("Required pickers on average"),
@@ -141,6 +156,39 @@ class Property(models.Model):
     compost_bin = models.BooleanField(
         verbose_name=_("Compost bin closeby"),
         default=False,
+    )
+
+    ladder_available = models.BooleanField(
+        verbose_name=_("There is a ladder available in the property"),
+        default=False,
+    )
+
+    ladder_available_for_outside_picks = models.BooleanField(
+        verbose_name=_("A ladder is available in the property and can be used for nearby picks"),
+        default=False,
+    )
+
+    harvest_every_year = models.BooleanField(
+        verbose_name=_("Produces fruits every year"),
+        default=False,
+    )
+
+    number_of_trees = models.PositiveIntegerField(
+        verbose_name=_("Total number of trees in this property"),
+        blank=True,
+        null=True
+    )
+
+    approximative_maturity_date = models.DateField(
+        verbose_name=_("Approximative maturity date"),
+        blank=True,
+        null=True
+    )
+
+    fruits_height = models.PositiveIntegerField(
+        verbose_name=_("Height of lowest fruits"),
+        blank=True,
+        null=True
     )
 
     street_number = models.CharField(
