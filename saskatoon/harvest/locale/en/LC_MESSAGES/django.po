@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-06 02:29-0500\n"
+"POT-Creation-Date: 2018-05-07 16:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: harvest/forms.py:31 harvest/models.py:535
+#: harvest/forms.py:31 harvest/models.py:583
 msgid "Comment"
 msgstr ""
 
@@ -161,8 +161,7 @@ msgstr ""
 msgid "equipment types"
 msgstr ""
 
-#: harvest/models.py:100
-#: harvest/templates/harvest/organizations/detail.html:73
+#: harvest/models.py:100 harvest/templates/harvest/organizations/detail.html:73
 #: harvest/templates/harvest/properties/detail.html:73
 msgid "Is active"
 msgstr ""
@@ -171,67 +170,102 @@ msgstr ""
 msgid "Harvest in this property is authorized for the current season"
 msgstr ""
 
-#: harvest/models.py:110 harvest/models.py:644
+#: harvest/models.py:107
+msgid "Validated"
+msgstr ""
+
+#: harvest/models.py:108
+msgid ""
+"This property data has been reviewed and validatedby a collective member"
+msgstr ""
+
+#: harvest/models.py:117 harvest/models.py:692
 #: harvest/templates/harvest/properties/list.html:33
 msgid "Owner"
 msgstr ""
 
-#: harvest/models.py:115 harvest/models.py:315
+#: harvest/models.py:122 harvest/models.py:363
 msgid "Fruit trees"
 msgstr ""
 
-#: harvest/models.py:119
+#: harvest/models.py:126
 #: harvest/templates/harvest/organizations/detail.html:164
 #: harvest/templates/harvest/properties/detail.html:164
 msgid "Trees location"
 msgstr ""
 
-#: harvest/models.py:126
+#: harvest/models.py:133
+msgid "Trees accessibility"
+msgstr ""
+
+#: harvest/models.py:141
 msgid "Required pickers on average"
 msgstr ""
 
-#: harvest/models.py:132
-#: harvest/templates/harvest/organizations/detail.html:82
+#: harvest/models.py:147 harvest/templates/harvest/organizations/detail.html:82
 #: harvest/templates/harvest/properties/detail.html:82
 msgid "Publicly accessible"
 msgstr ""
 
-#: harvest/models.py:137
+#: harvest/models.py:152
 msgid "Access to neighboring terrain if needed"
 msgstr ""
 
-#: harvest/models.py:142
-#: harvest/templates/harvest/organizations/detail.html:64
+#: harvest/models.py:157 harvest/templates/harvest/organizations/detail.html:64
 #: harvest/templates/harvest/properties/detail.html:64
 msgid "Compost bin closeby"
 msgstr ""
 
-#: harvest/models.py:147
+#: harvest/models.py:162
+msgid "There is a ladder available in the property"
+msgstr ""
+
+#: harvest/models.py:167
+msgid "A ladder is available in the property and can be used for nearby picks"
+msgstr ""
+
+#: harvest/models.py:172
+msgid "Produces fruits every year"
+msgstr ""
+
+#: harvest/models.py:177
+msgid "Total number of trees in this property"
+msgstr ""
+
+#: harvest/models.py:183
+msgid "Approximative maturity date"
+msgstr ""
+
+#: harvest/models.py:189
+msgid "Height of lowest fruits"
+msgstr ""
+
+#: harvest/models.py:195
 msgid "Number"
 msgstr ""
 
-#: harvest/models.py:154
+#: harvest/models.py:202
 #: harvest/templates/harvest/harvest/detail_public.html:38
 msgid "Street"
 msgstr ""
 
-#: harvest/models.py:161
+#: harvest/models.py:209
 msgid "Complement"
 msgstr ""
 
-#: harvest/models.py:168
+#: harvest/models.py:216
 msgid "Postal code"
 msgstr ""
 
-#: harvest/models.py:175
+#: harvest/models.py:223
 msgid "Publishable location"
 msgstr ""
 
-#: harvest/models.py:176
+#: harvest/models.py:224
 msgid "Aproximative location, do not make public the real address."
 msgstr ""
 
-#: harvest/models.py:185
+#: harvest/models.py:233
 #: harvest/templates/harvest/harvest/detail_public.html:39
 #: harvest/templates/harvest/harvest/list.html:30
 #: harvest/templates/harvest/participation/list.html:30
@@ -239,207 +273,207 @@ msgstr ""
 msgid "Neighborhood"
 msgstr ""
 
-#: harvest/models.py:191
+#: harvest/models.py:239
 msgid "City"
 msgstr ""
 
-#: harvest/models.py:198
+#: harvest/models.py:246
 msgid "State"
 msgstr ""
 
-#: harvest/models.py:205
+#: harvest/models.py:253
 msgid "Country"
 msgstr ""
 
-#: harvest/models.py:211
+#: harvest/models.py:259
 msgid "Longitude"
 msgstr ""
 
-#: harvest/models.py:217
+#: harvest/models.py:265
 msgid "Latitude"
 msgstr ""
 
-#: harvest/models.py:223
+#: harvest/models.py:271
 #: harvest/templates/harvest/harvest/detail_public.html:41
 msgid "About"
 msgstr ""
 
-#: harvest/models.py:240
+#: harvest/models.py:288
 msgid "property"
 msgstr ""
 
-#: harvest/models.py:241
+#: harvest/models.py:289
 msgid "properties"
 msgstr ""
 
-#: harvest/models.py:304
+#: harvest/models.py:352
 msgid "Harvest status"
 msgstr ""
 
-#: harvest/models.py:310 harvest/models.py:651
+#: harvest/models.py:358 harvest/models.py:699
 #: harvest/templates/harvest/harvest/list.html:29
 #: harvest/templates/harvest/participation/list.html:29
 msgid "Property"
 msgstr ""
 
-#: harvest/models.py:319
+#: harvest/models.py:367
 msgid "Owner wants to be present"
 msgstr ""
 
-#: harvest/models.py:324
+#: harvest/models.py:372
 msgid "Owner wants to participate"
 msgstr ""
 
-#: harvest/models.py:329
+#: harvest/models.py:377
 msgid "Owner want his share of fruits"
 msgstr ""
 
-#: harvest/models.py:341
+#: harvest/models.py:389
 msgid "Start date"
 msgstr ""
 
-#: harvest/models.py:347
+#: harvest/models.py:395
 msgid "End date"
 msgstr ""
 
-#: harvest/models.py:353
+#: harvest/models.py:401
 msgid "Publication date"
 msgstr ""
 
-#: harvest/models.py:360
+#: harvest/models.py:408
 msgid "Reserve equipment"
 msgstr ""
 
-#: harvest/models.py:365
+#: harvest/models.py:413
 msgid "Creation date"
 msgstr ""
 
-#: harvest/models.py:371
+#: harvest/models.py:419
 #: harvest/templates/harvest/harvest/detail_public.html:26
 msgid "Number of required pickers"
 msgstr ""
 
-#: harvest/models.py:376
+#: harvest/models.py:424
 msgid "Public announcement"
 msgstr ""
 
-#: harvest/models.py:378
+#: harvest/models.py:426
 msgid ""
 "If any help is needed from volunteer pickers, please describe them here."
 msgstr ""
 
-#: harvest/models.py:407 harvest/models.py:691
+#: harvest/models.py:455 harvest/models.py:739
 msgid "harvest"
 msgstr ""
 
-#: harvest/models.py:408
+#: harvest/models.py:456
 msgid "harvests"
 msgstr ""
 
-#: harvest/models.py:522
+#: harvest/models.py:570
 msgid "Requester"
 msgstr ""
 
-#: harvest/models.py:526
+#: harvest/models.py:574
 msgid "How many people are you?"
 msgstr ""
 
-#: harvest/models.py:541
+#: harvest/models.py:589
 msgid "Notes from the pick leader."
 msgstr ""
 
-#: harvest/models.py:548 harvest/models.py:601
+#: harvest/models.py:596 harvest/models.py:649
 msgid "Harvest"
 msgstr ""
 
-#: harvest/models.py:553
+#: harvest/models.py:601
 msgid "Created on"
 msgstr ""
 
-#: harvest/models.py:558 harvest/templates/harvest/harvest/detail.html.py:305
+#: harvest/models.py:606 harvest/templates/harvest/harvest/detail.html.py:305
 msgid "Accepted on"
 msgstr ""
 
-#: harvest/models.py:564 harvest/templates/harvest/harvest/detail.html.py:328
+#: harvest/models.py:612 harvest/templates/harvest/harvest/detail.html.py:328
 msgid "Accepted"
 msgstr ""
 
-#: harvest/models.py:571
+#: harvest/models.py:619
 msgid "Showed up"
 msgstr ""
 
-#: harvest/models.py:578
+#: harvest/models.py:626
 msgid "Canceled"
 msgstr ""
 
-#: harvest/models.py:583
+#: harvest/models.py:631
 msgid "request for participation"
 msgstr ""
 
-#: harvest/models.py:584
+#: harvest/models.py:632
 msgid "requests for participation"
 msgstr ""
 
-#: harvest/models.py:606
+#: harvest/models.py:654
 msgid "Tree"
 msgstr ""
 
-#: harvest/models.py:610
+#: harvest/models.py:658
 msgid "Weight (lb)"
 msgstr ""
 
-#: harvest/models.py:618
+#: harvest/models.py:666
 msgid "Recipient"
 msgstr ""
 
-#: harvest/models.py:622
+#: harvest/models.py:670
 msgid "harvest yield"
 msgstr ""
 
-#: harvest/models.py:623
+#: harvest/models.py:671
 msgid "harvest yields"
 msgstr ""
 
-#: harvest/models.py:634 harvest/templates/harvest/equipment/list.html.py:26
+#: harvest/models.py:682 harvest/templates/harvest/equipment/list.html.py:26
 msgid "Type"
 msgstr ""
 
-#: harvest/models.py:638 harvest/templates/harvest/equipment/list.html.py:27
+#: harvest/models.py:686 harvest/templates/harvest/equipment/list.html.py:27
 #: harvest/templates/harvest/organizations/detail.html:138
 #: harvest/templates/harvest/organizations/list.html:27
 #: harvest/templates/harvest/properties/detail.html:138
 msgid "Description"
 msgstr ""
 
-#: harvest/models.py:658 harvest/templates/harvest/equipment/list.html.py:29
+#: harvest/models.py:706 harvest/templates/harvest/equipment/list.html.py:29
 msgid "Shared"
 msgstr ""
 
-#: harvest/models.py:659
+#: harvest/models.py:707
 msgid "Can be used in harvests outside of property"
 msgstr ""
 
-#: harvest/models.py:664 harvest/models.py:665
+#: harvest/models.py:712 harvest/models.py:713
 msgid "equipment"
 msgstr ""
 
-#: harvest/models.py:674
+#: harvest/models.py:722
 msgid "Content"
 msgstr ""
 
-#: harvest/models.py:679
+#: harvest/models.py:727
 msgid "Created date"
 msgstr ""
 
-#: harvest/models.py:685
+#: harvest/models.py:733
 msgid "Author"
 msgstr ""
 
-#: harvest/models.py:696
+#: harvest/models.py:744
 msgid "comment"
 msgstr ""
 
-#: harvest/models.py:697
+#: harvest/models.py:745
 msgid "comments"
 msgstr ""
 
