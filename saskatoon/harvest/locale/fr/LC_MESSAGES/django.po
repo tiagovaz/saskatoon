@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-06 02:29-0500\n"
+"POT-Creation-Date: 2018-05-07 15:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,8 +173,7 @@ msgstr "type d'équipement"
 msgid "equipment types"
 msgstr "types d'équipements"
 
-#: harvest/models.py:100
-#: harvest/templates/harvest/organizations/detail.html:73
+#: harvest/models.py:100 harvest/templates/harvest/organizations/detail.html:73
 #: harvest/templates/harvest/properties/detail.html:73
 msgid "Is active"
 msgstr "Actif"
@@ -202,8 +201,7 @@ msgstr "Localisation des arbres"
 msgid "Required pickers on average"
 msgstr "Cueilleur requis en moyenne"
 
-#: harvest/models.py:132
-#: harvest/templates/harvest/organizations/detail.html:82
+#: harvest/models.py:132 harvest/templates/harvest/organizations/detail.html:82
 #: harvest/templates/harvest/properties/detail.html:82
 msgid "Publicly accessible"
 msgstr "Accesible au public"
@@ -212,8 +210,7 @@ msgstr "Accesible au public"
 msgid "Access to neighboring terrain if needed"
 msgstr "Acces au terrain des voisin si nécéssaire"
 
-#: harvest/models.py:142
-#: harvest/templates/harvest/organizations/detail.html:64
+#: harvest/models.py:142 harvest/templates/harvest/organizations/detail.html:64
 #: harvest/templates/harvest/properties/detail.html:64
 msgid "Compost bin closeby"
 msgstr "Compost à proximiter"
