@@ -179,6 +179,11 @@ class Person(Actor):
         default=1
     )
 
+    newsletter_subscription = models.BooleanField(
+        verbose_name=_('Newsletter subscription'),
+        default=False
+    )
+
     longitude = models.FloatField(
         verbose_name=_("Longitude"),
         null=True,
