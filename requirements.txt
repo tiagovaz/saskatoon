@@ -20,3 +20,4 @@ django-geojson
 django-leaflet
 django-nvd3
 django-bower
+jsonfield

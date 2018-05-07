@@ -185,7 +185,7 @@ class HarvestList(generic.ListView):
             queryset
         )
         context['view'] = "harvests"
-        context['list_harvests'] = all_harvests
+        context['all_harvests'] = all_harvests
         context['form'] = all_harvests.form
 
         return context

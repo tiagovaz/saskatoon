@@ -8,7 +8,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-07 16:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,7 +201,6 @@ msgstr ""
 msgid "Required pickers on average"
 msgstr ""
 
-#: harvest/models.py:147 harvest/templates/harvest/organizations/detail.html:82
 #: harvest/templates/harvest/properties/detail.html:82
 msgid "Publicly accessible"
 msgstr ""
@@ -211,7 +209,6 @@ msgstr ""
 msgid "Access to neighboring terrain if needed"
 msgstr ""
 
-#: harvest/models.py:157 harvest/templates/harvest/organizations/detail.html:64
 #: harvest/templates/harvest/properties/detail.html:64
 msgid "Compost bin closeby"
 msgstr ""
