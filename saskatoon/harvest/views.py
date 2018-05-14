@@ -48,7 +48,7 @@ class PropertyList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertyList, self).get_context_data(**kwargs)
-        active_properties = Property.objects.filter(is_active=True)
+        active_properties = Property.objects.filter(authorized=True)
         context['view'] = "properties"
         context['active_properties'] = active_properties
 
@@ -71,8 +71,6 @@ class PropertyDetail(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertyDetail, self).get_context_data(**kwargs)
-        property_history = Property.history.filter(id=self.kwargs['pk'])
-        context['property_history'] = property_history
         context['form_image'] = PropertyImageForm()
 
         return context
@@ -207,12 +205,10 @@ class HarvestDetail(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(HarvestDetail, self).get_context_data(**kwargs)
 
-        harvest_history = Harvest.history.filter(id=self.kwargs['pk'])
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
         requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
 
-        context['harvest_history'] = harvest_history
         context['form_comment'] = CommentForm()
         context['form_request'] = RequestForm()
         context['form_manage_request'] = RFPManageForm()

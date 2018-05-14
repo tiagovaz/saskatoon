@@ -12,7 +12,7 @@
             {% if "active" in request.get_full_path  %}
                 <p class="text-right"><a href="/harvest/properties/"> {% trans "Show all" %}</a></p>
             {% else %}
-                <p class="text-right"><a href="/harvest/properties/active"> {% trans "Show active only" %}</a></p>
+                <p class="text-right"><a href="/harvest/properties/active"> {% trans "Show authorized only" %}</a></p>
             {% endif %}
         </div>
         <!-- /.col-lg-12 -->
@@ -34,7 +34,7 @@
                                     <th>{% trans "Address" %}</th>
                                     <th>{% trans "Neighborhood" %}</th>
                                     {% if "active" not in request.get_full_path  %}
-                                        <th>{% trans "Active" %}</th>
+                                        <th>{% trans "Authorized" %}</th>
                                     {% endif %}
                                     <th>{% trans "Action" %}</th>
                                 </tr>
@@ -83,7 +83,7 @@
                                     <td>{{ property.street }}</td>
                                     <td>{{ property.neighborhood.name }}</td>
                                     <td><center>
-                                        {% if property.is_active %}
+                                        {% if property.authorized %}
                                             <i class="fa fa-check" style="font-size:20px;color:green;"> </i>
                                         {% else %}
                                             <i class="fa fa-times" style="font-size:20px;color:red" > </i>

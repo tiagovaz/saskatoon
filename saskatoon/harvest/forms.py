@@ -268,20 +268,26 @@ class HarvestImageForm(forms.ModelForm):
             'image'
         ]
 
-
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = (
-            'is_active',
-            'validated',
+            'authorized',
+            'pending',
             'owner',
             'trees',
             'trees_location',
             'avg_nb_required_pickers',
             'public_access',
+            'trees_accessibility',
             'neighbor_access',
             'compost_bin',
+            'ladder_available',
+            'ladder_available_for_outside_picks',
+            'harvest_every_year',
+            'number_of_trees',
+            'approximative_maturity_date',
+            'fruits_height',
             'street_number',
             'street',
             'complement',
@@ -294,7 +300,39 @@ class PropertyForm(forms.ModelForm):
             'longitude',
             'latitude',
             'geom',
-            'about',
+            'additional_info',
+        )
+
+class PublicPropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = (
+            'pending_contact_name',
+            'pending_contact_phone',
+            'pending_contact_email',
+            'trees',
+            'trees_location',
+            'avg_nb_required_pickers',
+            'public_access',
+            'trees_accessibility',
+            'neighbor_access',
+            'compost_bin',
+            'ladder_available',
+            'ladder_available_for_outside_picks',
+            'harvest_every_year',
+            'number_of_trees',
+            'approximative_maturity_date',
+            'fruits_height',
+            'street_number',
+            'street',
+            'complement',
+            'postal_code',
+            'publishable_location',
+            'neighborhood',
+            'city',
+            'state',
+            'country',
+            'additional_info',
         )
 
         widgets = {

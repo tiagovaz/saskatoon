@@ -2,7 +2,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
-from simple_history.models import HistoricalRecords
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
@@ -96,18 +95,33 @@ class Property(models.Model):
     """
     Property where you find one or more trees for harvesting.
     """
-    is_active = models.BooleanField(
-        verbose_name=_("Is active"),
-        help_text=_("Harvest in this property is "
-                    "authorized for the current season"),
+    authorized = models.BooleanField(
+        verbose_name=_("Authorized for this season"),
+        help_text=_("Harvest in this property has been "
+                    "authorized for the current season by its owner"),
         default='True'
     )
 
-    validated = models.BooleanField(
-        verbose_name=_("Validated"),
-        help_text=_("This property data has been reviewed and validated"
-                    "by a collective member"),
+    pending = models.BooleanField(
+        verbose_name=_("Pending"),
+        help_text=_("This property was created through a public form and needs to be validated"),
         default='True'
+    )
+
+    pending_contact_name = models.CharField(
+        verbose_name=_("Contact name"),
+        max_length=50
+    )
+
+    pending_contact_phone = models.CharField(
+        verbose_name=_("Phone number for contact"),
+        max_length=50
+    )
+
+    pending_contact_email = models.EmailField(
+        verbose_name=_("Contact email"),
+        null=True,
+        blank=True,
     )
 
     geom = PointField(null=True, blank=True)
@@ -267,16 +281,13 @@ class Property(models.Model):
         blank=True
     )
 
-    about = models.CharField(
-        verbose_name=_("About"),
+    additional_info = models.CharField(
+        verbose_name=_("Additional information"),
         max_length=1000,
         null=True,
         blank=True
     )
 
-    #geom = PointField()
-
-    history = HistoricalRecords()
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
@@ -429,7 +440,6 @@ class Harvest(models.Model):
         blank=True
     )
 
-    history = HistoricalRecords()
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
