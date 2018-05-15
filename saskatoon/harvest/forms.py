@@ -314,6 +314,13 @@ class PropertyForm(forms.ModelForm):
             'avg_nb_required_pickers': forms.NumberInput()
         }
 
+    approximative_maturity_date = forms.DateField(
+        input_formats=('%d/%m/%Y',),
+        widget=forms.DateInput(
+            format='%d/%m/%Y',
+        )
+    )
+
 class PublicPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
@@ -322,6 +329,7 @@ class PublicPropertyForm(forms.ModelForm):
             'pending_contact_phone',
             'pending_contact_email',
             'trees',
+            'approximative_maturity_date',
             'trees_location',
             'avg_nb_required_pickers',
             'public_access',
@@ -332,7 +340,6 @@ class PublicPropertyForm(forms.ModelForm):
             'ladder_available_for_outside_picks',
             'harvest_every_year',
             'number_of_trees',
-            'approximative_maturity_date',
             'fruits_height',
             'street_number',
             'street',
@@ -353,6 +360,13 @@ class PublicPropertyForm(forms.ModelForm):
             'additional_info': forms.Textarea(),
             'avg_nb_required_pickers': forms.NumberInput()
         }
+
+    approximative_maturity_date = forms.DateField(
+        input_formats=('%d/%m/%Y',),
+        widget=forms.DateInput(
+            format='%d/%m/%Y',
+        )
+    )
 
 
 class HarvestForm(forms.ModelForm):
