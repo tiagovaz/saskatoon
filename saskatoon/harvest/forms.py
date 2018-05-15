@@ -272,9 +272,9 @@ class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = (
+            'owner',
             'authorized',
             'pending',
-            'owner',
             'trees',
             'trees_location',
             'avg_nb_required_pickers',
@@ -302,6 +302,17 @@ class PropertyForm(forms.ModelForm):
             'geom',
             'additional_info',
         )
+
+        widgets = {
+            'owner': autocomplete.ModelSelect2(
+               'actor-autocomplete'
+            ),
+            'trees': autocomplete.ModelSelect2Multiple(
+                'tree-autocomplete'
+            ),
+            'additional_info': forms.Textarea(),
+            'avg_nb_required_pickers': forms.NumberInput()
+        }
 
 class PublicPropertyForm(forms.ModelForm):
     class Meta:
@@ -336,13 +347,10 @@ class PublicPropertyForm(forms.ModelForm):
         )
 
         widgets = {
-            'owner': autocomplete.ModelSelect2(
-               'actor-autocomplete'
-            ),
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
-            'about': forms.Textarea(),
+            'additional_info': forms.Textarea(),
             'avg_nb_required_pickers': forms.NumberInput()
         }
 

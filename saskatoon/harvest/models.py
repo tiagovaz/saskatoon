@@ -128,6 +128,8 @@ class Property(models.Model):
 
     owner = models.ForeignKey(
         'member.Actor',
+        null=True,
+        blank=True,
         verbose_name=_("Owner")
     )
 
@@ -439,7 +441,6 @@ class Harvest(models.Model):
         null=True,
         blank=True
     )
-
 
     changed_by = models.ForeignKey(
         'member.AuthUser',

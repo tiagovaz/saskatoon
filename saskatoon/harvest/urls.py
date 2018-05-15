@@ -49,6 +49,16 @@ urlpatterns = patterns(
         name='property_create'
     ),
     url(
+        r'^properties/create_pending$',
+        views.PublicPropertyCreate.as_view(),
+        name='property_create_pending'
+    ),
+    url(
+        r'^properties/thanks$',
+        views.PropertyThanks.as_view(),
+        name='property_thanks'
+    ),
+    url(
         r'^properties/(?P<pk>\d+)/update$',
         views.PropertyUpdate.as_view(),
         name='property_update'

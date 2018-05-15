@@ -3,7 +3,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, \
     PropertyImage, HarvestYield, HarvestImage
-from harvest.forms import CommentForm, RequestForm, PropertyForm, \
+from harvest.forms import CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor, Organization, Neighborhood
 from harvest.filters import HarvestFilter
@@ -15,10 +15,9 @@ from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django import forms
-from django.shortcuts import redirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render, redirect
+from django.template import RequestContext
 from django.db.models import Sum, Count
-
 
 class OrganizationList(generic.ListView):
     template_name = 'harvest/organizations/list.html'
@@ -75,7 +74,6 @@ class PropertyDetail(generic.DetailView):
 
         return context
 
-
 class PropertyCreate(generic.CreateView):
     model = Property
     template_name = 'harvest/properties/create.html'
@@ -88,6 +86,25 @@ class PropertyCreate(generic.CreateView):
     def get_success_url(self):
         return self.object.get_absolute_url()
 
+class PublicPropertyCreate(generic.CreateView):
+    model = Property
+    template_name = 'harvest/properties/create.html'
+    form_class = PublicPropertyForm
+
+    def dispatch(self, *args, **kwargs):
+        return super(PublicPropertyCreate, self).dispatch(*args, **kwargs)
+
+    def get_success_url(self):
+            return reverse_lazy(
+                #'harvest:equipment_list'
+                'harvest:property_thanks'
+            )
+
+class PropertyThanks(generic.TemplateView):
+    template_name =  'harvest/properties/thanks.html'
+    def get_context_data(self, **kwargs):
+        context = super(PropertyThanks, self).get_context_data(**kwargs)
+        return context
 
 class PropertyUpdate(generic.UpdateView):
     model = Property
@@ -659,17 +676,10 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated():
-            return TreeType.objects.none()
-
         qs = TreeType.objects.all()
-
         if self.q:
             qs = qs.filter(name__icontains=self.q)
-
         return qs
-
 
 class PropertyAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -697,6 +707,7 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
                     list_property.append(actor)
 
         return list_property
+        return qs
 
 
 class EquipmentAutocomplete(autocomplete.Select2QuerySetView):

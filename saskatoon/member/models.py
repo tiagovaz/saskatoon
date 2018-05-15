@@ -96,7 +96,6 @@ class Actor(models.Model):
             # if it is not a person it must be an organization
             return u"%s" % (self.organization)
 
-
 @python_2_unicode_compatible
 class Person(Actor):
     redmine_contact_id = models.IntegerField(
