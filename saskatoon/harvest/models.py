@@ -99,7 +99,7 @@ class Property(models.Model):
         verbose_name=_("Authorized for this season"),
         help_text=_("Harvest in this property has been "
                     "authorized for the current season by its owner"),
-        default='True'
+        default='False'
     )
 
     pending = models.BooleanField(
