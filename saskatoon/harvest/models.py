@@ -99,13 +99,13 @@ class Property(models.Model):
         verbose_name=_("Authorized for this season"),
         help_text=_("Harvest in this property has been "
                     "authorized for the current season by its owner"),
-        default='False'
+        default=False
     )
 
     pending = models.BooleanField(
         verbose_name=_("Pending"),
         help_text=_("This property was created through a public form and needs to be validated"),
-        default='True'
+        default=True
     )
 
     pending_contact_name = models.CharField(
@@ -335,6 +335,11 @@ class Property(models.Model):
     def get_harvests(self):
         harvests_list = Harvest.objects.filter(property=self)
         return harvests_list
+
+    def get_last_succeeded_harvest(self):
+        last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
+        if last_harvest:
+            return last_harvest[0]
 
     @property
     def get_owner_name(self):

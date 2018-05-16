@@ -33,6 +33,7 @@
                                     <th>{% trans "Owner" %}</th>
                                     <th>{% trans "Address" %}</th>
                                     <th>{% trans "Neighborhood" %}</th>
+                                    <th>{% trans "Last pick" %}</th>
                                     {% if "active" not in request.get_full_path  %}
                                         <th>{% trans "Authorized" %}</th>
                                     {% endif %}
@@ -56,6 +57,7 @@
                                     <td>{{ property.owner }}</td>
                                     <td>{{ property.street }}</td>
                                     <td>{{ property.neighborhood.name }}</td>
+				    <td><a href="/harvest/{{property.get_last_succeeded_harvest.id}}">{{ property.get_last_succeeded_harvest.start_date|date:"Y" }}</a></td>
                                     <td>
                                         <center>
                                         <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
@@ -82,6 +84,7 @@
                                     <td>{{ property.owner }}</td>
                                     <td>{{ property.street }}</td>
                                     <td>{{ property.neighborhood.name }}</td>
+				    <td><a href="/harvest/{{property.get_last_succeeded_harvest.id}}">{{ property.get_last_succeeded_harvest.start_date|date:"Y" }}</a></td>
                                     <td><center>
                                         {% if property.authorized %}
                                             <i class="fa fa-check" style="font-size:20px;color:green;"> </i>
