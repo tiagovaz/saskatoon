@@ -3,7 +3,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, \
     PropertyImage, HarvestYield, HarvestImage
-from harvest.forms import CommentForm, RequestForm, PropertyForm, \
+from harvest.forms import CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor, Organization, Neighborhood
 from harvest.filters import HarvestFilter
@@ -15,10 +15,9 @@ from dal import autocomplete
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django import forms
-from django.shortcuts import redirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render, redirect
+from django.template import RequestContext
 from django.db.models import Sum, Count
-
 
 class OrganizationList(generic.ListView):
     template_name = 'harvest/organizations/list.html'
@@ -48,7 +47,7 @@ class PropertyList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertyList, self).get_context_data(**kwargs)
-        active_properties = Property.objects.filter(is_active=True)
+        active_properties = Property.objects.filter(authorized=True)
         context['view'] = "properties"
         context['active_properties'] = active_properties
 
@@ -71,12 +70,9 @@ class PropertyDetail(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertyDetail, self).get_context_data(**kwargs)
-        property_history = Property.history.filter(id=self.kwargs['pk'])
-        context['property_history'] = property_history
         context['form_image'] = PropertyImageForm()
 
         return context
-
 
 class PropertyCreate(generic.CreateView):
     model = Property
@@ -90,6 +86,25 @@ class PropertyCreate(generic.CreateView):
     def get_success_url(self):
         return self.object.get_absolute_url()
 
+class PublicPropertyCreate(generic.CreateView):
+    model = Property
+    template_name = 'harvest/properties/create.html'
+    form_class = PublicPropertyForm
+
+    def dispatch(self, *args, **kwargs):
+        return super(PublicPropertyCreate, self).dispatch(*args, **kwargs)
+
+    def get_success_url(self):
+            return reverse_lazy(
+                #'harvest:equipment_list'
+                'harvest:property_thanks'
+            )
+
+class PropertyThanks(generic.TemplateView):
+    template_name =  'harvest/properties/thanks.html'
+    def get_context_data(self, **kwargs):
+        context = super(PropertyThanks, self).get_context_data(**kwargs)
+        return context
 
 class PropertyUpdate(generic.UpdateView):
     model = Property
@@ -207,12 +222,10 @@ class HarvestDetail(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(HarvestDetail, self).get_context_data(**kwargs)
 
-        harvest_history = Harvest.history.filter(id=self.kwargs['pk'])
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
         requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
 
-        context['harvest_history'] = harvest_history
         context['form_comment'] = CommentForm()
         context['form_request'] = RequestForm()
         context['form_manage_request'] = RFPManageForm()
@@ -663,17 +676,10 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated():
-            return TreeType.objects.none()
-
         qs = TreeType.objects.all()
-
         if self.q:
             qs = qs.filter(name__icontains=self.q)
-
         return qs
-
 
 class PropertyAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -701,6 +707,7 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
                     list_property.append(actor)
 
         return list_property
+        return qs
 
 
 class EquipmentAutocomplete(autocomplete.Select2QuerySetView):

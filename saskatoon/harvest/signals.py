@@ -16,7 +16,9 @@ def _send_mail(subject, message, mail_to):
 def changed_by(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     if current_request:
-        instance.changed_by = current_request.user
+        # If property is created by the owner not authenticated:
+        if current_request.user.is_anonymous is False:
+            instance.changed_by = current_request.user
     else:
         instance.changed_by = None
 

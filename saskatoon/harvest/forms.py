@@ -268,20 +268,26 @@ class HarvestImageForm(forms.ModelForm):
             'image'
         ]
 
-
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = (
-            'is_active',
-            'validated',
             'owner',
+            'authorized',
+            'pending',
             'trees',
             'trees_location',
             'avg_nb_required_pickers',
             'public_access',
+            'trees_accessibility',
             'neighbor_access',
             'compost_bin',
+            'ladder_available',
+            'ladder_available_for_outside_picks',
+            'harvest_every_year',
+            'number_of_trees',
+            'approximative_maturity_date',
+            'fruits_height',
             'street_number',
             'street',
             'complement',
@@ -294,7 +300,7 @@ class PropertyForm(forms.ModelForm):
             'longitude',
             'latitude',
             'geom',
-            'about',
+            'additional_info',
         )
 
         widgets = {
@@ -304,9 +310,63 @@ class PropertyForm(forms.ModelForm):
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
-            'about': forms.Textarea(),
+            'additional_info': forms.Textarea(),
             'avg_nb_required_pickers': forms.NumberInput()
         }
+
+    approximative_maturity_date = forms.DateField(
+        input_formats=('%d/%m/%Y',),
+        widget=forms.DateInput(
+            format='%d/%m/%Y',
+        )
+    )
+
+class PublicPropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = (
+            'pending_contact_name',
+            'pending_contact_phone',
+            'pending_contact_email',
+            'trees',
+            'approximative_maturity_date',
+            'trees_location',
+            'avg_nb_required_pickers',
+            'public_access',
+            'trees_accessibility',
+            'neighbor_access',
+            'compost_bin',
+            'ladder_available',
+            'ladder_available_for_outside_picks',
+            'harvest_every_year',
+            'number_of_trees',
+            'fruits_height',
+            'street_number',
+            'street',
+            'complement',
+            'postal_code',
+            'publishable_location',
+            'neighborhood',
+            'city',
+            'state',
+            'country',
+            'additional_info',
+        )
+
+        widgets = {
+            'trees': autocomplete.ModelSelect2Multiple(
+                'tree-autocomplete'
+            ),
+            'additional_info': forms.Textarea(),
+            'avg_nb_required_pickers': forms.NumberInput()
+        }
+
+    approximative_maturity_date = forms.DateField(
+        input_formats=('%d/%m/%Y',),
+        widget=forms.DateInput(
+            format='%d/%m/%Y',
+        )
+    )
 
 
 class HarvestForm(forms.ModelForm):

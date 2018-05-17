@@ -2,7 +2,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
-from simple_history.models import HistoricalRecords
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse_lazy
@@ -98,22 +97,47 @@ class Property(models.Model):
     """
     is_active = models.BooleanField(
         verbose_name=_("Is active"),
-        help_text=_("Harvest in this property is "
-                    "authorized for the current season"),
-        default='True'
+        help_text=_("This property exists and may be able to host a pick"),
+        default=True
     )
 
-    validated = models.BooleanField(
-        verbose_name=_("Validated"),
-        help_text=_("This property data has been reviewed and validated"
-                    "by a collective member"),
-        default='True'
+    authorized = models.BooleanField(
+        verbose_name=_("Authorized for this season"),
+        help_text=_("Harvest in this property has been authorized for the current season by its owner"),
+        default=False
+    )
+
+    pending = models.BooleanField(
+        verbose_name=_("Pending"),
+        help_text=_("This property was created through a public form and needs to be validated"),
+        default=True
+    )
+
+    pending_contact_name = models.CharField(
+        verbose_name=_("Contact name"),
+        help_text=_("Name of the person to be contacted for confirmation"),
+        max_length=50
+    )
+
+    pending_contact_phone = models.CharField(
+        verbose_name=_("Contact phone number"),
+        help_text=_("Phone number to be used for confirmation"),
+        max_length=50
+    )
+
+    pending_contact_email = models.EmailField(
+        verbose_name=_("Contact email"),
+        help_text=_("Email address to be used for confirmation"),
+        null=True,
+        blank=True,
     )
 
     geom = PointField(null=True, blank=True)
 
     owner = models.ForeignKey(
         'member.Actor',
+        null=True,
+        blank=True,
         verbose_name=_("Owner")
     )
 
@@ -124,6 +148,7 @@ class Property(models.Model):
 
     trees_location = models.CharField(
         verbose_name=_("Trees location"),
+        help_text=_("Front yard or backyard?"),
         null=True,
         blank=True,
         max_length=200
@@ -131,6 +156,7 @@ class Property(models.Model):
 
     trees_accessibility = models.CharField(
         verbose_name=_("Trees accessibility"),
+        help_text=_("Any info on how to access the tree (eg. key, gate etc)"),
         null=True,
         blank=True,
         max_length=200
@@ -181,6 +207,7 @@ class Property(models.Model):
 
     approximative_maturity_date = models.DateField(
         verbose_name=_("Approximative maturity date"),
+        help_text=_("When is the tree commonly ready to be harvested?"),
         blank=True,
         null=True
     )
@@ -221,8 +248,7 @@ class Property(models.Model):
 
     publishable_location = models.CharField(
         verbose_name=_("Publishable location"),
-        help_text=_("Aproximative location, "
-                    "do not make public the real address."),
+        help_text=_("Aproximative location to be used in public communications (not the actual address)"),
         max_length=50,
         null=True,
         blank=True
@@ -267,16 +293,14 @@ class Property(models.Model):
         blank=True
     )
 
-    about = models.CharField(
-        verbose_name=_("About"),
+    additional_info = models.CharField(
+        verbose_name=_("Additional information"),
+        help_text=_("Any additional information that we should be aware of"),
         max_length=1000,
         null=True,
         blank=True
     )
 
-    #geom = PointField()
-
-    history = HistoricalRecords()
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
@@ -322,6 +346,11 @@ class Property(models.Model):
     def get_harvests(self):
         harvests_list = Harvest.objects.filter(property=self)
         return harvests_list
+
+    def get_last_succeeded_harvest(self):
+        last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
+        if last_harvest:
+            return last_harvest[0]
 
     @property
     def get_owner_name(self):
@@ -428,8 +457,6 @@ class Harvest(models.Model):
         null=True,
         blank=True
     )
-
-    history = HistoricalRecords()
 
     changed_by = models.ForeignKey(
         'member.AuthUser',
