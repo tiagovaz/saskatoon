@@ -48,7 +48,11 @@
     </head>
 
     <body>
+    {% if user.is_authenticated %}
         <div id="wrapper">
+    {% else %}
+        <div style="padding:20px;">
+    {% endif %}
             <!-- Navigation -->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
@@ -192,8 +196,11 @@
                 </div>
                 <!-- /.navbar-static-side -->
             </nav>
-
-            <div id="page-wrapper" style="padding-top:20px;">
+	    {% if user.is_authenticated %}
+                <div id="page-wrapper">
+	    {% else %}
+                <div style="padding:20px;">
+            {% endif %}
                 {% if messages %}
                     {% for message in messages %}
                         {% if message.tags == 'error' %}
@@ -237,7 +244,7 @@
             <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
-        <div id="footer">
+        <div id="footer"style="padding:20px;">
             Saskatoon - Free software - License AGPLv3 - Version 0.1
             <span style="float:right;">
                 <a href="https://github.com/tiagovaz/saskatoon/">

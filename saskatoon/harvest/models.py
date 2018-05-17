@@ -197,6 +197,7 @@ class Property(models.Model):
 
     approximative_maturity_date = models.DateField(
         verbose_name=_("Approximative maturity date"),
+        help_text=_("Approximative date for..."),
         blank=True,
         null=True
     )
@@ -237,8 +238,7 @@ class Property(models.Model):
 
     publishable_location = models.CharField(
         verbose_name=_("Publishable location"),
-        help_text=_("Aproximative location, "
-                    "do not make public the real address."),
+        help_text=_("Aproximative location, do not make public the real address."),
         max_length=50,
         null=True,
         blank=True
