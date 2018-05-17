@@ -14,23 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RemoveField(
             model_name='historicalproperty',
-            name='about',
-        ),
-        migrations.RemoveField(
-            model_name='historicalproperty',
-            name='is_active',
-        ),
-        migrations.RemoveField(
-            model_name='historicalproperty',
             name='validated',
-        ),
-        migrations.RemoveField(
-            model_name='property',
-            name='about',
-        ),
-        migrations.RemoveField(
-            model_name='property',
-            name='is_active',
         ),
         migrations.RemoveField(
             model_name='property',
