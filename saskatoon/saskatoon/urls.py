@@ -78,6 +78,4 @@ urlpatterns = [
         serve,
         {'document_root': settings.MEDIA_ROOT}
     ),
-    url(r'^avatar/', include('avatar.urls')),
-
 ]

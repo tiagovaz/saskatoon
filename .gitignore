@@ -8,7 +8,6 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-build/
 develop-eggs/
 downloads/
 eggs/
@@ -56,7 +55,6 @@ target/
 # Other
 db.sqlite3
 .idea
-*.png
 django_bootstrap_calendar/*
 .project
 /.pydevproject
