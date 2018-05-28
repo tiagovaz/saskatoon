@@ -1,88 +1,189 @@
-{% extends "base.html" %}
-{% load staticfiles %}
+{% extends "app/base_site.html" %}
 {% load i18n %}
-{% load bootstrap3 %}
+{% load bootstrap %}
+
+{% block title %} {% trans "Harvests" %}{% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                {% trans "Harvests" %}
-                <a class="btn btn-xs btn-primary" href='{% url "harvest:harvest_create"%}'><i class="fa fa-plus"></i> {% trans "New harvest" %}</a>
-            </h1>
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>{% trans "Harvests" %}</h3>
         </div>
-        <!-- /.col-lg-12 -->
-    </div>
 
-    <div class="row">
-        <div class="col-sm-9">
-            <div class="panel panel-default">
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-harvestlist">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">{% trans "Id" %}</th>
-                                    <th>{% trans "Tree(s)" %}</th>
-                                    <th>{% trans "Pickleader" %}</th>
-                                    <th>{% trans "Property" %}</th>
-                                    <th>{% trans "Neighborhood" %}</th>
-                                    <th>{% trans "Scheduled to" %}</th>
-                                    <th>{% trans "Status" %}</th>
-                                    <th>{% trans "Action" %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               {% for harvest in all_harvests %}
-                                <tr class="odd gradeX">
-                                    <td class="text-center">
-                                        <a href='{% url "harvest:harvest_detail" harvest.id %}'>
-                                            {{ harvest.id }}
-                                        </a>
-                                    </td>
-                                    <td>{% for tree in harvest.trees.all %}
-                                            {{ tree }}<br>
-                                        {% endfor %}
-                                    </td>
-                                    <td>{{ harvest.pick_leader|default:"" }}</td>
-                                    <td>
-                                        <a href='{% url "harvest:property_detail" harvest.property.id %}'>
-                                            {{ harvest.property }}
-                                        </a>
-                                    </td>
-                                    <td>{{ harvest.property.neighborhood }}</td>
-                                    <td>{{ harvest.start_date }}</td>
-                                    <td>{{ harvest.status }}</td>
-                                    <td class="text-center">
-                                        <a class="btn btn-xs btn-warning" href='{% url "harvest:harvest_update" harvest.id %}'><i class="fa fa-pencil"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
             </div>
+          </div>
         </div>
-        <div class="col-sm-3">
-           <div class="panel panel-default">
-                <div class="panel-heading">
-                    Filters
-                </div>
-                <div class="panel-body">
-                    <form class="form" action="" method="get">
-                        <form method="post">
-                            {% csrf_token %}
-                            {% bootstrap_form form %}
-                            {% buttons %}
-                                <button type="submit" class="btn btn-primary pull-right">Enregistrer</button>
-                            {% endbuttons %}
-                        </form>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+      </div>
 
-{% endblock %}
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-10 col-sm-10 col-xs-12">
+          <div class="x_panel">
+            <div class="x_content">
+              <!-- start project list -->
+              <table id="datatable-buttons" class="table table-striped projects dt-responsive">
+                <thead>
+                  <tr>
+                    <th style="width: 1%">#</th>
+                    <th style="width: 20%">{% trans "Harvest" %}</th>
+                    <th>{% trans "Tree" %}</th>
+                    <th style="width: 20%">{% trans "Pickers" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Action" %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for harvest in all_harvests.qs %}
+                  <tr>
+                    <td>{{ harvest.id }}</td>
+                    <td>
+                      <a href='{% url "harvest:property_detail" harvest.property.id %}'>{{ harvest.property }}</a>
+                      <br />
+                      {% if harvest.pick_leader != None %}
+                        <small>{% trans "by" %} {{ harvest.pick_leader }}</small>
+                      {% else %}
+                        <span class="label label-danger">{% trans "missing leader" %}</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% for tree in harvest.trees.all %}
+                      <div class="text-nowrap">{{ tree }}</div>
+                      {% endfor %}
+                    </td>
+                    <td>
+                      <ul class="list-inline">
+                      {% if harvest.pick_leader %}
+                        <li>
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ harvest.pick_leader|default:'' }} [{% trans 'Pickleader' %}]">
+                            <img src="/static/images/user.png" class="avatar" alt=" {{ harvest.pick_leader|default:'' }} [{% trans 'Pickleader' %}]">
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% for p in harvest.get_pickers.all %}
+                        <li>
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ p.picker }}">
+                            <img src="/static/images/user.png" class="avatar" alt="{{ p.picker }}">
+                          </a>
+                        </li>
+                      {% endfor %}
+                      </ul>
+                    </td>
+                    <td class="project_progress">
+                      {% if harvest.status == "Succeeded" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="100"></div>
+                        </div>
+                        <small>{% trans "Succeeded" %}</small>
+                      {% endif %}
+                      {% if harvest.status == "Cancelled" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="100"></div>
+                        </div>
+                        <small>{% trans "Cancelled" %}</small>
+                      {% endif %}
+                      {% if harvest.status == "Orphan" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="0"></div>
+                        </div>
+                        <small>{% trans "Orphan" %}</small>
+                      {% endif %}
+                      {% if harvest.status == "Adopted" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="20"></div>
+                        </div>
+                        <small>{% trans "Adopted" %}</small>
+                      {% endif %}
+                      {% if harvest.status == "To-be-confirmed" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="40"></div>
+                        </div>
+                        <small>{% trans "To be confirmed" %}</small>
+                      {% endif %}
+                      {% if harvest.status == "Date-scheduled" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="60"></div>
+                        </div>
+                        <small>{% trans "Scheduled" %}</small>
+                      {% endif %}
+                      {% if harvest.status == "Ready" %}
+                        <div class="progress progress_sm">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="80"></div>
+                        </div>
+                        <small>{% trans "Ready" %}</small>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <div class="text-nowrap">{{ harvest.start_date|date:"Y-m-d" }}</div>
+                      <small>{{ harvest.start_date|date:"G:i" }}</small>
+                    </td>
+                    <td>
+                      <a href="{% url 'harvest:harvest_detail' harvest.id %}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                      <a href='{% url "harvest:harvest_update" harvest.id %}' class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                      <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- end project list -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="x_panel">
+            <div class="x_content">
+              <form role="form">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super }}
+  <!-- Datatables -->
+  <script src="/static/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="/static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+  <script src="/static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script src="/static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="/static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+  <script src="/static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+  <script src="/static/vendors/jszip/dist/jszip.min.js"></script>
+  <script src="/static/vendors/pdfmake/build/pdfmake.min.js"></script>
+  <script src="/static/vendors/pdfmake/build/vfs_fonts.js"></script>
+{% endblock javascripts %}

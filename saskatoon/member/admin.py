@@ -4,9 +4,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, \
     ReadOnlyPasswordHashField
-from member.models import AuthUser, Person, Notification
+from member.models import *
 from django import forms
-
 
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required fields,
@@ -114,3 +113,12 @@ class AuthUserAdmin(UserAdmin):
 
 admin.site.register(AuthUser, AuthUserAdmin)
 admin.site.register(Notification)
+admin.site.register(Actor)
+admin.site.register(Language)
+admin.site.register(Person)
+admin.site.register(Organization)
+admin.site.register(Neighborhood)
+admin.site.register(City)
+admin.site.register(State)
+admin.site.register(Country)
+

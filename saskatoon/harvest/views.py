@@ -6,7 +6,7 @@ from harvest.models import Harvest, Property, Equipment, \
 from harvest.forms import CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor, Organization, Neighborhood
-from harvest.filters import HarvestFilter
+from harvest.filters import HarvestFilter, PropertyFilter
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -45,11 +45,26 @@ class PropertyList(generic.ListView):
     def dispatch(self, *args, **kwargs):
         return super(PropertyList, self).dispatch(*args, **kwargs)
 
+    def get_queryset(self):
+        request = self.request.GET
+        queryset = Property.objects.all().order_by('-id')
+        return PropertyFilter(
+            request,
+            queryset
+        )
+
     def get_context_data(self, **kwargs):
         context = super(PropertyList, self).get_context_data(**kwargs)
+        request = self.request.GET.copy()
+        queryset = Property.objects.all().order_by('-id')
         active_properties = Property.objects.filter(authorized=True)
+        all_properties = PropertyFilter(
+            request,
+            queryset
+        )
         context['view'] = "properties"
         context['active_properties'] = active_properties
+        context['form'] = all_properties.form
 
         return context
 
@@ -108,7 +123,7 @@ class PropertyThanks(generic.TemplateView):
 
 class PropertyUpdate(generic.UpdateView):
     model = Property
-    template_name = "harvest/properties/update.html"
+    template_name = "harvest/properties/create.html"
     form_class = PropertyForm
 
     @method_decorator(login_required)
@@ -258,7 +273,7 @@ class HarvestCreate(generic.CreateView):
 
 class HarvestUpdate(generic.UpdateView):
     model = Harvest
-    template_name = "harvest/harvest/update.html"
+    template_name = "harvest/harvest/create.html"
     form_class = HarvestForm
 
     @method_decorator(login_required)

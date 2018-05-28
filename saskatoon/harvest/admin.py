@@ -68,15 +68,4 @@ admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType)
 admin.site.register(HarvestYield)
 admin.site.register(Comment)
-
-admin.site.register(Actor)
-admin.site.register(Language)
-admin.site.register(Person)
-admin.site.register(Organization)
-admin.site.register(Neighborhood)
-admin.site.register(City)
-admin.site.register(State)
-admin.site.register(Country)
 admin.site.register(PropertyImage)
-
-

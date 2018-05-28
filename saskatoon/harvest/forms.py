@@ -5,7 +5,9 @@ from time import timezone
 import datetime
 from django import forms
 from dal import autocomplete
+from django.forms import ModelMultipleChoiceField
 from django.utils.translation import ugettext_lazy as _
+from django_select2.forms import Select2MultipleWidget
 from harvest.models import *
 from member.models import *
 from django.core.mail import send_mail
@@ -269,6 +271,8 @@ class HarvestImageForm(forms.ModelForm):
         ]
 
 class PropertyForm(forms.ModelForm):
+    trees = ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
+
     class Meta:
         model = Property
         fields = (
@@ -329,6 +333,7 @@ class PublicPropertyForm(forms.ModelForm):
             'pending_contact_phone',
             'pending_contact_email',
             'trees',
+            'authorized',
             'approximative_maturity_date',
             'trees_location',
             'avg_nb_required_pickers',
@@ -378,7 +383,14 @@ class HarvestForm(forms.ModelForm):
     class Meta:
         model = Harvest
         help_texts = {
-            'status': 'test',
+            'status': ' ',
+            'property': ' ',
+            'trees': ' ',
+            'pick_leader': ' ',
+            'start_date': ' ',
+            'end_date': ' ',
+            'nb_required_pickers': ' ',
+            'about': ' ',
         }
         fields = (
             'status',

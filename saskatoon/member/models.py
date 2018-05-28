@@ -1,13 +1,13 @@
 # coding: utf-8
 
 from django.db import models
+
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
-from harvest.models import RequestForParticipation
-
+from harvest.models import Property, Harvest, RequestForParticipation
 
 NOTIFICATION_TYPE_CHOICES = (
     (
@@ -19,7 +19,6 @@ NOTIFICATION_TYPE_CHOICES = (
         _("Harvest"),
     ),
 )
-
 
 class AuthUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -65,6 +64,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
+
+    #TODO: this should go to 'Person' class
+    def harvests_as_pickleader(self):
+        harvests = Harvest.objects.filter(pick_leader=self)
+        return harvests
 
     def get_full_name(self):
         return self.email
@@ -207,6 +211,27 @@ class Person(Actor):
         blank=True
     )
 
+    @property
+    def short_address(self):
+        if self.street_number and self.street and self.complement:
+            return "%s %s, %s" % (
+                self.street_number,
+                self.street,
+                self.complement
+            )
+        elif self.street and self.street_number:
+            return "%s %s" % (
+                self.street_number,
+                self.street
+            )
+        elif self.street and self.complement:
+            return "%s, %s" % (
+                self.street,
+                self.complement
+            )
+        else:
+            return self.street
+
     class Meta:
         verbose_name = _("person")
         verbose_name_plural = _("people")
@@ -221,12 +246,14 @@ class Person(Actor):
         auth_obj = AuthUser.objects.get(person=self)
         return auth_obj.email
 
-    def participation_count(self):
-        count = RequestForParticipation.objects.filter(
-            picker=self,
-            is_accepted=True
-        ).count()
-        return count
+    def properties(self):
+        properties = Property.objects.filter(owner=self)
+        return properties
+
+
+    def harvests_as_picker(self):
+        requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
+        return requests
 
 
 @python_2_unicode_compatible
@@ -358,16 +385,15 @@ class Organization(Actor):
         else:
             return self.street
 
-
-    class Meta:
-        verbose_name = _("organization")
-        verbose_name_plural = _("organizations")
-
     def __str__(self):
         return u"%s" % self.civil_name
 
     def name(self):
         return u"%s" % self.civil_name
+
+    class Meta:
+        verbose_name = _("organization")
+        verbose_name_plural = _("organizations")
 
 
 @python_2_unicode_compatible

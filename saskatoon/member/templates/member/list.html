@@ -1,0 +1,170 @@
+{% extends "app/base_site.html" %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %} {% trans "Harvests" %}{% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>{% trans "Community" %}</h3>
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-10 col-sm-10 col-xs-12">
+          <div class="x_panel">
+            <div class="x_content">
+              <!-- start project list -->
+              <table id="datatable-buttons" class="table table-striped projects dt-responsive">
+                <thead>
+                  <tr>
+                    <th style="width: 1%">#</th>
+                    <th style="width: 8%">{% trans "Person" %}</th>
+                    <th>{% trans "Contact" %}</th>
+                    <th style="width: 15%">{% trans "Role" %}</th>
+                    <th style="width: 10%">{% trans "Neighborhood" %}</th>
+                    <th style="width: 15%">{% trans "Picks leading" %}</th>
+                    <th style="width: 15%">{% trans "Properties" %}</th>
+                    <th>{% trans "Action" %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for user in people.qs %}
+                  <tr>
+                    <td>{{ user.person.pk }}</td>
+                    <td>
+                      <span class="image"><img class="img-rounded" style="height:50px;" src="/static/images/user.png" alt="img" /></span><br />
+                      <p>{{ user.person }}</p>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                          {% if user.person.phone %}
+                            <li><i class="fa fa-phone"></i> {{ user.person.phone }}</li>
+                          {% endif %}
+                          {% if user.email %}
+                            <li><i class="fa fa-envelope"></i> {{ user.email }}</li>
+                          {% endif %}
+                          {% if user.person.short_address %}
+                            <li><i class="fa fa-home fa-lg"></i> {{ user.person.short_address|default:"" }}</li>
+                          {% endif %}
+                          {% if user.person.language %}
+                            <li><i class="fa fa-flag"></i> {{ user.person.language }}</li>
+                          {% endif %}
+                        </ul>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled">
+                      {% if user.person.properties %}
+                        <li>{% trans "Tree owner"%}</li>
+                      {% endif %}
+                      {% if user.harvests_as_pickleader %}
+                        <li>{% trans "Pickleader" %}</li>
+                      {% endif %}
+                      {% if user.is_staff %}
+                        <li>{% trans "Staff" %}</li>
+                      {% endif %}
+                      {% if user.person.harvests_as_picker %}
+                        <li>{% trans "Picker" %}</li>
+                      {% endif %}
+                    </td>
+                    <td>{{ user.person.neighborhood|default:"" }}</td>
+                    <td>
+                      <ul class="list-inline">
+                      {% for harvest in user.harvests_as_pickleader.all %}
+                        <li>
+                          <a href='{% url "harvest:harvest_detail" harvest.id %}' data-toggle="tooltip" data-placement="top" title="Harvest #{{ harvest.id }}">
+                            {% if harvest.status == "Succeeded" %}
+                              <i class="fa fa-shopping-basket fa-lg text-success" style="padding-top:7px;"></i>
+                            {% elif harvest.status == "Cancelled" %}
+                              <i class="fa fa-shopping-basket fa-lg text-danger" style="padding-top:7px;"></i>
+                            {% else %}
+                              <i class="fa fa-shopping-basket fa-lg text-warning" style="padding-top:7px;"></i>
+                            {% endif %}
+                          </a>
+                        </li>
+                      {% endfor %}
+                      </ul>
+                    </td>
+                    <td>
+                        {% for property in user.person.properties.all %}
+                          <p><a href="{% url 'harvest:property_detail' property.id %}">{{ property.short_address }}</a></p>
+                        {% endfor %}
+                    </td>
+                    <td>
+                      <a href='#' class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                      <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- end project list -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="x_panel">
+            <div class="x_content">
+              <form role="form">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- end filter -->
+
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super }}
+  <!-- Datatables -->
+  <script src="/static/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="/static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+  <script src="/static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script src="/static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="/static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+  <script src="/static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+  <script src="/static/vendors/jszip/dist/jszip.min.js"></script>
+  <script src="/static/vendors/pdfmake/build/pdfmake.min.js"></script>
+  <script src="/static/vendors/pdfmake/build/vfs_fonts.js"></script>
+{% endblock javascripts %}

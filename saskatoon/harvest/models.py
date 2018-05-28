@@ -491,6 +491,10 @@ class Harvest(models.Model):
         else:
             return u"Harvest at %s" % self.property
 
+    def get_pickers(self):
+        requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
+        return requests
+
     def is_urgent(self):
         if self.start_date:
             diff = datetime.datetime.now() - self.start_date
