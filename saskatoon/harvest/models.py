@@ -132,6 +132,16 @@ class Property(models.Model):
         blank=True,
     )
 
+    pending_newsletter = models.BooleanField(
+        verbose_name=_("Newsletter subscription"),
+        default=False
+    )
+
+    pending_recurring = models.BooleanField(
+        verbose_name=_("Recurring property signup"),
+        default=False
+    )
+
     geom = PointField(null=True, blank=True)
 
     owner = models.ForeignKey(

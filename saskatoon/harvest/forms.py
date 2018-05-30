@@ -320,6 +320,7 @@ class PropertyForm(forms.ModelForm):
 
     approximative_maturity_date = forms.DateField(
         input_formats=('%d/%m/%Y',),
+        required=False,
         widget=forms.DateInput(
             format='%d/%m/%Y',
         )
@@ -332,6 +333,8 @@ class PublicPropertyForm(forms.ModelForm):
             'pending_contact_name',
             'pending_contact_phone',
             'pending_contact_email',
+            'pending_recurring',
+            'number_of_trees',
             'trees',
             'authorized',
             'approximative_maturity_date',
@@ -344,18 +347,17 @@ class PublicPropertyForm(forms.ModelForm):
             'ladder_available',
             'ladder_available_for_outside_picks',
             'harvest_every_year',
-            'number_of_trees',
             'fruits_height',
             'street_number',
             'street',
             'complement',
             'postal_code',
-            'publishable_location',
             'neighborhood',
             'city',
             'state',
             'country',
             'additional_info',
+            'pending_newsletter',
         )
 
         widgets = {
@@ -368,9 +370,44 @@ class PublicPropertyForm(forms.ModelForm):
 
     approximative_maturity_date = forms.DateField(
         input_formats=('%d/%m/%Y',),
+        required=False,
         widget=forms.DateInput(
             format='%d/%m/%Y',
         )
+    )
+
+
+    fruits_height = forms.DecimalField(
+        label=_('Height of lowest fruits (meters)'),
+        required=False
+    )
+
+    complement = forms.DecimalField(
+        label=_('Apartment # (if applicable)'),
+        required=False
+    )
+
+    street = forms.CharField(
+        required=True
+    )
+
+    pending_newsletter = forms.BooleanField(
+        label=_('"Would you like to receive emails from Les Fruits Defendus such as newsletters and updates?"'),
+        required=False
+    )
+
+    pending_recurring = forms.BooleanField(
+        label=_('"Would you like to receive emails from Les Fruits Defendus such as newsletters and updates?"'),
+        required=False
+    )
+
+    street_number = forms.DecimalField(
+        label=_('Address number'),
+        required=True
+    )
+
+    postal_code = forms.CharField(
+        required=True
     )
 
 
