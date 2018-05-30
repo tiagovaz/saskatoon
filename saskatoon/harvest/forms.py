@@ -392,12 +392,13 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     pending_newsletter = forms.BooleanField(
-        label=_('"Would you like to receive emails from Les Fruits Defendus such as newsletters and updates?"'),
+        label=_('Would you like to receive emails from Les Fruits Defendus such as newsletters and updates?'),
         required=False
     )
 
     pending_recurring = forms.BooleanField(
-        label=_('"Would you like to receive emails from Les Fruits Defendus such as newsletters and updates?"'),
+        label=_('Recurring property?'),
+        help_text=_('Have you provided us any information about your property before?'),
         required=False
     )
 
