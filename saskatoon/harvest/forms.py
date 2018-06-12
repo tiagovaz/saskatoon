@@ -5,7 +5,6 @@ from time import timezone
 import datetime
 from django import forms
 from dal import autocomplete
-from django.forms import ModelMultipleChoiceField
 from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
 from harvest.models import *
@@ -271,7 +270,7 @@ class HarvestImageForm(forms.ModelForm):
         ]
 
 class PropertyForm(forms.ModelForm):
-    trees = ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
+    trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
 
     class Meta:
         model = Property
@@ -334,19 +333,19 @@ class PublicPropertyForm(forms.ModelForm):
             'pending_contact_phone',
             'pending_contact_email',
             'pending_recurring',
-            'number_of_trees',
-            'trees',
             'authorized',
+            'trees',
+            'number_of_trees',
             'approximative_maturity_date',
             'trees_location',
-            'avg_nb_required_pickers',
-            'public_access',
             'trees_accessibility',
+#            'public_access',
             'neighbor_access',
             'compost_bin',
             'ladder_available',
             'ladder_available_for_outside_picks',
             'harvest_every_year',
+            'avg_nb_required_pickers',
             'fruits_height',
             'street_number',
             'street',
@@ -368,6 +367,41 @@ class PublicPropertyForm(forms.ModelForm):
             'avg_nb_required_pickers': forms.NumberInput()
         }
 
+
+    neighbor_access = forms.BooleanField(
+        label = _("Volunteers have permission to go on the neighbours' property to access fruits")
+    )
+
+    compost_bin = forms.BooleanField(
+        label = _('I have a compost bin where you can leave rotten fruit')
+    )
+
+    ladder_available= forms.BooleanField(
+        label = _('I have a ladder that can be used during the harvest')
+    )
+
+    ladder_available_for_outside_picks = forms.BooleanField(
+        label = _('I would lend my ladder for another harvest nearby')
+    )
+
+    harvest_every_year = forms.BooleanField(
+        label = _('My tree(s)/vine(s) produce fruit every year (if not, please include info about frequency in additional comments at the bottom)')
+    )
+
+    pending_recurring = forms.ChoiceField(
+        label=_('Have you provided us any information about your property before?'),
+        choices=[(True,_('Yes')),(False,_('No'))],
+        widget=forms.RadioSelect(),
+        required=True
+    )
+
+    authorized = forms.ChoiceField(
+        label=_('Do you give us permission to harvest your tree(s) and/or vine(s) this season?'),
+        choices=[(True,_('Yes')),(False,_('Not this year, but maybe in future seasons'))],
+        widget=forms.RadioSelect(),
+        required=True
+    )
+
     approximative_maturity_date = forms.DateField(
         input_formats=('%d/%m/%Y',),
         required=False,
@@ -376,29 +410,20 @@ class PublicPropertyForm(forms.ModelForm):
         )
     )
 
+    trees_location = forms.CharField(
+        label=_('Location of tree(s) or vine(s)'),
+        help_text=_('Location on the property (e.g. Front yard, back yard, etc.'),
+        required=False
+    )
+
+    trees_accessibility = forms.CharField(
+        label=_('Access to tree(s) or vine(s)'),
+        help_text=_('Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, publicly accessible from sidewalk, etc.'),
+        required=False
+    )
 
     fruits_height = forms.DecimalField(
         label=_('Height of lowest fruits (meters)'),
-        required=False
-    )
-
-    complement = forms.DecimalField(
-        label=_('Apartment # (if applicable)'),
-        required=False
-    )
-
-    street = forms.CharField(
-        required=True
-    )
-
-    pending_newsletter = forms.BooleanField(
-        label=_('Would you like to receive emails from Les Fruits Defendus such as newsletters and updates?'),
-        required=False
-    )
-
-    pending_recurring = forms.BooleanField(
-        label=_('Recurring property?'),
-        help_text=_('Have you provided us any information about your property before?'),
         required=False
     )
 
@@ -407,10 +432,24 @@ class PublicPropertyForm(forms.ModelForm):
         required=True
     )
 
+    street = forms.CharField(
+        label=_('Street name'),
+        required=True
+    )
+
+    complement = forms.DecimalField(
+        label=_('Apartment # (if applicable)'),
+        required=False
+    )
+
     postal_code = forms.CharField(
         required=True
     )
 
+    pending_newsletter = forms.BooleanField(
+        label=_('I would like to receive emails from Les Fruits Defendus such as newsletters and updates'),
+        required=False
+    )
 
 class HarvestForm(forms.ModelForm):
     about = forms.CharField(

@@ -151,9 +151,11 @@ class Property(models.Model):
         verbose_name=_("Owner")
     )
 
+    # FIXME: add help_text in forms.py
     trees = models.ManyToManyField(
         'TreeType',
-        verbose_name=_("Fruit trees")
+        verbose_name=_("Fruit tree/vine type(s)"),
+        help_text=_('Select multiple fruit types if applicable. Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'),
     )
 
     trees_location = models.CharField(
@@ -210,7 +212,7 @@ class Property(models.Model):
     )
 
     number_of_trees = models.PositiveIntegerField(
-        verbose_name=_("Total number of trees in this property"),
+        verbose_name=_("Total number of trees/vines on this property"),
         blank=True,
         null=True
     )
@@ -279,7 +281,7 @@ class Property(models.Model):
 
     state = models.ForeignKey(
         'member.State',
-        verbose_name=_("State"),
+        verbose_name=_("Province"),
         null=True,
         default=1
     )
