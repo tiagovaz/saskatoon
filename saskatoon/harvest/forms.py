@@ -363,36 +363,39 @@ class PublicPropertyForm(forms.ModelForm):
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
-            'additional_info': forms.Textarea(),
-            'avg_nb_required_pickers': forms.NumberInput()
+            'avg_nb_required_pickers': forms.NumberInput(),
         }
 
 
     neighbor_access = forms.BooleanField(
-        label = _("Volunteers have permission to go on the neighbours' property to access fruits")
+        label = _("Volunteers have permission to go on the neighbours' property to access fruits"),
+        required=False,
     )
 
     compost_bin = forms.BooleanField(
-        label = _('I have a compost bin where you can leave rotten fruit')
+        label = _('I have a compost bin where you can leave rotten fruit'),
+        required=False,
     )
 
     ladder_available= forms.BooleanField(
-        label = _('I have a ladder that can be used during the harvest')
+        label = _('I have a ladder that can be used during the harvest'),
+        required=False,
     )
 
     ladder_available_for_outside_picks = forms.BooleanField(
-        label = _('I would lend my ladder for another harvest nearby')
+        label = _('I would lend my ladder for another harvest nearby'),
+        required=False,
     )
 
     harvest_every_year = forms.BooleanField(
-        label = _('My tree(s)/vine(s) produce fruit every year (if not, please include info about frequency in additional comments at the bottom)')
+        label = _('My tree(s)/vine(s) produce fruit every year (if not, please include info about frequency in additional comments at the bottom)'),
+        required=False,
     )
 
     pending_recurring = forms.ChoiceField(
         label=_('Have you provided us any information about your property before?'),
         choices=[(True,_('Yes')),(False,_('No'))],
-        widget=forms.RadioSelect(),
-        required=True
+        widget=forms.RadioSelect,
     )
 
     authorized = forms.ChoiceField(
@@ -412,13 +415,19 @@ class PublicPropertyForm(forms.ModelForm):
 
     trees_location = forms.CharField(
         label=_('Location of tree(s) or vine(s)'),
-        help_text=_('Location on the property (e.g. Front yard, back yard, etc.'),
+        help_text=_('Location on the property (e.g. Front yard, back yard, etc.)'),
         required=False
     )
 
     trees_accessibility = forms.CharField(
         label=_('Access to tree(s) or vine(s)'),
-        help_text=_('Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, publicly accessible from sidewalk, etc.'),
+        help_text=_('Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, publicly accessible from sidewalk, etc.)'),
+        required=False
+    )
+
+    avg_nb_required_pickers = forms.DecimalField(
+        label=_('Number of pickers'),
+        help_text=_('Approximate number of pickers needed for a two-hour harvesting period.'),
         required=False
     )
 
@@ -429,6 +438,11 @@ class PublicPropertyForm(forms.ModelForm):
 
     street_number = forms.DecimalField(
         label=_('Address number'),
+        required=True
+    )
+
+    number_of_trees = forms.DecimalField(
+        label=_('Total number of trees/vines on this property'),
         required=True
     )
 
@@ -448,6 +462,12 @@ class PublicPropertyForm(forms.ModelForm):
 
     pending_newsletter = forms.BooleanField(
         label=_('I would like to receive emails from Les Fruits Defendus such as newsletters and updates'),
+        required=False
+    )
+
+    additional_info = forms.CharField(
+        help_text=_('Any additional information that we should be aware of (e.g. details about how often tree produces fruit, description of fruit if the type is unknown etc.)'),
+        widget=forms.widgets.Textarea(),
         required=False
     )
 

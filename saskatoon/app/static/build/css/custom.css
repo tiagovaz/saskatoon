@@ -4239,3 +4239,14 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
 }
+
+div.required label.radio:after {
+    content: " ";
+    color: inherit;
+}
+
+div.required label.control-label:after {
+    content: " *";
+    color: red;
+}
+
