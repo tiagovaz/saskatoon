@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-
+"POT-Creation-Date: 2018-06-19 21:39-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,85 +17,85 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: saskatoon/templates/base.html:15 saskatoon/templates/index.html.py:15
+#: saskatoon/templates/base.html:15 saskatoon/templates/index.html:15
 msgid "Saskatoon - Urbain harvesting management system"
 msgstr ""
 
-#: saskatoon/templates/base.html:66 saskatoon/templates/base.html.py:69
+#: saskatoon/templates/base.html:70 saskatoon/templates/base.html:73
 msgid "Language"
 msgstr ""
 
-#: saskatoon/templates/base.html:84
+#: saskatoon/templates/base.html:88
 msgid "Notification"
 msgstr ""
 
-#: saskatoon/templates/base.html:95
+#: saskatoon/templates/base.html:99
 msgid "Account"
 msgstr ""
 
-#: saskatoon/templates/base.html:99
+#: saskatoon/templates/base.html:103
 msgid "Change password"
 msgstr ""
 
-#: saskatoon/templates/base.html:105
+#: saskatoon/templates/base.html:109
 msgid "Logout"
 msgstr ""
 
-#: saskatoon/templates/base.html:116
+#: saskatoon/templates/base.html:120
 msgid "Login"
 msgstr ""
 
-#: saskatoon/templates/base.html:131
+#: saskatoon/templates/base.html:135
 #, fuzzy
 #| msgid " Dashboard"
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: saskatoon/templates/base.html:137
+#: saskatoon/templates/base.html:141
 #, fuzzy
 #| msgid " Calendar"
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: saskatoon/templates/base.html:143
+#: saskatoon/templates/base.html:147
 #, fuzzy
 #| msgid " Harvests"
 msgid "Harvests"
 msgstr "Récolte"
 
-#: saskatoon/templates/base.html:149
+#: saskatoon/templates/base.html:153
 msgid "Properties"
 msgstr ""
 
-#: saskatoon/templates/base.html:155
+#: saskatoon/templates/base.html:159
 msgid "Beneficiaries"
 msgstr ""
 
-#: saskatoon/templates/base.html:161
+#: saskatoon/templates/base.html:165
 msgid "Equipment"
 msgstr ""
 
-#: saskatoon/templates/base.html:167
+#: saskatoon/templates/base.html:171
 msgid "Statistics"
 msgstr ""
 
-#: saskatoon/templates/base.html:175
+#: saskatoon/templates/base.html:179
 msgid "Add user"
 msgstr ""
 
-#: saskatoon/templates/base.html:176
+#: saskatoon/templates/base.html:180
 msgid "Manage users"
 msgstr ""
 
-#: saskatoon/templates/base.html:177
+#: saskatoon/templates/base.html:181
 msgid "Manage beneficiaries"
 msgstr ""
 
-#: saskatoon/templates/base.html:178
+#: saskatoon/templates/base.html:182
 msgid "Full admin interface"
 msgstr ""
 
-#: saskatoon/templates/base.html:185
+#: saskatoon/templates/base.html:189
 msgid "Bugs"
 msgstr ""
 

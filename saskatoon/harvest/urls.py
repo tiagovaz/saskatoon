@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from harvest import views
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(
         r'^organizations/$',
         views.OrganizationList.as_view(),
@@ -148,4 +147,4 @@ urlpatterns = patterns(
         views.Stats.as_view(),
         name='stats'
     ),
-)
+]

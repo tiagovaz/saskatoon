@@ -9,11 +9,6 @@
                 {% trans "Properties" %}
                 <a class="btn btn-xs btn-primary" href='{% url "harvest:property_create"%}'><i class="fa fa-plus"></i> {% trans "New property" %}</a>
             </h1>
-            {% if "active" in request.get_full_path  %}
-                <p class="text-right"><a href="/harvest/properties/"> {% trans "Show all" %}</a></p>
-            {% else %}
-                <p class="text-right"><a href="/harvest/properties/active"> {% trans "Show authorized only" %}</a></p>
-            {% endif %}
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -34,14 +29,12 @@
                                     <th>{% trans "Address" %}</th>
                                     <th>{% trans "Neighborhood" %}</th>
                                     <th>{% trans "Last pick" %}</th>
-                                    {% if "active" not in request.get_full_path  %}
-                                        <th>{% trans "Authorized" %}</th>
-                                    {% endif %}
+                                    <th>{% trans "Active" %}</th>
+                                    <th>{% trans "Authorized" %}</th>
                                     <th>{% trans "Action" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            {% if "active" in request.get_full_path  %}
                                {% for property in active_properties %}
                                 <tr class="odd gradeX">
                                     <td class="text-center">
@@ -54,54 +47,42 @@
                                             {{ tree }}<br>
                                         {% endfor %}
                                     </td>
-                                    <td>{{ property.owner }}</td>
-                                    <td>{{ property.street }}</td>
+                                    <td>
+                                    {% if property.pending %}
+				    <b>[ PENDING ]</b><br />
+                                      {{ property.pending_contact_name }}<br />
+                                      {{ property.pending_contact_phone }}<br />
+                                      {{ property.pending_contact_email|default:"" }}
+                                    {% else %}
+                                      {{ property.owner }}
+                                    {% endif %}
+				    </td>
+                                    <td>{{ property.short_address }}</td>
                                     <td>{{ property.neighborhood.name }}</td>
 				    <td><a href="/harvest/{{property.get_last_succeeded_harvest.id}}">{{ property.get_last_succeeded_harvest.start_date|date:"Y" }}</a></td>
+				    <td>
+                                    {% if property.is_active %}
+				      {% trans "Yes" %}<br />
+                                    {% else %}
+				      {% trans "No" %}<br />
+                                    {% endif %}
+				    </td>
+				    <td>
+                                    {% if property.authorized %}
+				      {% trans "Yes" %}<br />
+                                    {% else %}
+				      {% trans "No" %}<br />
+                                    {% endif %}
+				    </td>
                                     <td>
                                         <center>
                                         <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
                                             <i class="fa fa-pencil"></i>
                                         </a>
-
                                         </center>
                                     </td>
                                 </tr>
                                 {% endfor %}
-                            {% else %}
-                               {% for property in properties %}
-                                <tr class="odd gradeX">
-                                    <td class="text-center">
-                                        <a href='{% url "harvest:property_detail" property.id %}'>
-                                            {{ property.id }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {% for tree in property.trees.all %}
-                                            {{ tree }}<br>
-                                        {% endfor %}
-                                    </td>
-                                    <td>{{ property.owner }}</td>
-                                    <td>{{ property.street }}</td>
-                                    <td>{{ property.neighborhood.name }}</td>
-				    <td><a href="/harvest/{{property.get_last_succeeded_harvest.id}}">{{ property.get_last_succeeded_harvest.start_date|date:"Y" }}</a></td>
-                                    <td><center>
-                                        {% if property.authorized %}
-                                            <i class="fa fa-check" style="font-size:20px;color:green;"> </i>
-                                        {% else %}
-                                            <i class="fa fa-times" style="font-size:20px;color:red" > </i>
-                                        {% endif %}
-                                    </td></center>
-                                    <td>
-                                         <center>
-                                         <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
-                                             <i class="fa fa-pencil"></i>
-                                         </a>
-                                         </center>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            {% endif %}
                             </tbody>
                         </table>
                     </div>

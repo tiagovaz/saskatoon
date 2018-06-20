@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block extrahead %}
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
@@ -32,9 +33,10 @@
     <div class="row">
         <div class="col-lg-12">
 		    <div class="alert alert-success" role="alert">
-
-			    <p><b>Merci de votre intérêt !</b> Nous allons vous contacter dès que possible pour confirmer votre inscription.</p>
-			    <p><b>Thank you for your interest!</b> We will contact you as soon as possible to confirm your registration.</p>
+			    <p><b>{% trans "Thank you!" %} </b>{% trans "Your property information has been saved in our database." %}
+                            </p>
+                            <p>{% trans "If you authorized a harvest this season, please read the " %}<a  href="https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm">{% trans "Tree Owner Welcome Notice" %}</a>.
+                            </p>
                     </div>
                     <!-- /row -->
         </div>

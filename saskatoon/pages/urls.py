@@ -1,11 +1,10 @@
-from django.conf.urls import patterns, url
 from pages import views
 from harvest.models import Property
 from djgeojson.views import GeoJSONLayerView
+from django.conf.urls import url, include
+from django.contrib.auth import views as auth_views
 
-
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(
         r'^$',
         views.Index.as_view(),
@@ -13,7 +12,7 @@ urlpatterns = patterns(
     ),
     url(
         r'^login$',
-        'django.contrib.auth.views.login',
+        auth_views.login,
         name='login'
     ),
     url(
@@ -30,4 +29,4 @@ urlpatterns = patterns(
         GeoJSONLayerView.as_view(model=Property, properties=('id', 'get_owner_name', 'short_address')),
         name='data')
 
-)
+]

@@ -357,3 +357,13 @@ table.dataTable thead .sorting:after {
 .table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
     border: none;
 }
+
+div.required label.radio:after {
+    content: " ";
+    color: inherit;
+}
+
+div.required label.control-label:after {
+    content: " *";
+    color: red;
+}

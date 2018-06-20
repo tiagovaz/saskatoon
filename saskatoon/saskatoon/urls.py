@@ -2,6 +2,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from harvest import views
 from django.conf import settings
+from django.contrib.auth import views as auth_views
+from django.views.static import serve
+
+
 
 
 urlpatterns = [
@@ -23,7 +27,7 @@ urlpatterns = [
     ),
     url(
         r'^logout/$',
-        'django.contrib.auth.views.logout',
+        auth_views.logout,
         {'next_page': '/'},
         name="logout"
     ),
@@ -63,7 +67,7 @@ urlpatterns = [
     ),
     url(
         r'^media/(?P<path>.*)$',
-        'django.views.static.serve',
+        serve,
         {'document_root': settings.MEDIA_ROOT}
     )
 ]

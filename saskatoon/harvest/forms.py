@@ -6,6 +6,7 @@ import datetime
 from django import forms
 from dal import autocomplete
 from django.utils.translation import ugettext_lazy as _
+from django_select2.forms import Select2MultipleWidget
 from harvest.models import *
 from member.models import *
 from django.core.mail import send_mail
@@ -269,10 +270,13 @@ class HarvestImageForm(forms.ModelForm):
         ]
 
 class PropertyForm(forms.ModelForm):
+    trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
+
     class Meta:
         model = Property
         fields = (
             'owner',
+            'is_active',
             'authorized',
             'pending',
             'trees',
@@ -316,6 +320,7 @@ class PropertyForm(forms.ModelForm):
 
     approximative_maturity_date = forms.DateField(
         input_formats=('%d/%m/%Y',),
+        required=False,
         widget=forms.DateInput(
             format='%d/%m/%Y',
         )
@@ -328,46 +333,144 @@ class PublicPropertyForm(forms.ModelForm):
             'pending_contact_name',
             'pending_contact_phone',
             'pending_contact_email',
+            'pending_recurring',
+            'authorized',
             'trees',
+            'number_of_trees',
             'approximative_maturity_date',
             'trees_location',
-            'avg_nb_required_pickers',
-            'public_access',
             'trees_accessibility',
+#            'public_access',
             'neighbor_access',
             'compost_bin',
             'ladder_available',
             'ladder_available_for_outside_picks',
             'harvest_every_year',
-            'number_of_trees',
+            'avg_nb_required_pickers',
             'fruits_height',
             'street_number',
             'street',
             'complement',
             'postal_code',
-            'publishable_location',
             'neighborhood',
             'city',
             'state',
             'country',
             'additional_info',
+            'pending_newsletter',
         )
 
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
-            'additional_info': forms.Textarea(),
-            'avg_nb_required_pickers': forms.NumberInput()
+            'avg_nb_required_pickers': forms.NumberInput(),
         }
+
+
+    neighbor_access = forms.BooleanField(
+        label = _("Volunteers have permission to go on the neighbours' property to access fruits"),
+        required=False,
+    )
+
+    compost_bin = forms.BooleanField(
+        label = _('I have a compost bin where you can leave rotten fruit'),
+        required=False,
+    )
+
+    ladder_available= forms.BooleanField(
+        label = _('I have a ladder that can be used during the harvest'),
+        required=False,
+    )
+
+    ladder_available_for_outside_picks = forms.BooleanField(
+        label = _('I would lend my ladder for another harvest nearby'),
+        required=False,
+    )
+
+    harvest_every_year = forms.BooleanField(
+        label = _('My tree(s)/vine(s) produce fruit every year (if not, please include info about frequency in additional comments at the bottom)'),
+        required=False,
+    )
+
+    pending_recurring = forms.ChoiceField(
+        label=_('Have you provided us any information about your property before?'),
+        choices=[(True,_('Yes')),(False,_('No'))],
+        widget=forms.RadioSelect,
+    )
+
+    authorized = forms.ChoiceField(
+        label=_('Do you give us permission to harvest your tree(s) and/or vine(s) this season?'),
+        choices=[(True,_('Yes')),(False,_('Not this year, but maybe in future seasons'))],
+        widget=forms.RadioSelect(),
+        required=True
+    )
 
     approximative_maturity_date = forms.DateField(
         input_formats=('%d/%m/%Y',),
+        required=False,
         widget=forms.DateInput(
             format='%d/%m/%Y',
         )
     )
 
+    trees_location = forms.CharField(
+        label=_('Location of tree(s) or vine(s)'),
+        help_text=_('Location on the property (e.g. Front yard, back yard, etc.)'),
+        required=False
+    )
+
+    trees_accessibility = forms.CharField(
+        label=_('Access to tree(s) or vine(s)'),
+        help_text=_('Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, publicly accessible from sidewalk, etc.)'),
+        required=False
+    )
+
+    avg_nb_required_pickers = forms.DecimalField(
+        label=_('Number of pickers'),
+        help_text=_('Approximate number of pickers needed for a two-hour harvesting period.'),
+        required=False
+    )
+
+    fruits_height = forms.DecimalField(
+        label=_('Height of lowest fruits (meters)'),
+        required=False
+    )
+
+    street_number = forms.DecimalField(
+        label=_('Address number'),
+        required=True
+    )
+
+    number_of_trees = forms.DecimalField(
+        label=_('Total number of trees/vines on this property'),
+        required=True
+    )
+
+    street = forms.CharField(
+        label=_('Street name'),
+        required=True
+    )
+
+    complement = forms.DecimalField(
+        label=_('Apartment # (if applicable)'),
+        required=False
+    )
+
+    postal_code = forms.CharField(
+        required=True
+    )
+
+    pending_newsletter = forms.BooleanField(
+        label=_('I would like to receive emails from Les Fruits Defendus such as newsletters and updates'),
+        required=False
+    )
+
+    additional_info = forms.CharField(
+        help_text=_('Any additional information that we should be aware of (e.g. details about how often tree produces fruit, description of fruit if the type is unknown etc.)'),
+        widget=forms.widgets.Textarea(),
+        required=False
+    )
 
 class HarvestForm(forms.ModelForm):
     about = forms.CharField(
@@ -378,7 +481,14 @@ class HarvestForm(forms.ModelForm):
     class Meta:
         model = Harvest
         help_texts = {
-            'status': 'test',
+            'status': ' ',
+            'property': ' ',
+            'trees': ' ',
+            'pick_leader': ' ',
+            'start_date': ' ',
+            'end_date': ' ',
+            'nb_required_pickers': ' ',
+            'about': ' ',
         }
         fields = (
             'status',

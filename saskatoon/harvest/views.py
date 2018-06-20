@@ -47,7 +47,7 @@ class PropertyList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertyList, self).get_context_data(**kwargs)
-        active_properties = Property.objects.filter(authorized=True)
+        active_properties = Property.objects.all()
         context['view'] = "properties"
         context['active_properties'] = active_properties
 
