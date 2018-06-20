@@ -101,15 +101,15 @@ class Property(models.Model):
         default=True
     )
 
-    authorized = models.BooleanField(
+    authorized = models.NullBooleanField(
         verbose_name=_("Authorized for this season"),
         help_text=_("Harvest in this property has been authorized for the current season by its owner"),
-        default=False
+        default=None
     )
 
     pending = models.BooleanField(
         verbose_name=_("Pending"),
-        help_text=_("This property was created through a public form and needs to be validated"),
+        help_text=_("This property was created through a public form and needs to be validated by an administrator"),
         default=True
     )
 
