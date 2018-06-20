@@ -103,6 +103,14 @@
       {% endblock %}
       <!-- Custom Theme Scripts -->
       <script src="/static/build/js/custom.js"></script>
+      <!-- Language set menu -->
+        <script>
+            $('.change_language').click(function(e){
+                e.preventDefault();
+                $('#language').val($(this).attr('lang_code'));
+                $('#change_language_form').submit();
+            });
+        </script>
     {% endblock body %}
   </body>
 </html>

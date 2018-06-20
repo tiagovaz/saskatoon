@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-
+"POT-Creation-Date: 2018-06-20 11:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,56 +17,87 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pages/templates/pages/calendar.html:42
+#: app/templates/app/base_site.html:16
+msgid "Saskatoon - Urbain harvesting management system"
+msgstr ""
+
+#: app/templates/app/calendar.html:4 app/templates/app/calendar.html:18
 msgid "Harvest calendar"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:40
+#: app/templates/app/sidebar.html:6
+msgid "Saskatoon v1.0b"
+msgstr ""
+
+#: app/templates/app/sidebar.html:18
 msgid "Welcome"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:48
-msgid ""
-"This dashboard is still in development, many other features will come soon."
+#: app/templates/app/sidebar.html:31
+msgid "Home"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:57
+#: app/templates/app/sidebar.html:32
+msgid "Calendar"
+msgstr ""
+
+#: app/templates/app/sidebar.html:33
+msgid "Harvests"
+msgstr ""
+
+#: app/templates/app/sidebar.html:34
 msgid "Properties"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:68
-msgid "Notifications"
+#: app/templates/app/sidebar.html:35
+msgid "Beneficiaries"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:85
-msgid "No notifications for the moment"
+#: app/templates/app/sidebar.html:36
+msgid "Equipment"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:93
-msgid "Statistics"
+#: app/templates/app/sidebar.html:37
+msgid "Community"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:100
-msgid "Number of harvests"
+#: app/templates/app/top_navigation.html:18
+msgid "Change password"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:107
-msgid "Number of properties"
+#: app/templates/app/top_navigation.html:19
+msgid "Logout"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:114
-msgid "Number of users"
+#: app/templates/app/top_navigation.html:27
+#: app/templates/registration/login.html:33
+msgid "Login"
 msgstr ""
 
-#: pages/templates/registration/login.html:16
-#: pages/templates/registration/login.html:17
+#: app/templates/app/top_navigation.html:37
+msgid "Language"
+msgstr ""
+
+#: app/templates/registration/login.html:24
+msgid "Login Form"
+msgstr ""
+
+#: app/templates/registration/login.html:26
 msgid "Username"
 msgstr ""
 
-#: pages/templates/registration/login.html:20
+#: app/templates/registration/login.html:29
 msgid "Password"
 msgstr ""
 
-#: pages/templates/registration/login.html:25
-msgid "Connexion"
+#: app/templates/registration/login.html:34
+msgid "Lost your password?"
+msgstr ""
+
+#: app/templates/registration/login.html:40
+msgid "New to site"
+msgstr ""
+
+#: app/templates/registration/login.html:41
+msgid "Create Account"
 msgstr ""
