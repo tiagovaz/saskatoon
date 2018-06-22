@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block extrahead %}
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
@@ -53,8 +54,8 @@
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             {% buttons %}
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                <button type="reset" class="btn btn-danger">Réinitialiser</button>
+                                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                <button type="reset" class="btn btn-danger">{% trans "Reset" %}</button>
                             {% endbuttons %}
                         </form>
                         </div>

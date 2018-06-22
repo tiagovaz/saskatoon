@@ -70,6 +70,8 @@
 				    <td>
                                     {% if property.authorized %}
 				      {% trans "Yes" %}<br />
+                                    {% elif property.authorized == None %}
+				      {% trans "Unknown" %}<br />
                                     {% else %}
 				      {% trans "No" %}<br />
                                     {% endif %}

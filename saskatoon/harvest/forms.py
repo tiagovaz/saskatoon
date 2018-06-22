@@ -218,7 +218,7 @@ class RFPManageForm(forms.ModelForm):
     )
 
     status = forms.ChoiceField(
-        label=_('About the picker partition :'),
+        label=_('About the picker participation :'),
         choices=STATUS_CHOICES,
         widget=forms.RadioSelect(),
         required=False
@@ -270,41 +270,92 @@ class HarvestImageForm(forms.ModelForm):
         ]
 
 class PropertyForm(forms.ModelForm):
-    trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
-
+#    trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
+#
+#    class Meta:
+#        model = Property
+#        fields = (
+#            'owner',
+#            'is_active',
+#            'authorized',
+#            'pending',
+#            'trees',
+#            'trees_location',
+#            'avg_nb_required_pickers',
+#            'public_access',
+#            'trees_accessibility',
+#            'neighbor_access',
+#            'compost_bin',
+#            'ladder_available',
+#            'ladder_available_for_outside_picks',
+#            'harvest_every_year',
+#            'number_of_trees',
+#            'approximative_maturity_date',
+#            'fruits_height',
+#            'street_number',
+#            'street',
+#            'complement',
+#            'postal_code',
+#            'publishable_location',
+#            'neighborhood',
+#            'city',
+#            'state',
+#            'country',
+#            'longitude',
+#            'latitude',
+#            'geom',
+#            'additional_info',
+#        )
+#
+#        widgets = {
+#            'owner': autocomplete.ModelSelect2(
+#               'actor-autocomplete'
+#            ),
+#            'trees': autocomplete.ModelSelect2Multiple(
+#                'tree-autocomplete'
+#            ),
+#            'additional_info': forms.Textarea(),
+#            'avg_nb_required_pickers': forms.NumberInput()
+#        }
+#
+#    approximative_maturity_date = forms.DateField(
+#        input_formats=('%d/%m/%Y',),
+#        required=False,
+#        widget=forms.DateInput(
+#            format='%d/%m/%Y',
+#        )
+#    )
     class Meta:
         model = Property
         fields = (
             'owner',
             'is_active',
             'authorized',
-            'pending',
             'trees',
+            'number_of_trees',
+            'approximative_maturity_date',
             'trees_location',
-            'avg_nb_required_pickers',
-            'public_access',
             'trees_accessibility',
+#            'public_access',
             'neighbor_access',
             'compost_bin',
             'ladder_available',
             'ladder_available_for_outside_picks',
             'harvest_every_year',
-            'number_of_trees',
-            'approximative_maturity_date',
+            'avg_nb_required_pickers',
             'fruits_height',
             'street_number',
             'street',
             'complement',
             'postal_code',
-            'publishable_location',
             'neighborhood',
             'city',
             'state',
             'country',
-            'longitude',
             'latitude',
-            'geom',
+            'longitude',
             'additional_info',
+            'pending',
         )
 
         widgets = {
@@ -313,10 +364,41 @@ class PropertyForm(forms.ModelForm):
             ),
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
-            ),
-            'additional_info': forms.Textarea(),
-            'avg_nb_required_pickers': forms.NumberInput()
+            )
         }
+
+
+    neighbor_access = forms.BooleanField(
+        label = _("Volunteers have permission to go on the neighbours' property to access fruits"),
+        required=False,
+    )
+
+    compost_bin = forms.BooleanField(
+        label = _('I have a compost bin where you can leave rotten fruit'),
+        required=False,
+    )
+
+    ladder_available= forms.BooleanField(
+        label = _('I have a ladder that can be used during the harvest'),
+        required=False,
+    )
+
+    ladder_available_for_outside_picks = forms.BooleanField(
+        label = _('I would lend my ladder for another harvest nearby'),
+        required=False,
+    )
+
+    harvest_every_year = forms.BooleanField(
+        label = _('My tree(s)/vine(s) produce fruit every year (if not, please include info about frequency in additional comments at the bottom)'),
+        required=False,
+    )
+
+    authorized = forms.ChoiceField(
+        label=_('Do you give us permission to harvest your tree(s) and/or vine(s) this season?'),
+        choices=[(True,_('Yes')),(False,_('Not this year, but maybe in future seasons'))],
+        widget=forms.RadioSelect(),
+        required=False
+    )
 
     approximative_maturity_date = forms.DateField(
         input_formats=('%d/%m/%Y',),
@@ -324,6 +406,71 @@ class PropertyForm(forms.ModelForm):
         widget=forms.DateInput(
             format='%d/%m/%Y',
         )
+    )
+
+    trees_location = forms.CharField(
+        label=_('Location of tree(s) or vine(s)'),
+        help_text=_('Location on the property (e.g. Front yard, back yard, etc.)'),
+        required=False
+    )
+
+    trees_accessibility = forms.CharField(
+        label=_('Access to tree(s) or vine(s)'),
+        help_text=_('Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, publicly accessible from sidewalk, etc.)'),
+        required=False
+    )
+
+    avg_nb_required_pickers = forms.IntegerField(
+        label=_('Number of pickers'),
+        help_text=_('Approximate number of pickers needed for a two-hour harvesting period.'),
+        min_value=1,
+        required=False
+    )
+
+    fruits_height = forms.DecimalField(
+        label=_('Height of lowest fruits (meters)'),
+        min_value=0,
+        required=False
+    )
+
+    street_number = forms.IntegerField(
+        label=_('Address number'),
+        min_value=1,
+        required=True
+    )
+
+    number_of_trees = forms.IntegerField(
+        label=_('Total number of trees/vines on this property'),
+        min_value=1,
+        required=True
+    )
+
+    street = forms.CharField(
+        label=_('Street name'),
+        required=True
+    )
+
+    complement = forms.CharField(
+        label=_('Apartment # (if applicable)'),
+        required=False
+    )
+
+    postal_code = forms.CharField(
+        required=True
+    )
+
+    additional_info = forms.CharField(
+	label=_('Additional information'),
+        help_text=_('Any additional information that we should be aware of (e.g. details about how often tree produces fruit, description of fruit if the type is unknown etc.)'),
+        widget=forms.widgets.Textarea(),
+        required=False
+    )
+
+    pending = forms.ChoiceField(
+        label=_('Has this property record been authenticated by an administrator?'),
+        choices=[(False,_('Yes (it must have a tree owner associated with it)')),(True,_('No'))],
+        widget=forms.RadioSelect(),
+        required=True
     )
 
 class PublicPropertyForm(forms.ModelForm):
@@ -363,8 +510,7 @@ class PublicPropertyForm(forms.ModelForm):
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
-            ),
-            'avg_nb_required_pickers': forms.NumberInput(),
+            )
         }
 
 
@@ -426,24 +572,28 @@ class PublicPropertyForm(forms.ModelForm):
         required=False
     )
 
-    avg_nb_required_pickers = forms.DecimalField(
+    avg_nb_required_pickers = forms.IntegerField(
         label=_('Number of pickers'),
         help_text=_('Approximate number of pickers needed for a two-hour harvesting period.'),
+        min_value=1,
         required=False
     )
 
     fruits_height = forms.DecimalField(
         label=_('Height of lowest fruits (meters)'),
+        min_value=0,
         required=False
     )
 
-    street_number = forms.DecimalField(
+    street_number = forms.IntegerField(
         label=_('Address number'),
+        min_value=1,
         required=True
     )
 
-    number_of_trees = forms.DecimalField(
+    number_of_trees = forms.IntegerField(
         label=_('Total number of trees/vines on this property'),
+        min_value=1,
         required=True
     )
 
@@ -452,7 +602,7 @@ class PublicPropertyForm(forms.ModelForm):
         required=True
     )
 
-    complement = forms.DecimalField(
+    complement = forms.CharField(
         label=_('Apartment # (if applicable)'),
         required=False
     )
@@ -475,7 +625,7 @@ class PublicPropertyForm(forms.ModelForm):
 class HarvestForm(forms.ModelForm):
     about = forms.CharField(
         widget=CKEditorWidget(),
-        label=mark_safe(_("Public announcement<p>"))
+        label=mark_safe(_("Public announcement"))
     )
 
     class Meta:

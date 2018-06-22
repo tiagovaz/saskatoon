@@ -65,25 +65,26 @@
                 <div class="col-sm-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> {% trans "Notifications" %}
+                            <i class="fa fa-question-circle"></i> {% trans "Pick-leader guides" %}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                {% if notifications %}
-                                {% for notification in notifications %}
-                                <a href="{{ notification.url }}" class="list-group-item">
-                                    <i class="{{ notification.get_icon }}"></i>
-                                    {{ notification.text }}<br>
-                                    <p class="text-right" style="margin:0px">
-                                        {{ notification.creation_date|naturaltime|capfirst }}
-                                    </p>
-                                </a>
-                                {% endfor %}
+                                {% trans "2018 Pre-pick changes (Annex D)" as annexD %}
+                                {% trans "2017 Pre-pick Guide" as prepick %}
+                                {% trans "2017 Harvest Guide" as harvest %}
+                                {% if LANGUAGE_CODE == "en" %}
+				<ul>
+				    <li><a href=http://en >{{annexD}}</a></li>
+				    <li><a href=http://en >{{prepick}}</a></li>
+				    <li><a href=http://en >{{harvest}}</a></li>
+                                </ul>
                                 {% else %}
-                                <a class="list-group-item">
-                                    {% trans "No notifications for the moment" %}
-                                </a>
+				<ul>
+				    <li><a href=http://fr >{{annexD}}</a></li>
+				    <li><a href=http://fr >{{prepick}}</a></li>
+				    <li><a href=http://fr >{{harvest}}</a></li>
+                                </ul>
                                 {% endif %}
                             </div>
                         </div>

@@ -8,7 +8,12 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {{ property }} <small> (#{{ property.id }})</small>
+                {% if property.pending %}
+                [PENDING] {{property.street_number}} {{property.street}}
+                {% else %}
+                {{ property }}
+                {% endif %}
+                <small> (#{{ property.id }})</small>
                 <span class="pull-right">
                     <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
                         <i class="fa fa-pencil"></i> {% trans "Edit this property" %}
@@ -61,8 +66,8 @@
                                 <table class='table table-borderless'>
                                     <tbody>
                                         <tr>
-                                            <td><strong>{% trans "Compost bin closeby" %} :</strong></td>
-                                            <td>{% if property.compost_bin %}
+                                            <td><strong>{% trans "Is active" %} :</strong></td>
+                                            <td>{% if property.is_active %}
                                                     <i class="fa fa-check" style="color:green"></i>
                                                 {% else %}
                                                     <i class="fa fa-times" style="color:red"></i>
@@ -70,14 +75,25 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><strong>{% trans "Is active" %} :</strong></td>
-                                            <td>{% if property.authorized %}
+                                            <td><strong>{% trans "Authorized for this season" %} :</strong></td>
+                                            <td>{% if property.authorized == None %}
+                                                    <i class="fa fa-question" style="color:green"></i>
+                                                {% elif property.authorized %}
                                                     <i class="fa fa-check" style="color:green"></i>
                                                 {% else %}
                                                     <i class="fa fa-times" style="color:red"></i>
                                                 {% endif %}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Compost bin closeby" %} :</strong></td>
+                                            <td>{% if property.compost_bin %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr><!--
                                         <tr>
                                             <td><strong>{% trans "Publicly accessible" %} :</strong></td>
                                             <td>{% if property.public_access %}
@@ -86,7 +102,7 @@
                                                     <i class="fa fa-times" style="color:red"></i>
                                                 {% endif %}
                                             </td>
-                                        </tr>
+                                        </tr>-->
                                         <tr>
                                             <td><strong>{% trans "Access to neighbors terrain" %} :</strong></td>
                                             <td>{% if property.neighbor_access %}
