@@ -1,5 +1,5 @@
 ## About
-Saskatoon is a harvest management system developed by the [Les fruits défendus collective](http://lesfruitsdefendus.org/) in Montreal/QC.
+Saskatoon is a harvest management system developed by the [Les fruits défendus collective](http://www.lesfruitsdefendus.org/) in Montreal/QC.
 
 It is written in [Django](https://www.djangoproject.com/) and uses [Gentelella dashboard template](https://github.com/GiriB/django-gentelella).
 
