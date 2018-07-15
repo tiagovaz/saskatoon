@@ -43,7 +43,8 @@ class HarvestAdmin(admin.ModelAdmin):
 
 
 class RequestForParticipationAdmin(admin.ModelAdmin):
-    form = RFPForm
+    model = RequestForParticipation
+    list_display = ('id', 'harvest')
 
 
 class EquipmentAdmin(admin.ModelAdmin):

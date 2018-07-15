@@ -7,7 +7,7 @@ def _send_mail(subject, message, mail_to):
     send_mail(
             subject,
             message,
-            'info@lesfruitsdefendus.org',  # FIXME: add in settings
+            'info@lesfruitsdefendus.org',
             mail_to,
             fail_silently=False,
         )

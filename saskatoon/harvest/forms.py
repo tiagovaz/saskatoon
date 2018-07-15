@@ -594,7 +594,7 @@ class PublicPropertyForm(forms.ModelForm):
     number_of_trees = forms.IntegerField(
         label=_('Total number of trees/vines on this property'),
         min_value=1,
-        required=True
+        required=False
     )
 
     street = forms.CharField(
@@ -608,7 +608,7 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     postal_code = forms.CharField(
-        required=True
+        required=False
     )
 
     pending_newsletter = forms.BooleanField(
