@@ -1,10 +1,12 @@
 from django.conf.urls import url, include
 from harvest import views
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 urlpatterns = [
     url(
         r'^organizations/$',
-        views.OrganizationList.as_view(),
+        cache_page(60 * 60 * 24, key_prefix="organization")(views.OrganizationList.as_view()),
         name='organization_list'
     ),
     url(
@@ -29,7 +31,7 @@ urlpatterns = [
     ),
     url(
         r'^properties/$',
-        views.PropertyList.as_view(),
+        cache_page(60 * 60 * 24, key_prefix='property')(views.PropertyList.as_view()),
         name='property_list'
     ),
     url(
@@ -74,7 +76,7 @@ urlpatterns = [
     ),
     url(
         r'^list/$',
-        views.HarvestList.as_view(),
+        cache_page(60 * 60 * 24, key_prefix='harvest')(views.HarvestList.as_view()),
         name='harvest_list'
     ),
     url(
@@ -124,7 +126,7 @@ urlpatterns = [
     ),
     url(
         r'^equipments/list/$',
-        views.EquipmentList.as_view(),
+        cache_page(60 * 60 * 24, key_prefix='equipment')(views.EquipmentList.as_view()),
         name='equipment_list'
     ),
     url(

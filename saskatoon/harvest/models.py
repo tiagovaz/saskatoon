@@ -370,7 +370,12 @@ class Property(models.Model):
 
 # SIGNALS CONNECTED
 models.signals.pre_save.connect(
-    signals.changed_by,
+    receiver=signals.changed_by,
+    sender=Property
+)
+
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_property,
     sender=Property
 )
 
@@ -595,6 +600,11 @@ models.signals.pre_save.connect(
     sender=Harvest
 )
 
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_harvest,
+    sender=Harvest
+)
+
 
 class HarvestImage(models.Model):
     harvest = models.ForeignKey(
@@ -684,7 +694,6 @@ class RequestForParticipation(models.Model):
         return "Request by %s to participate to %s" % \
                (self.picker, self.harvest)
 
-
 @python_2_unicode_compatible
 class HarvestYield(models.Model):
     harvest = models.ForeignKey(
@@ -757,6 +766,12 @@ class Equipment(models.Model):
 
     def __str__(self):
         return "%s (%s)" % (self.description, self.type)
+
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_equipment,
+    sender=Equipment
+)
+
 
 
 @python_2_unicode_compatible

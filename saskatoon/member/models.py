@@ -8,6 +8,8 @@ from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
 from harvest.models import Property, Harvest, RequestForParticipation
+from harvest import signals
+
 
 NOTIFICATION_TYPE_CHOICES = (
     (
@@ -82,6 +84,10 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         else:
             return self.email
 
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_people,
+    sender=AuthUser
+)
 
 @python_2_unicode_compatible
 class Actor(models.Model):
@@ -395,6 +401,10 @@ class Organization(Actor):
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
 
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_organization,
+    sender=Organization
+)
 
 @python_2_unicode_compatible
 class Neighborhood(models.Model):

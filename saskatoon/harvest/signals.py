@@ -1,6 +1,21 @@
 from crequest.middleware import CrequestMiddleware
 from django.core.mail import send_mail
+from django.core.cache import cache
 
+def clear_cache_property(sender, instance, **kwargs):
+    cache.delete_pattern("*property*")
+
+def clear_cache_harvest(sender, instance, **kwargs):
+    cache.delete_pattern("*harvest*")
+
+def clear_cache_organization(sender, instance, **kwargs):
+    cache.delete_pattern("*organization*")
+
+def clear_cache_equipment(sender, instance, **kwargs):
+    cache.delete_pattern("*equipment*")
+
+def clear_cache_people(sender, instance, **kwargs):
+    cache.delete_pattern("*people*")
 
 def _send_mail(subject, message, mail_to):
     subject = '[Sakatoon] ' + subject
@@ -12,7 +27,6 @@ def _send_mail(subject, message, mail_to):
             fail_silently=False,
         )
 
-
 def changed_by(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     if current_request:
@@ -21,7 +35,6 @@ def changed_by(sender, instance, **kwargs):
             instance.changed_by = current_request.user
     else:
         instance.changed_by = None
-
 
 def comment_send_mail(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()

@@ -79,3 +79,9 @@ urlpatterns = [
         {'document_root': settings.MEDIA_ROOT}
     ),
 ]
+# django toolbar setup
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

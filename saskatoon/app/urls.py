@@ -26,5 +26,4 @@ urlpatterns = [
         views.JsonCalendar.as_view(),
         name='calendarJSON'
     ),
-
 ]
