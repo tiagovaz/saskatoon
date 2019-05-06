@@ -41,8 +41,12 @@ class Calendar(generic.TemplateView):
         return context
 
 class JsonCalendar(generic.View):
-    def get(self, test):
-        harvests = Harvest.objects.all()
+    def get(self, request, *args, **kwargs):
+        start_date = request.GET.get('start')
+        end_date = request.GET.get('end')
+        ed = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+        sd = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        harvests = Harvest.objects.filter(end_date__lte=ed, start_date__gte=sd)
         events = []
         for harvest in harvests:
             if (harvest.start_date and
