@@ -1,5 +1,6 @@
 {% extends "app/base_site.html" %}
 {% load i18n %}
+{% load bootstrap3 %}
 {% load is_person %}
 {% load order_by %}
 
@@ -24,12 +25,12 @@
         <span class="count_bottom"><i>{% trans "from" %} {{ harvest.start_date|date:"H:i" }} {% trans "to" %} {{ harvest.end_date|date:"H:i" }}</i></span>
       </div>
       <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> {%trans "Users requests" %}</span>
+        <span class="count_top"><i class="fa fa-users"></i> {%trans "Users requests" %}</span>
         <div class="count">{{ requests.count }}</div>
         <span class="count_bottom"><i>{{ harvest.nb_required_pickers }} {% trans "pickers needed in total" %}</i></span>
       </div>
       <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total harvested</span>
+        <span class="count_top"><i class="fa fa-shopping-basket"></i> Total harvested</span>
         <div class="count">{{ harvest.get_total_distribution }} lbs</div>
         <span class="count_bottom"><i>{% trans "See bellow how they've been shared" %}</i></span>
       </div>
@@ -48,29 +49,27 @@
     <!-- /top tiles -->
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="dashboard_graph">
-
-          <div class="row x_title">
-            <div class="col-md-12">
+      <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
               <h3>
                 {% for f in harvest.trees.all %}
                   {{ f }},
                 {% endfor %}
-                {{ harvest.property.short_address }} <small>(#{{ harvest.id }})</small></h3>
-            </div>
+                {{ harvest.property.short_address }}
+          </div>
+          <div class="x_content">
+             <blockquote>
+                <p>{{ harvest.about|safe }}</p>
+             </blockquote>
+            <div class="clearfix"></div>
           </div>
         </div>
       </div>
-    </div>
-
-    <br />
-
-    <div class="row">
       <div class="col-md-4 col-sm-4 col-xs-12">
-        <div class="x_panel tile fixed_height_320">
+        <div class="x_panel tile fixed_height_240">
           <div class="x_title">
-            <h2>App Versions</h2>
+            <h2>{% trans "Property information" %}</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -89,94 +88,169 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <h4>App Usage across versions</h4>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>0.1.5.2</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>123k</span>
-              </div>
+<!--
+                    {% with harvest.property.owner|is_person as is_person %}
+                        {% if is_person == True %}
+                            <p class="lead">{{ harvest.property.owner.person.name }}</p>
+                            {% if harvest.property.owner.person.address %}
+                                    {% trans "Personal address" %} : {{ harvest.property.owner.person.address }}.<br>
+                            {% endif %}
+                            {% trans "Phone" %} : {{ harvest.property.owner.person.phone }}<br>
+                            {% trans "Email" %} : {{ harvest.property.owner.person.email }}<br>
+                            {% trans "Preferred language" %} : {{ harvest.property.owner.person.language|default:" ? " }}<br>
+                                {% if property.owner.person.comments %}
+                                    {% trans "Additional comments" %} : <i>{{ property.owner.person.comments }}</i><br>
+                                {% endif %}
+                        {% elif is_person == False %}
+                            <strong>{{ property.owner.organization.name }}</strong><br>
+                            <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
+                            <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact_person }}<br>
+                            <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
+                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.phone }}<br>
+                            <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
+                            {% endif %}
+                    {% endwith %}
+-->
+                  <table class="tile_info">
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-home"></i> {{ harvest.property.short_address }} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-user"></i> {{ harvest.property.owner }} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-phone"></i> {{ harvest.property.owner.person.phone|default:" -- " }} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-envelope"></i> {{ harvest.property.owner.person.email|default:" -- "}} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-comments-o "></i> {{ harvest.property.owner.person.language|default:" -- "}} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-angle-double-right"></i><a href='{% url "harvest:property_detail" harvest.property.id %}'>{% trans "more info..." %}</a></p>
+                      </td>
+                    </tr>
+                  </table>
               <div class="clearfix"></div>
-            </div>
-
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>0.1.5.3</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>53k</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>0.1.5.4</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>23k</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>0.1.5.5</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>3k</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>0.1.5.6</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1k</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-4 col-xs-12">
-        <div class="x_panel tile fixed_height_320 overflow_hidden">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% trans "Pickers" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+                <table class="table table-striped projects dt-responsive">
+                    <tr>
+                        <th>{% trans "Picker" %}</th>
+                        <th>{% trans "Total people" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Requested on" %}</th>
+                        <th>{% trans "Accepted on" %}</th>
+                        <th>{% trans "First time" %}</th>
+                        <th>{% trans "Comment from picker" %}</th>
+                        <th>{% trans "Comment from pick leader" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                    {% for r in requests %}
+                    <tr>
+                        <td>{{ r.picker }}
+                        {% if r.picker.phone %}
+                            <br>{{ r.picker.phone }}
+                        {% endif %}
+                        {% if r.picker.email %}
+                            <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
+                        {% endif %}
+                        </td>
+                        <td>{{ r.number_of_people }}</td>
+                        <td>
+                            {% if r.is_accepted == None %}
+                                <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                            {% elif r.is_accepted == False %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                            {% elif r.is_accepted == True %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                            {% endif %}
+                        </td>
+                        <td>{{ r.creation_date }}</td>
+                        <td>
+                            {% if r.acceptation_date %}
+                                {{ r.acceptation_date }}
+                            {% else %}
+                                <i class="fa fa-times" style="color:red"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
+                            {% else  %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong> {{r.picker.participation_count}}</strong> accepted request(s).
+                            {% endif %}
+                        </td>
+                        <td>{{ r.comment }}</td>
+                        <td>{{ r.notes_from_pickleader }}</td>
+                        <td>
+                            <!-- Manage request modal -->
+                            <div class="modal fade" id="ManageRequestModal-{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                                            <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action='{% url "harvest:participation_update" r.id %}'>
+                                                {% csrf_token %}
+                                                {% bootstrap_form form_manage_request %}
+                                                {% buttons %}
+                                                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                                {% endbuttons %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
           <div class="x_title">
             <h2>Fruit distribution</h2>
             <ul class="nav navbar-right panel_toolbox">
@@ -222,7 +296,7 @@
                       <td>
                         <p><i class="fa fa-square blue"></i> {{ d.recipient }} </p>
                       </td>
-                      <td>{{ d.total_in_lb }}</td>
+                      <td>{{ d.total_in_lb }} lbs</td>
                     </tr>
                    {% endfor %}
                   </table>
@@ -232,352 +306,50 @@
           </div>
         </div>
       </div>
-
-
-      <div class="col-md-4 col-sm-4 col-xs-12">
-        <div class="x_panel tile fixed_height_320">
-          <div class="x_title">
-            <h2>Quick Settings</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <div class="dashboard-widget-content">
-              <ul class="quick-list">
-                <li><i class="fa fa-calendar-o"></i><a href="#">Settings</a>
-                </li>
-                <li><i class="fa fa-bars"></i><a href="#">Subscription</a>
-                </li>
-                <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                </li>
-                <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                </li>
-                <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
-                </li>
-              </ul>
-
-              <div class="sidebar-widget">
-                  <h4>Profile Completion</h4>
-                  <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 160px; height: 100px;"></canvas>
-                  <div class="goal-wrapper">
-                    <span id="gauge-text" class="gauge-value pull-left">0</span>
-                    <span class="gauge-value pull-left">%</span>
-                    <span id="goal-text" class="goal-value pull-right">100%</span>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    
     <div class="row">
 
-      <div class="col-md-4 col-sm-4 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Comments</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <div class="dashboard-widget-content">
-              <ul class="list-unstyled timeline widget">
 
-               {% for comment in harvest.comment.all|order_by:"-created_date" %}    
-                <li>
-                  <div class="block">
-                    <div class="block_content">
-                      <div class="byline">
-                        <span>{{comment.created_date}}</span> {% trans "by" %} <a>{{comment.author}}</a>
-                      </div>
-                      <p class="excerpt">{{ comment.content }}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-8 col-sm-8 col-xs-12">
 
-        <div class="row">
-
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h2>Visitors location <small>geo-presentation</small></h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <div class="dashboard-widget-content">
-                  <div class="col-md-4 hidden-small">
-                    <h2 class="line_30">125.7k Views from 60 countries</h2>
-
-                    <table class="countries_list">
-                      <tbody>
-                        <tr>
-                          <td>United States</td>
-                          <td class="fs15 fw700 text-right">33%</td>
-                        </tr>
-                        <tr>
-                          <td>France</td>
-                          <td class="fs15 fw700 text-right">27%</td>
-                        </tr>
-                        <tr>
-                          <td>Germany</td>
-                          <td class="fs15 fw700 text-right">16%</td>
-                        </tr>
-                        <tr>
-                          <td>Spain</td>
-                          <td class="fs15 fw700 text-right">11%</td>
-                        </tr>
-                        <tr>
-                          <td>Britain</td>
-                          <td class="fs15 fw700 text-right">10%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:230px;"></div>
+            <div class="col-md-6">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Comments</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="row">
-
-
-          <!-- Start to do list -->
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h2>To Do List <small>Sample tasks</small></h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-
-                <div class="">
-                  <ul class="to_do">
+                <div class="x_content">
+                  <ul class="list-unstyled msg_list">
+                  {% for comment in harvest.comment.all|order_by:"-created_date" %}    
                     <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Schedule meeting with new client </p>
+                      <a>
+                        <span class="image">
+                          <img src="/static/images/img.jpg" alt="img" />
+                        </span>
+                        <span>
+                          <span>{{ comment.author }}</span>
+                          <span class="time">{{ comment.created_date }}</span>
+                        </span>
+                        <span class="message">
+                          {{ comment.content }}
+                        </span>
+                      </a>
                     </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Create email address for new intern</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Have IT fix the network printer</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Copy backups to offsite location</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Create email address for new intern</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Have IT fix the network printer</p>
-                    </li>
-                    <li>
-                      <p>
-                        <input type="checkbox" class="flat"> Copy backups to offsite location</p>
-                    </li>
+                  {% endfor %}
                   </ul>
                 </div>
               </div>
             </div>
           </div>
-          <!-- End to do list -->
-
-          <!-- start of weather widget -->
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h2>Daily active users <small>Sessions</small></h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="temperature"><b>Monday</b>, 07:30 AM
-                      <span>F</span>
-                      <span><b>C</b></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="weather-icon">
-                      <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
-                    </div>
-                  </div>
-                  <div class="col-sm-8">
-                    <div class="weather-text">
-                      <h2>Texas <br><i>Partly Cloudy Day</i></h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="weather-text pull-right">
-                    <h3 class="degrees">23</h3>
-                  </div>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="row weather-days">
-                  <div class="col-sm-2">
-                    <div class="daily-weather">
-                      <h2 class="day">Mon</h2>
-                      <h3 class="degrees">25</h3>
-                      <canvas id="clear-day" width="32" height="32"></canvas>
-                      <h5>15 <i>km/h</i></h5>
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="daily-weather">
-                      <h2 class="day">Tue</h2>
-                      <h3 class="degrees">25</h3>
-                      <canvas height="32" width="32" id="rain"></canvas>
-                      <h5>12 <i>km/h</i></h5>
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="daily-weather">
-                      <h2 class="day">Wed</h2>
-                      <h3 class="degrees">27</h3>
-                      <canvas height="32" width="32" id="snow"></canvas>
-                      <h5>14 <i>km/h</i></h5>
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="daily-weather">
-                      <h2 class="day">Thu</h2>
-                      <h3 class="degrees">28</h3>
-                      <canvas height="32" width="32" id="sleet"></canvas>
-                      <h5>15 <i>km/h</i></h5>
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="daily-weather">
-                      <h2 class="day">Fri</h2>
-                      <h3 class="degrees">28</h3>
-                      <canvas height="32" width="32" id="wind"></canvas>
-                      <h5>11 <i>km/h</i></h5>
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="daily-weather">
-                      <h2 class="day">Sat</h2>
-                      <h3 class="degrees">26</h3>
-                      <canvas height="32" width="32" id="cloudy"></canvas>
-                      <h5>10 <i>km/h</i></h5>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!-- end of weather widget -->
+          <div class="clearfix"></div>
         </div>
       </div>
-    </div>
-  </div>
 {% endblock content %}
 
 {% block javascripts %}

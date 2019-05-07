@@ -238,6 +238,15 @@ class Person(Actor):
         else:
             return self.street
 
+    def participation_count(self):
+        count = RequestForParticipation.objects.filter(
+            picker=self,
+            is_accepted=True
+        ).count()
+        return count
+
+
+
     class Meta:
         verbose_name = _("person")
         verbose_name_plural = _("people")
