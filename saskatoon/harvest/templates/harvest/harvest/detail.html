@@ -1,4 +1,5 @@
 {% extends "app/base_site.html" %}
+{% load staticfiles %}
 {% load i18n %}
 {% load bootstrap3 %}
 {% load is_person %}
@@ -61,6 +62,15 @@
           <div class="x_content">
              <blockquote>
                 <p>{{ harvest.about|safe }}</p>
+             {% if harvest.owner_present %}
+               <span class="label label-warning"> {% trans "Owner wants to be present!" %} </span><br>
+             {% endif %}
+             {% if harvest.owner_help %}
+               <span class="label label-success"> {% trans "Owner wants to participate!" %} </span><br>
+             {% endif %}
+             {% if harvest.owner_fruit %}
+               <span class="label label-danger"> {% trans "Owner wants their share of fruits!" %} </span>
+             {% endif %}
              </blockquote>
             <div class="clearfix"></div>
           </div>
@@ -153,10 +163,9 @@
           <div class="x_title">
             <h2>{% trans "Pickers" %}</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              <li><a href='{% url "harvest:participation_create" harvest.id %}'><i class="fa fa-plus"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -215,26 +224,29 @@
                         <td>{{ r.comment }}</td>
                         <td>{{ r.notes_from_pickleader }}</td>
                         <td>
-                            <!-- Manage request modal -->
-                            <div class="modal fade" id="ManageRequestModal-{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="requestLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
-                                            <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action='{% url "harvest:participation_update" r.id %}'>
-                                                {% csrf_token %}
-                                                {% bootstrap_form form_manage_request %}
-                                                {% buttons %}
-                                                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
-                                                {% endbuttons %}
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           <!-- Small modal -->
+                           <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="ManageRequestModal-{{r.id}}">
+                             <div class="modal-dialog modal-sm">
+                               <div class="modal-content">
+         
+                                 <div class="modal-header">
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                   </button>
+                                   <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                   <form method="post" action='{% url "harvest:participation_update" r.id %}'>
+                                       {% csrf_token %}
+                                       {% bootstrap_form form_manage_request %}
+                                       {% buttons %}
+                                       <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                       {% endbuttons %}
+                                   </form>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                           <!-- /modals -->
                             <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
                                 <i class="fa fa-pencil"></i>
                             </a>
@@ -248,22 +260,13 @@
         </div>
       </div>
 
-
-      <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="row">
+      <div class="col-md-4">
         <div class="x_panel">
           <div class="x_title">
             <h2>Fruit distribution</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -273,30 +276,18 @@
           <div class="x_content">
             <table class="" style="width:100%">
               <tr>
-                <th style="width:37%;">
-                  <p></p>
-                </th>
-                <th>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                    <p class=""></p>
-                  </div>
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                    <p class=""></p>
-                  </div>
-                </th>
-              </tr>
-              <tr>
                 <td>
                   <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
                 </td>
                 <td>
-                  <table class="tile_info">
+                  <table>
                    {% for d in distribution %}
                     <tr>
-                      <td>
+                      <td class="col-md-6">
                         <p><i class="fa fa-square blue"></i> {{ d.recipient }} </p>
                       </td>
-                      <td>{{ d.total_in_lb }} lbs</td>
+                      <td class="col-md-4"><p>{{ d.tree.fruit_name }}</p></td>
+                      <td class="col-md-2"><p>{{ d.total_in_lb }}</p></td>
                     </tr>
                    {% endfor %}
                   </table>
@@ -307,16 +298,13 @@
         </div>
       </div>
     
-    <div class="row">
-
-
-
-
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Comments</h2>
                   <ul class="nav navbar-right panel_toolbox">
+                    <li><a data-toggle="modal" data-target="#CommentModal"><i class="fa fa-plus"></i></a>
+                    </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -325,22 +313,22 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                  <ul class="list-unstyled msg_list">
-                  {% for comment in harvest.comment.all|order_by:"-created_date" %}    
-                    <li>
-                      <a>
-                        <span class="image">
-                          <img src="/static/images/img.jpg" alt="img" />
-                        </span>
-                        <span>
-                          <span>{{ comment.author }}</span>
-                          <span class="time">{{ comment.created_date }}</span>
-                        </span>
-                        <span class="message">
-                          {{ comment.content }}
-                        </span>
-                      </a>
-                    </li>
+                 <div class="dashboard-widget-content">
+                    <ul class="list-unstyled timeline widget">
+                     {% for comment in harvest.comment.all|order_by:"-created_date" %}    
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>{{ comment.content|truncatewords:4 }}</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>{{ comment.created_date }}</span> {%trans "by" %} <a>{{ comment.author }}</a>
+                            </div>
+                            <p class="excerpt">{{ comment.content }}</p>
+                          </div>
+                        </div>
+                      </li>
                   {% endfor %}
                   </ul>
                 </div>
@@ -350,6 +338,31 @@
           <div class="clearfix"></div>
         </div>
       </div>
+
+          <!-- Small modal -->
+          <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="CommentModal">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="requestLabel">{% trans "New comment" %}</h4>
+                </div>
+                <div class="modal-body">
+                   <form method="post" action="{% url 'harvest:comment_create' harvest.id %}">
+                       {% csrf_token %}
+                       {% bootstrap_form form_comment %}
+                       {% buttons %}
+                           <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                       {% endbuttons %}
+                   </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /modals -->
+
 {% endblock content %}
 
 {% block javascripts %}
