@@ -15,10 +15,50 @@
   <div class="right_col" role="main">
     <!-- top tiles -->
     <div class="row tile_count">
-      <div class="col-md-3 col-sm-4 col-xs-5 tile_stats_count">
-        <span class="count_top"><i class="fa fa-calendar-check-o"></i> Status</span>
-        <div class="count green">{{ harvest.get_status_l10n }}</div>
-        <span class="count_bottom"><i>Some explanation for each status</i></span>
+      <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
+             <span class="count_top"><i class="fa fa-calendar-check-o"></i> Status</span>
+             {% if harvest.status == "Succeeded" %}
+               <div class="count green">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="100"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Cancelled" %}
+               <div class="count red">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="100"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Orphan" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="5"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Adopted" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="20"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "To-be-confirmed" %}
+               <div class="count warning">{% trans "Waiting" %}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="40"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Date-scheduled" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="60"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Ready" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="80"></div>
+               </div>
+             {% endif %}
       </div>
       <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
         <span class="count_top"><i class="fa fa-clock-o"></i> Schedule</span>
@@ -35,11 +75,11 @@
         <div class="count">{{ harvest.get_total_distribution }} lbs</div>
         <span class="count_bottom"><i>{% trans "See bellow how they've been shared" %}</i></span>
       </div>
-      <div class="col-md-3 col-sm-4 col-xs-5 tile_stats_count">
+      <div class="col-md-4 col-sm-4 col-xs-5 tile_stats_count">
         <span class="count_top"><i class="fa fa-user"></i> Leader</span>
           {% if harvest.pick_leader != None %}
               <div class="count">{{ harvest.pick_leader }}</div>
-              <span class="count_bottom"><i>{% trans "Thanks" %} {{harvest.pick_leader.first_name}} !</i></span>
+              <span class="count_bottom"><i>{% trans "Thanks" %}!</i></span>
           {% endif %}
           {% if harvest.pick_leader == None %}        
             <div class="count red">{% trans "No leader" %}</div>

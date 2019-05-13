@@ -226,6 +226,7 @@ class HarvestDetail(generic.DetailView):
     context_object_name = 'harvest'
     template_name = 'harvest/harvest/detail.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         get_object_or_404(
             Harvest,
@@ -461,6 +462,7 @@ class HarvestYieldCreate(generic.CreateView):
         'recipient',
     ]
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HarvestYieldCreate, self).dispatch(*args, **kwargs)
 
@@ -529,6 +531,7 @@ class HarvestYieldUpdate(generic.UpdateView):
         'recipient',
     ]
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HarvestYieldUpdate, self).dispatch(*args, **kwargs)
 

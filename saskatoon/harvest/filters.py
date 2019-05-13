@@ -16,8 +16,8 @@ class HarvestFilter(FilterSet):
                     y.start_date.strftime("%Y")
                 )
             seasons.append(t_seasons)
-    seasons.insert(0, ('', '---------'))
     seasons = list(set(seasons))
+    seasons = sorted(seasons, key=lambda tup: tup[1])
 
     start_date = ChoiceFilter(
         choices=seasons,
