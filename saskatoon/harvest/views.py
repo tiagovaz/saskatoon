@@ -359,16 +359,16 @@ class RequestForParticipationUpdate(generic.UpdateView):
         )
 
 
-def get_context_data(self, **kwargs):
-    context = super(RequestForParticipationUpdate, self).\
-        get_context_data(**kwargs)
-
-    participation = RequestForParticipation.objects.get(id=self.kwargs['pk'])
-
-    context['participation'] = participation
-
-    return context
-
+    def get_context_data(self, **kwargs):
+        context = super(RequestForParticipationUpdate, self).\
+            get_context_data(**kwargs)
+    
+        participation = RequestForParticipation.objects.get(id=self.kwargs['pk'])
+    
+        context['participation'] = participation
+    
+        return context
+    
 
 class EquipmentList(generic.ListView):
     template_name = 'harvest/equipment/list.html'
