@@ -141,7 +141,7 @@ class RequestForm(forms.ModelForm):
                   )
 
         # Sending email to pick leader
-        self.send_email(mail_subject, message, pick_leader_email)
+        # self.send_email(mail_subject, message, pick_leader_email)
 
         instance.save()
 

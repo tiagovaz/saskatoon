@@ -80,7 +80,7 @@ class JsonCalendar(generic.View):
                     event["end"] = harvest.end_date - \
                                    datetime.timedelta(hours=4)
                 event["url"] = reverse(
-                    'harvest:harvest_detail',
+                    'harvest:participation_create',
                     kwargs={'pk': harvest.id}
                 )
                 event["color"] = color
