@@ -218,7 +218,7 @@ class RFPManageForm(forms.ModelForm):
     )
 
     status = forms.ChoiceField(
-        label=_('About the picker partition :'),
+        label=_('About the picker participation :'),
         choices=STATUS_CHOICES,
         widget=forms.RadioSelect(),
         required=False

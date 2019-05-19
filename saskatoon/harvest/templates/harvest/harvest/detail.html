@@ -138,29 +138,6 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-<!--
-                    {% with harvest.property.owner|is_person as is_person %}
-                        {% if is_person == True %}
-                            <p class="lead">{{ harvest.property.owner.person.name }}</p>
-                            {% if harvest.property.owner.person.address %}
-                                    {% trans "Personal address" %} : {{ harvest.property.owner.person.address }}.<br>
-                            {% endif %}
-                            {% trans "Phone" %} : {{ harvest.property.owner.person.phone }}<br>
-                            {% trans "Email" %} : {{ harvest.property.owner.person.email }}<br>
-                            {% trans "Preferred language" %} : {{ harvest.property.owner.person.language|default:" ? " }}<br>
-                                {% if property.owner.person.comments %}
-                                    {% trans "Additional comments" %} : <i>{{ property.owner.person.comments }}</i><br>
-                                {% endif %}
-                        {% elif is_person == False %}
-                            <strong>{{ property.owner.organization.name }}</strong><br>
-                            <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
-                            <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact_person }}<br>
-                            <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
-                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.phone }}<br>
-                            <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
-                            {% endif %}
-                    {% endwith %}
--->
                   <table class="tile_info">
                     <tr>
                       <td>
@@ -203,7 +180,7 @@
           <div class="x_title">
             <h2>{% trans "Pickers" %}</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <li><a href='{% url "harvest:participation_create" harvest.id %}'><i class="fa fa-plus"></i></a>
+              <li><a data-toggle="modal" data-target="#RFPModal"><i class="fa fa-plus"></i></a>
               </li>
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -300,8 +277,7 @@
         </div>
       </div>
 
-    <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-8">
         <div class="x_panel">
           <div class="x_title">
             <h2>Fruit distribution</h2>
@@ -379,7 +355,7 @@
         </div>
       </div>
 
-          <!-- Small modal -->
+          <!-- Comment modal -->
           <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="CommentModal">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
@@ -401,7 +377,34 @@
               </div>
             </div>
           </div>
-          <!-- /modals -->
+          <!-- /comment modal -->
+
+          <!-- RFP modal -->
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="RFPModal">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="requestLabel">{% trans "New request" %}</h4>
+                </div>
+                <div class="modal-body">
+                   <form method="post" action="{% url 'harvest:participation_create' harvest.id %}">
+                       {% csrf_token %}
+                       {% bootstrap_form form_request %}
+                       <input type="hidden" name="harvest_id" value={{harvest.id}} id="harvest_id" />
+
+                       {% buttons %}
+                           <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                       {% endbuttons %}
+                   </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /RFP modal -->
+
 
 {% endblock content %}
 
