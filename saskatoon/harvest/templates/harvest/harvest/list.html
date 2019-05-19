@@ -112,7 +112,7 @@
                         <div class="progress progress_sm">
                           <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="40"></div>
                         </div>
-                        <small>{% trans "To be confirmed" %}</small>
+                        <small>{% trans "Unauthorized" %}</small>
                       {% endif %}
                       {% if harvest.status == "Date-scheduled" %}
                         <div class="progress progress_sm">
@@ -152,7 +152,7 @@
                 {% csrf_token %}
                 {{ form|bootstrap }}
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
                 </div>
               </form>
             </div>

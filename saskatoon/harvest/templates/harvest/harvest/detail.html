@@ -15,10 +15,16 @@
   <div class="right_col" role="main">
     <!-- top tiles -->
     <div class="row tile_count">
-      <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
+      <div class="col-md-3 tile_stats_count">
              <span class="count_top"><i class="fa fa-calendar-check-o"></i> Status</span>
+             {% if harvest.status == "To-be-confirmed" %}
+               <div class="count warning">{% trans "Unauthorized" %}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="0"></div>
+               </div>
+             {% endif %}
              {% if harvest.status == "Succeeded" %}
-               <div class="count green">{{ harvest.get_status_l10n }}</div>
+               <div class="count green">{% trans "Success" %}</div>
                <div class="progress progress_sm">
                  <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="100"></div>
                </div>
@@ -41,14 +47,8 @@
                  <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="20"></div>
                </div>
              {% endif %}
-             {% if harvest.status == "To-be-confirmed" %}
-               <div class="count warning">{% trans "Waiting" %}</div>
-               <div class="progress progress_sm">
-                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="40"></div>
-               </div>
-             {% endif %}
              {% if harvest.status == "Date-scheduled" %}
-               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="count yellow">{% trans "Scheduled" %}</div>
                <div class="progress progress_sm">
                  <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="60"></div>
                </div>
@@ -60,22 +60,22 @@
                </div>
              {% endif %}
       </div>
-      <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
+      <div class="col-md-2 tile_stats_count">
         <span class="count_top"><i class="fa fa-clock-o"></i> Schedule</span>
         <div class="count">{{ harvest.start_date|date:"d M" }}</div>
         <span class="count_bottom"><i>{% trans "from" %} {{ harvest.start_date|date:"H:i" }} {% trans "to" %} {{ harvest.end_date|date:"H:i" }}</i></span>
       </div>
-      <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
-        <span class="count_top"><i class="fa fa-users"></i> {%trans "Users requests" %}</span>
+      <div class="col-md-1 tile_stats_count">
+        <span class="count_top"><i class="fa fa-users"></i> {%trans "Requests" %}</span>
         <div class="count">{{ requests.count }}</div>
-        <span class="count_bottom"><i>{{ harvest.nb_required_pickers }} {% trans "pickers needed in total" %}</i></span>
+        <span class="count_bottom"><i>{{ harvest.nb_required_pickers }} {% trans "needed" %}</i></span>
       </div>
-      <div class="col-md-2 col-sm-4 col-xs-5 tile_stats_count">
+      <div class="col-md-2 tile_stats_count">
         <span class="count_top"><i class="fa fa-shopping-basket"></i> Total harvested</span>
         <div class="count">{{ harvest.get_total_distribution }} lbs</div>
         <span class="count_bottom"><i>{% trans "See bellow how they've been shared" %}</i></span>
       </div>
-      <div class="col-md-4 col-sm-4 col-xs-5 tile_stats_count">
+      <div class="col-md-4 tile_stats_count">
         <span class="count_top"><i class="fa fa-user"></i> Leader</span>
           {% if harvest.pick_leader != None %}
               <div class="count">{{ harvest.pick_leader }}</div>
