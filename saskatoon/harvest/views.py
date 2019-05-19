@@ -3,7 +3,7 @@ from django.views import generic
 from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, \
     PropertyImage, HarvestYield, HarvestImage
-from harvest.forms import CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
+from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
 from member.models import Person, AuthUser, Actor, Organization, Neighborhood
 from harvest.filters import HarvestFilter, PropertyFilter
