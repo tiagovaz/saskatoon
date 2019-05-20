@@ -36,6 +36,18 @@
           <li><a href="{% url 'harvest:equipment_list' %}"><i class="fa fa-scissors"></i>{% trans "Equipment" %}</a></li>
           <li><a href="{% url 'member:people' %}"><i class="fa fa-users"></i>{% trans "Community" %}</a></li>
           <li><a href="/harvest/stats/all"><i class="fa fa-bar-chart fa-fw"></i>{% trans "Statistics" %}</a></li>
+          {% if user.is_superuser %}
+          <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
+                  <i class="fa fa-angle-down fa-fw"></i>Admin
+              </a>
+              <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+                  <li><a href="/admin/member/authuser/add/">&nbsp;&nbsp;<i class="fa fa-user fa-fw"></i>&nbsp;{% trans "Add user" %}</a></li>
+                  <li><a href="/admin/member/authuser/">&nbsp;&nbsp;<i class="fa fa-users fa-fw"></i>&nbsp;{% trans "Manage users" %}</a></li>
+                  <li><a href="/admin/member/organization/">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;{% trans "Manage beneficiaries" %}</a></li>
+                  <li><a href="/admin/">&nbsp;&nbsp;<i class="fa fa-gear fa-fw"></i>&nbsp;{% trans "Full admin interface" %}</a></li>
+              </ul>
+          </li>
+          {% endif %}
       </ul>
     </div>
   </div>
