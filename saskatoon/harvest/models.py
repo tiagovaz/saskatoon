@@ -488,6 +488,16 @@ class Harvest(models.Model):
             if s[0] in self.status:
                 return s[1]
 
+    def get_distribution_proportions(self):
+        total = self.get_total_distribution()
+        yields = HarvestYield.objects.filter(harvest=self)
+        proportions = []
+        for y in yields:
+            proportions.append((y.total_in_lb/total)*100)
+        str_proportions = ", ".join("{0:.2f}".format(x) for x in proportions)
+        str_list_proportions= "["+str_proportions+"]"
+        return str_list_proportions
+
     def get_total_distribution(self):
         total = 0
         yields = HarvestYield.objects.filter(harvest=self)
