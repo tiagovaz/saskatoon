@@ -5,6 +5,9 @@
 {% block head %}
     {{ block.super }}
     {{ form.media.css }}
+
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+
 {% endblock %}
 
 {% block content %}
@@ -12,7 +15,7 @@
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3>{% trans "Harvest record" %}</h3>
+          <h3>{% trans "New Harvest" %}</h3>
         </div>
 
         <div class="title_right">
@@ -50,4 +53,17 @@
 {% block javascripts %}
     {{ block.super }}
     {{ form.media.js }}
+
+    <!-- DatePicker JavaScript -->
+    <script type="text/javascript" src="/static/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#id_start_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});
+        });
+        $(function () {
+            $('#id_end_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});
+        });
+    </script>
+
 {% endblock %}
