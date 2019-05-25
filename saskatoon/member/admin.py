@@ -108,7 +108,7 @@ class AuthUserAdmin(UserAdmin):
     )
 
     search_fields = ('email', 'person__first_name', 'person__family_name')
-    ordering = ('email', 'person__first_name', 'person__family_name')
+    ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
 
 admin.site.register(AuthUser, AuthUserAdmin)
