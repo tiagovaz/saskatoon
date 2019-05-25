@@ -65,6 +65,9 @@ class CustomUserChangeForm(UserChangeForm):
 class AuthUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
+    search_fields = ('email', 'person__first_name', 'person__family_name')
+    ordering = ('email', 'person')
+    filter_horizontal = ('groups', 'user_permissions',)
 
     list_display = ('email', 'person', 'is_staff', 'is_superuser', 'is_active')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
@@ -107,9 +110,6 @@ class AuthUserAdmin(UserAdmin):
         ),
     )
 
-    search_fields = ('email', 'person__first_name', 'person__family_name')
-    ordering = ('email',)
-    filter_horizontal = ('groups', 'user_permissions',)
 
 admin.site.register(AuthUser, AuthUserAdmin)
 admin.site.register(Notification)
