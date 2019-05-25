@@ -5,6 +5,7 @@ from django.template import loader
 from django.urls import reverse
 from django.views import generic
 from harvest.models import Harvest, Property
+from harvest.forms import RequestForm
 
 
 ########## Original template views #############
@@ -37,6 +38,7 @@ class Calendar(generic.TemplateView):
         context = super(Calendar, self).get_context_data(**kwargs)
 
         context['view'] = "calendar"
+        context['form_request'] = RequestForm()
 
         return context
 
@@ -67,6 +69,7 @@ class JsonCalendar(generic.View):
                     color = "#000000"
                 event = dict()
                 event["title"] = harvest.property.neighborhood.name
+                event["harvest_id"] = harvest.id
                 event["allday"] = "false"
                 event["description"] = harvest.about
                 # FIXME: see

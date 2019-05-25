@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-20 11:13-0400\n"
+"POT-Creation-Date: 2019-05-20 11:48-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,10 +21,10 @@ msgstr ""
 msgid "Season"
 msgstr ""
 
-#: harvest/filters.py:44 harvest/filters.py:77 harvest/models.py:697
-#: harvest/templates/harvest/harvest/list.html:48
+#: harvest/filters.py:44 harvest/filters.py:77 harvest/models.py:706
+#: harvest/templates/harvest/harvest/list.html:43
 #: harvest/templates/harvest/properties/detail.html:200
-#: harvest/templates/harvest/properties/list.html:49
+#: harvest/templates/harvest/properties/list.html:44
 msgid "Tree"
 msgstr ""
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: harvest/forms.py:32 harvest/models.py:626
+#: harvest/forms.py:32 harvest/models.py:636
 msgid "Comment"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgid "Please accept or refuse this request :"
 msgstr ""
 
 #: harvest/forms.py:221
-msgid "About the picker partition :"
+msgid "About the picker participation :"
 msgstr ""
 
 #: harvest/forms.py:371
@@ -220,18 +220,17 @@ msgstr ""
 msgid "Fill in one of the two fields: property or owner."
 msgstr ""
 
-#: harvest/models.py:16 harvest/templates/harvest/harvest/list.html:120
-#: harvest/templates/harvest/properties/detail.html:269
+#: harvest/models.py:16 harvest/templates/harvest/properties/detail.html:269
 msgid "To be confirmed"
 msgstr ""
 
-#: harvest/models.py:20 harvest/templates/harvest/harvest/list.html:108
+#: harvest/models.py:20 harvest/templates/harvest/harvest/list.html:103
 #: harvest/templates/harvest/properties/detail.html:257
 msgid "Orphan"
 msgstr ""
 
-#: harvest/models.py:24 harvest/templates/harvest/harvest/list.html:114
-#: harvest/templates/harvest/properties/detail.html:263 harvest/views.py:320
+#: harvest/models.py:24 harvest/templates/harvest/harvest/list.html:109
+#: harvest/templates/harvest/properties/detail.html:263 harvest/views.py:321
 msgid "Adopted"
 msgstr ""
 
@@ -239,17 +238,17 @@ msgstr ""
 msgid "Date scheduled"
 msgstr ""
 
-#: harvest/models.py:32 harvest/templates/harvest/harvest/list.html:132
+#: harvest/models.py:32 harvest/templates/harvest/harvest/list.html:127
 #: harvest/templates/harvest/properties/detail.html:281
 msgid "Ready"
 msgstr ""
 
-#: harvest/models.py:36 harvest/templates/harvest/harvest/list.html:96
+#: harvest/models.py:36 harvest/templates/harvest/harvest/list.html:91
 #: harvest/templates/harvest/properties/detail.html:245
 msgid "Succeeded"
 msgstr ""
 
-#: harvest/models.py:40 harvest/templates/harvest/harvest/list.html:102
+#: harvest/models.py:40 harvest/templates/harvest/harvest/list.html:97
 #: harvest/templates/harvest/properties/detail.html:251
 msgid "Cancelled"
 msgstr ""
@@ -304,13 +303,14 @@ msgid ""
 "owner"
 msgstr ""
 
-#: harvest/models.py:111
+#: harvest/models.py:111 harvest/templates/harvest/harvest/detail.html:219
 msgid "Pending"
 msgstr ""
 
 #: harvest/models.py:112
 msgid ""
-"This property was created through a public form and needs to be validated"
+"This property was created through a public form and needs to be validated by "
+"an administrator"
 msgstr ""
 
 #: harvest/models.py:117
@@ -345,7 +345,7 @@ msgstr ""
 msgid "Recurring property signup"
 msgstr ""
 
-#: harvest/models.py:151 harvest/models.py:735
+#: harvest/models.py:151 harvest/models.py:744
 msgid "Owner"
 msgstr ""
 
@@ -482,177 +482,176 @@ msgstr ""
 msgid "properties"
 msgstr ""
 
-#: harvest/models.py:393
+#: harvest/models.py:398
 msgid "Harvest status"
 msgstr ""
 
-#: harvest/models.py:399 harvest/models.py:742
+#: harvest/models.py:404 harvest/models.py:751
 #: harvest/templates/harvest/equipment/list.html:49
 #: harvest/templates/harvest/participation/list.html:29
-#: harvest/templates/harvest/properties/list.html:47
+#: harvest/templates/harvest/properties/list.html:42
 msgid "Property"
 msgstr ""
 
-#: harvest/models.py:404
+#: harvest/models.py:409
 msgid "Fruit trees"
 msgstr ""
 
-#: harvest/models.py:408
+#: harvest/models.py:413
 msgid "Owner wants to be present"
 msgstr ""
 
-#: harvest/models.py:413
+#: harvest/models.py:418
 msgid "Owner wants to participate"
 msgstr ""
 
-#: harvest/models.py:418
+#: harvest/models.py:423
 msgid "Owner want his share of fruits"
 msgstr ""
 
-#: harvest/models.py:430
+#: harvest/models.py:435
 msgid "Start date"
 msgstr ""
 
-#: harvest/models.py:436
+#: harvest/models.py:441
 msgid "End date"
 msgstr ""
 
-#: harvest/models.py:442
+#: harvest/models.py:447
 msgid "Publication date"
 msgstr ""
 
-#: harvest/models.py:449
+#: harvest/models.py:454
 msgid "Reserve equipment"
 msgstr ""
 
-#: harvest/models.py:454
+#: harvest/models.py:459
 msgid "Creation date"
 msgstr ""
 
-#: harvest/models.py:460
+#: harvest/models.py:465
 #: harvest/templates/harvest/harvest/detail_public.html:26
 msgid "Number of required pickers"
 msgstr ""
 
-#: harvest/models.py:465
+#: harvest/models.py:470
 msgid "Public announcement"
 msgstr ""
 
-#: harvest/models.py:467
+#: harvest/models.py:472
 msgid ""
 "If any help is needed from volunteer pickers, please describe them here."
 msgstr ""
 
-#: harvest/models.py:494 harvest/models.py:782
+#: harvest/models.py:499 harvest/models.py:797
 msgid "harvest"
 msgstr ""
 
-#: harvest/models.py:495
+#: harvest/models.py:500
 msgid "harvests"
 msgstr ""
 
-#: harvest/models.py:613
+#: harvest/models.py:623
 msgid "Requester"
 msgstr ""
 
-#: harvest/models.py:617
+#: harvest/models.py:627
 msgid "How many people are you?"
 msgstr ""
 
-#: harvest/models.py:632
+#: harvest/models.py:642
 msgid "Notes from the pick leader."
 msgstr ""
 
-#: harvest/models.py:639 harvest/models.py:692
-#: harvest/templates/harvest/harvest/detail.html:20
-#: harvest/templates/harvest/harvest/list.html:47
+#: harvest/models.py:649 harvest/models.py:701
+#: harvest/templates/harvest/harvest/list.html:42
 msgid "Harvest"
 msgstr ""
 
-#: harvest/models.py:644
+#: harvest/models.py:654
 msgid "Created on"
 msgstr ""
 
-#: harvest/models.py:649
+#: harvest/models.py:659 harvest/templates/harvest/harvest/detail.html:200
 msgid "Accepted on"
 msgstr ""
 
-#: harvest/models.py:655
+#: harvest/models.py:665 harvest/templates/harvest/harvest/detail.html:223
 msgid "Accepted"
 msgstr ""
 
-#: harvest/models.py:662
+#: harvest/models.py:672
 msgid "Showed up"
 msgstr ""
 
-#: harvest/models.py:669
+#: harvest/models.py:679
 msgid "Canceled"
 msgstr ""
 
-#: harvest/models.py:674
+#: harvest/models.py:684
 msgid "request for participation"
 msgstr ""
 
-#: harvest/models.py:675
+#: harvest/models.py:685
 msgid "requests for participation"
 msgstr ""
 
-#: harvest/models.py:701
+#: harvest/models.py:710
 msgid "Weight (lb)"
 msgstr ""
 
-#: harvest/models.py:709
+#: harvest/models.py:718
 msgid "Recipient"
 msgstr ""
 
-#: harvest/models.py:713
+#: harvest/models.py:722
 msgid "harvest yield"
 msgstr ""
 
-#: harvest/models.py:714
+#: harvest/models.py:723
 msgid "harvest yields"
 msgstr ""
 
-#: harvest/models.py:725
+#: harvest/models.py:734
 msgid "Type"
 msgstr ""
 
-#: harvest/models.py:729 harvest/templates/harvest/equipment/list.html:48
+#: harvest/models.py:738 harvest/templates/harvest/equipment/list.html:48
 #: harvest/templates/harvest/organizations/detail.html:138
 #: harvest/templates/harvest/organizations/list.html:48
 #: harvest/templates/harvest/properties/detail.html:160
 msgid "Description"
 msgstr ""
 
-#: harvest/models.py:749 harvest/templates/harvest/equipment/list.html:51
+#: harvest/models.py:758 harvest/templates/harvest/equipment/list.html:51
 msgid "Shared"
 msgstr ""
 
-#: harvest/models.py:750
+#: harvest/models.py:759
 msgid "Can be used in harvests outside of property"
 msgstr ""
 
-#: harvest/models.py:755 harvest/models.py:756
+#: harvest/models.py:764 harvest/models.py:765
 msgid "equipment"
 msgstr ""
 
-#: harvest/models.py:765
+#: harvest/models.py:780
 msgid "Content"
 msgstr ""
 
-#: harvest/models.py:770
+#: harvest/models.py:785
 msgid "Created date"
 msgstr ""
 
-#: harvest/models.py:776
+#: harvest/models.py:791
 msgid "Author"
 msgstr ""
 
-#: harvest/models.py:787
+#: harvest/models.py:802
 msgid "comment"
 msgstr ""
 
-#: harvest/models.py:788
+#: harvest/models.py:803
 msgid "comments"
 msgstr ""
 
@@ -664,14 +663,15 @@ msgid "Equipment"
 msgstr ""
 
 #: harvest/templates/harvest/equipment/list.html:52
-#: harvest/templates/harvest/harvest/list.html:52
+#: harvest/templates/harvest/harvest/detail.html:204
+#: harvest/templates/harvest/harvest/list.html:47
 #: harvest/templates/harvest/organizations/list.html:51
-#: harvest/templates/harvest/properties/list.html:52
+#: harvest/templates/harvest/properties/list.html:47
 msgid "Action"
 msgstr ""
 
 #: harvest/templates/harvest/equipment/list.html:67
-#: harvest/templates/harvest/properties/list.html:73
+#: harvest/templates/harvest/properties/list.html:68
 msgid "inactive"
 msgstr ""
 
@@ -680,17 +680,159 @@ msgid "Harvest record"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/create.html:38
-#: harvest/templates/harvest/properties/create.html:37
+#: harvest/templates/harvest/harvest_yield/create.html:27
+#: harvest/templates/harvest/participation/create.html:27
+#: harvest/templates/harvest/properties/create.html:30
 msgid "Submit"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/create.html:39
-#: harvest/templates/harvest/properties/create.html:38
+#: harvest/templates/harvest/harvest_yield/create.html:28
+#: harvest/templates/harvest/participation/create.html:28
+#: harvest/templates/harvest/properties/create.html:31
 msgid "Reset"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/detail.html:6
-msgid "Harvest details"
+#: harvest/templates/harvest/harvest/detail.html:21
+#: harvest/templates/harvest/harvest/list.html:115
+msgid "Unauthorized"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:27
+msgid "Success"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:51
+#: harvest/templates/harvest/harvest/list.html:121
+#: harvest/templates/harvest/properties/detail.html:275
+msgid "Scheduled"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:66
+msgid "from"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:66
+msgid "to"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:69
+msgid "Requests"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:71
+msgid "needed"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:76
+msgid "See bellow how they've been shared"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:82
+msgid "Thanks"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:85
+msgid "No leader"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:86
+msgid "Click to sign!"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:106
+msgid "Owner wants to be present!"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:109
+msgid "Owner wants to participate!"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:112
+msgid "Owner wants their share of fruits!"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:122
+msgid "Property information"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:169
+msgid "more info..."
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:181
+#: harvest/templates/harvest/harvest/list.html:44
+#: harvest/templates/harvest/properties/detail.html:201
+msgid "Pickers"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:196
+msgid "Picker"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:197
+msgid "Total people"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:198
+#: harvest/templates/harvest/harvest/list.html:45
+#: harvest/templates/harvest/organizations/detail.html:211
+#: harvest/templates/harvest/participation/list.html:32
+#: harvest/templates/harvest/properties/detail.html:202
+msgid "Status"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:199
+msgid "Requested on"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:201
+msgid "First time"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:202
+msgid "Comment from picker"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:203
+msgid "Comment from pick leader"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:221
+msgid "Refused"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:236
+msgid "Yes!"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:238
+msgid "No, "
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:252
+msgid "Manage request"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:259
+#: harvest/templates/harvest/harvest/detail.html:374
+#: harvest/templates/harvest/harvest/detail.html:400
+#: harvest/templates/harvest/harvest/detail_public.html:98
+#: harvest/templates/harvest/organizations/detail.html:279
+msgid "Save"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:343
+#: harvest/templates/harvest/harvest/list.html:58
+msgid "by"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:367
+msgid "New comment"
+msgstr ""
+
+#: harvest/templates/harvest/harvest/detail.html:391
+msgid "New request"
 msgstr ""
 
 #: harvest/templates/harvest/harvest/detail_public.html:10
@@ -739,11 +881,6 @@ msgstr ""
 msgid "New application request"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/detail_public.html:98
-#: harvest/templates/harvest/organizations/detail.html:279
-msgid "Save"
-msgstr ""
-
 #: harvest/templates/harvest/harvest/list.html:5
 #: harvest/templates/harvest/harvest/list.html:21
 #: harvest/templates/harvest/participation/list.html:10
@@ -751,35 +888,24 @@ msgstr ""
 msgid "Harvests"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/list.html:49
-#: harvest/templates/harvest/properties/detail.html:201
-msgid "Pickers"
+#: harvest/templates/harvest/harvest/list.html:26
+#: harvest/templates/harvest/properties/list.html:26
+msgid "Add new"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/list.html:50
-#: harvest/templates/harvest/organizations/detail.html:211
-#: harvest/templates/harvest/participation/list.html:32
-#: harvest/templates/harvest/properties/detail.html:202
-msgid "Status"
-msgstr ""
-
-#: harvest/templates/harvest/harvest/list.html:51
+#: harvest/templates/harvest/harvest/list.html:46
 #: harvest/templates/harvest/organizations/detail.html:210
 #: harvest/templates/harvest/properties/detail.html:203
 msgid "Date"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/list.html:63
-msgid "by"
-msgstr ""
-
-#: harvest/templates/harvest/harvest/list.html:65
+#: harvest/templates/harvest/harvest/list.html:60
 #: harvest/templates/harvest/properties/detail.html:214
 msgid "missing leader"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/list.html:77
-#: harvest/templates/harvest/harvest/list.html:78
+#: harvest/templates/harvest/harvest/list.html:72
+#: harvest/templates/harvest/harvest/list.html:73
 #: harvest/templates/harvest/organizations/detail.html:209
 #: harvest/templates/harvest/participation/list.html:28
 #: harvest/templates/harvest/properties/detail.html:199
@@ -788,9 +914,13 @@ msgstr ""
 msgid "Pickleader"
 msgstr ""
 
-#: harvest/templates/harvest/harvest/list.html:126
-#: harvest/templates/harvest/properties/detail.html:275
-msgid "Scheduled"
+#: harvest/templates/harvest/harvest/list.html:155
+#: harvest/templates/harvest/properties/list.html:126
+msgid "Filter"
+msgstr ""
+
+#: harvest/templates/harvest/harvest_yield/create.html:15
+msgid "New recipient"
 msgstr ""
 
 #: harvest/templates/harvest/organizations/add_image.html:10
@@ -896,16 +1026,12 @@ msgid "Organization"
 msgstr ""
 
 #: harvest/templates/harvest/organizations/list.html:49
-#: harvest/templates/harvest/properties/list.html:48
+#: harvest/templates/harvest/properties/list.html:43
 msgid "Contact"
 msgstr ""
 
-#: harvest/templates/harvest/participation/create.html:34
-msgid "Volunteer picker request"
-msgstr ""
-
-#: harvest/templates/harvest/participation/create.html:45
-msgid "Enter data for your new participation"
+#: harvest/templates/harvest/participation/create.html:15
+msgid "Request"
 msgstr ""
 
 #: harvest/templates/harvest/participation/list.html:11
@@ -961,28 +1087,40 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: harvest/templates/harvest/properties/list.html:50
+#: harvest/templates/harvest/properties/list.html:45
 msgid "Picks"
 msgstr ""
 
-#: harvest/templates/harvest/properties/list.html:51
+#: harvest/templates/harvest/properties/list.html:46
 msgid "Last pick"
 msgstr ""
 
-#: harvest/templates/harvest/properties/list.html:63
+#: harvest/templates/harvest/properties/list.html:58
 msgid "pending"
 msgstr ""
 
-#: harvest/templates/harvest/properties/list.html:65
+#: harvest/templates/harvest/properties/list.html:60
 msgid "verified"
 msgstr ""
 
-#: harvest/templates/harvest/properties/list.html:68
+#: harvest/templates/harvest/properties/list.html:63
 msgid "authorized"
 msgstr ""
 
-#: harvest/templates/harvest/properties/list.html:70
+#: harvest/templates/harvest/properties/list.html:65
 msgid "unauthorized"
+msgstr ""
+
+#: harvest/templates/harvest/properties/thanks.html:17
+msgid "Thank you!"
+msgstr ""
+
+#: harvest/templates/harvest/properties/thanks.html:18
+msgid "If you authorized a harvest this season, please read the "
+msgstr ""
+
+#: harvest/templates/harvest/properties/thanks.html:18
+msgid "Tree Owner Welcome Notice"
 msgstr ""
 
 #: harvest/templates/harvest/stats/stats.html:19
@@ -993,24 +1131,24 @@ msgstr ""
 msgid "Statistics for"
 msgstr ""
 
-#: harvest/views.py:311
+#: harvest/views.py:312
 msgid "You do not have the right permissions"
 msgstr ""
 
-#: harvest/views.py:326
+#: harvest/views.py:327
 msgid "Thanks, you adopted this harvest!"
 msgstr ""
 
-#: harvest/views.py:446
+#: harvest/views.py:447
 msgid ""
 "Your request of participation has been sent. The pick leader will contact "
 "you soon!"
 msgstr ""
 
-#: harvest/views.py:515
+#: harvest/views.py:517
 msgid "Your recipient has been added!"
 msgstr ""
 
-#: harvest/views.py:590
+#: harvest/views.py:593
 msgid "Your recipient has been updated!"
 msgstr ""
