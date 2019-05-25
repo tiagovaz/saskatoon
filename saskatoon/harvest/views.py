@@ -447,10 +447,14 @@ class RequestForParticipationCreate(generic.CreateView):
             _('Your request of participation has been sent. '
               'The pick leader will contact you soon!')
         )
-        return reverse_lazy(
-            'harvest:harvest_detail',
-            kwargs={'pk': self.kwargs['pk']}
-        )
+        if not self.request.user.is_authenticated():
+            return reverse_lazy('app:calendar')
+        else:
+            return reverse_lazy(
+                'harvest:harvest_detail',
+                kwargs={'pk': self.kwargs['pk']}
+            )
+
 
 
 class HarvestYieldCreate(generic.CreateView):
