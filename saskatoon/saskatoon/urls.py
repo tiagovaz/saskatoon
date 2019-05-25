@@ -26,6 +26,8 @@ urlpatterns = [
     # app/ -> Gentelella UI and resources
     url(r'^', include('app.urls', namespace='app')),
 
+    url(r'^', include('django.contrib.auth.urls')),
+
     # member/
     url(r'^member/', include('member.urls', namespace="member")),
 
