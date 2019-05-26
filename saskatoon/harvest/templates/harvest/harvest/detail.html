@@ -398,9 +398,15 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                   </button>
-                  <h4 class="modal-title" id="requestLabel">{% trans "New request" %}</h4>
+                  <h4 class="modal-title" id="requestLabel">{% trans "Add picker(s)" %}</h4>
                 </div>
                 <div class="modal-body">
+                {% if harvest.pick_leader == None %}
+                    <div class="alert alert-danger">
+                        This harvest has no pick leader yet, so no pickers can be added.
+                    </div>
+                        <p>Consider adopting it, then other people will be able to join!</p>
+                {% else %}
                    <form method="post" action="{% url 'harvest:participation_create' harvest.id %}">
                        {% csrf_token %}
                        {% bootstrap_form form_request %}
@@ -410,6 +416,7 @@
                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
                        {% endbuttons %}
                    </form>
+                {% endif %}
                 </div>
               </div>
             </div>
