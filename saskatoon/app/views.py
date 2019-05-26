@@ -67,7 +67,8 @@ class JsonCalendar(generic.View):
                     color = "#f9f9f9"
                     text_color = "#000000"
                 else:
-                    color = "#000000"
+                    color = "#ededed"
+                    text_color = "#333"
                 event = dict()
                 event["title"] = harvest.property.neighborhood.name
                 event["harvest_id"] = harvest.id

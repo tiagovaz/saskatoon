@@ -54,6 +54,7 @@
           <div class="modal-body">
 
          <!-- top tiles -->
+
           <div class="row tile_count">
             <div class="col-md-6 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-clock-o"></i> {% trans "Schedule" %}</span>
@@ -73,6 +74,13 @@
              <blockquote>
                 <p id="description"></p>
              </blockquote>
+
+         {% if user.is_authenticated %}
+            <div class="row">
+              <a id="harvest_url" class="btn btn-default pull-right" href="">{% trans "Full harvest details" %}</a>
+            </div>
+         {% endif %}
+
             <div id="testmodal2" style="padding: 5px 20px;">
 
                    <form id="form_request" method="post" action="">
@@ -121,6 +129,7 @@
                     $('#start_time').html(event.start_time);
                     $('#end_time').html(event.end_time);
                     $('#form_request').attr('action', event.url);
+                    $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);
                     $('#CalenderModalEdit').modal();
                     return false;
                 }
