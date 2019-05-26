@@ -70,10 +70,10 @@ class JsonCalendar(generic.View):
                     color = "#ededed"
                     text_color = "#333"
                 event = dict()
-                event["title"] = harvest.property.neighborhood.name
                 event["harvest_id"] = harvest.id
                 event["allday"] = "false"
                 event["description"] = harvest.about
+                event["status"] = harvest.status
                 event["nb_required_pickers"] = harvest.nb_required_pickers
                 requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
                 event["nb_requests"] = requests_count
@@ -81,6 +81,9 @@ class JsonCalendar(generic.View):
                 for t in harvest.trees.all():
                     trees_list.append(t.fruit_name)
                 event["trees"] = trees_list
+                event["title"] = ", ".join(trees_list)
+                if harvest.property.neighborhood.name != "Other":
+                    event["title"] += " @ "+harvest.property.neighborhood.name
 
                 # FIXME: see
                 # http://fullcalendar.io/docs/event_rendering/eventRender/
