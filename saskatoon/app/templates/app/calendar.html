@@ -120,25 +120,18 @@
                 },
                 eventLimit: true,
                 eventClick:  function(event, jsEvent, view) {
-                    if (event.status==="Adopted"|"Date-scheduled"|"Ready"){
-                        $('#title').html(event.title);
-                        $('#harvest_id').attr('value', event.harvest_id);
-                        $('#description').html(event.description);
-                        $('#trees').html(event.trees);
-                        $('#nb_required_pickers').html(event.nb_required_pickers);
-                        $('#nb_requests').html(event.nb_requests);
-                        $('#start_date_str').html(event.start_date_str);
-                        $('#start_time').html(event.start_time);
-                        $('#end_time').html(event.end_time);
-                        $('#form_request').attr('action', event.url);
-                        $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);
-                        $('#CalenderModalEdit').modal();
-                    } else {
-                        {% if user.is_authenticated %}
-                            location.href="/harvest/"+event.harvest_id;
-                        {% endif %}
-                    }
-                    
+                    $('#title').html(event.title);
+                    $('#harvest_id').attr('value', event.harvest_id);
+                    $('#description').html(event.description);
+                    $('#trees').html(event.trees);
+                    $('#nb_required_pickers').html(event.nb_required_pickers);
+                    $('#nb_requests').html(event.nb_requests);
+                    $('#start_date_str').html(event.start_date_str);
+                    $('#start_time').html(event.start_time);
+                    $('#end_time').html(event.end_time);
+                    $('#form_request').attr('action', event.url);
+                    $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);
+                    $('#CalenderModalEdit').modal();
                     return false;
                 }
             });
