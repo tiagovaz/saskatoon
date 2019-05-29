@@ -250,7 +250,7 @@
                 </thead>
                 <tbody>
                 {% for harvest in property.get_harvests %}
-                  <tr>
+                  <tr onMouseOver="this.style.cursor='pointer'" onclick="document.location='{% url "harvest:harvest_detail" harvest.id %}';">
                     <td>{{ harvest.id }}</td>
                     <td>
                       {% if harvest.pick_leader != None %}
