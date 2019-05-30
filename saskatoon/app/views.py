@@ -60,12 +60,11 @@ class JsonCalendar(generic.View):
                 if harvest.status == "Date-scheduled":
                     color = "#f0ad4e"
                 elif harvest.status == "Ready":
-                    color = "#5cb85c"
-                elif harvest.status == "Succeeded":
                     color = "#337ab7"
+                elif harvest.status == "Succeeded":
+                    color = "#26B99A"
                 elif harvest.status == "Cancelled":
-                    color = "#f9f9f9"
-                    text_color = "#000000"
+                    color = "#D9534F"
                 else:
                     color = "#ededed"
                     text_color = "#333"
@@ -84,6 +83,8 @@ class JsonCalendar(generic.View):
                 event["title"] = ", ".join(trees_list)
                 if harvest.property.neighborhood.name != "Other":
                     event["title"] += " @ "+harvest.property.neighborhood.name
+                
+                event["total_harvested"] = harvest.get_total_distribution()
 
                 # FIXME: see
                 # http://fullcalendar.io/docs/event_rendering/eventRender/

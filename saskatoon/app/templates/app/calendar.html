@@ -43,14 +43,14 @@
       </div>
     </div>
 
-    <!-- calendar modal -->
-    <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- harvest open modal -->
+    <div id="OpenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center" id="myModalLabel2">{% trans "Request to participate" %} - <span id="trees"></span>, <span id="title"></span></h4>
+            <h4 class="modal-title text-center" id="myModalLabel2"><span id="title"></span></h4>
           </div>
           <div class="modal-body">
 
@@ -76,31 +76,76 @@
                 <p id="description"></p>
              </blockquote>
 
-         {% if user.is_authenticated %}
-            <div class="row">
-              <a id="harvest_url" class="btn btn-default pull-right" href="">{% trans "Full harvest details" %}</a>
+            <div id="testmodal2" style="padding: 5px 20px;">
+                {% if user.is_authenticated %}
+                   <div class="row">
+                     <a id="harvest_url" class="btn btn-default " href="">{% trans "View harvest details" %}</a>
+                   </div>
+                {% endif %}
+
+                <hr>
+                <h4>{% trans "Request to participate" %}</h4>
+                <form id="form_request" method="post" action="">
+                    {% csrf_token %}
+                    {% bootstrap_form form_request %}
+                    <input type="hidden" name="harvest_id" value="" id="harvest_id" />
+                    {% buttons %}
+                        <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary antosubmit2">{% trans "Send" %}</button>
+                    {% endbuttons %}
+                </form>
             </div>
-         {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div id="fc_edit" data-toggle="modal" data-target="#OpenModal"></div> -->
+
+    <!-- /harvest open modal -->
+
+    <!-- harvest closed modal -->
+    <div id="ClosedModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title text-center" id="myModalLabel2"><span id="title_closed"></span></h4>
+          </div>
+          <div class="modal-body">
+
+         <!-- top tiles -->
+
+          <div class="row tile_count">
+            <div class="col-xs-6 tile_stats_count">
+             <span class="count_top"><i class="fa fa-calendar-check-o"></i> Status</span>
+             <span id="status"></span>
+            </div>
+            <div class="col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i>{% trans "Total harvested" %}</span>
+              <div class="count" id="total_harvested"></div>
+            </div>
+          </div>
+          <!-- /top tiles -->
+             <blockquote>
+                <p id="description_closed"></p>
+             </blockquote>
 
             <div id="testmodal2" style="padding: 5px 20px;">
-
-                   <form id="form_request" method="post" action="">
-                       {% csrf_token %}
-                       {% bootstrap_form form_request %}
-                       <input type="hidden" name="harvest_id" value="" id="harvest_id" />
-                  {% buttons %}
-                      <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary antosubmit2">{% trans "Send" %}</button>
-                  {% endbuttons %}
-                   </form>
+                {% if user.is_authenticated %}
+                   <div class="row">
+                     <a id="harvest_url_closed" class="btn btn-default " href="">{% trans "View harvest details" %}</a>
+                   </div>
+                {% endif %}
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
-    <!-- /calendar modal -->
+    <!-- /harvest closed modal -->
+
+
   </div>
 {% endblock content %}
 
@@ -120,18 +165,31 @@
                 },
                 eventLimit: true,
                 eventClick:  function(event, jsEvent, view) {
-                    $('#title').html(event.title);
-                    $('#harvest_id').attr('value', event.harvest_id);
-                    $('#description').html(event.description);
-                    $('#trees').html(event.trees);
-                    $('#nb_required_pickers').html(event.nb_required_pickers);
-                    $('#nb_requests').html(event.nb_requests);
-                    $('#start_date_str').html(event.start_date_str);
-                    $('#start_time').html(event.start_time);
-                    $('#end_time').html(event.end_time);
-                    $('#form_request').attr('action', event.url);
-                    $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);
-                    $('#CalenderModalEdit').modal();
+                    if (event.status==="Succeeded"|event.status==="Cancelled"){
+                        $('#title_closed').html(event.title);
+                        if (event.status==="Succeeded"){
+                            $('#status').html('<div class="count green">'+event.status+'</div>');
+                        } else {
+                            $('#status').html('<div class="count red">'+event.status+'</div>');
+                        }
+                        $('#total_harvested').html(event.total_harvested);
+                        $('#description_closed').html(event.description);
+                        $('#harvest_url_closed').attr('href', "/harvest/"+event.harvest_id);
+                        $('#ClosedModal').modal();
+                    } else {
+                        $('#title').html(event.title);
+                        $('#harvest_id').attr('value', event.harvest_id);
+                        $('#description').html(event.description);
+                        $('#trees').html(event.trees);
+                        $('#nb_required_pickers').html(event.nb_required_pickers);
+                        $('#nb_requests').html(event.nb_requests);
+                        $('#start_date_str').html(event.start_date_str);
+                        $('#start_time').html(event.start_time);
+                        $('#end_time').html(event.end_time);
+                        $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);
+                        $('#form_request').attr('action', event.url);
+                        $('#OpenModal').modal();
+                    }
                     return false;
                 }
             });
