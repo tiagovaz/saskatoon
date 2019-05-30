@@ -165,13 +165,15 @@
                 },
                 eventLimit: true,
                 eventClick:  function(event, jsEvent, view) {
-                    if (event.status==="Succeeded"|event.status==="Cancelled"){
-                        $('#title_closed').html(event.title);
+                    if (event.status==="Succeeded"||event.status==="Cancelled"||event.status==="Ready"){
                         if (event.status==="Succeeded"){
                             $('#status').html('<div class="count green">'+event.status+'</div>');
-                        } else {
+                        } else if (event.status==="Cancelled"){
                             $('#status').html('<div class="count red">'+event.status+'</div>');
+                        } else {
+                            $('#status').html('<div class="count">'+event.status+'</div>');
                         }
+                        $('#title_closed').html(event.title);
                         $('#total_harvested').html(event.total_harvested);
                         $('#description_closed').html(event.description);
                         $('#harvest_url_closed').attr('href', "/harvest/"+event.harvest_id);
