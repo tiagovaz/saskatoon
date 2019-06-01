@@ -1,6 +1,6 @@
 {% extends "app/base_site.html" %}
 
-{% block title %} Dashboard 1 {% endblock title %}
+{% block title %} Dashboard {% endblock title %}
 
 {% block stylesheets %}
   {{ block.super }}
@@ -8,6 +8,7 @@
 
 {% block content %}
   <div class="right_col" role="main">
+  {% if user.is_authenticated %}
     <!-- top tiles -->
     <div class="row tile_count">
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -692,6 +693,52 @@
         </div>
       </div>
     </div>
+  {% else %}
+
+            <div class="row"> 
+                <div class="col-sm-6"> 
+                    <div class="well"> 
+                        <h2>Bienvenu(e)! Suivez les étapes suivantes pour devenir cueilleur.se bénévole :</h2> 
+                        <ol style="list-style: decimal inside;"> 
+                          <li>Visiter le calendrier des cueillettes. Notez qu’il n’est mis à jour 
+                        qu’à 18h.</li> 
+                          <li>Cliquer sur la cueillette qui vous intéresse pour consulter les 
+informations détaillées. Quand vous êtes est prêt.e à vous 
+inscrire, cliquez sur le bouton <b>DEMANDER POUR PARTICIPER</b>.</li>  
+                          <li>Remplir le court formulaire d’information, puis le soumettre.</li> 
+                          <li>La personne en charge de cette cueillette vous contactera dans les 
+                        jours suivants pour vous informer si vous faites partie de son équipe ou 
+                        non.</li> 
+                          <li>Se présenter à la cueillette!</li> 
+                        </ol> 
+                        <div class="text-right"> 
+                          <a href="/calendar" class="btn btn-primary btn-lg" role="button">Visiter</a> 
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="col-sm-6"> 
+                    <div class="well"> 
+                        <h2>Welcome! Follow these steps to volunteer as a fruit picker:</h2> 
+                        <ol style="list-style: decimal inside;"> 
+                          <li>Take a look at our Harvest calendar. Note that new picks are 
+published daily at 6 p.m.</li> 
+                          <li>Click on the harvest that interests you to see the details. If you'd 
+like to participate in that pick, click on the <b>SIGN UP</b> button.</li> 
+                          <li>Fill out the short form and hit send to submit your request to join 
+the pick.</li> 
+                          <li>Wait to be contacted (by email or phone) by the pick leader in charge 
+to know whether or not you have been accepted for the pick.</li> 
+                          <li>Show up!</li> 
+                        </ol> 
+                        <div class="text-right"> 
+                          <a href="/calendar" class="btn btn-primary btn-lg" role="button">Go to calendar</a> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+
+
+  {% endif %}
   </div>
 {% endblock content %}
 
