@@ -319,10 +319,10 @@ class PropertyForm(forms.ModelForm):
         }
 
     approximative_maturity_date = forms.DateField(
-        input_formats=('%d/%m/%Y',),
+        input_formats=('%Y-%m-%d',),
         required=False,
         widget=forms.DateInput(
-            format='%d/%m/%Y',
+            format='%Y-%m-%d',
         )
     )
 
@@ -407,10 +407,10 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     approximative_maturity_date = forms.DateField(
-        input_formats=('%d/%m/%Y',),
+        input_formats=('%Y-%m-%d',),
         required=False,
         widget=forms.DateInput(
-            format='%d/%m/%Y',
+            format='%Y-%m-%d',
         )
     )
 

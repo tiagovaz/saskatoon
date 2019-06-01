@@ -5,6 +5,7 @@
 {% block head %}
     {{ block.super }}
     {{ form.media.css }}
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 {% endblock %}
 
 {% block content %}
@@ -42,4 +43,13 @@
 {% block javascripts %}
     {{ block.super }}
     {{ form.media.js }}
+
+    <!-- DatePicker JavaScript -->
+    <script type="text/javascript" src="/static/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#id_approximative_maturity_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD'});
+        });
+    </script>
 {% endblock %}
