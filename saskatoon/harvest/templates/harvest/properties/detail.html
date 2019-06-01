@@ -130,23 +130,25 @@
                 {% if property.is_active %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Active" %}</p>
                 {% else %}
-                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-danger"></i> {% trans "Inactive" %}</p>
+                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Inactive" %}</p>
                 {% endif %}
-                {% if property.authorized %}
+                {% if property.pending %}
+                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Pending validation" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Validated" %}</p>
+                {% endif %}
+                {% if property.authorized is None %}
+                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Not yet authorized" %}</p>
+                {% elif property.authorized %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Authorized for the current season" %}</p>
                 {% else %}
-                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Not yet authorized" %}</p>
+                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Not authorized for this season" %}</p>
                 {% endif %}
                 {% if property.public_access %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Publicly accessible" %}</p>
                 {% endif %}
                 {% if property.neighbor_access %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Access to neighbors terrain" %}</p>
-                {% endif %}
-                {% if property.pending %}
-                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Pending validation" %}</p>
-                {% else %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Validated" %}</p>
                 {% endif %}
                 {% if property.avg_nb_required_pickers %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {{ property.avg_nb_required_pickers }} {% trans "pickers needed" %}</p>
