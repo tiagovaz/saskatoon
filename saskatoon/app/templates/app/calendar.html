@@ -4,7 +4,7 @@
 {% load bootstrap3 %}
 
 
-{% block title %} Form Advanced {% endblock title %}
+{% block title %} {% trans "Calendar" %} {% endblock title %}
 
 {% block stylesheets %}
   {{ block.super }}
@@ -161,7 +161,14 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,basicWeek,basicDay'
+                    right: 'month,basicWeek,basicDay,mylist'
+                },
+                views: {
+                  mylist: {
+                    type: 'listWeek',
+                    duration: { days: 30 },
+                    buttonText: 'list'
+                  }
                 },
                 eventLimit: true,
                 eventClick:  function(event, jsEvent, view) {

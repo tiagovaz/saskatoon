@@ -42,6 +42,7 @@
       <div class="container body">
         <div class="main_container">
 
+        {% if user.is_authenticated %}
           {% block sidebar %}
             <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
               {% include "app/sidebar.html" %}
@@ -53,6 +54,7 @@
               {% include "app/top_navigation.html" %}
             </div>
           {% endblock top_navigation %}
+        {% endif %}
 
           {% block content %}
             <!-- {{ content }} -->
