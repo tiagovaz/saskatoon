@@ -1,0 +1,27 @@
+.equal {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tile_count .tile_stats_count {
+    overflow: none;
+}
+
+.fc-day-grid-event > .fc-content {
+   white-space: normal;
+   overflow: hidden;
+}
+
+.label-check {
+   border:1px solid #74879C;
+   background:#FFF;
+   color:#74879C;
+}
+
+.l_content {
+   margin-bottom: 1.5em;
+   font-size: 1.2em;
+}

@@ -9,8 +9,6 @@
 
 {% block stylesheets %}
   {{ block.super }}
-  <!-- failed attempt to keep column of equal heights-->
-  <link rel="stylesheet" type="text/css" href="/static/css/equal.css" />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -97,7 +95,7 @@
       <div class="col-xs-12 col-md-8">
         <div class="x_panel">
           <div class="x_title">
-              <h3>
+              <h1>
                 <b>
                 {% for f in harvest.trees.all %}
                   {{ f }},
@@ -107,23 +105,24 @@
               <a class="btn btn-warning btn-sm pull-right" href='{% url "harvest:harvest_update" harvest.id %}'>
                 <i class="fa fa-pencil"></i> {% trans "Edit Harvest" %}
               </a>
-              </h3>
+              </h1>
           </div>
           <div class="x_content">
+            <div class="l_content">
+             {% if harvest.owner_present %}
+               <span class="label label-check" style="margin-right:10px"><i class="fa fa-check fa-lg text-success"></i> {% trans "Owner wants to be present" %} </span>
+             {% endif %}
+             {% if harvest.owner_help %}
+               <span class="label label-check" style="margin-right:10px"><i class="fa fa-check fa-lg text-success"></i> {% trans "Owner wants to participate" %} </span>
+             {% endif %}
+             {% if harvest.owner_fruit %}
+               <span class="label label-check"><i class="fa fa-check fa-lg text-success"></i> {% trans "Owner wants to get fruits" %} </span>
+             {% endif %}
+            </div>
+             <h3>{% trans "Public announcement" %}</h3>
              <blockquote>
                 <p>{{ harvest.about|safe }}</p>
              </blockquote>
-            <h4>
-             {% if harvest.owner_present %}
-               <span class="label label-warning" style="margin-right:10px"> {% trans "Owner wants to be present" %} </span>
-             {% endif %}
-             {% if harvest.owner_help %}
-               <span class="label label-success" style="margin-right:10px"> {% trans "Owner wants to participate" %} </span>
-             {% endif %}
-             {% if harvest.owner_fruit %}
-               <span class="label label-danger"> {% trans "Owner wants to get fruits" %} </span>
-             {% endif %}
-            </h4>
             <div class="clearfix"></div>
           </div>
         </div> <!-- x_panel -->
