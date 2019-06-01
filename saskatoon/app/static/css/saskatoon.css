@@ -25,3 +25,17 @@
    margin-bottom: 1.5em;
    font-size: 1.2em;
 }
+
+.unlogged .top_nav,
+.unlogged footer,
+.unlogged .right_col {
+   margin-left: 0px !important;
+}
+
+.unlogged .col-sm-4 {
+   min-height: 90vh;
+}
+
+.unlogged .toggle {
+   display: none;
+}

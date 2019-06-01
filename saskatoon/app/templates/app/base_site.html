@@ -37,7 +37,8 @@
     {% endblock head %}
   </head>
 
-  <body class="{% block body_class %}nav-sm {% endblock body_class %}">
+   <body class="{% block body_class %}nav-sm {% endblock body_class %} {% if not user.is_authenticated %} unlogged {% endif %}
+">
     {% block body %}
       <div class="container body">
         <div class="main_container">
@@ -48,13 +49,13 @@
               {% include "app/sidebar.html" %}
             </div>
           {% endblock sidebar %}
+        {% endif %}
 
           {% block top_navigation %}
             <div class="top_nav">
               {% include "app/top_navigation.html" %}
             </div>
           {% endblock top_navigation %}
-        {% endif %}
 
           {% block content %}
             <!-- {{ content }} -->
