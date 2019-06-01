@@ -62,10 +62,12 @@
                             {% else %}
                               <span class="label label-success">{% trans "validated" %}</span>
                             {% endif %}
-                            {% if property.authorized %}
+                            {% if property.authorized is None %}
+                              <span class="label label-warning">{% trans "not yet authorized" %}</span>
+                            {% elif property.authorized %}
                               <span class="label label-success">{% trans "authorized" %}</span>
                             {% else %}
-                              <span class="label label-warning">{% trans "unauthorized" %}</span>
+                              <span class="label label-danger">{% trans "unauthorized" %}</span>
                             {% endif %}
                           {% else %}
                             <span class="label label-danger">{% trans "inactive" %}</span><br />
