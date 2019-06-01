@@ -6,11 +6,11 @@ from django.urls import reverse
 from django.views import generic
 from harvest.models import Harvest, Property, RequestForParticipation
 from harvest.forms import RequestForm
-
-
+from django.contrib.auth.decorators import login_required
 
 ########## Original template views #############
 
+@login_required
 def index(request):
     context = {}
     template = loader.get_template('app/index.html')

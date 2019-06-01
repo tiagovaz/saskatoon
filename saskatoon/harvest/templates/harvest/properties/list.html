@@ -40,7 +40,7 @@
                   <tr>
                     <th style="width: 1%">#</th>
                     <th style="width: 20%">{% trans "Property" %}</th>
-                    <th style="width: 20%">{% trans "Contact" %}</th>
+                    <th style="width: 20%">{% trans "Status" %}</th>
                     <th>{% trans "Tree" %}</th>
                     <th style="width: 15%">{% trans "Picks" %}</th>
                     <th>{% trans "Last pick" %}</th>
@@ -53,25 +53,22 @@
                     <td>{{ property.id }}</td>
                     <td>
                       {{ property }}<br />
-                      {% if property.is_active %}
-                        {% if property.pending %}
-                          <span class="label label-warning">{% trans "pending" %}</span>
-                        {% else %}
-                          <span class="label label-success">{% trans "verified" %}</span>
-                        {% endif %}
-                        {% if property.authorized %}
-                          <span class="label label-success">{% trans "authorized" %}</span>
-                        {% else %}
-                          <span class="label label-warning">{% trans "unauthorized" %}</span>
-                        {% endif %}
-                      {% else %}
-                        <span class="label label-danger">{% trans "inactive" %}</span><br />
-                      {% endif %}
                     </td>
                     <td>
                         <ul class="list-unstyled">
-                          {% if property.owner.person.phone %}
-                            <li><i class="fa fa-phone"></i> {{ property.owner.person.phone }}</li>
+                           {% if property.is_active %}
+                            {% if property.pending %}
+                              <span class="label label-warning">{% trans "pending" %}</span>
+                            {% else %}
+                              <span class="label label-success">{% trans "verified" %}</span>
+                            {% endif %}
+                            {% if property.authorized %}
+                              <span class="label label-success">{% trans "authorized" %}</span>
+                            {% else %}
+                              <span class="label label-warning">{% trans "unauthorized" %}</span>
+                            {% endif %}
+                          {% else %}
+                            <span class="label label-danger">{% trans "inactive" %}</span><br />
                           {% endif %}
                           {% if property.owner.person.about %}
                             <li><i class="fa fa-envelope"></i> {{ property.owner.person.email }}</li>

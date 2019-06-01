@@ -276,6 +276,7 @@ class PropertyForm(forms.ModelForm):
         model = Property
         fields = (
             'owner',
+            'is_active',
             'authorized',
             'pending',
             'trees',
