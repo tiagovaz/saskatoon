@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-21 00:14-0400\n"
+"POT-Creation-Date: 2018-10-02 15:12-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,30 +39,38 @@ msgid "Pick-leader guides"
 msgstr ""
 
 #: pages/templates/pages/dashboard.html:73
-msgid "2018 Pre-pick changes (Annex D)"
+msgid "Volunteer Waiver"
 msgstr ""
 
 #: pages/templates/pages/dashboard.html:74
-msgid "2017 Pre-pick Guide"
+msgid "Equipment Info (Annex B)"
 msgstr ""
 
 #: pages/templates/pages/dashboard.html:75
+msgid "2018 Pre-pick changes (Annex D)"
+msgstr ""
+
+#: pages/templates/pages/dashboard.html:76
+msgid "2017 Pre-pick Guide"
+msgstr ""
+
+#: pages/templates/pages/dashboard.html:77
 msgid "2017 Harvest Guide"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:94
+#: pages/templates/pages/dashboard.html:100
 msgid "Statistics"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:101
+#: pages/templates/pages/dashboard.html:107
 msgid "Number of harvests"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:108
+#: pages/templates/pages/dashboard.html:114
 msgid "Number of properties"
 msgstr ""
 
-#: pages/templates/pages/dashboard.html:115
+#: pages/templates/pages/dashboard.html:121
 msgid "Number of users"
 msgstr ""
 
