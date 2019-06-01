@@ -127,6 +127,11 @@
             </div>
 
             <div class="col-md-6 col-sm-6 col-xs-12">
+                {% if property.is_active %}
+                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Active" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-danger"></i> {% trans "Inactive" %}</p>
+                {% endif %}
                 {% if property.authorized %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Authorized for the current season" %}</p>
                 {% else %}
@@ -139,7 +144,7 @@
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Access to neighbors terrain" %}</p>
                 {% endif %}
                 {% if property.pending %}
-                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Waiting for validation" %}</p>
+                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Pending validation" %}</p>
                 {% else %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Validated" %}</p>
                 {% endif %}
