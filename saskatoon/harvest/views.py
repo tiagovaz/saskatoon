@@ -728,7 +728,7 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
                 if actor not in list_property:
                     list_property.append(actor)
 
-        return list_property
+        #return list_property
         return qs
 
 
