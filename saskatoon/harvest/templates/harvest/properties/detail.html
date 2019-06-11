@@ -128,21 +128,20 @@
 
             <div class="col-md-6 col-sm-6 col-xs-12">
                 {% if property.is_active %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Active" %}</p>
+                    {% if property.pending %}
+                      <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Pending validation" %}</p>
+                    {% else %}
+                      <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Validated" %}</p>
+                    {% endif %}
+                    {% if property.authorized is None %}
+                      <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Not yet authorized" %}</p>
+                    {% elif property.authorized %}
+                      <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Authorized for the current season" %}</p>
+                    {% else %}
+                      <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Not authorized for this season" %}</p>
+                    {% endif %}
                 {% else %}
                   <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Inactive" %}</p>
-                {% endif %}
-                {% if property.pending %}
-                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Pending validation" %}</p>
-                {% else %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Validated" %}</p>
-                {% endif %}
-                {% if property.authorized is None %}
-                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Not yet authorized" %}</p>
-                {% elif property.authorized %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Authorized for the current season" %}</p>
-                {% else %}
-                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Not authorized for this season" %}</p>
                 {% endif %}
                 {% if property.public_access %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Publicly accessible" %}</p>
