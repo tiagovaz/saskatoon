@@ -356,7 +356,7 @@ class Property(models.Model):
         return reverse_lazy('harvest:property_detail', args=[self.id])
 
     def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self)
+        harvests_list = Harvest.objects.filter(property=self).order_by('-id')
         return harvests_list
 
     def get_last_succeeded_harvest(self):
