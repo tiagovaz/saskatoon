@@ -108,7 +108,7 @@ class Property(models.Model):
     )
 
     pending = models.BooleanField(
-        verbose_name=_("Pending"),
+        verbose_name=_("Pending validation"),
         help_text=_("This property was created through a public form and needs to be validated by an administrator"),
         default=True
     )
@@ -420,7 +420,7 @@ class Harvest(models.Model):
     )
 
     owner_fruit = models.BooleanField(
-        verbose_name=_("Owner want his share of fruits"),
+        verbose_name=_("Owner wants his share of fruits"),
         default=False
     )
 

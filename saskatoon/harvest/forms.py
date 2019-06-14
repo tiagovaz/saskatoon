@@ -198,15 +198,15 @@ class RFPManageForm(forms.ModelForm):
     ACCEPT_CHOICES = [
         (
             'yes',
-            _('ACCEPT')
+            _('Accept this request')
         ),
         (
             'no',
-            _("REFUSE")
+            _("Refuse this request")
         ),
         (
             'pending',
-            _("PENDING")
+            _("Pending")
         )
     ]
 
@@ -467,7 +467,7 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     additional_info = forms.CharField(
-        help_text=_('Any additional information that we should be aware of (e.g. details about how often tree produces fruit, description of fruit if the type is unknown etc.)'),
+        help_text=_('Any additional information that we should be aware of (e.g. details about how often tree produces fruit, description of fruit if the type is unknown or not in the list, etc.)'),
         widget=forms.widgets.Textarea(),
         required=False
     )
@@ -475,7 +475,7 @@ class PublicPropertyForm(forms.ModelForm):
 class HarvestForm(forms.ModelForm):
     about = forms.CharField(
         widget=CKEditorWidget(),
-        label=mark_safe(_("Public announcement<p>"))
+        label=mark_safe(_("Public announcement"))
     )
 
     class Meta:
