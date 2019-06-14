@@ -356,7 +356,7 @@ class Property(models.Model):
         return reverse_lazy('harvest:property_detail', args=[self.id])
 
     def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self)
+        harvests_list = Harvest.objects.filter(property=self).order_by('-id')
         return harvests_list
 
     def get_last_succeeded_harvest(self):
@@ -569,28 +569,12 @@ class Harvest(models.Model):
                 is_today = False
 
             if self.status in ["Ready", "Date-scheduled", "Succeeded"]:
-                if is_today:
-                    print("is today")
-                    cond = self.publication_date.hour < publication_hour+4
-                    if now.hour >= publication_hour and cond:
-                        # FIXME: timezone
-                        print("TODAY OK")
-                        return True
-                        # publish if it was published today
-                        # earlier and it's time to go online
-                    else:
-                        return False
-                        # do not publish otherwise
-                else:
-                    return True
-                    # publish if date of publication is in the pas
+                return True
             else:
                 return False
-                # do not publish if harvest
-                # is not ready/scheduled/succeeded
         else:
-            return False
             # do not publish if there's no publication_date
+            return False
 
     def is_open_to_requests(self):
         now = datetime.datetime.now().date()

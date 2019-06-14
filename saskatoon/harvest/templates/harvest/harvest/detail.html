@@ -83,7 +83,7 @@
           {% endif %}
           {% if harvest.pick_leader == None %}        
             <div class="count red">{% trans "None" %}
-                <i><a href='{% url "harvest:harvest_update" harvest.id %}' class="btn btn-default"><b>{% trans "Adopt it!" %}</b></a>
+                <i><a href='{% url "harvest:harvest_adopt" harvest.id %}' class="btn btn-default"><b>{% trans "Adopt it!" %}</b></a>
                 </i></div>
           {% endif %}
       </div>

@@ -65,33 +65,24 @@ class HarvestFilter(FilterSet):
 
 
 class PropertyFilter(FilterSet):
+    is_active = BooleanFilter(help_text="")
+    authorized = BooleanFilter(help_text="")
     neighborhood = ModelChoiceFilter(
         queryset=Neighborhood.objects.all(),
         label=_("Neighborhood"),
         help_text="",
         required=False
     )
-
     trees = ModelChoiceFilter(
         queryset=TreeType.objects.all(),
         label=_("Tree"),
         help_text="",
         required=False
     )
-    is_active = BooleanFilter(help_text="")
-    authorized = BooleanFilter(help_text="")
-    pending = BooleanFilter(help_text="")
     ladder_available = BooleanFilter(help_text="")
     ladder_available_for_outside_picks = BooleanFilter(help_text="")
+    pending = BooleanFilter(help_text="", label=_("Pending validation"))
 
     class Meta:
         model = Property
-        fields = {
-        'neighborhood': ['exact'],
-        'trees': ['exact'],
-        'is_active':['exact'],
-        'authorized':['exact'],
-        'pending':['exact'],
-        'ladder_available':['exact'],
-        'ladder_available_for_outside_picks':['exact']
-        }
+        fields = ['is_active', 'authorized', 'neighborhood', 'trees', 'pending', 'ladder_available', 'ladder_available_for_outside_picks']

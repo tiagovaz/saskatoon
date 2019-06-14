@@ -17,7 +17,8 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.shortcuts import render_to_response, render, redirect
 from django.template import RequestContext
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Q
+
 
 class OrganizationList(generic.ListView):
     template_name = 'harvest/organizations/list.html'
@@ -710,25 +711,10 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
             return Property.objects.none()
 
         qs = Property.objects.all()
-        list_property = []
 
         if self.q:
-            first_name = qs.filter(
-                owner__person__first_name__icontains=self.q
-            )
-            family_name = qs.filter(
-                owner__person__family_name__icontains=self.q
-            )
+             qs = Property.objects.filter(Q(owner__person__first_name__icontains=self.q) | Q(owner__person__family_name__icontains=self.q))
 
-            for actor in first_name:
-                if actor not in list_property:
-                    list_property.append(actor)
-
-            for actor in family_name:
-                if actor not in list_property:
-                    list_property.append(actor)
-
-        #return list_property
         return qs
 
 
