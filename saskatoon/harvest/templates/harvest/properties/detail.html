@@ -143,26 +143,38 @@
                 {% else %}
                   <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Inactive" %}</p>
                 {% endif %}
-                {% if property.public_access %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Publicly accessible" %}</p>
-                {% endif %}
-                {% if property.neighbor_access %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Access to neighbors terrain" %}</p>
+                {% if property.harvest_every_year %}
+                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Produces fruits every year" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "Does not produce fruits every year" %}</p>
                 {% endif %}
                 {% if property.avg_nb_required_pickers %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {{ property.avg_nb_required_pickers }} {% trans "pickers needed" %}</p>
-                {% endif %}
-                {% if property.compost_bin %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Compost bin closeby" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-warning fa-lg text-warning"></i> {% trans "No number of pickers specified" %}</p>
                 {% endif %}
                 {% if property.ladder_available %}
                   <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Ladder available" %}</p>
+                  {% if property.ladder_available_for_outside_picks %}
+                    <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Ladder available for outside picks" %}</p>
+                  {% endif %}
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "No ladder available" %}</p>
                 {% endif %}
-                {% if property.ladder_available_for_outside_picks %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Ladder available for outside picks" %}</p>
+                {% if property.public_access %}
+                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Publicly accessible" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "Not publicly accessible" %}</p>
                 {% endif %}
-                {% if property.harvest_every_year %}
-                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Produces fruits every year" %}</p>
+                {% if property.neighbor_access %}
+                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Access to neighbors terrain" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "No permission to access neighbors terrain" %}</p>
+                {% endif %}
+                {% if property.compost_bin %}
+                  <p style="margin:10px;"><i class="fa fa-check fa-lg text-success"></i> {% trans "Compost bin closeby" %}</p>
+                {% else %}
+                  <p style="margin:10px;"><i class="fa fa-close fa-lg text-danger"></i> {% trans "No compost bin closeby" %}</p>
                 {% endif %}
             </div>
 
