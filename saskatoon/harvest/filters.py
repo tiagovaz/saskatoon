@@ -85,4 +85,4 @@ class PropertyFilter(FilterSet):
 
     class Meta:
         model = Property
-        fields = ['is_active', 'authorized', 'neighborhood', 'trees', 'pending', 'ladder_available', 'ladder_available_for_outside_picks']
+        fields = ['is_active', 'authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks']
