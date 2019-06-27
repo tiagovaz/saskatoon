@@ -15,32 +15,32 @@
       <div class="col-sm-12">
           <div class="panel panel-default">
               <div class="panel-heading">
-                  <i class="fa fa-question-circle"></i> {% trans "Pick-leader guides" %}
+                  <i class="fa fa-question-circle"></i> 2019 {% trans "Pick-leader guides" %}
               </div>
               <!-- /.panel-heading -->
               <div class="panel-body">
                   <div class="list-group">
                       {% trans "Volunteer Waiver" as waiver %}
-                      {% trans "Equipment Info (Annex B)" as annexB %}
-                      {% trans "2018 Pre-pick changes (Annex D)" as annexD %}
-                      {% trans "2017 Pre-pick Guide" as prepick %}
-                      {% trans "2017 Harvest Guide" as harvest %}
+                      {% trans "Pre-pick Guide" as prepick %}
+                      {% trans "Equipment Points (Annex B)" as annexB %}
+                      {% trans "Planning Harvests Using the Properties List (Annex D)" as annexD %}
+                      {% trans "Harvest Guide" as harvest %}
+                      {% trans "Map: Equipment Points, Beneficiary Organizations & Community Fridges" as map %}
                      <ul>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/kGdMRpLDB6pKbMi">{{waiver}}</a></li>
                       {% if LANGUAGE_CODE == "en" %}      	
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/kGdMRpLDB6pKbMi>{{waiver}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/SMkjwjP4a6nB8Re>{{annexB}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/83REMmCsFjJDWxD >{{annexD}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/edqFSTwedCMfnPd >{{prepick}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/NwsCJwbKzg6TeQq >{{harvest}}</a></li>
-                      </ul>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/EzxazYFo9yKknzf">{{prepick}}</a></li>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/NBmmALJywFS6jd9">{{annexB}}</a></li>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/tfBdJpT7XwdwqNk">{{annexD}}</a></li>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/cJQPc82H7C9zzNB">{{harvest}}</a></li>
                       {% else %}      	
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/kGdMRpLDB6pKbMi>{{waiver}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/QiBDGTxFmLXGi8F  >{{annexB}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/83REMmCsFjJDWxD http://fr >{{annexD}} -- en anglais</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/4276LsmJgfLNqDC  >{{prepick}}</a></li>
-                      	<li><a href=https://core.lesfruitsdefendus.org/s/ac35EYy9ybET34D  >{{harvest}}</a></li>
-                      </ul>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/WGLxswS9tx7jDkE">{{prepick}}</a></li>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/2sJtipKg7rQRL2t">{{annexB}}</a></li>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/g9kMGsnr8g2e857">{{annexD}}</a></li>
+                      	<li><a href="https://core.lesfruitsdefendus.org/s/JA2sP6dQgkdkLNH">{{harvest}}</a></li>
                       {% endif %}
+                      	<li><a href="https://drive.google.com/open?id=1VJbxaFKosG7gLgfvYJZ9m6rhTg0M3ZDy&usp=sharing">{{map}}</a></li>
+                      </ul>
                   </div>
               </div>
           </div>
