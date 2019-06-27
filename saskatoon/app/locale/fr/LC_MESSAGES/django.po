@@ -75,7 +75,7 @@ msgstr "Points d'Équipement (Annexe B)"
 
 #: app/templates/app/index.html:26
 msgid "Planning Harvests Using the Properties List (Annex D)"
-msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés)(Annexe D)"
+msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
 
 #: app/templates/app/index.html:27
 msgid "Harvest Guide"
