@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-14 16:16-0300\n"
+"POT-Creation-Date: 2019-06-27 19:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,30 +59,35 @@ msgstr ""
 
 #: app/templates/app/index.html:18
 msgid "Pick-leader guides"
-msgstr ""
+msgstr "Guides de Chefs de Cueillette"
 
 #: app/templates/app/index.html:23
 msgid "Volunteer Waiver"
-msgstr ""
+msgstr "Formulaire de Décharge Bénévole"
 
 #: app/templates/app/index.html:24
-msgid "Equipment Info (Annex B)"
-msgstr ""
+msgid "Pre-pick Guide"
+msgstr "Guide de Pré-Cueillette"
 
 #: app/templates/app/index.html:25
-msgid "2018 Pre-pick changes (Annex D)"
-msgstr ""
+msgid "Equipment Points (Annex B)"
+msgstr "Points d'Équipement (Annexe B)"
 
 #: app/templates/app/index.html:26
-msgid "2017 Pre-pick Guide"
-msgstr ""
+msgid "Planning Harvests Using the Properties List (Annex D)"
+msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés)(Annexe D)"
 
 #: app/templates/app/index.html:27
-msgid "2017 Harvest Guide"
+msgid "Harvest Guide"
+msgstr "Guide de Cueillette"
+
+#: app/templates/app/index.html:28
+msgid "Map: Equipment Points, Beneficiary Organizations & Community Fridges"
 msgstr ""
+"Carte: Points d'Équipement, Organismes Bénéficiaires & Frigos Communautaires"
 
 #: app/templates/app/sidebar.html:6
-msgid "Saskatoon v1.0b"
+msgid "Saskatoon v2.0"
 msgstr ""
 
 #: app/templates/app/sidebar.html:18
@@ -136,10 +141,8 @@ msgstr ""
 #: app/templates/app/top_navigation.html:18
 #: app/templates/registration/password_reset_confirm.html:20
 #: app/templates/registration/password_reset_confirm.html:24
-#, fuzzy
-#| msgid "Password"
 msgid "Change password"
-msgstr "Mot de passe"
+msgstr "Changer mot de passe"
 
 #: app/templates/app/top_navigation.html:19
 msgid "Logout"
@@ -186,8 +189,6 @@ msgid ""
 msgstr ""
 
 #: app/templates/registration/password_reset_confirm.html:35
-#, fuzzy
-#| msgid "Password"
 msgid "New password reset"
 msgstr "Mot de passe"
 
@@ -196,24 +197,17 @@ msgid "Email sent"
 msgstr ""
 
 #: app/templates/registration/password_reset_form.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Reset password"
-msgstr "Mot de passe"
+msgstr "Réinitialiser mot de passe"
 
 #: app/templates/registration/password_reset_form.html:18
-#, fuzzy
-#| msgid "Password"
 msgid "Password reset"
-msgstr "Mot de passe"
+msgstr "Réinitialiser mot de passe"
 
 #: app/templates/registration/password_reset_form.html:21
 msgid "E-mail"
-msgstr ""
+msgstr "Courriel"
 
 #: app/templates/registration/password_reset_form.html:22
 msgid "Reset"
-msgstr ""
-
-#~ msgid "Connexion"
-#~ msgstr "Connexion"
+msgstr "Réinitialiser"
