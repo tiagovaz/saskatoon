@@ -1,4 +1,4 @@
-Django==1.9
+Django==1.11.23
 django-bootstrap3==6.2.2
 django-crequest==2014.9.19
 django-forms-bootstrap
