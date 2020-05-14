@@ -1,3 +1,10 @@
+```diff
+- This project is now maintained by the Les fruits Défendus organization:
+- https://github.com/LesFruitsDefendus
+- A new generation version of Saskatoon is being developed at:
+- https://github.com/LesFruitsDefendus/saskatoon-ng
+```
+
 ## About
 Saskatoon is a harvest management system developed by the [Les fruits défendus collective](http://www.lesfruitsdefendus.org/) in Montreal/QC.
 
