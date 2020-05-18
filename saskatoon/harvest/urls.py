@@ -31,7 +31,8 @@ urlpatterns = [
     ),
     url(
         r'^properties/$',
-        cache_page(60 * 60 * 24, key_prefix='property')(views.PropertyList.as_view()),
+        #cache_page(60 * 60 * 24, key_prefix='property')(views.PropertyList.as_view()),
+        views.PropertyList.as_view(),
         name='property_list'
     ),
     url(
