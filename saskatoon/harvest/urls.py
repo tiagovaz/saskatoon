@@ -6,7 +6,8 @@ from django.core.cache import cache
 urlpatterns = [
     url(
         r'^organizations/$',
-        cache_page(60 * 60 * 24, key_prefix="organization")(views.OrganizationList.as_view()),
+        #cache_page(60 * 60 * 24, key_prefix="organization")(views.OrganizationList.as_view()),
+        views.OrganizationList.as_view(),
         name='organization_list'
     ),
     url(
@@ -77,7 +78,8 @@ urlpatterns = [
     ),
     url(
         r'^list/$',
-        cache_page(60 * 60 * 24, key_prefix='harvest')(views.HarvestList.as_view()),
+#        cache_page(60 * 60 * 24, key_prefix='harvest')(views.HarvestList.as_view()),
+        views.HarvestList.as_view(),
         name='harvest_list'
     ),
     url(
