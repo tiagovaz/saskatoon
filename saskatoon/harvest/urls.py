@@ -93,7 +93,7 @@ urlpatterns = [
         name='harvest_add_recipient'
     ),
     url(
-        r'^(?P<pk>\d+)/edit_recipient$',
+        r'^recipients/(?P<pk>\d+)/update$',
         views.HarvestYieldUpdate.as_view(),
         name='harvest_edit_recipient'
     ),

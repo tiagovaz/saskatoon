@@ -4,7 +4,7 @@ from harvest.models import Harvest, Property, Equipment, \
     RequestForParticipation, TreeType, Comment, \
     PropertyImage, HarvestYield, HarvestImage
 from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
-    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm
+    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
 from member.models import Person, AuthUser, Actor, Organization, Neighborhood
 from harvest.filters import HarvestFilter, PropertyFilter
 from django.shortcuts import get_object_or_404
@@ -249,6 +249,7 @@ class HarvestDetail(generic.DetailView):
         context['form_manage_request'] = RFPManageForm()
         context['requests'] = requests
         context['distribution'] = distribution
+        context['form_edit_recipient'] = HarvestYieldForm()
 
         return context
 
