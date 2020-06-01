@@ -50,9 +50,9 @@ def comment_send_mail(sender, instance, **kwargs):
             mail_subject = u"New comment from %s" % instance.author
             message = u'Hi %s, \n\n' \
                       u'On %s %s left the following comment\n' \
-                      u'in the harvest "%s":\n\n' \
+                      u'in the harvest at "%s %s":\n\n' \
                       u'%s\n\n' \
-                      u'You can see all comments related to this ' \
+                      u'You can see all information related to this ' \
                       u'harvest at\n' \
                       u'http://saskatoon.lesfruitsdefendus.org/harvest/%s.' \
                       u'\n\n' \
@@ -63,8 +63,43 @@ def comment_send_mail(sender, instance, **kwargs):
                           pick_leader_name,
                           instance.created_date.strftime('%b %d at %H:%M'),
                           instance.author,
-                          instance.harvest.property.publishable_location,
+                          instance.harvest.property.street_number,
+                          instance.harvest.property.street,
                           instance.content,
+                          instance.harvest.id
+                      )
+
+            # Sending email to pick leader
+            _send_mail(mail_subject, message, pick_leader_email)
+
+def rfp_send_mail(sender, instance, **kwargs):
+    current_request = CrequestMiddleware.get_request()
+
+    # First check if pick_leader is set
+    if instance.harvest.pick_leader:
+        # Send email only if request comes from someone else
+        if instance.picker.email != instance.harvest.pick_leader.email:
+            # Building email content
+            pick_leader_email = list()
+            pick_leader_email.append(instance.harvest.pick_leader.email)
+            pick_leader_name = instance.harvest.pick_leader.person.first_name
+            mail_subject = u"New request for participation from %s" % instance.picker
+            message = u'Hi %s, \n\n' \
+                      u'On %s %s requested to participate\n' \
+                      u'in the harvest at "%s %s":\n\n' \
+                      u'You can see all information related to this ' \
+                      u'harvest at\n' \
+                      u'http://saskatoon.lesfruitsdefendus.org/harvest/%s.' \
+                      u'\n\n' \
+                      u'Yours,\n' \
+                      u'--\n' \
+                      u'Saskatoon Harvest System' % \
+                      (
+                          pick_leader_name,
+                          instance.creation_date.strftime('%b %d at %H:%M'),
+                          instance.picker,
+                          instance.harvest.property.street_number,
+                          instance.harvest.property.street,
                           instance.harvest.id
                       )
 

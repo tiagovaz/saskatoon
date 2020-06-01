@@ -688,6 +688,12 @@ class RequestForParticipation(models.Model):
         return "Request by %s to participate to %s" % \
                (self.picker, self.harvest)
 
+# SIGNALS CONNECTED
+models.signals.post_save.connect(
+    signals.rfp_send_mail,
+    sender=RequestForParticipation
+)
+
 @python_2_unicode_compatible
 class HarvestYield(models.Model):
     harvest = models.ForeignKey(
