@@ -42,8 +42,9 @@
                     <th style="width: 20%">{% trans "Harvest" %}</th>
                     <th>{% trans "Tree" %}</th>
                     <th style="width: 15%">{% trans "Neighborhood" %}</th>
-                    <th style="width: 20%">{% trans "Pickers" %}</th>
                     <th>{% trans "Status" %}</th>
+                    <th style="width: 15%">{% trans "Pick Leader" %}</th>
+                    <th style="width: 20%">{% trans "Pickers" %}</th>
                     <th>{% trans "Date" %}</th>
                     <th>{% trans "Action" %}</th>
                   </tr>
@@ -54,12 +55,6 @@
                     <td>{{ harvest.id }}</td>
                     <td>
                       <a href='{% url "harvest:property_detail" harvest.property.id %}'>{{ harvest.property }}</a>
-                      <br />
-                      {% if harvest.pick_leader != None %}
-                        <small>{% trans "by" %} {{ harvest.pick_leader }}</small>
-                      {% else %}
-                        <span class="label label-danger">{% trans "missing leader" %}</span>
-                      {% endif %}
                     </td>
                     <td>
                       {% for tree in harvest.trees.all %}
@@ -67,24 +62,6 @@
                       {% endfor %}
                     </td>
                     <td>{{ harvest.property.neighborhood }}</td>
-                    <td>
-                      <ul class="list-inline">
-                      {% if harvest.pick_leader %}
-                        <li>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ harvest.pick_leader|default:'' }} [{% trans 'Pickleader' %}]">
-                            <img src="/static/images/user.png" class="avatar" alt=" {{ harvest.pick_leader|default:'' }} [{% trans 'Pickleader' %}]">
-                          </a>
-                        </li>
-                      {% endif %}
-                      {% for p in harvest.get_pickers.all %}
-                        <li>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ p.picker }}">
-                            <img src="/static/images/user.png" class="avatar" alt="{{ p.picker }}">
-                          </a>
-                        </li>
-                      {% endfor %}
-                      </ul>
-                    </td>
                     <td class="project_progress">
                       {% if harvest.status == "Succeeded" %}
                         <div class="progress progress_sm">
@@ -128,6 +105,27 @@
                         </div>
                         <small>{% trans "Ready" %}</small>
                       {% endif %}
+                    </td>
+                    <td>
+                      {% if harvest.pick_leader %}
+                      {{ harvest.pick_leader|default:'' }}
+                      <!--  <li>
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ harvest.pick_leader|default:'' }} [{% trans 'Pickleader' %}]">
+                            <img src="/static/images/user.png" class="avatar" alt=" {{ harvest.pick_leader|default:'' }} [{% trans 'Pickleader' %}]">
+                          </a>
+                        </li>-->
+                      {% endif %}
+                    </td>
+                    <td>
+                      <ul class="list-inline">
+                      {% for p in harvest.get_pickers.all %}
+                        <li>
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ p.picker }}">
+                            <img src="/static/images/user.png" class="avatar" alt="{{ p.picker }}">
+                          </a>
+                        </li>
+                      {% endfor %}
+                      </ul>
                     </td>
                     <td>
                       <div class="text-nowrap">{{ harvest.start_date|date:"Y-m-d" }}</div>
