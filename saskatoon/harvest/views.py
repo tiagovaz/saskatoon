@@ -107,7 +107,6 @@ class PublicPropertyCreate(generic.CreateView):
     template_name = 'harvest/properties/create.html'
     form_class = PublicPropertyForm
 
-    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PublicPropertyCreate, self).dispatch(*args, **kwargs)
 
