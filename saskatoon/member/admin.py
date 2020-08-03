@@ -13,11 +13,13 @@ class CustomUserCreationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label='Password',
-        widget=forms.PasswordInput
+        widget=forms.PasswordInput,
+        required=False
     )
     password2 = forms.CharField(
         label='Password Confirmation',
-        widget=forms.PasswordInput
+        widget=forms.PasswordInput,
+        required=False
     )
 
     class Meta(UserCreationForm.Meta):
